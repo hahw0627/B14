@@ -20,5 +20,5 @@ MonoBehaviour:
   AttackSpeed: 1
   Hp: 100
   HpRecovery: 1
-  CriticalPer: 0
+  CriticalPer: 1
   CriticalDamage: 1.5
