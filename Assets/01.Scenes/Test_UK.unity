@@ -1099,6 +1099,7 @@ MonoBehaviour:
   damage: 0
   attackSpeed: 0
   target: {fileID: 0}
+  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
 --- !u!114 &1199441168
 MonoBehaviour:
   m_ObjectHideFlags: 0
