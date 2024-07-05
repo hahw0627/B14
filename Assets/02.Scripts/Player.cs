@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float attackSpeed;
     public Transform target;
     private Scanner scanner;
+    public GameObject projectilePrefab;
 
     private void Awake()
     {
@@ -21,10 +22,10 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(AttackCoroutine());
+        StartCoroutine(Attack());
     }
 
-    private IEnumerator AttackCoroutine()
+    private IEnumerator Attack()
     {
         while (true)
         {
@@ -35,24 +36,10 @@ public class Player : MonoBehaviour
             {
                 target = scanner.nearestTarget;
             }
-
-            AttackMonster(target);
-        }
-    }
-
-    private void AttackMonster(Transform monster)
-    {
-        if (monster != null)
-        {
-            Monster_Test monsterScript = monster.GetComponent<Monster_Test>();
-            if (monsterScript != null)
-            {
-                monsterScript.TakeDamage(damage);
-            }
-            else
-            {
-                Debug.LogError("Monster_Test 스크립트를 찾을 수 없습니다.");
-            }
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<Projectile_uk>().target = this.target;   // 생성된 투사체에 타겟 설정
+            projectile.GetComponent<Projectile_uk>().damage = this.damage;   // 생성된 투사체에 데미지 설정
+            projectile.GetComponent<Projectile_uk>().player = this; // 생성된 투사체에 플레이어 설정
         }
     }
 }
