@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 50593404}
   - component: {fileID: 50593403}
   m_Layer: 0
-  m_Name: UI
+  m_Name: UI_Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -736,7 +736,7 @@ GameObject:
   - component: {fileID: 501676636}
   - component: {fileID: 501676635}
   m_Layer: 0
-  m_Name: BattelScene
+  m_Name: BattelScene_Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -822,7 +822,7 @@ GameObject:
   - component: {fileID: 705164366}
   - component: {fileID: 705164365}
   m_Layer: 0
-  m_Name: TotalPower
+  m_Name: TotalPower_Page
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
