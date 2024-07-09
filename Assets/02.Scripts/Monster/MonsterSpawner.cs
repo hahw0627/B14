@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class MonsterSpawner : MonoBehaviour
 {
@@ -8,22 +7,21 @@ public class MonsterSpawner : MonoBehaviour
     private List<MonsterStatistics> _monsterStatistics;
 
     [SerializeField]
+    private List<GameObject> _monsterPositions;
+
+    [SerializeField]
     private GameObject _monsterPrefab;
 
-    private const byte NUMBER_OF_MONSTERS = 5;
+    private const byte NUMBER_OF_MONSTERS = 6;
 
     private GameObject _monster;
-    
+
     private void Start()
     {
-        var monsterScaleX = _monsterPrefab.transform.localScale.x;
-        Debug.Log(monsterScaleX);
-
-        var randomGap = 3.5f;
         for (var i = 0; i < NUMBER_OF_MONSTERS; i++)
         {
-            SpawnMonster((MonsterType)StageTest.StageLevel, new Vector3(randomGap, 0.5f, 0f));
-            randomGap += Random.Range(0.0f, 1.5f) + monsterScaleX;
+            SpawnMonster((MonsterType)StageTest.StageLevel,
+              new Vector3(_monsterPositions[i].GetComponent<Transform>().position.x, _monsterPositions[i].GetComponent<Transform>().position.y, 0.0f));
         }
     }
 
