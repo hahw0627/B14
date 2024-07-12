@@ -27,7 +27,7 @@ namespace Assets.HeroEditor4D.InventorySystem.Scripts.Helpers
                 Character.transform.position = new Vector3(0, 2.5f);
                 Character.SetDirection(Vector2.down);
 
-                if (Equipment) Equipment.Preview = Character.Front;
+                //if (Equipment) Equipment.Preview = Character.Front;
             }
             
             if (ItemWorkspace) ItemWorkspace.ItemCollection = ItemCollections.First(i => i != null);
