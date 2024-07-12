@@ -59,7 +59,7 @@ public class Skill
 [Serializable]
 public class EquipmentData
 {
-    public string id;                               //분류용 itemcode
+    public string id;                                  //분류용 itemcode
     public Define.GachaRarity gachaRarity;          //등급
     public Define.EquipmentType equipmentType;      //장비 타입
     public Define.EquipmentGrade equipmentGrade;    //장비 등급
