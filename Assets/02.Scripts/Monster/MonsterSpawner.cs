@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +9,7 @@ public class MonsterSpawner : MonoBehaviour
     private List<MonsterStatistics> _monsterStatistics;
 
     [SerializeField]
-    private List<GameObject> _monsterPositions;
+    private List<Transform> _monsterPositions;
 
     [SerializeField]
     private GameObject _monsterPrefab;
@@ -18,10 +20,18 @@ public class MonsterSpawner : MonoBehaviour
 
     private void Start()
     {
-        for (var i = 0; i < NUMBER_OF_MONSTERS; i++)
+        StartMonsterSpawn();
+    }
+
+    private void StartMonsterSpawn()
+    {
+        if (true)
         {
-            SpawnMonster((MonsterType)StageTest.StageLevel,
-              new Vector3(_monsterPositions[i].GetComponent<Transform>().position.x, _monsterPositions[i].GetComponent<Transform>().position.y, 0.0f));
+            for (var i = 0; i < NUMBER_OF_MONSTERS; i++)
+            {
+                SpawnMonster((MonsterType)StageTest.StageLevel,
+                  new Vector3(_monsterPositions[i].position.x, _monsterPositions[i].position.y, 0.0f));
+            }
         }
     }
 
@@ -36,9 +46,16 @@ public class MonsterSpawner : MonoBehaviour
 
     private void SpawnMonster(MonsterType type, Vector3 position)
     {
-        _monster = Instantiate(_monsterPrefab, position, Quaternion.identity);
+        if (MonsterPool.Monsters.Count == 0)
+        {
+            _monster = Instantiate(_monsterPrefab, position, Quaternion.identity);
+            //MonsterPool.Monsters.Enqueue(_monster.gameObject);
+        }
+        else
+        {
+            _monster = MonsterPool.GetQueue();
+        }
         _monster.GetComponent<Monster>().MonsterStatistics = _monsterStatistics[(int)type];
-        MonsterPool.Monsters.Enqueue(_monster.gameObject);
     }
 
     private void Die()

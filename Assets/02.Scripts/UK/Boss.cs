@@ -1,12 +1,15 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class Monster_Test : MonoBehaviour
+public class Boss : MonoBehaviour
 {
     public MonsterDataSO_Test monsterData;
+
     public int Hp;
     public int damage;
     public float attackSpeed;
+    public MonsterSpawner_UK monsterSpawner;
     private float moveTime = 0.0f;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -19,9 +22,8 @@ public class Monster_Test : MonoBehaviour
 
     private void OnEnable()
     {
-        // 활성화될 때 몬스터의 데이터를 초기화
-        Hp = monsterData.Hp;
-        damage = monsterData.Damage;
+        Hp = monsterData.Hp * 3; // 보스 몬스터는 HP를 2배로 설정
+        damage = monsterData.Damage * 2; // 보스 몬스터는 데미지도 2배로 설정
         attackSpeed = monsterData.AttackSpeed;
         moveTime = 0.0f; // moveTime 초기화
     }
@@ -41,15 +43,36 @@ public class Monster_Test : MonoBehaviour
         }
     }
 
+    private IEnumerator MoveForSeconds(float duration)
+    {
+        float moveSpeed = 2.0f;
+        float moveTime = 0.0f;
+
+        while (moveTime < duration)
+        {
+            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            moveTime += Time.deltaTime;
+            yield return null;
+        }
+    }
+
     public void TakeDamage(int damage)
     {
         Hp -= damage;
-        Debug.Log("몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
+        Debug.Log("보스 몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
 
         if (Hp <= 0)
         {
             gameObject.SetActive(false);
-            Debug.Log("비활성화");
+            Debug.Log("보스 몬스터 비활성화");
+            if (monsterSpawner != null)
+            {
+                monsterSpawner.BossDeath();
+            }
+            else
+            {
+                Debug.LogWarning("MonsterSpawner_UK가 할당되지 않았습니다.");
+            }
         }
     }
 }
