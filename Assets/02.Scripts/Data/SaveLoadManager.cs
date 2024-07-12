@@ -9,7 +9,16 @@ public class SaveLoadManager : MonoBehaviour
 
     private void Awake()
     {
-        //savePath = Application.persistentDataPath + "/gamedata.json";
+        savePath = Application.persistentDataPath + "/gamedata.json";
+        
+    }
+
+    private void Start()
+    {
+       // Init();
+    }
+    void Init()
+    {
         savePath = Path.Combine(Application.persistentDataPath, "gamedata.json");
     }
 
@@ -32,10 +41,10 @@ public class SaveLoadManager : MonoBehaviour
         {
             // 파일에서 JSON 데이터 읽기
             string json = File.ReadAllText(savePath);
-
+           Debug.Log(json);
             // JSON 데이터를 GameData 객체로 역직렬화
             return JsonUtility.FromJson<GameData>(json);
-            Debug.Log("존재");
+            
         }
 
         // 파일이 존재하지 않으면 null 반환

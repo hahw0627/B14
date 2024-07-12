@@ -1,46 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DataTest : MonoBehaviour
 {
-    public GameData gameData;
+    [SerializeField]
+    GameData gameData;
     private SaveLoadManager saveLoadManager;
-
+    PlayerDataSO playerDataSO;
+    
     private void Start()
     {
         saveLoadManager = FindObjectOfType<SaveLoadManager>();
-        Init();
+        
         LoadGame();
     }
-    void Init()
+    private void Update()
     {
-        if (gameData == null)
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            // 파일이 존재하지 않는 경우 기본 데이터를 생성합니다.
-            gameData = new GameData
-            {
+            TempCsv tempCsv = FindAnyObjectByType<TempCsv>();
+            gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("N001"));
 
-                characterData = new CharacterData
-                {
-                    name = "New Player",
-                    level = 1,
-                    experience = 0,
-                    stats = new Stats { health = 100, attack = 10, defense = 5 },
-                    skills = new List<Skill>(),
-                    equipments = new List<Equipment>(),
-                    pets = new List<Pet>(),
-                    companions = new List<Companion>()
-                },
-                clearedStages = new List<StageData>(),
-                currencyData = new CurrencyData { gold = 0, dia = 0 }
-            };
         }
+      
+    }
+    void IninData()
+    {
+        string path = "ScripableObjects/PlayerDataSO";
+
+        if (playerDataSO == null)
+            playerDataSO = Resources.Load<PlayerDataSO>(path);
+
+        gameData = new GameData();
+        gameData.characterData = new CharacterData();
+        gameData.characterData.stats = new Stats();
+        gameData.currencyData = new CurrencyData();
+       
+        gameData.characterData.level = 1;
+        gameData.characterData.experience = 0;
+        gameData.characterData.name = playerDataSO.playerName;
+        gameData.characterData.stats.health = playerDataSO.Hp;
+        gameData.characterData.stats.attack = playerDataSO.Damage;
+        gameData.characterData.stats.defense = playerDataSO.Def;
+        gameData.characterData.stats.totalPower = playerDataSO.TotalPower;
+        gameData.characterData.stats.attackSpeed = playerDataSO.AttackSpeed;
+        gameData.characterData.stats.hpRecovery = playerDataSO.HpRecovery;
+
+        gameData.currencyData.gold = playerDataSO.Gold;
+        gameData.currencyData.dia = playerDataSO.Diamond;
+
+        
+        //equipment
+        //그냥 필요할때만 코드로 불러와도 상관없다한다. 
+        //코드는 의미를 가지지 않으면 그냥 숫자로 받는게 더 가볍다, B S  이런식으로 타입을 지정해서
+        //split 해서 사용할수도있다 타입을,
+
+        //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("ㅁㄴㅇ"));
+
+
     }
     public void LoadGame()
     {
         gameData = saveLoadManager.LoadGame();
+        if (gameData == null)
+        {
+            IninData();
+            Debug.Log("없어서 로드 못함");
 
+        }
+        else
+        {         
+            Debug.Log("있던거 로드함");
+        }
+       
     }
 
     public void SaveGame()
@@ -58,7 +92,6 @@ public class DataTest : MonoBehaviour
     }
     public void OnApplicationQuit()
     {
-        SaveGame();
-        
+       // SaveGame();
     }
 }

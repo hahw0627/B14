@@ -9,9 +9,12 @@ public class PlayerDataSO : ScriptableObject
     // 소셜 로그인으로 플레이하면 ?
     public int Gold;                // 게임 재화 (강화용)
     public int Diamond;             // 현금 재화 (뽑기용)
+  
     public int TotalPower;          // 종합 전투력
     public int Damage;              // 공격력
+    public int Def;                 // 방어력
     public float AttackSpeed;       // 공격속도
+    
     public int Hp;                  // 체력
     public int HpRecovery;          // 체력회복 (1초당 회복)
 

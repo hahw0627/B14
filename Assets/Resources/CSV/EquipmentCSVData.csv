@@ -1,0 +1,17 @@
+﻿itemCode,GachaRarity,EquipmentType,GradeType,NameText,DescriptionText,Sprite,ATK,DEF
+N001,Normal,Weapon,Common,testSowrd1,칼1,Sword01,10,0
+N002,Normal,Weapon,Common,Sowrd2,칼2,Sword02,11,0
+N003,Normal,Weapon,Common,Sowrd3,칼3,Sword03,12,0
+N004,Normal,Weapon,Common,Sowrd4,칼4,Sword04,13,0
+N005,Normal,Weapon,Common,Sowrd5,칼5,Sword05,14,0
+N006,Normal,Weapon,Common,Sowrd6,칼6,Sword06,15,0
+N007,Normal,Weapon,Common,Sowrd7,칼7,Sword07,16,0
+N008,Normal,Armor,Common,Armor1,방어구1,Armor01,0,8
+N009,Normal,Armor,Common,Armor2,방어구2,Armor02,0,9
+N010,Normal,Armor,Common,Armor3,방어구3,Armor03,0,10
+N011,Normal,Armor,Common,Armor4,방어구4,Armor04,0,11
+N012,Normal,Armor,Common,Armor5,방어구5,Armor05,0,12
+N013,Normal,Armor,Common,Armor6,방어구6,Armor06,0,13
+N014,Normal,Armor,Common,Armor7,방어구7,Armor07,0,14
+N015,Normal,Armor,Common,Armor8,방어구8,Armor08,0,15
+N016,Normal,Armor,Common,Armor9,방어구9,Armor09,0,16
