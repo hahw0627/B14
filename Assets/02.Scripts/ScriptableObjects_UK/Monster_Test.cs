@@ -4,24 +4,40 @@ using System.Collections;
 public class Monster_Test : MonoBehaviour
 {
     public MonsterDataSO_Test monsterData;
-    private int Hp;
+    public int Hp;
+    public int damage;
+    public float attackSpeed;
+    private float moveTime = 0.0f;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
 
-    private void Start()
+    private void Awake()
     {
-        Hp = monsterData.Hp;
-        StartCoroutine(MoveForSeconds(1.5f));
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    private IEnumerator MoveForSeconds(float duration)
+    private void OnEnable()
     {
-        float moveSpeed = 2.0f;
-        float moveTime = 0.0f;
+        // 활성화될 때 몬스터의 데이터를 초기화
+        Hp = monsterData.Hp;
+        damage = monsterData.Damage;
+        attackSpeed = monsterData.AttackSpeed;
+        moveTime = 0.0f; // moveTime 초기화
+    }
 
-        while (moveTime < duration)
+    private void Update()
+    {
+        // 몬스터 이동 시작
+        if (moveTime < 1.5f)
         {
-            transform.Translate(Vector3.left * moveSpeed * Time.deltaTime);
+            spriteRenderer.flipX = true;
+            transform.Translate(Vector3.left * 2.0f * Time.deltaTime);
             moveTime += Time.deltaTime;
-            yield return null;
+        }
+        else if (moveTime >= 1.5f)
+        {
+            animator.SetBool("IsBattle", true);
         }
     }
 
@@ -32,8 +48,8 @@ public class Monster_Test : MonoBehaviour
 
         if (Hp <= 0)
         {
-            Destroy(gameObject);
-            Debug.Log("삭제");
+            gameObject.SetActive(false);
+            Debug.Log("비활성화");
         }
     }
 }

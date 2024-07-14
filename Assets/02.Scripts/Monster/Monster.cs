@@ -6,6 +6,7 @@ public class Monster : MonoBehaviour
 {
     [SerializeField]
     private MonsterStatistics _monsterStatistics;
+    private int Hp;
 
     public MonsterStatistics MonsterStatistics
     {
@@ -20,12 +21,25 @@ public class Monster : MonoBehaviour
     private void Start()
     {
         Debug.Log($"{_monsterStatistics.Name} 생성 완료");
+        Hp = _monsterStatistics.Hp;
+        StartCoroutine(MoveForSeconds(1.5f));
     }
 
     private void Update()
     {
         if (_isCollision) return;
-        transform.Translate(Vector3.left * (_moveSpeed * Time.deltaTime));
+    }
+
+    private IEnumerator MoveForSeconds(float duration)
+    {
+        float moveTime = 0.0f;
+
+        while (moveTime < duration)
+        {
+            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
+            moveTime += Time.deltaTime;
+            yield return null;
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,6 +60,17 @@ public class Monster : MonoBehaviour
             yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
             PlayerTest.CurrentHp -= _monsterStatistics.Attack;
             Debug.Log($"플레이어 체력: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        Hp -= damage;
+        Debug.Log("몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
+
+        if (Hp <= 0)
+        {
+            MonsterPool.InsertQueue(gameObject);
         }
     }
 }

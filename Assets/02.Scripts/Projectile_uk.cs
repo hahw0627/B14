@@ -8,26 +8,29 @@ public class Projectile_uk : MonoBehaviour
     public Player player;
     public int damage;
     public int speed = 3;
+    private Vector3 direction;
+
+    private void Start()
+    {
+        // target이 null이 아니면 방향을 설정, null이면 현재 방향 유지
+        if (target != null)
+        {
+            direction = (target.position - transform.position).normalized;
+        }
+
+        // 3초 후에 삭제
+        StartCoroutine(DestroyAfterTime(3f));
+    }
 
     private void Update()
     {
-        MoveProjectile();
+        transform.position += direction * speed * Time.deltaTime; // 설정된 방향으로 투사체 이동
     }
 
-    private void MoveProjectile()
+    private IEnumerator DestroyAfterTime(float time)
     {
-        if (gameObject.activeSelf) // 투사체를 오브젝트 풀링으로 구현하게 될 경우를 대비하여 활성화 상태 확인
-        {
-            if (target != null)
-            {
-                Vector3 direction = (target.position - transform.position).normalized; // 목표 방향 벡터
-                transform.position += direction * speed * Time.deltaTime; // 투사체 이동
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -40,14 +43,24 @@ public class Projectile_uk : MonoBehaviour
         }
     }
 
-    private void AttackMonster(Transform monster)
+    private void AttackMonster(Transform target)
     {
-        if (monster != null)
+        if (target != null)
         {
-            Monster_Test monsterScript = monster.GetComponent<Monster_Test>();
+            // 타겟이 Monster_Test 컴포넌트를 가지고 있는지 확인하여 TakeDamage 호출
+            Monster_Test monsterScript = target.GetComponent<Monster_Test>();
             if (monsterScript != null)
             {
                 monsterScript.TakeDamage(damage);
+            }
+            // 만약 Boss 스크립트를 가진 오브젝트도 데미지를 받아야 한다면
+            else
+            {
+                Boss bossScript = target.GetComponent<Boss>();
+                if (bossScript != null)
+                {
+                    bossScript.TakeDamage(damage);
+                }
             }
         }
     }
