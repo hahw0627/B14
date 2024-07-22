@@ -697,6 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff517a5d90a0c04980e6427259e3fd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 2143130322376007098}
   skillManager: {fileID: 1667745544}
   skillButtons:
   - {fileID: 471362871}
@@ -717,6 +718,8 @@ MonoBehaviour:
   - {fileID: 1648947431}
   - {fileID: 1028602782}
   - {fileID: 1219937911}
+  playerTransform: {fileID: 8477215331245838387}
+  enemyTransform: {fileID: 4755740371325174915, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
 --- !u!4 &102208031
 Transform:
   m_ObjectHideFlags: 0
@@ -11894,6 +11897,7 @@ MonoBehaviour:
   allSkills:
   - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
   - {fileID: 11400000, guid: b8877ee99fe66b140a5ff0217f92003b, type: 2}
+  - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
   equippedSkills: []
   maxEquippedSkills: 5
 --- !u!4 &1667745545
@@ -15039,6 +15043,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   damage: 0
   attackSpeed: 0
+  scanner: {fileID: 802138286161492756}
   projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
 --- !u!1 &2188360360099623593
 GameObject:

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Monster_Test : MonoBehaviour
+public class Monster_Test : MonoBehaviour, IDamageable
 {
     public MonsterDataSO_Test monsterData;
     public int Hp;

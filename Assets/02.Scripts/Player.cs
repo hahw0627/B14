@@ -7,12 +7,17 @@ public class Player : MonoBehaviour
     public PlayerDataSO playerData;
     public int damage;
     public float attackSpeed;
-    private Scanner scanner;
+    public Scanner scanner;
     public GameObject projectilePrefab;
     private Animator animator;
+    private bool isUsingSkill = false;
+    private Coroutine attackCoroutine;
+    private int currentAttackBuff = 0;
+    public int CurrentDamage { get; private set; }
 
     private void Awake()
     {
+        UpdateDamage();
         damage = playerData.Damage;
         attackSpeed = playerData.AttackSpeed;
         scanner = GetComponent<Scanner>();
@@ -23,7 +28,24 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Attack());
+        StartAttacking();
+    }
+
+    public void StartAttacking()
+    {
+        if (attackCoroutine == null)
+        {
+            attackCoroutine = StartCoroutine(Attack());
+        }
+    }
+
+    public void StopAttacking()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
     }
 
     private void Update()
@@ -48,7 +70,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             // scanner의 nearestTarget이 null이 아닌 경우에만 nearestTarget을 가져와 target으로 설정 + 투사체 생성
-            if (scanner.nearestTarget != null)
+            if (!isUsingSkill && scanner.nearestTarget != null)
             {
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
                 projectile.GetComponent<Projectile_uk>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
@@ -58,5 +80,28 @@ public class Player : MonoBehaviour
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1초에 / attackSpeed 만큼 공격
         }
+    }
+
+    public void SetUsingSkill(bool usingSkill)
+    {
+        isUsingSkill = usingSkill;
+    }
+
+    public void ApplyAttackBuff(int amount)
+    {
+        Debug.Log($"Applying attack buff : {amount}");
+        playerData.Damage += amount;
+        UpdateDamage();
+    }
+    private void UpdateDamage()
+    {
+        Debug.Log($"Updating damage. Base: {playerData.Damage}, Buff: {playerData.Damage}");
+        CurrentDamage = playerData.Damage;
+        Debug.Log($"New damage: {CurrentDamage}");
+    }
+
+    public void Heal(int amount) // 추후 플레이어 피격 구현시 구현 예정
+    {
+
     }
 }
