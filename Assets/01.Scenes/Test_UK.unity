@@ -6217,7 +6217,7 @@ GameObject:
   - component: {fileID: 1199441169}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6349,7 +6349,10 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   damage: 0
   attackSpeed: 0
+  currentHp: 0
   projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
+  monsterSpawner: {fileID: 1506468786}
+  spriteRenderer: {fileID: 1199441165}
 --- !u!114 &1199441168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8590,6 +8593,7 @@ MonoBehaviour:
   monsters: []
   stagePage: 0
   stage: 1
+  target: {fileID: 1199441166}
 --- !u!1 &1510703842
 GameObject:
   m_ObjectHideFlags: 0

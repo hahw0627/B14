@@ -19,7 +19,7 @@ public class Projectile_uk : MonoBehaviour
         }
 
         // 3초 후에 삭제
-        StartCoroutine(DestroyAfterTime(3f));
+        StartCoroutine(DestroyAfterTime(1f));
     }
 
     private void Update()
