@@ -49,6 +49,7 @@ public class TempCsv : MonoBehaviour
                 sprite = sprite,
                 atackPower = atk,
                 defense = def
+                //Ãß°¡ 
 
             };
 

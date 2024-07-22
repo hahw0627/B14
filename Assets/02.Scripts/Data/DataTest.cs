@@ -26,6 +26,7 @@ public class DataTest : MonoBehaviour
         }
       
     }
+
     void IninData()
     {
         string path = "ScripableObjects/PlayerDataSO";
@@ -58,9 +59,9 @@ public class DataTest : MonoBehaviour
         //split 해서 사용할수도있다 타입을,
 
         //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("ㅁㄴㅇ"));
-
-
+        
     }
+
     public void LoadGame()
     {
         gameData = saveLoadManager.LoadGame();
