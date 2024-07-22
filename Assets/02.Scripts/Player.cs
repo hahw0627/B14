@@ -7,45 +7,60 @@ public class Player : MonoBehaviour
     public PlayerDataSO playerData;
     public int damage;
     public float attackSpeed;
-    public int currentHp;
+    public Scanner scanner;
     public GameObject projectilePrefab;
-    public MonsterSpawner_UK monsterSpawner;
-    private Scanner scanner;
     private Animator animator;
-    public SpriteRenderer spriteRenderer; // SpriteRenderer 참조 추가
+    private bool isUsingSkill = false;
+    private Coroutine attackCoroutine;
+    private int currentAttackBuff = 0;
+    public int CurrentDamage { get; private set; }
 
     private void Awake()
     {
-        if (playerData == null)
-        {
-            Debug.LogError("PlayerDataSO 연결 실패");
-            return;
-        }
-
+        UpdateDamage();
         damage = playerData.Damage;
         attackSpeed = playerData.AttackSpeed;
-        currentHp = playerData.Hp;
-
         scanner = GetComponent<Scanner>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        Debug.Log("Damage: " + damage);
+        Debug.Log("Attack Speed: " + attackSpeed);
     }
 
     private void Start()
     {
-        StartCoroutine(Attack());
-        StartCoroutine(RecoverHp());
+        StartAttacking();
+    }
+
+    public void StartAttacking()
+    {
+        if (attackCoroutine == null)
+        {
+            attackCoroutine = StartCoroutine(Attack());
+        }
+    }
+
+    public void StopAttacking()
+    {
+        if (attackCoroutine != null)
+        {
+            StopCoroutine(attackCoroutine);
+            attackCoroutine = null;
+        }
     }
 
     private void Update()
     {
         if (scanner.nearestTarget != null)
         {
+            // target이 존재하면 IsBattel을 true로 설정
             animator.SetBool("IsBattle", true);
+            Debug.Log("배틀 시작");
         }
         else
         {
+            // target이 null이면 IsBattel을 false로 설정
             animator.SetBool("IsBattle", false);
+            Debug.Log("배틀 종료");
         }
     }
 
@@ -55,7 +70,7 @@ public class Player : MonoBehaviour
         while (true)
         {
             // scanner의 nearestTarget이 null이 아닌 경우에만 nearestTarget을 가져와 target으로 설정 + 투사체 생성
-            if (scanner.nearestTarget != null)
+            if (!isUsingSkill && scanner.nearestTarget != null)
             {
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
                 projectile.GetComponent<Projectile_uk>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
@@ -67,83 +82,26 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator RecoverHp()
+    public void SetUsingSkill(bool usingSkill)
     {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-
-            if (currentHp < playerData.Hp)
-            {
-                currentHp += playerData.HpRecovery;
-                if (currentHp > playerData.Hp)
-                {
-                    currentHp = playerData.Hp;
-                }
-            }
-        }
+        isUsingSkill = usingSkill;
     }
 
-    public void TakeDamage(int damage)
+    public void ApplyAttackBuff(int amount)
     {
-        currentHp -= damage;
-        Debug.Log($"Player HP 감소! : {currentHp} - {damage}");
-
-
-        if (currentHp <= 0)
-        {
-            if (monsterSpawner != null)
-            {
-                monsterSpawner.stagePage = 0;
-            }
-            else
-            {
-                Debug.LogError("MonsterSpawner_UK 연결 실패.");
-            }
-
-            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
-            foreach (GameObject monster in monsters)
-            {
-                monster.SetActive(false);
-            }
-
-            Debug.Log("플레이어 사망. 몬스터 비활성화. 스테이지 초기화");
-
-            StartCoroutine(PlayerDeath()); // 체력 0 이하일 때 투명도 조절 코루틴 실행
-        }
+        Debug.Log($"Applying attack buff : {amount}");
+        playerData.Damage += amount;
+        UpdateDamage();
+    }
+    private void UpdateDamage()
+    {
+        Debug.Log($"Updating damage. Base: {playerData.Damage}, Buff: {playerData.Damage}");
+        CurrentDamage = playerData.Damage;
+        Debug.Log($"New damage: {CurrentDamage}");
     }
 
-    private IEnumerator PlayerDeath()
+    public void Heal(int amount) // 추후 플레이어 피격 구현시 구현 예정
     {
-        // 1초 동안 2번 255에서 70까지 감소하고 다시 255까지 증가
-        for (int i = 0; i < 2; i++)
-        {
-            // 255에서 70까지 감소
-            for (float alpha = 1.0f; alpha >= 0.275f; alpha -= Time.deltaTime * 2)
-            {
-                SetSpriteAlpha(alpha);
-                yield return null;
-            }
-            // 70에서 255까지 증가
-            for (float alpha = 0.275f; alpha <= 1.0f; alpha += Time.deltaTime * 2)
-            {
-                SetSpriteAlpha(alpha);
-                yield return null;
-            }
-        }
 
-        // 체력 및 스테이지 초기화
-        currentHp = playerData.Hp;
-        Debug.Log("플레이어 체력 복구");
-    }
-
-    private void SetSpriteAlpha(float alpha)
-    {
-        if (spriteRenderer != null)
-        {
-            Color color = spriteRenderer.color;
-            color.a = alpha;
-            spriteRenderer.color = color;
-        }
     }
 }
