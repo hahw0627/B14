@@ -11899,6 +11899,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
   - {fileID: 11400000, guid: b8877ee99fe66b140a5ff0217f92003b, type: 2}
   - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
+  - {fileID: 11400000, guid: e8951d5f6b4d9b8428403fa8c2752cfe, type: 2}
+  - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
+  - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
+  - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
   equippedSkills: []
   maxEquippedSkills: 5
 --- !u!4 &1667745545
