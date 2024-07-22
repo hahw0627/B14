@@ -1,65 +1,55 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterSpawner : MonoBehaviour
+namespace _02._Scripts.Monster
 {
-    [SerializeField]
-    private List<MonsterStatistics> _monsterStatistics;
-
-    [SerializeField]
-    private List<Transform> _monsterPositions;
-
-    [SerializeField]
-    private GameObject _monsterPrefab;
-
-    private const byte NUMBER_OF_MONSTERS = 6;
-
-    private GameObject _monster;
-
-    private void Start()
+    public class MonsterSpawner : MonoBehaviour
     {
-        StartMonsterSpawn();
-    }
+        [SerializeField]
+        private List<MonsterStatistics> _monsterStatistics;
 
-    private void StartMonsterSpawn()
-    {
-        if (true)
+        [SerializeField]
+        private List<Transform> _monsterPositions;
+
+        [SerializeField]
+        private GameObject _monsterPrefab;
+
+        private GameObject _monster;
+
+        private void Start()
         {
-            for (var i = 0; i < NUMBER_OF_MONSTERS; i++)
+            StartMonsterSpawn();
+        }
+
+        private void StartMonsterSpawn()
+        {
+            foreach (Transform t in _monsterPositions)
             {
                 SpawnMonster((MonsterType)StageTest.StageLevel,
-                  new Vector3(_monsterPositions[i].position.x, _monsterPositions[i].position.y, 0.0f));
+                    new Vector3(t.position.x, t.position.y, 0.0f));
             }
         }
-    }
 
-    // 몬스터 비활성화 테스트를 위한 코드(합치고 나서 삭제 예정) 
-    private void Update()
-    {
-        if (!PlayerTest.isAlive)
+        // 몬스터 비활성화 테스트를 위한 코드(합치고 나서 삭제 예정) 
+        private void Update()
         {
-            Die();
+            if (!PlayerTest.isAlive)
+            {
+                Die();
+            }
         }
-    }
 
-    private void SpawnMonster(MonsterType type, Vector3 position)
-    {
-        if (MonsterPool.Monsters.Count == 0)
+        private void SpawnMonster(MonsterType type, Vector3 position)
         {
-            _monster = Instantiate(_monsterPrefab, position, Quaternion.identity);
-            //MonsterPool.Monsters.Enqueue(_monster.gameObject);
+            _monster = MonsterPool.Monsters.Count == 0 ? Instantiate(_monsterPrefab, position, Quaternion.identity) :
+                //MonsterPool.Monsters.Enqueue(_monster.gameObject);
+                MonsterPool.GetQueue();
+            _monster.GetComponent<global::Monster>().MonsterStatistics = _monsterStatistics[(int)type];
         }
-        else
-        {
-            _monster = MonsterPool.GetQueue();
-        }
-        _monster.GetComponent<Monster>().MonsterStatistics = _monsterStatistics[(int)type];
-    }
 
-    private void Die()
-    {
-        MonsterPool.InsertQueue(gameObject);
+        private void Die()
+        {
+            MonsterPool.InsertQueue(gameObject);
+        }
     }
 }
