@@ -4,6 +4,6 @@ using UnityEngine;
 public class PetDataSO : ScriptableObject
 {
     public int petNumber;
-    public float damage;
+    public int damage;
     public float attackSpeed;
 }
