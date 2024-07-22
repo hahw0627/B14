@@ -6550,6 +6550,7 @@ MonoBehaviour:
   autoButton: {fileID: 363658616}
   autoOnColor: {r: 1, g: 1, b: 1, a: 1}
   autoOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  player: {fileID: 2143130322376007098}
 --- !u!4 &846024784
 Transform:
   m_ObjectHideFlags: 0
