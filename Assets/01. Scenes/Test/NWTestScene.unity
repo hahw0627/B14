@@ -4250,7 +4250,6 @@ GameObject:
   - component: {fileID: 464914114}
   - component: {fileID: 464914116}
   - component: {fileID: 464914115}
-  - component: {fileID: 464914117}
   m_Layer: 5
   m_Name: Modal_Weapon
   m_TagString: Untagged
@@ -4319,25 +4318,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 464914113}
   m_CullTransparentMesh: 1
---- !u!114 &464914117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 464914113}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7eb36b1e5fdeae47826e44b784da61b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _title: {fileID: 1174635524}
-  _currentEquipmentImage: {fileID: 886606423}
-  _currentEquipmentName: {fileID: 1369109343}
-  _currentEquipmentLevel: {fileID: 198006741}
-  _possessEffectLabel: {fileID: 775243603}
-  _equipEffectLabel: {fileID: 953775221}
-  _equipTable: {fileID: 1834240486}
 --- !u!1 &468352596
 GameObject:
   m_ObjectHideFlags: 0
@@ -15046,6 +15026,18 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 464914113}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 468802889}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
