@@ -12,7 +12,6 @@ public class Player : MonoBehaviour
     private Animator animator;
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
-    private int currentAttackBuff = 0;
     public int CurrentDamage { get; private set; }
 
     private void Awake()

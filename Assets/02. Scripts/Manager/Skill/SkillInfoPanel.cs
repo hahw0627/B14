@@ -25,7 +25,7 @@ public class SkillInfoPanel : MonoBehaviour
         if(currentSkill != null)
         {
             SkillUIManager skillUIManager = FindObjectOfType<SkillUIManager>();
-            skillUIManager.EquipSkill(currentSkill);
+            skillUIManager.StartEquipProcess(currentSkill);
 
             gameObject.SetActive(false);
         }
