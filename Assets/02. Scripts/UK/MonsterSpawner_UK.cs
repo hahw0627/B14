@@ -90,6 +90,7 @@ public class MonsterSpawner_UK : MonoBehaviour
         stagePage = 0;
         // BossMonster의 HP가 0 이하가 되면 Stage를 1 증가시킨다.
         stage++;
+        monsterData.stage = stage;  // 몬스터SO의 스테이지 정보 저장?
         // BossMonster의 HP가 0 이하가 되면 MonsterDataSO_Test의 값을 1.2f 곱하고 인트형으로 변환해서 저장
         monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
         monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);

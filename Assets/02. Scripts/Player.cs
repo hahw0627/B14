@@ -15,7 +15,6 @@ public class Player : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
-    private int currentAttackBuff = 0;
     public int CurrentDamage { get; private set; }
 
     private void Awake()

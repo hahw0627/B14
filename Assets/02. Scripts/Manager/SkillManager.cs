@@ -26,4 +26,13 @@ public class SkillManager : MonoBehaviour
             OnEquippedSkillsChanged?.Invoke();
         }
     }
+
+    public void ReplaceSkill(int index, SkillDataSO newskill)
+    {
+        if(index >= 0 && index < equippedSkills.Count)
+        {
+            equippedSkills[index] = newskill;
+            OnEquippedSkillsChanged?.Invoke();
+        }
+    }
 }
