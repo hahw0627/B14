@@ -1907,6 +1907,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad449adf8aad85b4bb52af2b3d8bfdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillIcon: {fileID: 74309374}
+  skillName: {fileID: 1933945524}
+  skillDescription: {fileID: 1615939628}
+  equipButton: {fileID: 840397026}
 --- !u!1 &228479380
 GameObject:
   m_ObjectHideFlags: 0
@@ -4237,7 +4241,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55, y: 55}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &495158540
 MonoBehaviour:
@@ -5026,7 +5030,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55, y: 55}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &641622721
 MonoBehaviour:
@@ -5384,7 +5388,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55, y: 55}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &681748841
 MonoBehaviour:
@@ -7614,7 +7618,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55, y: 55}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &944046598
 MonoBehaviour:
@@ -12422,7 +12426,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
+    m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Skill Description
@@ -12751,12 +12755,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
   - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
   - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
-  equippedSkills:
-  - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
-  - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
-  - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
-  - {fileID: 11400000, guid: b8877ee99fe66b140a5ff0217f92003b, type: 2}
-  - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
+  - {fileID: 11400000, guid: b1887d08b304cd74b9ea97ca6aa18b0d, type: 2}
+  - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
+  - {fileID: 11400000, guid: 2bf27f40cf62a6e458364979efbdfacd, type: 2}
+  equippedSkills: []
+  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   maxEquippedSkills: 5
 --- !u!4 &1667745545
 Transform:
@@ -13858,7 +13861,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -55, y: 55}
-  m_SizeDelta: {x: 50, y: 50}
+  m_SizeDelta: {x: 70, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1786448629
 MonoBehaviour:
