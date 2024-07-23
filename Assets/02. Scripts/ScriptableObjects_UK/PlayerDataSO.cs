@@ -5,7 +5,9 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
     
-    public List<SkillDataSO> skills;
+    public List<SkillDataSO> skills;    //인벤토리 처럼 여기에 스킬 뽑은게 들어가게됨.
+    public List<PetDataSO> pets;        //펫 정보
+
     public string playerName;
     // 플레이어 이름
     // 게스트 로그인으로 플레이하면 Guest-Login 으로 표시하면 될 듯함
@@ -25,3 +27,4 @@ public class PlayerDataSO : ScriptableObject
     public float CriticalPer;       // 치명타 확률 0레벨 시작 ( 강화마다 0.2 증가하면 될 듯함 )
     public float CriticalDamage;    // 치명타 공격력 0레벨 시작 ( 0레벨 150퍼센트 데미지 시작 + 레벨당 0.3%증가? )
 }
+

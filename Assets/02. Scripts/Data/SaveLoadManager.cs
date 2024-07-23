@@ -11,11 +11,12 @@ public class SaveLoadManager : MonoBehaviour
     public PlayerDataSO playerDataSO;
     public List<SkillDataSO> skillsDataSO = new List<SkillDataSO>();
 
+
+
     private void Awake()
     {
         playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
         skillsSavePath = Application.persistentDataPath + "/skillsSOdata.json";
-
     }
 
     public void ReceiveSOData()
@@ -38,18 +39,20 @@ public class SaveLoadManager : MonoBehaviour
     {
         ReceiveSOData();
         string playerJson = JsonUtility.ToJson(playerDataSO,true);
-        SkillsDataWrapper wrapper = new SkillsDataWrapper
-        {
-            skills = skillsDataSO
-        };
-        string skillsJson = JsonUtility.ToJson(wrapper, true);
+       
+        
+        //SkillsDataWrapper wrapper = new SkillsDataWrapper
+        //{
+        //    skills = skillsDataSO
+        //};
+        //string skillsJson = JsonUtility.ToJson(wrapper, true);
         
 
-        Debug.Log("PlayerJSON: " + playerJson);
-        Debug.Log("SkillsJSON: " + skillsJson);
+        //Debug.Log("PlayerJSON: " + playerJson);
+        //Debug.Log("SkillsJSON: " + skillsJson);
        
         File.WriteAllText(playerSavePath, playerJson);
-        File.WriteAllText(skillsSavePath, skillsJson);
+        //File.WriteAllText(skillsSavePath, skillsJson);
 
     }
 
@@ -70,19 +73,20 @@ public class SaveLoadManager : MonoBehaviour
 
 
 
-        if (File.Exists(skillsSavePath))
-        {
-            string skillsJson = File.ReadAllText(skillsSavePath);
-            // JSON 문자열을 역직렬화하여 List<SkillDataSO>를 갱신합니다
-            SkillsDataWrapper skillsWrapper = JsonUtility.FromJson<SkillsDataWrapper>(skillsJson);
-            skillsDataSO = skillsWrapper.skills;
-            Debug.Log("SkillsDataSO loaded from JSON.");
-        }
-        else
-        {
-            Debug.LogWarning("Skills data JSON file not found.");
-        }
+        //if (File.Exists(skillsSavePath))
+        //{
+        //    string skillsJson = File.ReadAllText(skillsSavePath);
+        //    // JSON 문자열을 역직렬화하여 List<SkillDataSO>를 갱신합니다
+        //    SkillsDataWrapper skillsWrapper = JsonUtility.FromJson<SkillsDataWrapper>(skillsJson);
+        //    skillsDataSO = skillsWrapper.skills;
+        //    Debug.Log("SkillsDataSO loaded from JSON.");
+        //}
+        //else
+        //{
+        //    Debug.LogWarning("Skills data JSON file not found.");
+        //}
     }
+
     [System.Serializable]
     private class SkillsDataWrapper
     {

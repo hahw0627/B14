@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
         attackSpeed = playerData.AttackSpeed;
         currentHp = playerData.Hp;
 
+
+
         scanner = GetComponent<Scanner>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
