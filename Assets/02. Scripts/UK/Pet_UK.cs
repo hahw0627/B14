@@ -13,21 +13,8 @@ public class Pet_UK : MonoBehaviour
 
     private void Awake()
     {
-        if (petNumber == 1)
-        {
-            damage = petData.damage; // 기본 설정 값 사용
-        }
-        else if (petNumber > 1 && petNumber <= 15)
-        {
-            damage = (int)(petData.damage * Mathf.Pow(1.5f, petNumber - 1)); // 이전 펫보다 1.5배 높은 능력치 부여
-        }
-        else
-        {
-            Debug.LogError("Invalid pet number. Pet number must be between 1 and 15.");
-            return;
-        }
-
-        attackSpeed = petData.attackSpeed; // 플레이어의 공격 속도 가져오기
+        damage = petData.damage; // 기본 설정 값 사용
+        attackSpeed = petData.attackSpeed; // 기본 설정 값 사용
     }
 
     private void Start()
