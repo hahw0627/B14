@@ -7,9 +7,12 @@ public class Player : MonoBehaviour
     public PlayerDataSO playerData;
     public int damage;
     public float attackSpeed;
-    public Scanner scanner;
+    public int currentHp;
     public GameObject projectilePrefab;
+    public MonsterSpawner_UK monsterSpawner;
+    public Scanner scanner;
     private Animator animator;
+    public SpriteRenderer spriteRenderer;
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
     public int CurrentDamage { get; private set; }
@@ -17,17 +20,20 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         UpdateDamage();
+
         damage = playerData.Damage;
         attackSpeed = playerData.AttackSpeed;
+        currentHp = playerData.Hp;
+
         scanner = GetComponent<Scanner>();
         animator = GetComponent<Animator>();
-        Debug.Log("Damage: " + damage);
-        Debug.Log("Attack Speed: " + attackSpeed);
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private void Start()
     {
         StartAttacking();
+        StartCoroutine(RecoverHp());
     }
 
     public void StartAttacking()
@@ -81,6 +87,23 @@ public class Player : MonoBehaviour
         }
     }
 
+    private IEnumerator RecoverHp()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (currentHp < playerData.Hp)
+            {
+                currentHp += playerData.HpRecovery;
+                if (currentHp > playerData.Hp)
+                {
+                    currentHp = playerData.Hp;
+                }
+            }
+        }
+    }
+
     public void SetUsingSkill(bool usingSkill)
     {
         isUsingSkill = usingSkill;
@@ -102,5 +125,68 @@ public class Player : MonoBehaviour
     public void Heal(int amount) // 추후 플레이어 피격 구현시 구현 예정
     {
 
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHp -= damage;
+        Debug.Log($"Player HP 감소! : {currentHp} - {damage}");
+
+
+        if (currentHp <= 0)
+        {
+            if (monsterSpawner != null)
+            {
+                monsterSpawner.stagePage = 0;
+            }
+            else
+            {
+                Debug.LogError("MonsterSpawner_UK 연결 실패.");
+            }
+
+            GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
+            foreach (GameObject monster in monsters)
+            {
+                monster.SetActive(false);
+            }
+
+            Debug.Log("플레이어 사망. 몬스터 비활성화. 스테이지 초기화");
+
+            StartCoroutine(PlayerDeath()); // 체력 0 이하일 때 투명도 조절 코루틴 실행
+        }
+    }
+
+    private IEnumerator PlayerDeath()
+    {
+        // 1초 동안 2번 255에서 70까지 감소하고 다시 255까지 증가
+        for (int i = 0; i < 2; i++)
+        {
+            // 255에서 70까지 감소
+            for (float alpha = 1.0f; alpha >= 0.275f; alpha -= Time.deltaTime * 2)
+            {
+                SetSpriteAlpha(alpha);
+                yield return null;
+            }
+            // 70에서 255까지 증가
+            for (float alpha = 0.275f; alpha <= 1.0f; alpha += Time.deltaTime * 2)
+            {
+                SetSpriteAlpha(alpha);
+                yield return null;
+            }
+        }
+
+        // 체력 및 스테이지 초기화
+        currentHp = playerData.Hp;
+        Debug.Log("플레이어 체력 복구");
+    }
+
+    private void SetSpriteAlpha(float alpha)
+    {
+        if (spriteRenderer != null)
+        {
+            Color color = spriteRenderer.color;
+            color.a = alpha;
+            spriteRenderer.color = color;
+        }
     }
 }
