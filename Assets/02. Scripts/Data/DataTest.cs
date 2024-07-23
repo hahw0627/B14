@@ -9,12 +9,11 @@ public class DataTest : MonoBehaviour
     GameData gameData;
     private SaveLoadManager saveLoadManager;
     PlayerDataSO playerDataSO;
-    
     private void Start()
     {
         saveLoadManager = FindObjectOfType<SaveLoadManager>();
         
-        LoadGame();
+        //LoadGame();
     }
     private void Update()
     {
@@ -24,7 +23,18 @@ public class DataTest : MonoBehaviour
             gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("N001"));
 
         }
-      
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            saveLoadManager.SaveSOData();
+            Debug.Log("저장완료");
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            saveLoadManager.LoadSOData();
+            Debug.Log("불러옴");
+        }
+
+
     }
 
     void IninData()
@@ -58,9 +68,9 @@ public class DataTest : MonoBehaviour
         //코드는 의미를 가지지 않으면 그냥 숫자로 받는게 더 가볍다, B S  이런식으로 타입을 지정해서
         //split 해서 사용할수도있다 타입을,
 
-        //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("ㅁㄴㅇ"));
-        
+        //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("ㅁㄴㅇ")); 
     }
+
 
     public void LoadGame()
     {

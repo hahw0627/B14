@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerDataSO", menuName = "ScriptableObjects/PlayerDataSO", order = 1)]
 public class PlayerDataSO : ScriptableObject
 {
+    
+    public List<SkillDataSO> skills;
     public string playerName;
     // 플레이어 이름
     // 게스트 로그인으로 플레이하면 Guest-Login 으로 표시하면 될 듯함
