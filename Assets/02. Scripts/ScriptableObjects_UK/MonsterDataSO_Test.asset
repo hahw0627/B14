@@ -16,3 +16,5 @@ MonoBehaviour:
   Hp: 100
   Damage: 5
   AttackSpeed: 1
+  stagePage: 0
+  stage: 1
