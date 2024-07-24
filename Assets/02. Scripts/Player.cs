@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float attackSpeed;
     public int currentHp;
     public GameObject projectilePrefab;
-    public MonsterSpawner_UK monsterSpawner;
+    public MonsterSpawner monsterSpawner;
     public Scanner scanner;
     private Animator animator;
     public SpriteRenderer spriteRenderer;
@@ -81,9 +81,9 @@ public class Player : MonoBehaviour
             if (!isUsingSkill && scanner.nearestTarget != null)
             {
                 GameObject projectile = Instantiate(projectilePrefab, fireMuzzle.position, Quaternion.identity);
-                projectile.GetComponent<Projectile_uk>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
-                projectile.GetComponent<Projectile_uk>().damage = this.damage;   // 생성된 투사체에 데미지 설정
-                projectile.GetComponent<Projectile_uk>().player = this; // 생성된 투사체에 플레이어 설정
+                projectile.GetComponent<Projectile>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
+                projectile.GetComponent<Projectile>().damage = this.damage;   // 생성된 투사체에 데미지 설정
+                projectile.GetComponent<Projectile>().player = this; // 생성된 투사체에 플레이어 설정
             }
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1초에 / attackSpeed 만큼 공격

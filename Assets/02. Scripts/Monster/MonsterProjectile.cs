@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterProjectile_uk : MonoBehaviour
+public class MonsterProjectile : MonoBehaviour
 {
     public Transform target;
     public int damage;
