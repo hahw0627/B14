@@ -1907,6 +1907,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad449adf8aad85b4bb52af2b3d8bfdda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skillIcon: {fileID: 0}
+  skillName: {fileID: 0}
+  skillDescription: {fileID: 0}
+  equipButton: {fileID: 0}
 --- !u!1 &228479380
 GameObject:
   m_ObjectHideFlags: 0
@@ -10951,7 +10955,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  skillsDataSO: []
 --- !u!4 &1411080238
 Transform:
   m_ObjectHideFlags: 0
@@ -12751,12 +12754,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
   - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
   - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
-  equippedSkills:
-  - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
-  - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
-  - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
-  - {fileID: 11400000, guid: b8877ee99fe66b140a5ff0217f92003b, type: 2}
-  - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
+  equippedSkills: []
+  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   maxEquippedSkills: 5
 --- !u!4 &1667745545
 Transform:

@@ -8,6 +8,10 @@ public class PlayerDataSO : ScriptableObject
     public List<SkillDataSO> skills;    //인벤토리 처럼 여기에 스킬 뽑은게 들어가게됨.
     public List<PetDataSO> pets;        //펫 정보
 
+    public List<EquipmentDataSO> weapons; //무기 
+    public List<EquipmentDataSO> armors;  //방어구
+    //추가
+
     public string playerName;
     // 플레이어 이름
     // 게스트 로그인으로 플레이하면 Guest-Login 으로 표시하면 될 듯함

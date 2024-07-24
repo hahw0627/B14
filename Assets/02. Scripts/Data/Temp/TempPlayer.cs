@@ -16,8 +16,9 @@ public class TempPlayer : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            if(gameData != null)
-            gameData = saveLoadManager.LoadGame();
+            //if(gameData != null)
+
+            //gameData = saveLoadManager.LoadGame();
             
         }
     }

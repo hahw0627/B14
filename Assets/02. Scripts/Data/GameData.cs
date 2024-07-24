@@ -74,21 +74,21 @@ public class EquipmentData
 
 }
 
-[Serializable]
-public class Pet
-{
-    public string petName;
-    public int level;
-    public string description;
-}
+//[Serializable]
+//public class Pet
+//{
+//    public string petName;
+//    public int level;
+//    public string description;
+//}
 
-[Serializable]
-public class Companion
-{
-    public string companionName;
-    public int level;
-    public string description;
-}
+//[Serializable]
+//public class Companion
+//{
+//    public string companionName;
+//    public int level;
+//    public string description;
+//}
 
 [Serializable]
 public class StageData
