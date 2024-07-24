@@ -12,9 +12,10 @@ public class MainSceneSkillManager : MonoBehaviour
     public List<Button> skillButtons;
     public AutoSkillManager autoSkillManager;
     public List<Image> cooldownImages;
-    public List<Text> cooldownTexts;
+    public List<TextMeshProUGUI> cooldownTexts;
     public Transform playerTransform;
     public Transform enemyTransform;
+    
 
     private Dictionary<SkillDataSO, Coroutine> cooldownCoroutines = new Dictionary<SkillDataSO, Coroutine>();
 
@@ -38,7 +39,7 @@ public class MainSceneSkillManager : MonoBehaviour
             }
         }
     }
-    private void SetupSkillButton(Button button, Image cooldownImage, Text cooldownText, SkillDataSO skill)
+    private void SetupSkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
         button.gameObject.SetActive(true);
         button.image.sprite = skill.icon;
@@ -66,7 +67,7 @@ public class MainSceneSkillManager : MonoBehaviour
         cooldownCoroutines[skill] = newCoroutine;
     }
 
-    private void DisableSkillButton(Button button, Image cooldownImage, Text cooldownText)
+    private void DisableSkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
     {
         button.gameObject.SetActive(false);
         cooldownImage.gameObject.SetActive(false);
@@ -120,7 +121,7 @@ public class MainSceneSkillManager : MonoBehaviour
     }
 
 
-    private IEnumerator UpdateCooldown(Image cooldownImage, Text cooldownText, SkillDataSO skill)
+    private IEnumerator UpdateCooldown(Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
         while (true)
         {

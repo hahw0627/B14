@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class SkillInfoPanel : MonoBehaviour
 {
     public Image skillIcon;
-    public Text skillName;
-    public Text skillDescription;
+    public TextMeshProUGUI skillName;
+    public TextMeshProUGUI skillDescription;
 
     public Button equipButton;
     private SkillDataSO currentSkill;
