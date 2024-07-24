@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterProjectilePrefab: {fileID: 0}
+  monsterProjectilePrefab: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
   target: {fileID: 0}
   Hp: 0
   damage: 0

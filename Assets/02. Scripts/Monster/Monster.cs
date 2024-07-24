@@ -1,76 +1,168 @@
-using System.Collections;
 using UnityEngine;
-using Vector3 = UnityEngine.Vector3;
+using System.Collections;
 
-public class Monster : MonoBehaviour
+public class Monster : MonoBehaviour, IDamageable
 {
-    [SerializeField]
-    private MonsterStatistics _monsterStatistics;
-    private int Hp;
+    public MonsterDataSO monsterData;
+    public GameObject monsterProjectilePrefab;
+    public Transform target;
+    public int Hp;
+    public int damage;
+    public float attackSpeed;
+    private float moveTime = 0.0f;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private bool isAttacking = false;
 
-    public MonsterStatistics MonsterStatistics
+    private void Awake()
     {
-        set => _monsterStatistics = value;
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    [SerializeField]
-    private float _moveSpeed = 2.0f;
-
-    private bool _isCollision;
-
-    private void Start()
+    private void OnEnable()
     {
-        Debug.Log($"{_monsterStatistics.Name} ÏÉùÏÑ± ÏôÑÎ£å");
-        Hp = _monsterStatistics.Hp;
-        StartCoroutine(MoveForSeconds(1.5f));
+        if (monsterData == null)
+        {
+            Debug.LogError("MonsterDataSO_Test ø¨∞· Ω«∆–");
+            return;
+        }
+        // »∞º∫»≠µ… ∂ß ∏ÛΩ∫≈Õ¿« µ•¿Ã≈Õ∏¶ √ ±‚»≠
+        Hp = monsterData.Hp;
+        damage = monsterData.Damage;
+        attackSpeed = monsterData.AttackSpeed;
+        moveTime = 0.0f; // moveTime √ ±‚»≠
+        isAttacking = false;
     }
 
     private void Update()
     {
-        if (_isCollision) return;
-    }
-
-    private IEnumerator MoveForSeconds(float duration)
-    {
-        float moveTime = 0.0f;
-
-        while (moveTime < duration)
+        // ∏ÛΩ∫≈Õ ¿Ãµø Ω√¿€
+        if (moveTime < 1.5f)
         {
-            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
+            spriteRenderer.flipX = true;
+            transform.Translate(Vector3.left * 2.0f * Time.deltaTime);
             moveTime += Time.deltaTime;
-            yield return null;
         }
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        _isCollision = true;
-        if (other.gameObject.name != "Player(Test)") return;
-        Debug.Log("---");
-        Debug.Log($"{_monsterStatistics.Name} Í≥µÍ≤© ÏãúÏûë");
-        StartCoroutine(nameof(Attack));
+        else
+        {
+            animator.SetBool("IsBattle", true);
+            if (!isAttacking)
+            {
+                StartCoroutine(Attack());
+            }
+        }
     }
 
     private IEnumerator Attack()
     {
-        Debug.Log($"ÌîåÎ†àÏù¥Ïñ¥ Ï≤¥Î†•: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+        isAttacking = true;
         while (true)
         {
-            if (PlayerTest.CurrentHp <= 0) yield break;
-            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
-            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-            Debug.Log($"ÌîåÎ†àÏù¥Ïñ¥ Ï≤¥Î†•: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+            if (target != null)
+            {
+                GameObject projectile = Instantiate(monsterProjectilePrefab, transform.position, Quaternion.identity);
+                projectile.GetComponent<MonsterProjectile>().target = target;
+                projectile.GetComponent<MonsterProjectile>().damage = damage;
+            }
+            yield return new WaitForSeconds(1 / attackSpeed);
         }
     }
 
     public void TakeDamage(int damage)
     {
         Hp -= damage;
-        Debug.Log("Î™¨Ïä§ÌÑ∞ HP Í∞êÏÜå\n" + "HP : " + Hp + " / Îç∞ÎØ∏ÏßÄ : " + damage);
+        Debug.Log("∏ÛΩ∫≈Õ HP ∞®º“\n" + "HP : " + Hp + " / µ•πÃ¡ˆ : " + damage);
 
         if (Hp <= 0)
         {
-            MonsterPool.InsertQueue(gameObject);
+            gameObject.SetActive(false);
+            Debug.Log("∫Ò»∞º∫»≠");
         }
     }
 }
+
+
+
+
+
+
+
+
+//==================================================================================================
+//using System.Collections;
+//using UnityEngine;
+//using Vector3 = UnityEngine.Vector3;
+
+//public class Monster : MonoBehaviour
+//{
+//    [SerializeField]
+//    private MonsterStatistics _monsterStatistics;
+//    private int Hp;
+
+//    public MonsterStatistics MonsterStatistics
+//    {
+//        set => _monsterStatistics = value;
+//    }
+
+//    [SerializeField]
+//    private float _moveSpeed = 2.0f;
+
+//    private bool _isCollision;
+
+//    private void Start()
+//    {
+//        Debug.Log($"{_monsterStatistics.Name} ª˝º∫ øœ∑·");
+//        Hp = _monsterStatistics.Hp;
+//        StartCoroutine(MoveForSeconds(1.5f));
+//    }
+
+//    private void Update()
+//    {
+//        if (_isCollision) return;
+//    }
+
+//    private IEnumerator MoveForSeconds(float duration)
+//    {
+//        float moveTime = 0.0f;
+
+//        while (moveTime < duration)
+//        {
+//            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
+//            moveTime += Time.deltaTime;
+//            yield return null;
+//        }
+//    }
+
+//    private void OnTriggerEnter2D(Collider2D other)
+//    {
+//        _isCollision = true;
+//        if (other.gameObject.name != "Player(Test)") return;
+//        Debug.Log("---");
+//        Debug.Log($"{_monsterStatistics.Name} ∞¯∞› Ω√¿€");
+//        StartCoroutine(nameof(Attack));
+//    }
+
+//    private IEnumerator Attack()
+//    {
+//        Debug.Log($"«√∑π¿ÃæÓ √º∑¬: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//        while (true)
+//        {
+//            if (PlayerTest.CurrentHp <= 0) yield break;
+//            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
+//            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
+//            Debug.Log($"«√∑π¿ÃæÓ √º∑¬: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//        }
+//    }
+
+//    public void TakeDamage(int damage)
+//    {
+//        Hp -= damage;
+//        Debug.Log("∏ÛΩ∫≈Õ HP ∞®º“\n" + "HP : " + Hp + " / µ•πÃ¡ˆ : " + damage);
+
+//        if (Hp <= 0)
+//        {
+//            MonsterPool.InsertQueue(gameObject);
+//        }
+//    }
+//}

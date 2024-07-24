@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile_uk : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public Transform target;
     public Player player;
@@ -48,7 +48,7 @@ public class Projectile_uk : MonoBehaviour
         if (target != null)
         {
             // 타겟이 Monster_Test 컴포넌트를 가지고 있는지 확인하여 TakeDamage 호출
-            Monster_Test monsterScript = target.GetComponent<Monster_Test>();
+            Monster monsterScript = target.GetComponent<Monster>();
             if (monsterScript != null)
             {
                 monsterScript.TakeDamage(damage);
