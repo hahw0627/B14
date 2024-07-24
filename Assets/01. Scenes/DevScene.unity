@@ -2117,6 +2117,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 17708280}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &280144680 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8443860758397554835, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+  m_PrefabInstance: {fileID: 1828702164}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &282570799
 GameObject:
   m_ObjectHideFlags: 0
@@ -19188,6 +19193,7 @@ MonoBehaviour:
   monsterSpawner: {fileID: 17708279}
   scanner: {fileID: 1828702166}
   spriteRenderer: {fileID: 0}
+  fireMuzzle: {fileID: 280144680}
 --- !u!4 &1828702168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6537006914516050989, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
