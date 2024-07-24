@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Pet_UK : MonoBehaviour
+public class Pet : MonoBehaviour
 {
     public PetDataSO petData;
     public Scanner scanner;
@@ -30,8 +30,8 @@ public class Pet_UK : MonoBehaviour
             if (scanner.nearestTarget != null)
             {
                 GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<Projectile_uk>().target = scanner.nearestTarget;
-                projectile.GetComponent<Projectile_uk>().damage = this.damage; // 플레이어의 데미지 사용
+                projectile.GetComponent<Projectile>().target = scanner.nearestTarget;
+                projectile.GetComponent<Projectile>().damage = this.damage; // 플레이어의 데미지 사용
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }
