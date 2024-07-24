@@ -427,7 +427,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 17708280}
-  - component: {fileID: 17708279}
+  - component: {fileID: 17708281}
   m_Layer: 0
   m_Name: MonsterSpawner
   m_TagString: Untagged
@@ -435,32 +435,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &17708279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 17708278}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fbe42e0077fc254f83a12476f037603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
-  bossMonster: {fileID: 275247953}
-  spawnPoints:
-  - {fileID: 1396151741}
-  - {fileID: 277040747}
-  - {fileID: 1002437275}
-  - {fileID: 608438022}
-  - {fileID: 1619295865}
-  - {fileID: 980565156}
-  monsters: []
-  stagePage: 0
-  stage: 1
-  target: {fileID: 1828702168}
 --- !u!4 &17708280
 Transform:
   m_ObjectHideFlags: 0
@@ -482,6 +456,32 @@ Transform:
   - {fileID: 980565156}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &17708281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17708278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b97136ff59d7ec4a99b7c40da845ec0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  bossMonster: {fileID: 275247953}
+  spawnPoints:
+  - {fileID: 1396151741}
+  - {fileID: 277040747}
+  - {fileID: 1002437275}
+  - {fileID: 608438022}
+  - {fileID: 1619295865}
+  - {fileID: 980565156}
+  monsters: []
+  stagePage: 0
+  stage: 1
+  target: {fileID: 0}
 --- !u!1 &54227259
 GameObject:
   m_ObjectHideFlags: 0
@@ -6350,7 +6350,7 @@ PrefabInstance:
     - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
       propertyPath: monsterSpawner
       value: 
-      objectReference: {fileID: 17708279}
+      objectReference: {fileID: 17708281}
     - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
       propertyPath: monsterProjectilePrefab
       value: 
@@ -18486,7 +18486,7 @@ MonoBehaviour:
   attackSpeed: 0
   currentHp: 0
   projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
-  monsterSpawner: {fileID: 17708279}
+  monsterSpawner: {fileID: 17708281}
   scanner: {fileID: 1828702166}
   spriteRenderer: {fileID: 0}
   fireMuzzle: {fileID: 280144680}
