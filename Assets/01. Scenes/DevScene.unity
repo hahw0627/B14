@@ -19405,6 +19405,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910919382}
   m_CullTransparentMesh: 1
+--- !u!1 &1933554482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1933554483}
+  m_Layer: 0
+  m_Name: AoeEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1933554483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933554482}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.94, y: 1.55, z: 2473.0234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1942603541
 GameObject:
   m_ObjectHideFlags: 0
@@ -20800,6 +20831,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2068460005}
   m_CullTransparentMesh: 1
+--- !u!1 &2071055389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2071055390}
+  m_Layer: 0
+  m_Name: BuffEffectSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2071055390
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2071055389}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.29, y: 1.73, z: 2473.0234}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2086447804
 GameObject:
   m_ObjectHideFlags: 0
@@ -26199,6 +26261,8 @@ MonoBehaviour:
   - {fileID: 288062760}
   playerTransform: {fileID: 1828702168}
   enemyTransform: {fileID: 4755740371325174915, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  aoeEffectSpawnPoint: {fileID: 1933554483}
+  buffEffectSpawnPoint: {fileID: 2071055390}
 --- !u!114 &7866761177546769553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26974,6 +27038,8 @@ SceneRoots:
   - {fileID: 936058502}
   - {fileID: 1354466725}
   - {fileID: 701305434}
+  - {fileID: 1933554483}
+  - {fileID: 2071055390}
   - {fileID: 1359144744}
   - {fileID: 540659924}
   - {fileID: 1828702164}

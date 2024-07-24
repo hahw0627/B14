@@ -15,6 +15,8 @@ public class MainSceneSkillManager : MonoBehaviour
     public List<TextMeshProUGUI> cooldownTexts;
     public Transform playerTransform;
     public Transform enemyTransform;
+    public Transform aoeEffectSpawnPoint;
+    public Transform buffEffectSpawnPoint;
     
 
     private Dictionary<SkillDataSO, Coroutine> cooldownCoroutines = new Dictionary<SkillDataSO, Coroutine>();
@@ -173,13 +175,15 @@ public class MainSceneSkillManager : MonoBehaviour
         if (skill.effectPrefab == null) return;
 
         GameObject effectInstance = null;
+        Vector3 spawnPosition = Vector3.zero;
 
         switch (skill.skillType)
         {
             case SkillType.AttackBuff:
             case SkillType.HealBuff:
-                effectInstance = Instantiate(skill.effectPrefab, playerTransform.position, Quaternion.identity);
-                effectInstance.transform.SetParent(playerTransform);
+                spawnPosition = buffEffectSpawnPoint.position;
+                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
+                effectInstance.transform.SetParent(buffEffectSpawnPoint);
                 BuffSkill buffSkill = effectInstance.GetComponent<BuffSkill>();
                 if(buffSkill != null)
                 {
@@ -197,7 +201,7 @@ public class MainSceneSkillManager : MonoBehaviour
             case SkillType.Projectile:
                 if(player.scanner.nearestTarget != null)
                 {
-                    Vector3 spawnPosition = playerTransform.position;
+                    spawnPosition = playerTransform.position;
                     Vector3 targetPosition = player.scanner.nearestTarget.position;
                     Vector3 direction = (targetPosition - spawnPosition).normalized;
 
@@ -225,8 +229,8 @@ public class MainSceneSkillManager : MonoBehaviour
                 break;
 
             case SkillType.AreaOfEffect:
-                Vector3 aoePosition = playerTransform.position + playerTransform.forward * skill.aoeRadius;
-                effectInstance = Instantiate(skill.effectPrefab, aoePosition, Quaternion.identity);
+                spawnPosition = aoeEffectSpawnPoint.position;
+                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
                 AreaEffectSkill aoeSkill = effectInstance.GetComponent<AreaEffectSkill>();
                 if(aoeSkill != null)
                 {
