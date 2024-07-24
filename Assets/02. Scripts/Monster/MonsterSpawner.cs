@@ -71,8 +71,8 @@ public class MonsterSpawner : MonoBehaviour
         for (int i = 0; i < monsters.Length; i++)
         {
             monsters[i].transform.position = spawnPoints[i].position;
-            monsters[i].GetComponent<Monster>().monsterData = monsterData;
-            monsters[i].GetComponent<Monster>().target = target;
+            monsters[i].GetComponent<Monster123>().monsterData = monsterData;
+            monsters[i].GetComponent<Monster123>().target = target;
             monsters[i].SetActive(true);
         }
     }

@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class Monster : MonoBehaviour, IDamageable
+public class Monster123 : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
     public GameObject monsterProjectilePrefab;

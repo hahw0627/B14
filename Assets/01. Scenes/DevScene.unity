@@ -447,6 +447,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fbe42e0077fc254f83a12476f037603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  bossMonster: {fileID: 275247953}
+  spawnPoints:
+  - {fileID: 1396151741}
+  - {fileID: 277040747}
+  - {fileID: 1002437275}
+  - {fileID: 608438022}
+  - {fileID: 1619295865}
+  - {fileID: 980565156}
+  monsters: []
+  stagePage: 0
+  stage: 1
+  target: {fileID: 1828702168}
 --- !u!4 &17708280
 Transform:
   m_ObjectHideFlags: 0
@@ -2127,6 +2141,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256864201}
   m_CullTransparentMesh: 1
+--- !u!1 &275247953 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+  m_PrefabInstance: {fileID: 604766476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &277040746
 GameObject:
   m_ObjectHideFlags: 0
