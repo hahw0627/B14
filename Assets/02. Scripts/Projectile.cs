@@ -48,7 +48,7 @@ public class Projectile : MonoBehaviour
         if (target != null)
         {
             // 타겟이 Monster_Test 컴포넌트를 가지고 있는지 확인하여 TakeDamage 호출
-            Monster monsterScript = target.GetComponent<Monster>();
+            Monster123 monsterScript = target.GetComponent<Monster123>();
             if (monsterScript != null)
             {
                 monsterScript.TakeDamage(damage);
