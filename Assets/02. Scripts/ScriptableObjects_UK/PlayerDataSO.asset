@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
   skills: []
+  pets: []
   playerName: 00011
-  Gold: 96
+  Gold: 100
   Diamond: 100
   TotalPower: 10
-  Damage: 30
+  Damage: 80
   Def: 0
   AttackSpeed: 6.5
-  Hp: 900
-  HpRecovery: 701
+  Hp: 1400
+  HpRecovery: 801
   CriticalPer: 1
   CriticalDamage: 1.5

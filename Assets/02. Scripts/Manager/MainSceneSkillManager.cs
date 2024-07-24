@@ -19,23 +19,47 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private Dictionary<SkillDataSO, Coroutine> cooldownCoroutines = new Dictionary<SkillDataSO, Coroutine>();
 
+    private void Awake()
+    {
+        InitializeSkillButtons();
+    }
+
     private void Start()
     {
         UpdateSkillButtons();
     }
+
+    private void InitializeSkillButtons()
+    {
+        for(int i = 0; i < skillButtons.Count; i++)
+        {
+            SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+        }
+    }
+
+    private void SetupEmptySkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
+    {
+        button.gameObject.SetActive(true);
+        button.onClick.RemoveAllListeners();
+        button.interactable = false;
+
+        cooldownImage.gameObject.SetActive(false);
+        cooldownText.gameObject.SetActive(false);
+    }
+
     public void UpdateSkillButtons()
     {
         List<SkillDataSO> equippedSkills = skillManager.equippedSkills;
 
         for (int i = 0; i < skillButtons.Count; i++)
         {
-            if (i < equippedSkills.Count)
+            if (i < equippedSkills.Count && equippedSkills[i] != null)
             {
                 SetupSkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i], equippedSkills[i]);
             }
             else
             {
-                DisableSkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+                SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
             }
         }
     }
@@ -45,6 +69,7 @@ public class MainSceneSkillManager : MonoBehaviour
         button.image.sprite = skill.icon;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => UseSkill(skill));
+        button.interactable = true; // 스킬이 장착된 버튼은 클릭 가능하도록 설정
 
         // 쿨다운 이미지 초기화
         cooldownImage.gameObject.SetActive(true);

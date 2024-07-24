@@ -15,6 +15,7 @@ public class SkillManager : MonoBehaviour
     private void Awake()
     {
         UpdateEquippedSkills();
+        OnEquippedSkillsChanged?.Invoke();
     }
 
     public void UpdateEquippedSkills() //playerdataSO에 있는 skill equipped스킬에 넣기    
