@@ -41,14 +41,15 @@ public class StatUpgrade : MonoBehaviour
     {
         UpdateUI();
 
-        attackBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Damage, 2, ref attackCost, attackTxt, "°ø°İ·Â : ", attackCostTxt));
-        hpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Hp, 100, ref hpCost, hpTxt, "Ã¼·Â : ", hpCostTxt));
-        recoverHpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.HpRecovery, 100, ref recoverHpCost, recoverHpTxt, "Ã¼·ÂÈ¸º¹·® : ", recoverHpCostTxt));
-        attackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref playerData.AttackSpeed, 0.5f, ref attackSpeedCost, attackSpeedTxt, "°ø°İ¼Óµµ : ", attackSpeedCostTxt));
-        criticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalPer, 0.2f, ref criticalPercentCost, criticalPercentTxt, "Ä¡¸íÅ¸È®·ü : ", criticalPercentCostTxt));
-        criticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalDamage, 0.3f, ref criticalDamageCost, criticalDamageTxt, "Ä¡¸íÅ¸µ¥¹ÌÁö : ", criticalDamageCostTxt));
+        attackBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Damage, 2, ref attackCost, attackTxt, "ï¿½ï¿½ï¿½İ·ï¿½ : ", attackCostTxt));
+        hpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Hp, 100, ref hpCost, hpTxt, "Ã¼ï¿½ï¿½ : ", hpCostTxt));
+        recoverHpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.HpRecovery, 100, ref recoverHpCost, recoverHpTxt, "Ã¼ï¿½ï¿½È¸ï¿½ï¿½ï¿½ï¿½ : ", recoverHpCostTxt));
+        attackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref playerData.AttackSpeed, 0.5f, ref attackSpeedCost, attackSpeedTxt, "ï¿½ï¿½ï¿½İ¼Óµï¿½ : ", attackSpeedCostTxt));
+        criticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalPer, 0.2f, ref criticalPercentCost, criticalPercentTxt, "Ä¡ï¿½ï¿½Å¸È®ï¿½ï¿½ : ", criticalPercentCostTxt));
+        criticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalDamage, 0.3f, ref criticalDamageCost, criticalDamageTxt, "Ä¡ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : ", criticalDamageCostTxt));
     }
-    void UpgradeStat(ref int stat, int increment, ref int cost, Text statTxt, string statName, Text costTxt)
+
+    private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTxt, string statName, Text costTxt)
     {
         if (playerData.Gold >= cost)
         {
@@ -56,15 +57,15 @@ public class StatUpgrade : MonoBehaviour
             stat += increment;
 
             playerData.Gold -= cost;
-            cost = Mathf.CeilToInt(cost * 1.1f); // ºñ¿ë 10% Áõ°¡
-            statTxt.text = statName +stat.ToString();
-            costTxt.text = "Upgrade\n"+ cost.ToString();
+            cost = Mathf.CeilToInt(cost * 1.1f); // ï¿½ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½
+            statTxt.text = statName +stat;
+            costTxt.text = "Upgrade\n"+ cost;
             UpdateUI();
             OnStatsChanged?.Invoke();
         }
     }
 
-    void UpgradeStat(ref float stat, float increment, ref int cost, Text statTxt, string statName, Text costTxt)
+    private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTxt, string statName, Text costTxt)
     {
         if (playerData.Gold >= cost)
         {
@@ -72,27 +73,28 @@ public class StatUpgrade : MonoBehaviour
             stat += increment;
 
             playerData.Gold -= cost;
-            cost = Mathf.CeilToInt(cost * 1.1f); // ºñ¿ë 10% Áõ°¡
-            statTxt.text = statName + stat.ToString();
-            costTxt.text = "Upgrade \n" + cost.ToString();
+            cost = Mathf.CeilToInt(cost * 1.1f); // ï¿½ï¿½ï¿½ 10% ï¿½ï¿½ï¿½ï¿½
+            statTxt.text = statName + stat;
+            costTxt.text = cost.ToString();
             UpdateUI();
         }
     }
-    void UpdateUI()
-    {
-        attackTxt.text = "°ø°İ·Â : \n" + playerData.Damage;
-        hpTxt.text = "Ã¼·Â : \n" + playerData.Hp;
-        recoverHpTxt.text = "Ã¼·ÂÈ¸º¹·® : \n" + playerData.HpRecovery;
-        attackSpeedTxt.text = "°ø°İ¼Óµµ : \n" + playerData.AttackSpeed+"%";
-        criticalPercentTxt.text = "Ä¡¸íÅ¸È®·ü : \n" + playerData.CriticalPer+"%";
-        criticalDamageTxt.text = "Ä¡¸íÅ¸µ¥¹ÌÁö : \n" + playerData.CriticalDamage;
 
-        attackCostTxt.text = "Upgrade \n" + attackCost;
-        hpCostTxt.text = "Upgrade \n" + hpCost;
-        recoverHpCostTxt.text = "Upgrade \n" + recoverHpCost;
-        attackSpeedCostTxt.text = "Upgrade \n" + attackSpeedCost;
-        criticalPercentCostTxt.text = "Upgrade \n" + criticalPercentCost;
-        criticalDamageCostTxt.text = "Upgrade \n" + criticalDamageCost;
+    private void UpdateUI()
+    {
+        attackTxt.text = "ê³µê²©ë ¥\n" + playerData.Damage;
+        attackSpeedTxt.text = "ê³µê²©ì†ë„\n" + playerData.AttackSpeed+"%";
+        hpTxt.text = "ì²´ë ¥\n" + playerData.Hp;
+        recoverHpTxt.text = "ì²´ë ¥ íšŒë³µëŸ‰\n" + playerData.HpRecovery;
+        criticalPercentTxt.text = "ì¹˜ëª…íƒ€ í™•ë¥ " + playerData.CriticalPer+"%";
+        criticalDamageTxt.text = "ì¹˜ëª…íƒ€ ë°ë¯¸ì§€\n" + playerData.CriticalDamage;
+
+        attackCostTxt.text = attackCost.ToString();
+        attackSpeedCostTxt.text = attackSpeedCost.ToString();
+        hpCostTxt.text = hpCost.ToString();
+        recoverHpCostTxt.text = recoverHpCost.ToString();
+        criticalPercentCostTxt.text = criticalPercentCost.ToString();
+        criticalDamageCostTxt.text = criticalDamageCost.ToString();
 
     }
 }

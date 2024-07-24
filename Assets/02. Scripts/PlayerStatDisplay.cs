@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -27,7 +25,7 @@ public class PlayerStatDisplay : MonoBehaviour
     {
         if (playerData != null)
         {
-            damageText.text = $"°ø°Ý·Â : {playerData.Damage}";
+            damageText.text = $"ê³µê²©ë ¥ {playerData.Damage}";
         }
     }
 }
