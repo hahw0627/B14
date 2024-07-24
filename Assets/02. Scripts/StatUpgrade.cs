@@ -35,6 +35,8 @@ public class StatUpgrade : MonoBehaviour
     private int criticalPercentCost = 100;
     private int criticalDamageCost = 50;
 
+    public static event System.Action OnStatsChanged;
+
     private void Start()
     {
         UpdateUI();
@@ -58,6 +60,7 @@ public class StatUpgrade : MonoBehaviour
             statTxt.text = statName +stat.ToString();
             costTxt.text = "Upgrade\n"+ cost.ToString();
             UpdateUI();
+            OnStatsChanged?.Invoke();
         }
     }
 
