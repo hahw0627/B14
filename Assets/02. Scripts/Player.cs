@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
+    public Transform fireMuzzle;
     public int CurrentDamage { get; private set; }
 
     private void Awake()
@@ -79,7 +80,7 @@ public class Player : MonoBehaviour
             // scanner의 nearestTarget이 null이 아닌 경우에만 nearestTarget을 가져와 target으로 설정 + 투사체 생성
             if (!isUsingSkill && scanner.nearestTarget != null)
             {
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                GameObject projectile = Instantiate(projectilePrefab, fireMuzzle.position, Quaternion.identity);
                 projectile.GetComponent<Projectile_uk>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
                 projectile.GetComponent<Projectile_uk>().damage = this.damage;   // 생성된 투사체에 데미지 설정
                 projectile.GetComponent<Projectile_uk>().player = this; // 생성된 투사체에 플레이어 설정
