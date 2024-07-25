@@ -82,13 +82,13 @@ public class EquipmentData
 //    public string description;
 //}
 
-[Serializable]
-public class Companion
-{
-    public string companionName;
-    public int level;
-    public string description;
-}
+//[Serializable]
+//public class Companion
+//{
+//    public string companionName;
+//    public int level;
+//    public string description;
+//}
 
 [Serializable]
 public class StageData

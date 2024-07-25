@@ -30,16 +30,18 @@ public class Projectile : MonoBehaviour
     private IEnumerator DestroyAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
+        // 오브젝트 풀링으로 구현 예정 1
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Debug.Log("투사체 충돌 감지!");
-        if (collision.CompareTag("Monster"))    // Monster태그이면 실행
+        if (collision.CompareTag("Monster"))
         {
-            Destroy(gameObject);  // 오브젝트 풀링으로 변경 시, SetActive(false)로 변경 필요
-            AttackMonster(collision.transform);  // 데미지 주기  ( target 대신 collision.transform을 사용한 이유 : 다른 오브젝트와 충돌해도 target에게 데미지가 들어가는 문제 )
+            // 오브젝트 풀링으로 구현 예정 1
+            Destroy(gameObject);
+            AttackMonster(collision.transform);
         }
     }
 

@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
     public GameObject projectilePrefab;
     public MonsterSpawner monsterSpawner;
     public Scanner scanner;
-    private Animator animator;
+    //private Animator animator;
     public SpriteRenderer spriteRenderer;
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
 
 
         scanner = GetComponent<Scanner>();
-        animator = GetComponent<Animator>();
+        //animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -56,21 +56,21 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (scanner.nearestTarget != null)
-        {
-            // target이 존재하면 IsBattel을 true로 설정
-            animator.SetBool("IsBattle", true);
-            Debug.Log("배틀 시작");
-        }
-        else
-        {
-            // target이 null이면 IsBattel을 false로 설정
-            animator.SetBool("IsBattle", false);
-            Debug.Log("배틀 종료");
-        }
-    }
+    //private void Update()
+    //{
+    //    if (scanner.nearestTarget != null)
+    //    {
+    //        // target이 존재하면 IsBattel을 true로 설정
+    //        animator.SetBool("IsBattle", true);
+    //        Debug.Log("배틀 시작");
+    //    }
+    //    else
+    //    {
+    //        // target이 null이면 IsBattel을 false로 설정
+    //        animator.SetBool("IsBattle", false);
+    //        Debug.Log("배틀 종료");
+    //    }
+    //}
 
 
     private IEnumerator Attack()

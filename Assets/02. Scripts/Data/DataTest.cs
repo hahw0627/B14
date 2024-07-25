@@ -13,10 +13,13 @@ public class DataTest : MonoBehaviour
     {
         saveLoadManager = FindObjectOfType<SaveLoadManager>();
         
+        
         //LoadGame();
     }
     private void Update()
     {
+
+    
         if (Input.GetKeyDown(KeyCode.S))
         {
             TempCsv tempCsv = FindAnyObjectByType<TempCsv>();
@@ -72,27 +75,27 @@ public class DataTest : MonoBehaviour
     }
 
 
-    public void LoadGame()
-    {
-        gameData = saveLoadManager.LoadGame();
-        if (gameData == null)
-        {
-            IninData();
-            Debug.Log("없어서 로드 못함");
+    //public void LoadGame()
+    //{
+    //    gameData = saveLoadManager.LoadGame();
+    //    if (gameData == null)
+    //    {
+    //        IninData();
+    //        Debug.Log("없어서 로드 못함");
 
-        }
-        else
-        {         
-            Debug.Log("있던거 로드함");
-        }
+    //    }
+    //    else
+    //    {         
+    //        Debug.Log("있던거 로드함");
+    //    }
        
-    }
+    //}
 
-    public void SaveGame()
-    {
-        saveLoadManager.SaveGame(gameData);
-        // 게임 종료 시 데이터 저장
-    }
+    //public void SaveGame()
+    //{
+    //    saveLoadManager.SaveGame(gameData);
+    //    // 게임 종료 시 데이터 저장
+    //}
     public void Exit()
     {
 #if UNITY_EDITOR
