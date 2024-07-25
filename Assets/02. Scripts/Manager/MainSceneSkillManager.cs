@@ -12,38 +12,66 @@ public class MainSceneSkillManager : MonoBehaviour
     public List<Button> skillButtons;
     public AutoSkillManager autoSkillManager;
     public List<Image> cooldownImages;
-    public List<Text> cooldownTexts;
+    public List<TextMeshProUGUI> cooldownTexts;
     public Transform playerTransform;
     public Transform enemyTransform;
+    public Transform aoeEffectSpawnPoint;
+    public Transform buffEffectSpawnPoint;
+    
 
     private Dictionary<SkillDataSO, Coroutine> cooldownCoroutines = new Dictionary<SkillDataSO, Coroutine>();
+
+    private void Awake()
+    {
+        InitializeSkillButtons();
+    }
 
     private void Start()
     {
         UpdateSkillButtons();
     }
+
+    private void InitializeSkillButtons()
+    {
+        for(int i = 0; i < skillButtons.Count; i++)
+        {
+            SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+        }
+    }
+
+    private void SetupEmptySkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
+    {
+        button.gameObject.SetActive(true);
+        button.onClick.RemoveAllListeners();
+        button.interactable = false;
+
+        cooldownImage.gameObject.SetActive(false);
+        cooldownText.gameObject.SetActive(false);
+    }
+
     public void UpdateSkillButtons()
     {
         List<SkillDataSO> equippedSkills = skillManager.equippedSkills;
 
         for (int i = 0; i < skillButtons.Count; i++)
         {
-            if (i < equippedSkills.Count)
+            if (i < equippedSkills.Count && equippedSkills[i] != null)
             {
                 SetupSkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i], equippedSkills[i]);
             }
             else
             {
-                DisableSkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+                SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
             }
         }
     }
-    private void SetupSkillButton(Button button, Image cooldownImage, Text cooldownText, SkillDataSO skill)
+    private void SetupSkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
         button.gameObject.SetActive(true);
         button.image.sprite = skill.icon;
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => UseSkill(skill));
+        button.interactable = true; // 스킬이 장착된 버튼은 클릭 가능하도록 설정
 
         // 쿨다운 이미지 초기화
         cooldownImage.gameObject.SetActive(true);
@@ -66,7 +94,7 @@ public class MainSceneSkillManager : MonoBehaviour
         cooldownCoroutines[skill] = newCoroutine;
     }
 
-    private void DisableSkillButton(Button button, Image cooldownImage, Text cooldownText)
+    private void DisableSkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
     {
         button.gameObject.SetActive(false);
         cooldownImage.gameObject.SetActive(false);
@@ -120,7 +148,7 @@ public class MainSceneSkillManager : MonoBehaviour
     }
 
 
-    private IEnumerator UpdateCooldown(Image cooldownImage, Text cooldownText, SkillDataSO skill)
+    private IEnumerator UpdateCooldown(Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
         while (true)
         {
@@ -147,13 +175,15 @@ public class MainSceneSkillManager : MonoBehaviour
         if (skill.effectPrefab == null) return;
 
         GameObject effectInstance = null;
+        Vector3 spawnPosition = Vector3.zero;
 
         switch (skill.skillType)
         {
             case SkillType.AttackBuff:
             case SkillType.HealBuff:
-                effectInstance = Instantiate(skill.effectPrefab, playerTransform.position, Quaternion.identity);
-                effectInstance.transform.SetParent(playerTransform);
+                spawnPosition = buffEffectSpawnPoint.position;
+                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
+                effectInstance.transform.SetParent(buffEffectSpawnPoint);
                 BuffSkill buffSkill = effectInstance.GetComponent<BuffSkill>();
                 if(buffSkill != null)
                 {
@@ -171,7 +201,7 @@ public class MainSceneSkillManager : MonoBehaviour
             case SkillType.Projectile:
                 if(player.scanner.nearestTarget != null)
                 {
-                    Vector3 spawnPosition = playerTransform.position;
+                    spawnPosition = playerTransform.position;
                     Vector3 targetPosition = player.scanner.nearestTarget.position;
                     Vector3 direction = (targetPosition - spawnPosition).normalized;
 
@@ -199,8 +229,8 @@ public class MainSceneSkillManager : MonoBehaviour
                 break;
 
             case SkillType.AreaOfEffect:
-                Vector3 aoePosition = playerTransform.position + playerTransform.forward * skill.aoeRadius;
-                effectInstance = Instantiate(skill.effectPrefab, aoePosition, Quaternion.identity);
+                spawnPosition = aoeEffectSpawnPoint.position;
+                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
                 AreaEffectSkill aoeSkill = effectInstance.GetComponent<AreaEffectSkill>();
                 if(aoeSkill != null)
                 {

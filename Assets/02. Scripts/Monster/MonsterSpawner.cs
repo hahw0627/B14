@@ -1,55 +1,171 @@
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
-namespace _02._Scripts.Monster
+public class MonsterSpawner : MonoBehaviour
 {
-    public class MonsterSpawner : MonoBehaviour
+    public MonsterDataSO monsterData;
+    public GameObject monsterPrefab;
+    public GameObject bossMonster;
+    public Transform[] spawnPoints;
+    public GameObject[] monsters;
+    public int stagePage = 0;
+    public int stage = 1;
+    public Transform target;
+
+    private void Start()
     {
-        [SerializeField]
-        private List<MonsterStatistics> _monsterStatistics;
-
-        [SerializeField]
-        private List<Transform> _monsterPositions;
-
-        [SerializeField]
-        private GameObject _monsterPrefab;
-
-        private GameObject _monster;
-
-        private void Start()
+        if (spawnPoints.Length < 6)
         {
-            StartMonsterSpawn();
+            Debug.LogError("Ω∫∆˘¡ˆ¡° ø¨∞· Ω«∆–.");
+            return;
         }
 
-        private void StartMonsterSpawn()
+        bossMonster.SetActive(false);
+        // ∞‘¿”¿Ã Ω√¿€«œ∏È ∏ÛΩ∫≈Õ 6∏∂∏Æ ª˝º∫«œø© πËø≠ø° ∫Ò»∞º∫»≠ ªÛ≈¬∑Œ ¿˙¿Â
+        monsters = new GameObject[6];
+        for (int i = 0; i < monsters.Length; i++)
         {
-            foreach (Transform t in _monsterPositions)
+            monsters[i] = Instantiate(monsterPrefab);
+            monsters[i].SetActive(false);
+        }
+
+        StartCoroutine(CheckMonsters());
+    }
+
+    private IEnumerator CheckMonsters()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            // ∏ÛΩ∫≈Õ πËø≠¿Ã ¿¸∫Œ ∫Ò»∞º∫»≠ µ«æÓ¿÷¥¬¡ˆ »Æ¿Œ
+            if (AllMonstersDeactivated())
             {
-                SpawnMonster((MonsterType)StageTest.StageLevel,
-                    new Vector3(t.position.x, t.position.y, 0.0f));
+                // StagePage∏¶ 1 ¡ı∞°
+                stagePage++;
+                if (stagePage <= 3)
+                {
+                    SpawnMonsters();
+                }
+                else if (stagePage == 4)
+                {
+                    SpawnBoss();
+                }
             }
-        }
-
-        // Î™¨Ïä§ÌÑ∞ ÎπÑÌôúÏÑ±Ìôî ÌÖåÏä§Ìä∏Î•º ÏúÑÌïú ÏΩîÎìú(Ìï©ÏπòÍ≥† ÎÇòÏÑú ÏÇ≠Ï†ú ÏòàÏ†ï) 
-        private void Update()
-        {
-            if (!PlayerTest.isAlive)
-            {
-                Die();
-            }
-        }
-
-        private void SpawnMonster(MonsterType type, Vector3 position)
-        {
-            _monster = MonsterPool.Monsters.Count == 0 ? Instantiate(_monsterPrefab, position, Quaternion.identity) :
-                //MonsterPool.Monsters.Enqueue(_monster.gameObject);
-                MonsterPool.GetQueue();
-            _monster.GetComponent<global::Monster>().MonsterStatistics = _monsterStatistics[(int)type];
-        }
-
-        private void Die()
-        {
-            MonsterPool.InsertQueue(gameObject);
         }
     }
+
+    private bool AllMonstersDeactivated()
+    {
+        foreach (GameObject monster in monsters)
+        {
+            if (monster.activeSelf) return false;
+        }
+        return true;
+    }
+
+    private void SpawnMonsters()
+    {
+        // StagePage∞° 1 ¡ı∞°«œ∏È Ω∫∆˜≥  πËø≠¿« ¿ßƒ°ø°º≠ ∏ÛΩ∫≈Õ∏¶ »∞º∫»≠
+        for (int i = 0; i < monsters.Length; i++)
+        {
+            monsters[i].transform.position = spawnPoints[i].position;
+            monsters[i].GetComponent<Monster123>().monsterData = monsterData;
+            monsters[i].GetComponent<Monster123>().target = target;
+            monsters[i].SetActive(true);
+        }
+    }
+
+    private void SpawnBoss()
+    {
+        bossMonster.transform.position = spawnPoints[3].position;
+        bossMonster.GetComponent<Boss>().monsterData = monsterData;
+        bossMonster.SetActive(true);
+    }
+
+    public void BossDeath()
+    {
+        // BossMonster¿« HP∞° 0 ¿Ã«œ∞° µ«∏È StagePage¥¬ 0¿Ã µ»¥Ÿ.
+        stagePage = 0;
+        // BossMonster¿« HP∞° 0 ¿Ã«œ∞° µ«∏È Stage∏¶ 1 ¡ı∞°Ω√≈≤¥Ÿ.
+        stage++;
+        monsterData.stage = stage;  // ∏ÛΩ∫≈ÕSO¿« Ω∫≈◊¿Ã¡ˆ ¡§∫∏ ¿˙¿Â?
+        // BossMonster¿« HP∞° 0 ¿Ã«œ∞° µ«∏È MonsterDataSO_Test¿« ∞™¿ª 1.2f ∞ˆ«œ∞Ì ¿Œ∆Æ«¸¿∏∑Œ ∫Ø»Ø«ÿº≠ ¿˙¿Â
+        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
+        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//============================================================================================================================
+//using System.Collections.Generic;
+//using UnityEngine;
+
+//namespace _02._Scripts.Monster
+//{
+//    public class MonsterSpawner : MonoBehaviour
+//    {
+//        [SerializeField]
+//        private List<MonsterStatistics> _monsterStatistics;
+
+//        [SerializeField]
+//        private List<Transform> _monsterPositions;
+
+//        [SerializeField]
+//        private GameObject _monsterPrefab;
+
+//        private GameObject _monster;
+
+//        private void Start()
+//        {
+//            StartMonsterSpawn();
+//        }
+
+//        private void StartMonsterSpawn()
+//        {
+//            foreach (Transform t in _monsterPositions)
+//            {
+//                SpawnMonster((MonsterType)StageTest.StageLevel,
+//                    new Vector3(t.position.x, t.position.y, 0.0f));
+//            }
+//        }
+
+//        // ∏ÛΩ∫≈Õ ∫Ò»∞º∫»≠ ≈◊Ω∫∆Æ∏¶ ¿ß«— ƒ⁄µÂ(«’ƒ°∞Ì ≥™º≠ ªË¡¶ øπ¡§) 
+//        private void Update()
+//        {
+//            if (!PlayerTest.isAlive)
+//            {
+//                Die();
+//            }
+//        }
+
+//        private void SpawnMonster(MonsterType type, Vector3 position)
+//        {
+//            _monster = MonsterPool.Monsters.Count == 0 ? Instantiate(_monsterPrefab, position, Quaternion.identity) :
+//                //MonsterPool.Monsters.Enqueue(_monster.gameObject);
+//                MonsterPool.GetQueue();
+//            _monster.GetComponent<global::Monster>().MonsterStatistics = _monsterStatistics[(int)type];
+//        }
+
+//        private void Die()
+//        {
+//            MonsterPool.InsertQueue(gameObject);
+//        }
+//    }
+//}

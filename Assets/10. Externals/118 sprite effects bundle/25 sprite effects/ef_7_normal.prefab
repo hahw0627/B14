@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2733247010544334550}
   - component: {fileID: 2733247010544334551}
   - component: {fileID: 2733247010544334548}
-  - component: {fileID: 3962190729571644095}
+  - component: {fileID: 4934480843467726187}
   m_Layer: 0
   m_Name: ef_7_normal
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4901,7 +4901,7 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
---- !u!114 &3962190729571644095
+--- !u!114 &4934480843467726187
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

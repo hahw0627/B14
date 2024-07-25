@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 4755740371325174915}
   - component: {fileID: 8684159349138778999}
   - component: {fileID: 4576696655750229277}
-  - component: {fileID: -3201778370605017260}
   - component: {fileID: -3528192639788008154}
+  - component: {fileID: -2809256818913529910}
   m_Layer: 6
   m_Name: Monster
   m_TagString: Monster
@@ -132,24 +132,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.16, y: 0.16}
   m_EdgeRadius: 0
---- !u!114 &-3201778370605017260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2827527121020484550}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4165f401572efc74dbee3254c29fea9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterProjectilePrefab: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
-  target: {fileID: 0}
-  Hp: 0
-  damage: 0
-  attackSpeed: 0
 --- !u!95 &-3528192639788008154
 Animator:
   serializedVersion: 5
@@ -171,3 +153,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-2809256818913529910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2827527121020484550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  monsterProjectilePrefab: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
+  target: {fileID: 0}
+  Hp: 0
+  damage: 0
+  attackSpeed: 0
