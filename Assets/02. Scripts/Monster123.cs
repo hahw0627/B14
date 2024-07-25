@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
+using TMPro;
 
 public class Monster123 : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
+    public PlayerDataSO playerData;
     public GameObject monsterProjectilePrefab;
     public Transform target;
     public int Hp;
@@ -77,6 +79,8 @@ public class Monster123 : MonoBehaviour, IDamageable
         if (Hp <= 0)
         {
             gameObject.SetActive(false);
+            // UI에 연결하여 증가 확인할 수 있게 해줄 것
+            playerData.Gold += 10;
             Debug.Log("비활성화");
         }
     }

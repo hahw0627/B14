@@ -15,13 +15,13 @@ MonoBehaviour:
   skills: []
   pets: []
   playerName: 00011
-  Gold: 100
+  Gold: 1
   Diamond: 100
   TotalPower: 10
-  Damage: 80
+  Damage: 20
   Def: 0
-  AttackSpeed: 6.5
-  Hp: 1400
-  HpRecovery: 801
+  AttackSpeed: 4
+  Hp: 200
+  HpRecovery: 5
   CriticalPer: 1
   CriticalDamage: 1.5
