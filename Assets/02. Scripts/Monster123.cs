@@ -15,6 +15,8 @@ public class Monster123 : MonoBehaviour, IDamageable
     private Animator animator;
     private SpriteRenderer spriteRenderer;
     private bool isAttacking = false;
+    public GameObject hudDamgeText;
+    public Transform hudPos;
 
     private void Awake()
     {
@@ -73,6 +75,9 @@ public class Monster123 : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        GameObject hudText = Instantiate(hudDamgeText);
+        hudText.transform.position = hudPos.position;
+        hudText.GetComponent<DamageText>().damage = damage;
         Hp -= damage;
         Debug.Log("몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
 
