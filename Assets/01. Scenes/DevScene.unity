@@ -13649,7 +13649,7 @@ Canvas:
   m_GameObject: {fileID: 1354466721}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 2113925117}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -13680,7 +13680,6 @@ RectTransform:
   - {fileID: 418999799}
   - {fileID: 1233171718}
   - {fileID: 827270519}
-  - {fileID: 1359144744}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -13745,7 +13744,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: -1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8612036b57180ea43ac73e4475a7b5e8, type: 3}
   m_Color: {r: 0.64945686, g: 1, b: 0.5613208, a: 1}
   m_FlipX: 0
@@ -13757,25 +13756,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!224 &1359144744
-RectTransform:
+--- !u!4 &1359144744
+Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1359144742}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -28800}
-  m_LocalScale: {x: 300, y: 242, z: 0}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.3205, y: 3.7973, z: 0}
+  m_LocalScale: {x: 0.9734739, y: 0.95418435, z: 0.7624326}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1354466725}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 29, y: 830}
-  m_SizeDelta: {x: 5688, y: 10.8}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1360113140
 GameObject:
   m_ObjectHideFlags: 0
@@ -26128,7 +26123,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 460}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7773731147707815922
 MonoBehaviour:
@@ -26173,8 +26168,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1254768655279557940}
   m_HandleRect: {fileID: 824777357712396768}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.50000024
+  m_Size: 0.72619045
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -27044,3 +27039,4 @@ SceneRoots:
   - {fileID: 1872640617}
   - {fileID: 590904330}
   - {fileID: 1498905568}
+  - {fileID: 1359144744}
