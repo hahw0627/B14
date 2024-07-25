@@ -13,10 +13,13 @@ public class DataTest : MonoBehaviour
     {
         saveLoadManager = FindObjectOfType<SaveLoadManager>();
         
+        
         //LoadGame();
     }
     private void Update()
     {
+
+    
         if (Input.GetKeyDown(KeyCode.S))
         {
             TempCsv tempCsv = FindAnyObjectByType<TempCsv>();

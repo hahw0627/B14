@@ -37,21 +37,14 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveSOData()
     {
-        //ReceiveSOData();
-        string playerJson = JsonUtility.ToJson(playerDataSO,true);   
+        string playerJson = JsonUtility.ToJson(playerDataSO,true);
+        File.WriteAllText(playerSavePath, playerJson);
         //SkillsDataWrapper wrapper = new SkillsDataWrapper
         //{
         //    skills = skillsDataSO
         //};
         //string skillsJson = JsonUtility.ToJson(wrapper, true);
-        
-
-        //Debug.Log("PlayerJSON: " + playerJson);
-        //Debug.Log("SkillsJSON: " + skillsJson);
-       
-        File.WriteAllText(playerSavePath, playerJson);
         //File.WriteAllText(skillsSavePath, skillsJson);
-
     }
 
  
@@ -68,8 +61,6 @@ public class SaveLoadManager : MonoBehaviour
         {
             Debug.LogWarning("Player data JSON file not found.");
         }
-
-
 
         //if (File.Exists(skillsSavePath))
         //{
