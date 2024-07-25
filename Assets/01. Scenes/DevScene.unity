@@ -1915,7 +1915,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -2389,7 +2389,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -7280,7 +7280,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -11810,7 +11810,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -13843,7 +13843,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -20093,10 +20093,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1550646121}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 240}
+  m_SizeDelta: {x: 1440, y: 240}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1985156299
 MonoBehaviour:
@@ -26183,7 +26183,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1254768655279557940}
   m_HandleRect: {fileID: 824777357712396768}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.642422
   m_NumberOfSteps: 0
   m_OnValueChanged:
