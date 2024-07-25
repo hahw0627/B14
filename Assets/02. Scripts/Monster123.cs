@@ -77,7 +77,7 @@ public class Monster123 : MonoBehaviour, IDamageable
     {
         GameObject hudText = Instantiate(hudDamgeText);
         hudText.transform.position = hudPos.position;
-        hudText.GetComponent<DamageText>().damage = damage;
+        hudText.GetComponent<DamageText>().SetDamage(playerData.Damage);
         Hp -= damage;
         Debug.Log("몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
 

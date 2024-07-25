@@ -16,6 +16,9 @@ public class Boss : MonoBehaviour, IDamageable
     private float moveTime = 0.0f;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
+    public PlayerDataSO playerData;
+    public GameObject hudDamgeText;
+    public Transform hudPos;
 
     private void Awake()
     {
@@ -68,6 +71,9 @@ public class Boss : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damage)
     {
+        GameObject hudText = Instantiate(hudDamgeText);
+        hudText.transform.position = hudPos.position;
+        hudText.GetComponent<DamageText>().SetDamage(playerData.Damage);
         Hp -= damage;
         Debug.Log("보스 몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
 

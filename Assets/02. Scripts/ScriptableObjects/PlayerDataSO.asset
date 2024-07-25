@@ -14,8 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skills: []
   pets: []
+  weapons: []
+  armors: []
   playerName: 00011
-  Gold: 1
+  Gold: 958
   Diamond: 100
   TotalPower: 10
   Damage: 20

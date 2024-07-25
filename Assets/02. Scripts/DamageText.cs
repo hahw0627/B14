@@ -12,11 +12,19 @@ public class DamageText : MonoBehaviour
     TextMeshPro text;
     Color alpha;
     public int damage;
-    // Start is called before the first frame update
+
+    public void SetDamage(int damageValue)
+    {
+        damage = damageValue;
+        if( text != null)
+        {
+            text.text = damage.ToString();
+        }
+    }
     void Start()
     {
         text = GetComponent<TextMeshPro>();
-        text.text = damage.ToString();
+        SetDamage(damage);
         alpha = text.color;
         Invoke("DestroyObject", destroyTime);
     }

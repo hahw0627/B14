@@ -6399,6 +6399,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
+    - target: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -26183,7 +26187,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1254768655279557940}
   m_HandleRect: {fileID: 824777357712396768}
   m_Direction: 2
-  m_Value: 1.0000002
+  m_Value: 1
   m_Size: 0.642422
   m_NumberOfSteps: 0
   m_OnValueChanged:
