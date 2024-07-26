@@ -6,7 +6,7 @@ using System;
 public class Monster123 : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
-    public PlayerDataSO playerData;
+    //public PlayerDataSO playerData;
     public GameObject monsterProjectilePrefab;
     public Transform target;
     public int Hp;
@@ -91,9 +91,9 @@ public class Monster123 : MonoBehaviour, IDamageable
 
         if (Hp <= 0)
         {
+            this.Die();
             gameObject.SetActive(false);
             // UI에 연결하여 증가 확인할 수 있게 해줄 것
-            this.Die();
             Debug.Log("비활성화");
         }
     }
