@@ -41,20 +41,20 @@ public class Monster123 : MonoBehaviour, IDamageable
     {
         if (monsterData == null)
         {
-            Debug.LogError("MonsterDataSO_Test ¿¬°á ½ÇÆÐ");
+            Debug.LogError("MonsterDataSO_Test ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             return;
         }
-        // È°¼ºÈ­µÉ ¶§ ¸ó½ºÅÍÀÇ µ¥ÀÌÅÍ¸¦ ÃÊ±âÈ­
+        // È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Ê±ï¿½È­
         Hp = monsterData.Hp;
         damage = monsterData.Damage;
         attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f; // moveTime ÃÊ±âÈ­
+        moveTime = 0.0f; // moveTime ï¿½Ê±ï¿½È­
         isAttacking = false;
     }
 
     private void Update()
     {
-        // ¸ó½ºÅÍ ÀÌµ¿ ½ÃÀÛ
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
         if (moveTime < 1.5f)
         {
             spriteRenderer.flipX = true;
@@ -90,16 +90,16 @@ public class Monster123 : MonoBehaviour, IDamageable
     {
         GameObject hudText = Instantiate(hudDamgeText);
         hudText.transform.position = hudPos.position;
-        hudText.GetComponent<DamageText>().SetDamage(playerData.Damage);
+        hudText.GetComponent<DamageText>().SetDamage(DataManager.Instance.playerDataSO.Damage);
         Hp -= damage;
-        Debug.Log("¸ó½ºÅÍ HP °¨¼Ò\n" + "HP : " + Hp + " / µ¥¹ÌÁö : " + damage);
+        Debug.Log("ï¿½ï¿½ï¿½ï¿½ HP ï¿½ï¿½ï¿½ï¿½\n" + "HP : " + Hp + " / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : " + damage);
 
         if (Hp <= 0)
         {
             this.Die();
             gameObject.SetActive(false);
-            // UI¿¡ ¿¬°áÇÏ¿© Áõ°¡ È®ÀÎÇÒ ¼ö ÀÖ°Ô ÇØÁÙ °Í
-            Debug.Log("ºñÈ°¼ºÈ­");
+            // UIï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+            Debug.Log("ï¿½ï¿½È°ï¿½ï¿½È­");
         }
     }
 }
@@ -134,7 +134,7 @@ public class Monster123 : MonoBehaviour, IDamageable
 
 //    private void Start()
 //    {
-//        Debug.Log($"{_monsterStatistics.Name} »ý¼º ¿Ï·á");
+//        Debug.Log($"{_monsterStatistics.Name} ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 //        Hp = _monsterStatistics.Hp;
 //        StartCoroutine(MoveForSeconds(1.5f));
 //    }
@@ -161,26 +161,26 @@ public class Monster123 : MonoBehaviour, IDamageable
 //        _isCollision = true;
 //        if (other.gameObject.name != "Player(Test)") return;
 //        Debug.Log("---");
-//        Debug.Log($"{_monsterStatistics.Name} °ø°Ý ½ÃÀÛ");
+//        Debug.Log($"{_monsterStatistics.Name} ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 //        StartCoroutine(nameof(Attack));
 //    }
 
 //    private IEnumerator Attack()
 //    {
-//        Debug.Log($"ÇÃ·¹ÀÌ¾î Ã¼·Â: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//        Debug.Log($"ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã¼ï¿½ï¿½: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
 //        while (true)
 //        {
 //            if (PlayerTest.CurrentHp <= 0) yield break;
 //            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
 //            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-//            Debug.Log($"ÇÃ·¹ÀÌ¾î Ã¼·Â: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//            Debug.Log($"ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã¼ï¿½ï¿½: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
 //        }
 //    }
 
 //    public void TakeDamage(int damage)
 //    {
 //        Hp -= damage;
-//        Debug.Log("¸ó½ºÅÍ HP °¨¼Ò\n" + "HP : " + Hp + " / µ¥¹ÌÁö : " + damage);
+//        Debug.Log("ï¿½ï¿½ï¿½ï¿½ HP ï¿½ï¿½ï¿½ï¿½\n" + "HP : " + Hp + " / ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ : " + damage);
 
 //        if (Hp <= 0)
 //        {
