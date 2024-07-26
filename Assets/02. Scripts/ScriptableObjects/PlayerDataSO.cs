@@ -30,5 +30,7 @@ public class PlayerDataSO : ScriptableObject
     // 치명타는 최대 강화 레벨을 500으로?
     public float CriticalPer;       // 치명타 확률 0레벨 시작 ( 강화마다 0.2 증가하면 될 듯함 )
     public float CriticalDamage;    // 치명타 공격력 0레벨 시작 ( 0레벨 150퍼센트 데미지 시작 + 레벨당 0.3%증가? )
+
+   
 }
 
