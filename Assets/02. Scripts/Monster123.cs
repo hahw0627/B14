@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using TMPro;
+using System;
 
 public class Monster123 : MonoBehaviour, IDamageable
 {
@@ -18,10 +19,22 @@ public class Monster123 : MonoBehaviour, IDamageable
     public GameObject hudDamgeText;
     public Transform hudPos;
 
+    private int goldReward;
+
+    public event Action<Monster123> OnDeath;
+
     private void Awake()
     {
+        goldReward = 10;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+ 
+    public void Die()
+    {
+
+        DataManager.Instance.playerDataSO.Gold += goldReward;
+        OnDeath?.Invoke(this);
     }
 
     private void OnEnable()
@@ -85,7 +98,7 @@ public class Monster123 : MonoBehaviour, IDamageable
         {
             gameObject.SetActive(false);
             // UI에 연결하여 증가 확인할 수 있게 해줄 것
-            playerData.Gold += 10;
+            this.Die();
             Debug.Log("비활성화");
         }
     }

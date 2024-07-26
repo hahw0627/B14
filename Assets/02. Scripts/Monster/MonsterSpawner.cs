@@ -10,6 +10,9 @@ public class MonsterSpawner : MonoBehaviour
     public GameObject bossMonster;
     public Transform[] spawnPoints;
     public GameObject[] monsters;
+    
+   
+
     public int stagePage = 0;
     public int stage = 1;
     public Transform target;
@@ -28,10 +31,16 @@ public class MonsterSpawner : MonoBehaviour
         for (int i = 0; i < monsters.Length; i++)
         {
             monsters[i] = Instantiate(monsterPrefab);
+            monsters[i].GetComponent<Monster123>().OnDeath += HandleMonsterDeath;
             monsters[i].SetActive(false);
         }
 
         StartCoroutine(CheckMonsters());
+    }
+
+    void HandleMonsterDeath(Monster123 monster123)
+    {
+        UIManager.Instance.UpdateCurrencyUI();
     }
 
     private IEnumerator CheckMonsters()
