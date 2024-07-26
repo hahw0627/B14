@@ -12,14 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41ab849a55c4f944bb12019f340a880, type: 3}
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
-  playerName: Base
-  Gold: 10
-  Diamond: 10
+  skills: []
+  pets: []
+  weapons: []
+  armors: []
+  playerName: 00011
+  Gold: 0
+  Diamond: 100
   TotalPower: 10
-  Damage: 10
+  Damage: 20
   Def: 0
-  AttackSpeed: 1
-  Hp: 100
-  HpRecovery: 1
+  AttackSpeed: 4
+  Hp: 200
+  HpRecovery: 5
   CriticalPer: 1
   CriticalDamage: 1.5

@@ -20,6 +20,8 @@ public class SkillManager : MonoBehaviour
 
     public void UpdateEquippedSkills() //playerdataSO에 있는 skill equipped스킬에 넣기    
     {
+      
+
         if (playerDataSO.skills == null)
             return;
 

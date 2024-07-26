@@ -18,9 +18,7 @@ public class EquipmentDataSO : ScriptableObject
    public int   atk; //공격력
    public int   def; //방어력
    public float attackSpeed; //공격속도.
-   
-   
-   //추가
 
 
+    //추가
 }
