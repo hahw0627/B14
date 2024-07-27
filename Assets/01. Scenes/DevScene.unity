@@ -428,6 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17708280}
   - component: {fileID: 17708281}
+  - component: {fileID: 17708282}
   m_Layer: 0
   m_Name: MonsterSpawner
   m_TagString: Untagged
@@ -468,9 +469,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97136ff59d7ec4a99b7c40da845ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
-  bossMonster: {fileID: 275247953}
+  monsterPool: {fileID: 17708282}
   spawnPoints:
   - {fileID: 1396151741}
   - {fileID: 277040747}
@@ -478,10 +477,24 @@ MonoBehaviour:
   - {fileID: 608438022}
   - {fileID: 1619295865}
   - {fileID: 980565156}
-  monsters: []
+  bossMonster: {fileID: 275247953}
   stagePage: 0
   stage: 1
   target: {fileID: 0}
+--- !u!114 &17708282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17708278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41bf79d440666c448a61290573fe5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  monsters: []
 --- !u!1 &54227259
 GameObject:
   m_ObjectHideFlags: 0
@@ -17068,8 +17081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf6cf3567440c1245a19b29e8a1cd22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weapons: []
-  _armors: []
 --- !u!1 &1739166615
 GameObject:
   m_ObjectHideFlags: 0
@@ -18572,14 +18583,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  monsterSpawner: {fileID: 17708281}
+  scanner: {fileID: 1828702166}
+  fireMuzzle: {fileID: 280144680}
+  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
   damage: 0
   attackSpeed: 0
   currentHp: 0
-  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
-  monsterSpawner: {fileID: 17708281}
-  scanner: {fileID: 1828702166}
-  spriteRenderer: {fileID: 0}
-  fireMuzzle: {fileID: 280144680}
 --- !u!4 &1828702168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6537006914516050989, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}

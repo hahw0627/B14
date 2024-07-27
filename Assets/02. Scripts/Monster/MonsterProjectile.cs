@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MonsterProjectile : MonoBehaviour
 {
-    public Transform target;
+    public GameObject target;
     public int damage;
     public int speed = 3;
     private Vector3 direction;
@@ -13,7 +13,7 @@ public class MonsterProjectile : MonoBehaviour
     {
         if (target != null)
         {
-            direction = (target.position - transform.position).normalized;
+            direction = (target.transform.position - transform.position).normalized;
         }
 
         StartCoroutine(DestroyAfterTime(1f));
