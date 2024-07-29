@@ -2,93 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : MonoBehaviour, IDamageable
+public class Boss : Monster123  // 몬스터 스크립트 상속
 {
-    public MonsterDataSO monsterData;
-    public GameObject monsterProjectilePrefab;
-    public Transform target;
-
-    public int Hp;
-    public int damage;
-    public float attackSpeed;
-    private bool isAttacking = false;
     public MonsterSpawner monsterSpawner;
-    private float moveTime = 0.0f;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    public PlayerDataSO playerData;
-    public GameObject hudDamgeText;
-    public Transform hudPos;
 
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-    }
-
-    private void OnEnable()
+    // 보스 몬스터 활성화 시
+    protected override void OnEnable()
     {
         Hp = monsterData.Hp * 3; // 보스 몬스터는 HP를 2배로 설정
         damage = monsterData.Damage * 2; // 보스 몬스터는 데미지도 2배로 설정
         attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f; // moveTime 초기화
-        isAttacking = false;
     }
 
-    private void Update()
-    {
-        // 몬스터 이동 시작
-        if (moveTime < 1.5f)
-        {
-            spriteRenderer.flipX = true;
-            transform.Translate(Vector3.left * 2.0f * Time.deltaTime);
-            moveTime += Time.deltaTime;
-        }
-        else if (moveTime >= 1.5f)
-        {
-            animator.SetBool("IsBattle", true);
-            if (!isAttacking)
-            {
-                StartCoroutine(Attack());
-            }
-        }
-    }
-
-    private IEnumerator Attack()
-    {
-        isAttacking = true;
-        while (true)
-        {
-            if (target != null)
-            {
-                GameObject projectile = Instantiate(monsterProjectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<MonsterProjectile>().target = target;
-                projectile.GetComponent<MonsterProjectile>().damage = damage;
-            }
-            yield return new WaitForSeconds(1 / attackSpeed);
-        }
-    }
-
-    public void TakeDamage(int damage)
+    // 보스 몬스터 피격
+    public override void TakeDamage(int damage)
     {
         GameObject hudText = Instantiate(hudDamgeText);
         hudText.transform.position = hudPos.position;
-        hudText.GetComponent<DamageText>().SetDamage(playerData.Damage);
+        hudText.GetComponent<DamageText>().SetDamage(DataManager.Instance.playerDataSO.Damage);
         Hp -= damage;
-        Debug.Log("보스 몬스터 HP 감소\n" + "HP : " + Hp + " / 데미지 : " + damage);
 
         if (Hp <= 0)
         {
+            this.Die();
+            BossDeath();
             gameObject.SetActive(false);
-            Debug.Log("보스 몬스터 비활성화");
-            if (monsterSpawner != null)
-            {
-                monsterSpawner.BossDeath();
-            }
-            else
-            {
-                Debug.LogWarning("MonsterSpawner_UK가 할당되지 않았습니다.");
-            }
         }
+    }
+
+    // 보스 사망
+    public void BossDeath()
+    {
+        // BossMonster의 HP가 0 이하가 되면 StagePage는 0이 된다.
+        monsterSpawner.stagePage = 0;
+        // BossMonster의 HP가 0 이하가 되면 Stage를 1 증가시킨다.
+        monsterSpawner.stage++;
+        monsterData.stage = monsterSpawner.stage;  // 몬스터SO의 스테이지 정보 저장?
+        // BossMonster의 HP가 0 이하가 되면 MonsterDataSO_Test의 값을 1.2f 곱하고 인트형으로 변환해서 저장
+        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
+        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
     }
 }
