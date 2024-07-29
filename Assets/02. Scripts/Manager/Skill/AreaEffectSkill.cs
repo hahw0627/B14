@@ -6,13 +6,11 @@ using UnityEngine;
 public class AreaEffectSkill : MonoBehaviour
 {
     private SkillDataSO skillData;
-    private int playerBaseDamage;
     private float damageInterval = 0.5f; // 데미지를 주는 간격 (초)
 
-    public void Initialize(SkillDataSO skill, int playerDamage)
+    public void Initialize(SkillDataSO skill)
     {
         skillData = skill;
-        playerBaseDamage = playerDamage;
         StartCoroutine(DealDamageOverTime());    
     }
 
@@ -44,8 +42,8 @@ public class AreaEffectSkill : MonoBehaviour
         IDamageable damageable = target.GetComponent<IDamageable>();
         if(damageable!= null)
         {
-            int totalDamage = skillData.damage + playerBaseDamage;
-            Debug.Log($"Area effect skill '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill : {skillData.damage}, Player Base : {playerBaseDamage})");
+            int totalDamage = skillData.damage + DataManager.Instance.playerDataSO.Damage;
+            Debug.Log($"Area effect skill '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill : {skillData.damage}, Player Base : {DataManager.Instance.playerDataSO.Damage})");
             damageable.TakeDamage(totalDamage);
 
         }

@@ -5,17 +5,15 @@ using UnityEngine;
 public class SkillProjectile : MonoBehaviour
 {
     public SkillDataSO skillData { get; private set; }
-    public int playerBaseDamage { get; private set; }
     private Vector3 targetPosition;
     private float speed;
     private ParticleSystem particleSystem;
     private TrailRenderer trailRenderer;
 
-    public void Initialize(SkillDataSO skill, Vector3 target, int playerDamage)
+    public void Initialize(SkillDataSO skill, Vector3 target)
     {
         skillData = skill;
         targetPosition = target;
-        playerBaseDamage = playerDamage;
         speed = skillData.projectileSpeed;
 
         // 즉시 목표를 향해 회전
@@ -84,8 +82,8 @@ public class SkillProjectile : MonoBehaviour
         IDamageable damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            int totalDamage = skillData.damage + playerBaseDamage;
-            Debug.Log($"Skill projectile '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.damage}, Player Base: {playerBaseDamage})");
+            int totalDamage = skillData.damage + DataManager.Instance.playerDataSO.Damage;
+            Debug.Log($"Skill projectile '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.damage}, Player Base: {DataManager.Instance.playerDataSO.Damage})");
             damageable.TakeDamage(totalDamage);
         }
         else

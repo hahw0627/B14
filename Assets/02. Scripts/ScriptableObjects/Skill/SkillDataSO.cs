@@ -10,13 +10,21 @@ public enum SkillType
     Projectile,
     AreaOfEffect
 }
+public enum SkillRarity
+{
+    Normal,
+    Rare,
+    Unique,
+    Epic,
+    Legendary
+}
 [CreateAssetMenu(fileName = "SkillDataSO", menuName = "ScriptableObjects/SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
     public string skillName;
     public Sprite icon;
     public int level;
-    public string rarity;
+    public SkillRarity rarity;
     public string description;
     public float duration;
     public float cooldown;

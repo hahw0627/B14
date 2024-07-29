@@ -15,14 +15,14 @@ MonoBehaviour:
   skillName: "\uC2E0\uBE44\uD55C \uD654\uC0B4"
   icon: {fileID: 21300000, guid: d6bf9fd619ff24ce58267141ada9bbaa, type: 3}
   level: 1
-  rarity: "\uC5D0\uD53D"
+  rarity: 2
   description: "\uC2E0\uBE44\uD55C \uD654\uC0B4\uC744 \uB0A0\uB824 \uC801\uC5D0\uAC8C
     125\uC758 \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4."
   duration: 1
   cooldown: 10
   damage: 125
   effectPrefab: {fileID: 1381725822259981617, guid: cde0b7b70e140d846b02d1b45b5b3d97, type: 3}
-  skillType: 0
+  skillType: 2
   projectileSpeed: 0.5
   aoeRadius: 0
   buffAmount: 0
