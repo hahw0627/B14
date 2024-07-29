@@ -8,7 +8,6 @@ public class Monster123 : MonoBehaviour, IDamageable
     public MonsterDataSO monsterData;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
-    public GameObject monsterProjectilePrefab;
     public GameObject target;
 
     public int Hp;
@@ -80,9 +79,14 @@ public class Monster123 : MonoBehaviour, IDamageable
         {
             if (target != null)
             {
-                GameObject projectile = Instantiate(monsterProjectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<MonsterProjectile>().target = target;
-                projectile.GetComponent<MonsterProjectile>().damage = damage;
+                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                projectile.transform.position = transform.position;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.target = target.transform;
+                projectileScript.SetDirection(target.transform.position);
+                projectileScript.damage = damage;
+                projectileScript.shooterTag = "Monster";
+                projectileScript.SetColor(Color.red);
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }

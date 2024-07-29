@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
 
     private Coroutine attackCoroutine;
     public Transform fireMuzzle;
-    public GameObject projectilePrefab;
 
     public int damage;
     public float attackSpeed;
@@ -44,10 +43,14 @@ public class Player : MonoBehaviour
             // scanner의 nearestTarget이 null이 아닌 경우에만 nearestTarget을 가져와 target으로 설정 + 투사체 생성
             if (!isUsingSkill && scanner.nearestTarget != null)
             {
-                GameObject projectile = Instantiate(projectilePrefab, fireMuzzle.position, Quaternion.identity);
-                projectile.GetComponent<Projectile>().target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
-                projectile.GetComponent<Projectile>().damage = this.damage;   // 생성된 투사체에 데미지 설정
-                projectile.GetComponent<Projectile>().player = this; // 생성된 투사체에 플레이어 설정
+                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                projectile.transform.position = fireMuzzle.position;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
+                projectileScript.SetDirection(scanner.nearestTarget.transform.position);
+                projectileScript.damage = this.damage;   // 생성된 투사체에 데미지 설정
+                projectileScript.shooterTag = "Player";
+                projectileScript.SetColor(Color.blue);
             }
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1초에 / attackSpeed 만큼 공격

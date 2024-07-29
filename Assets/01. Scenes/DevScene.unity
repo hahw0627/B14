@@ -5764,7 +5764,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 9c030f9cbc9181348b2d4a2410310461, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -11084,6 +11083,52 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &1114548990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1114548992}
+  - component: {fileID: 1114548991}
+  m_Layer: 0
+  m_Name: ProjectilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1114548991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114548990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5928f098cc78f448b198a6eb235cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
+  poolSize: 10
+--- !u!4 &1114548992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1114548990}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -11.1397, y: 12.586328, z: 31.065718}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1132536417
 GameObject:
   m_ObjectHideFlags: 0
@@ -15249,7 +15294,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 277ceb2df66013844b5668ded71df79e, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -18586,7 +18630,6 @@ MonoBehaviour:
   monsterSpawner: {fileID: 17708281}
   scanner: {fileID: 1828702166}
   fireMuzzle: {fileID: 280144680}
-  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
   damage: 0
   attackSpeed: 0
   currentHp: 0
@@ -19194,7 +19237,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -26244,8 +26286,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1254768655279557940}
   m_HandleRect: {fileID: 824777357712396768}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.9999999
+  m_Value: 0
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -27117,3 +27159,4 @@ SceneRoots:
   - {fileID: 1872640617}
   - {fileID: 590904330}
   - {fileID: 1498905568}
+  - {fileID: 1114548992}

@@ -5,10 +5,17 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public Transform target;
-    public Player player;
     public int damage;
     public int speed = 3;
     private Vector3 direction;
+    public string shooterTag; // 투사체를 발사한 주체의 태그 (Player 또는 Monster)
+    private SpriteRenderer spriteRenderer;
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
 
     private void Start()
     {
@@ -17,53 +24,62 @@ public class Projectile : MonoBehaviour
         {
             direction = (target.position - transform.position).normalized;
         }
+    }
 
+    private void OnEnable()
+    {
         // 3초 후에 삭제
         StartCoroutine(DestroyAfterTime(1.5f));
+
     }
 
     private void Update()
     {
-        transform.position += direction * speed * Time.deltaTime; // 설정된 방향으로 투사체 이동
+        // 설정된 방향으로 투사체 이동
+        transform.position += direction * speed * Time.deltaTime;
     }
 
+    // 일정 시간 이후 비활성화
     private IEnumerator DestroyAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
-        // 오브젝트 풀링으로 구현 예정 1
-        Destroy(gameObject);
+        ProjectilePool.Instance.ReturnProjectile(gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("투사체 충돌 감지!");
-        if (collision.CompareTag("Monster"))
+        if ((shooterTag == "Player" && collision.CompareTag("Monster")) ||
+            (shooterTag == "Monster" && collision.CompareTag("Player")))
         {
-            // 오브젝트 풀링으로 구현 예정 1
-            Destroy(gameObject);
-            AttackMonster(collision.transform);
+            // 다른 팀일 경우에만 공격
+            if (collision.CompareTag("Player"))
+            {
+                Player player = collision.GetComponent<Player>();
+                if (player != null)
+                {
+                    player.TakeDamage(damage);
+                }
+            }
+            else if (collision.CompareTag("Monster"))
+            {
+                Monster123 monster = collision.GetComponent<Monster123>();
+                if (monster != null)
+                {
+                    monster.TakeDamage(damage);
+                }
+            }
+            ProjectilePool.Instance.ReturnProjectile(gameObject);
         }
     }
 
-    private void AttackMonster(Transform target)
+    public void SetDirection(Vector3 targetPosition)
     {
-        if (target != null)
-        {
-            // 타겟이 Monster_Test 컴포넌트를 가지고 있는지 확인하여 TakeDamage 호출
-            Monster123 monsterScript = target.GetComponent<Monster123>();
-            if (monsterScript != null)
-            {
-                monsterScript.TakeDamage(damage);
-            }
-            // 만약 Boss 스크립트를 가진 오브젝트도 데미지를 받아야 한다면
-            else
-            {
-                Boss bossScript = target.GetComponent<Boss>();
-                if (bossScript != null)
-                {
-                    bossScript.TakeDamage(damage);
-                }
-            }
-        }
+        direction = (targetPosition - transform.position).normalized;
+    }
+
+    public void SetColor(Color color)
+    {
+        spriteRenderer.color = color;
     }
 }
+

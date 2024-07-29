@@ -11,7 +11,7 @@ public class MonsterPool : SingletonDestroyable<MonsterPool>
         monsters = new GameObject[6];
         for (int i = 0; i < monsters.Length; i++)
         {
-            monsters[i] = Instantiate(monsterPrefab);
+            monsters[i] = Instantiate(monsterPrefab, transform);
             monsters[i].GetComponent<Monster123>().OnDeath += HandleMonsterDeath;
             monsters[i].SetActive(false);
         }
