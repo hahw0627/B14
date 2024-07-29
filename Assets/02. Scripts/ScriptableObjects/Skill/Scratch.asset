@@ -22,7 +22,7 @@ MonoBehaviour:
   cooldown: 5
   damage: 35
   effectPrefab: {fileID: 2136775385740452205, guid: 607a091d6561605479747c9ddd096b52, type: 3}
-  skillType: 0
+  skillType: 3
   projectileSpeed: 0
   aoeRadius: 5
   buffAmount: 0
