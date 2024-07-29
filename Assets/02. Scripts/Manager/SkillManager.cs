@@ -1,39 +1,52 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-    public List<SkillDataSO> allSkills;
-    public List<SkillDataSO> equippedSkills;
-    public PlayerDataSO playerDataSO;
-
+    public List<SkillDataSO> allSkills = new List<SkillDataSO>();
+    public List<SkillDataSO> equippedSkills = new List<SkillDataSO>();
     public int maxEquippedSkills = 5;
+    public event Action OnEquippedSkillsChanged;
 
-    public event System.Action OnEquippedSkillsChanged;
+    [Header("Auto Skill Management")]
+    public MainSceneSkillManager mainSceneSkillManager;
+    public float autoUseInterval = 0.5f;
+    public Button autoButton;
+    public Color autoOnColor = Color.white;
+    public Color autoOffColor = Color.gray;
+    public Player player;
+
+    private bool isAutoMode;
+    private Coroutine autoUseCoroutine;
+    private Dictionary<SkillDataSO, float> skillCooldowns = new Dictionary<SkillDataSO, float>();
 
     private void Awake()
     {
+        DataManager.Instance.FillAllSkillsData(allSkills);
         UpdateEquippedSkills();
         OnEquippedSkillsChanged?.Invoke();
     }
 
-    public void UpdateEquippedSkills() //playerdataSO에 있는 skill equipped스킬에 넣기    
+    private void Update()
     {
-      
+        UpdateCooldowns();
+    }
 
-        if (playerDataSO.skills == null)
-            return;
-
-        foreach (var skill in playerDataSO.skills)
+    public void UpdateEquippedSkills()
+    {
+        equippedSkills.Clear();
+        if (DataManager.Instance.playerDataSO.skills != null)
         {
-            equippedSkills.Add(skill);
+            equippedSkills.AddRange(DataManager.Instance.playerDataSO.skills);
         }
     }
 
     public void EquipSkill(SkillDataSO skill)
     {
-        if(equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill))
+        if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill))
         {
             equippedSkills.Add(skill);
             OnEquippedSkillsChanged?.Invoke();
@@ -48,12 +61,111 @@ public class SkillManager : MonoBehaviour
         }
     }
 
-    public void ReplaceSkill(int index, SkillDataSO newskill)
+    public void ReplaceSkill(int index, SkillDataSO newSkill)
     {
-        if(index >= 0 && index < equippedSkills.Count)
+        if (index >= 0 && index < equippedSkills.Count)
         {
-            equippedSkills[index] = newskill;
+            equippedSkills[index] = newSkill;
             OnEquippedSkillsChanged?.Invoke();
         }
+    }
+
+    public void ToggleAutoMode()
+    {
+        isAutoMode = !isAutoMode;
+        if (isAutoMode)
+        {
+            StartAutoUse();
+        }
+        else
+        {
+            StopAutoUse();
+        }
+        UpdateAutoButtonVisual();
+    }
+
+    private void UpdateAutoButtonVisual()
+    {
+        if (autoButton != null)
+        {
+            autoButton.image.color = isAutoMode ? autoOnColor : autoOffColor;
+        }
+    }
+
+    private void StartAutoUse()
+    {
+        if (autoUseCoroutine == null)
+        {
+            autoUseCoroutine = StartCoroutine(AutoUseSkills());
+        }
+    }
+
+    private void StopAutoUse()
+    {
+        if (autoUseCoroutine != null)
+        {
+            StopCoroutine(autoUseCoroutine);
+            autoUseCoroutine = null;
+        }
+    }
+
+    private IEnumerator AutoUseSkills()
+    {
+        while (isAutoMode)
+        {
+            if (player.scanner.nearestTarget != null)
+            {
+                SkillDataSO skillToUse = FindUsableSkill();
+                if (skillToUse != null)
+                {
+                    int skillIndex = equippedSkills.IndexOf(skillToUse);
+                    if (skillIndex != -1)
+                    {
+                        mainSceneSkillManager.UseSkill(skillIndex);
+                    }
+                    yield return new WaitForSeconds(1.0f);
+                }
+                else
+                {
+                    yield return new WaitForSeconds(autoUseInterval);
+                }
+            }
+            else
+            {
+                yield return new WaitForSeconds(autoUseInterval);
+            }
+        }
+    }
+
+    private SkillDataSO FindUsableSkill()
+    {
+        return equippedSkills.Find(skill => !skillCooldowns.ContainsKey(skill) || skillCooldowns[skill] <= 0);
+    }
+
+    public void SetSkillOnCooldown(SkillDataSO skill)
+    {
+        skillCooldowns[skill] = skill.cooldown;
+    }
+
+    public float GetSkillCooldown(SkillDataSO skill)
+    {
+        return skillCooldowns.TryGetValue(skill, out float cooldown) ? Mathf.Max(0, cooldown) : 0f;
+    }
+
+    private void UpdateCooldowns()
+    {
+        float deltaTime = Time.deltaTime;
+        var updatedCooldowns = new Dictionary<SkillDataSO, float>();
+
+        foreach (var pair in skillCooldowns)
+        {
+            float newCooldown = Mathf.Max(0, pair.Value - deltaTime);
+            if (newCooldown > 0)
+            {
+                updatedCooldowns[pair.Key] = newCooldown;
+            }
+        }
+
+        skillCooldowns = updatedCooldowns;
     }
 }

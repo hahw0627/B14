@@ -13594,8 +13594,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2715436519487003}
-        m_TargetAssemblyTypeName: AutoSkillManager, Assembly-CSharp
+      - m_Target: {fileID: 479757124814390805}
+        m_TargetAssemblyTypeName: SkillManager, Assembly-CSharp
         m_MethodName: ToggleAutoMode
         m_Mode: 1
         m_Arguments:
@@ -15076,7 +15076,17 @@ MonoBehaviour:
   playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   weaponEquipmentDataSO: []
   armorEquipmentDataSO: []
-  allSkillsDataSO: []
+  allSkillsDataSO:
+  - {fileID: 11400000, guid: e8951d5f6b4d9b8428403fa8c2752cfe, type: 2}
+  - {fileID: 11400000, guid: 602cf00440191334495b7d46a172460d, type: 2}
+  - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
+  - {fileID: 11400000, guid: 2bf27f40cf62a6e458364979efbdfacd, type: 2}
+  - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
+  - {fileID: 11400000, guid: b8877ee99fe66b140a5ff0217f92003b, type: 2}
+  - {fileID: 11400000, guid: e703d4891f9137140b075c002f4c06ef, type: 2}
+  - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
+  - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
+  - {fileID: 11400000, guid: b1887d08b304cd74b9ea97ca6aa18b0d, type: 2}
 --- !u!4 &1287427513
 Transform:
   m_ObjectHideFlags: 0
@@ -24002,24 +24012,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2120789860}
   m_CullTransparentMesh: 1
---- !u!114 &2715436519487003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7625461386016405635}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c00b873856c1414ca707a6920b1926b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainSceneSkillManager: {fileID: 7865766755519013975}
-  autoUseInterval: 2
-  autoButton: {fileID: 1191362058}
-  autoOnColor: {r: 1, g: 1, b: 1, a: 1}
-  autoOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  player: {fileID: 1828702167}
 --- !u!114 &33416759240613411
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24346,8 +24338,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
   - {fileID: 11400000, guid: 2bf27f40cf62a6e458364979efbdfacd, type: 2}
   equippedSkills: []
-  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   maxEquippedSkills: 5
+  mainSceneSkillManager: {fileID: 7865766755519013975}
+  autoUseInterval: 0.5
+  autoButton: {fileID: 1191362058}
+  autoOnColor: {r: 1, g: 1, b: 1, a: 1}
+  autoOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  player: {fileID: 1828702167}
 --- !u!222 &490689755392500002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25799,7 +25796,6 @@ MonoBehaviour:
   skillManager: {fileID: 479757124814390805}
   mainSceneSkillManager: {fileID: 7865766755519013975}
   skillItemPrefab: {fileID: 2580377813701729697, guid: 1ea171930f8ac394d9119d18b518a04d, type: 3}
-  equippedSkillsContainer: {fileID: 3672247471398078211}
   allSkillsContainer: {fileID: 99410145}
   skillInfoPanel: {fileID: 4250424986757793384}
   instructionText: {fileID: 5890806997159482255}
@@ -27207,21 +27203,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!4 &4942768213129089284
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7625461386016405635}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4944580247818577732
 GameObject:
   m_ObjectHideFlags: 0
@@ -28797,23 +28778,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &7625461386016405635
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4942768213129089284}
-  - component: {fileID: 2715436519487003}
-  m_Layer: 0
-  m_Name: AutoSkillManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!222 &7719660505928143084
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28954,7 +28918,6 @@ MonoBehaviour:
   - {fileID: 1452042717}
   - {fileID: 531412555}
   - {fileID: 407647652}
-  autoSkillManager: {fileID: 2715436519487003}
   cooldownImages:
   - {fileID: 2371808462124989086}
   - {fileID: 3408771348928197972}
@@ -28968,7 +28931,6 @@ MonoBehaviour:
   - {fileID: 1360113142}
   - {fileID: 288062760}
   playerTransform: {fileID: 1828702168}
-  enemyTransform: {fileID: 4755740371325174915, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
   aoeEffectSpawnPoint: {fileID: 1933554483}
   buffEffectSpawnPoint: {fileID: 2071055390}
 --- !u!114 &7866761177546769553
@@ -29753,7 +29715,6 @@ SceneRoots:
   - {fileID: 5889065508896150089}
   - {fileID: 2984846636252359558}
   - {fileID: 7267140083760695485}
-  - {fileID: 4942768213129089284}
   - {fileID: 3373102061447234679}
   - {fileID: 786747317}
   - {fileID: 17708280}

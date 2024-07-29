@@ -17,7 +17,7 @@ MonoBehaviour:
   weapons: []
   armors: []
   playerName: 00011
-  Gold: 958
+  Gold: 1258
   Diamond: 100
   TotalPower: 10
   Damage: 20
