@@ -6,15 +6,15 @@ using System;
 public class Monster123 : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
-    //public PlayerDataSO playerData;
-    public GameObject monsterProjectilePrefab;
-    public Transform target;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    public GameObject target;
+
     public int Hp;
     public int damage;
     public float attackSpeed;
     private float moveTime = 0.0f;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+
     private bool isAttacking = false;
     public GameObject hudDamgeText;
     public Transform hudPos;
@@ -28,33 +28,33 @@ public class Monster123 : MonoBehaviour, IDamageable
         goldReward = 10;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
- 
-    public void Die()
-    {
-
-        DataManager.Instance.playerDataSO.Gold += goldReward;
-        OnDeath?.Invoke(this);
+        target = GameObject.Find("Player");
     }
 
-    private void OnEnable()
+    // 몬스터 활성화 시
+    protected virtual void OnEnable()
     {
         if (monsterData == null)
         {
-            Debug.LogError("MonsterDataSO_Test ���� ����");
+            Debug.LogError("MonsterDataSO_Test instance fale");
             return;
         }
-        // Ȱ��ȭ�� �� ������ �����͸� �ʱ�ȭ
+
         Hp = monsterData.Hp;
         damage = monsterData.Damage;
         attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f; // moveTime �ʱ�ȭ
+        moveTime = 0.0f;
         isAttacking = false;
     }
 
-    private void Update()
+    void Update()
     {
-        // ���� �̵� ����
+        MoveAndAttck();
+    }
+
+    // 이동과 공격 실행
+    private void MoveAndAttck()
+    {
         if (moveTime < 1.5f)
         {
             spriteRenderer.flipX = true;
@@ -71,6 +71,7 @@ public class Monster123 : MonoBehaviour, IDamageable
         }
     }
 
+    // 몬스터 공격
     private IEnumerator Attack()
     {
         isAttacking = true;
@@ -78,29 +79,39 @@ public class Monster123 : MonoBehaviour, IDamageable
         {
             if (target != null)
             {
-                GameObject projectile = Instantiate(monsterProjectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<MonsterProjectile>().target = target;
-                projectile.GetComponent<MonsterProjectile>().damage = damage;
+                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                projectile.transform.position = transform.position;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.target = target.transform;
+                projectileScript.SetDirection(target.transform.position);
+                projectileScript.damage = damage;
+                projectileScript.shooterTag = "Monster";
+                projectileScript.SetColor(Color.red);
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }
     }
 
-    public void TakeDamage(int damage)
+    // 몬스터 피격
+    public virtual void TakeDamage(int damage)
     {
         GameObject hudText = Instantiate(hudDamgeText);
         hudText.transform.position = hudPos.position;
         hudText.GetComponent<DamageText>().SetDamage(DataManager.Instance.playerDataSO.Damage);
         Hp -= damage;
-        Debug.Log("���� HP ����\n" + "HP : " + Hp + " / ������ : " + damage);
 
         if (Hp <= 0)
         {
             this.Die();
             gameObject.SetActive(false);
-            // UI�� �����Ͽ� ���� Ȯ���� �� �ְ� ���� ��
-            Debug.Log("��Ȱ��ȭ");
         }
+    }
+
+    // 몬스터 사망
+    public void Die()
+    {
+        DataManager.Instance.playerDataSO.Gold += goldReward;
+        OnDeath?.Invoke(this);
     }
 }
 

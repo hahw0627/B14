@@ -5,17 +5,11 @@ using TMPro;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public MonsterDataSO monsterData;
-    public GameObject monsterPrefab;
-    public GameObject bossMonster;
     public Transform[] spawnPoints;
-    public GameObject[] monsters;
-    
-   
+    public GameObject bossMonster;
 
     public int stagePage = 0;
     public int stage = 1;
-    public Transform target;
 
     private void Start()
     {
@@ -26,23 +20,12 @@ public class MonsterSpawner : MonoBehaviour
         }
 
         bossMonster.SetActive(false);
-        // 게임이 시작하면 몬스터 6마리 생성하여 배열에 비활성화 상태로 저장
-        monsters = new GameObject[6];
-        for (int i = 0; i < monsters.Length; i++)
-        {
-            monsters[i] = Instantiate(monsterPrefab);
-            monsters[i].GetComponent<Monster123>().OnDeath += HandleMonsterDeath;
-            monsters[i].SetActive(false);
-        }
 
         StartCoroutine(CheckMonsters());
     }
 
-    void HandleMonsterDeath(Monster123 monster123)
-    {
-        UIManager.Instance.UpdateCurrencyUI();
-    }
-
+    
+    // 몬스터 상태 확인 + 소환
     private IEnumerator CheckMonsters()
     {
         while (true)
@@ -66,44 +49,33 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
+    // 모든 몬스터 비활성화 확인
     private bool AllMonstersDeactivated()
     {
-        foreach (GameObject monster in monsters)
+        foreach (GameObject monster in MonsterPool.Instance.monsters)
         {
             if (monster.activeSelf) return false;
         }
         return true;
     }
 
+    // 몬스터 소환
     private void SpawnMonsters()
     {
         // StagePage가 1 증가하면 스포너 배열의 위치에서 몬스터를 활성화
-        for (int i = 0; i < monsters.Length; i++)
+        for (int i = 0; i < MonsterPool.Instance.monsters.Length; i++)
         {
-            monsters[i].transform.position = spawnPoints[i].position;
-            monsters[i].GetComponent<Monster123>().monsterData = monsterData;
-            monsters[i].GetComponent<Monster123>().target = target;
-            monsters[i].SetActive(true);
+            MonsterPool.Instance.monsters[i].transform.position = spawnPoints[i].position;
+            //MonsterPool.Instance.monsters[i].GetComponent<Monster123>().target = target;
+            MonsterPool.Instance.monsters[i].SetActive(true);
         }
     }
 
+    // 보스 소환
     private void SpawnBoss()
     {
         bossMonster.transform.position = spawnPoints[3].position;
-        bossMonster.GetComponent<Boss>().monsterData = monsterData;
         bossMonster.SetActive(true);
-    }
-
-    public void BossDeath()
-    {
-        // BossMonster의 HP가 0 이하가 되면 StagePage는 0이 된다.
-        stagePage = 0;
-        // BossMonster의 HP가 0 이하가 되면 Stage를 1 증가시킨다.
-        stage++;
-        monsterData.stage = stage;  // 몬스터SO의 스테이지 정보 저장?
-        // BossMonster의 HP가 0 이하가 되면 MonsterDataSO_Test의 값을 1.2f 곱하고 인트형으로 변환해서 저장
-        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
-        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
     }
 }
 

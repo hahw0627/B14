@@ -6,7 +6,6 @@ public class Pet : MonoBehaviour
 {
     public PetDataSO petData;
     public Scanner scanner;
-    public GameObject projectilePrefab;
     public float attackSpeed;
     public int damage;
     public int petNumber;
@@ -29,9 +28,14 @@ public class Pet : MonoBehaviour
             // 플레이어의 scanner에서 nearestTarget을 가져옴
             if (scanner.nearestTarget != null)
             {
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<Projectile>().target = scanner.nearestTarget;
-                projectile.GetComponent<Projectile>().damage = this.damage; // 플레이어의 데미지 사용
+                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                projectile.transform.position = this.transform.position;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.target = scanner.nearestTarget.transform;
+                projectileScript.SetDirection(scanner.nearestTarget.transform.position);
+                projectileScript.damage = this.damage; // 플레이어의 데미지 사용
+                projectileScript.shooterTag = "Player";
+                projectileScript.SetColor(Color.yellow);
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }
