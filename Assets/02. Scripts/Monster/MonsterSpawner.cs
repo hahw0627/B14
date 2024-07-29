@@ -5,13 +5,11 @@ using TMPro;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public MonsterPool monsterPool;
     public Transform[] spawnPoints;
     public GameObject bossMonster;
 
     public int stagePage = 0;
     public int stage = 1;
-    public Transform target;
 
     private void Start()
     {

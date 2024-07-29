@@ -429,6 +429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 17708280}
   - component: {fileID: 17708281}
+  - component: {fileID: 17708282}
   m_Layer: 0
   m_Name: MonsterSpawner
   m_TagString: Untagged
@@ -469,9 +470,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97136ff59d7ec4a99b7c40da845ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
-  bossMonster: {fileID: 275247953}
   spawnPoints:
   - {fileID: 1396151741}
   - {fileID: 277040747}
@@ -479,10 +477,69 @@ MonoBehaviour:
   - {fileID: 608438022}
   - {fileID: 1619295865}
   - {fileID: 980565156}
-  monsters: []
+  bossMonster: {fileID: 275247953}
   stagePage: 0
   stage: 1
-  target: {fileID: 0}
+--- !u!114 &17708282
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 17708278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f41bf79d440666c448a61290573fe5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  monsters: []
+--- !u!1 &28719788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 28719790}
+  - component: {fileID: 28719789}
+  m_Layer: 0
+  m_Name: ProjectilePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &28719789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28719788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d5928f098cc78f448b198a6eb235cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
+  poolSize: 10
+--- !u!4 &28719790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28719788}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 170.63509, y: 981.15375, z: -6.322486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &54227259
 GameObject:
   m_ObjectHideFlags: 0
@@ -6626,7 +6683,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 9c030f9cbc9181348b2d4a2410310461, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -17383,7 +17439,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 277ceb2df66013844b5668ded71df79e, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -20919,14 +20974,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  monsterSpawner: {fileID: 17708281}
+  scanner: {fileID: 1828702166}
+  fireMuzzle: {fileID: 280144680}
   damage: 0
   attackSpeed: 0
   currentHp: 0
-  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
-  monsterSpawner: {fileID: 17708281}
-  scanner: {fileID: 1828702166}
-  spriteRenderer: {fileID: 0}
-  fireMuzzle: {fileID: 280144680}
 --- !u!4 &1828702168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6537006914516050989, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
@@ -21595,7 +21648,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -29720,6 +29772,7 @@ SceneRoots:
   - {fileID: 17708280}
   - {fileID: 1287427513}
   - {fileID: 604766476}
+  - {fileID: 28719790}
   - {fileID: 1872640617}
   - {fileID: 590904330}
   - {fileID: 1498905568}
