@@ -14,7 +14,7 @@ public class AchievementDataSO : ScriptableObject
 
     [Header("Action")]
     [SerializeField]
-    private BaseAchievementAction _baseAchievementAction;
+    private AchievementAction _AchievementAction;
 
     public int CurrentCountOfAchievements { get; private set; }
     public string Description => _description;
@@ -22,7 +22,7 @@ public class AchievementDataSO : ScriptableObject
 
     public void ReceiveReport(int countOfAchievements)
     {
-        CurrentCountOfAchievements = _baseAchievementAction.Run(this, CurrentCountOfAchievements, countOfAchievements);
+        CurrentCountOfAchievements = _AchievementAction.Run(this, CurrentCountOfAchievements, countOfAchievements);
     }
 }
 

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Achievement/Action/NegativeCount")]
-public class NegativeCount : BaseAchievementAction
+public class NegativeCount : AchievementAction
 {
     public override int Run(AchievementDataSO achievementDataSO, int currentCountOfAchievements,
         int countOfAchievements)
