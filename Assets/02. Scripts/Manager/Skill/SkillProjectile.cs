@@ -84,7 +84,7 @@ public class SkillProjectile : MonoBehaviour
         {
             int totalDamage = skillData.damage + DataManager.Instance.playerDataSO.Damage;
             Debug.Log($"Skill projectile '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.damage}, Player Base: {DataManager.Instance.playerDataSO.Damage})");
-            damageable.TakeDamage(totalDamage);
+            damageable.TakeDamage(totalDamage, true);
         }
         else
         {

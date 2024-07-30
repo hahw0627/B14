@@ -24,4 +24,20 @@ public class Define
         //Ãß°¡
     }
 
+    public enum SkillType
+    {
+        AttackBuff,
+        HealBuff,
+        Projectile,
+        AreaOfEffect
+    }
+    public enum SkillRarity
+    {
+        Normal,
+        Rare,
+        Unique,
+        Epic,
+        Legendary
+    }
+
 }

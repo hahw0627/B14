@@ -141,15 +141,15 @@ public class MainSceneSkillManager : MonoBehaviour
 
         switch (skill.skillType)
         {
-            case SkillType.AttackBuff:
-            case SkillType.HealBuff:
+            case Define.SkillType.AttackBuff:
+            case Define.SkillType.HealBuff:
                 spawnPosition = buffEffectSpawnPoint.position;
                 effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity, buffEffectSpawnPoint);
                 InitializeBuffSkill(effectInstance, skill);
                 StartCoroutine(DestroyEffectAfterDelay(effectInstance, 1f));
                 break;
 
-            case SkillType.Projectile:
+            case Define.SkillType.Projectile:
                 if (player.scanner.nearestTarget != null)
                 {
                     spawnPosition = playerTransform.position + (player.scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
@@ -158,14 +158,14 @@ public class MainSceneSkillManager : MonoBehaviour
                 }
                 break;
 
-            case SkillType.AreaOfEffect:
+            case Define.SkillType.AreaOfEffect:
                 spawnPosition = aoeEffectSpawnPoint.position;
                 effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
                 InitializeAreaEffectSkill(effectInstance, skill);
                 break;
         }
 
-        if (effectInstance != null && skill.skillType != SkillType.AttackBuff && skill.skillType != SkillType.HealBuff)
+        if (effectInstance != null && skill.skillType != Define.SkillType.AttackBuff && skill.skillType != Define.SkillType.HealBuff)
         {
             Destroy(effectInstance, skill.duration);
         }
