@@ -3,7 +3,7 @@ using System.Collections;
 using TMPro;
 using System;
 
-public class Monster123 : MonoBehaviour, IDamageable
+public class Monster : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
     private Animator animator;
@@ -13,7 +13,7 @@ public class Monster123 : MonoBehaviour, IDamageable
     public int Hp;
     public int damage;
     public float attackSpeed;
-    private float moveTime = 0.0f;
+    public float moveTime = 0.0f;
 
     private bool isAttacking = false;
     public GameObject hudDamgeText;
@@ -21,7 +21,7 @@ public class Monster123 : MonoBehaviour, IDamageable
 
     private int goldReward;
 
-    public event Action<Monster123> OnDeath;
+    public event Action<Monster> OnDeath;
 
     private void Awake()
     {
@@ -118,7 +118,7 @@ public class Monster123 : MonoBehaviour, IDamageable
     {
         DataManager instance = DataManager.Instance;
         instance.playerDataSO.Gold += goldReward;
-        instance.achievementDataSO.ReceiveReport(++instance.playerDataSO.CountOfMonstersKilled);
+        //instance.achievementDataSO.ReceiveReport(++instance.playerDataSO.CountOfMonstersKilled);
         
         OnDeath?.Invoke(this);
     }
