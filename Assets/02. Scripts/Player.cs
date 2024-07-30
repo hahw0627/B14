@@ -16,6 +16,7 @@ public class Player : MonoBehaviour
     private bool isUsingSkill = false;
     private Coroutine attackCoroutine;
     public Transform fireMuzzle;
+
     public int CurrentDamage { get; private set; }
 
     private void Awake()

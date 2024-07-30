@@ -11,4 +11,6 @@ public class UIManager : SingletonDestroyable<UIManager>
     {
         textMeshProUGUI.text = DataManager.Instance.playerDataSO.Gold.ToString(); 
     }
+
+
 }
