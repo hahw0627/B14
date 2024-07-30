@@ -8,4 +8,6 @@ public class UIManager : SingletonDestroyable<UIManager>
     {
         GoldTMP.text = DataManager.Instance.playerDataSO.Gold.ToString(); 
     }
+
+
 }
