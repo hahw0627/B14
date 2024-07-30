@@ -16,6 +16,7 @@ MonoBehaviour:
   pets: []
   weapons: []
   armors: []
+  achievements: []
   playerName: 00011
   Gold: 0
   Diamond: 100
@@ -27,3 +28,5 @@ MonoBehaviour:
   HpRecovery: 5
   CriticalPer: 1
   CriticalDamage: 1.5
+  CountOfKillMonsters: 10
+  CountOfSuccessReinforcement: 5

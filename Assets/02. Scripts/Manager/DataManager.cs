@@ -1,14 +1,13 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
 {
-    public PlayerDataSO          playerDataSO;
+    public PlayerDataSO playerDataSO;
+    public AchievementDataSO achievementDataSO;
     public List<EquipmentDataSO> weaponEquipmentDataSO;
     public List<EquipmentDataSO> armorEquipmentDataSO;
-    public List<SkillDataSO>     allSkillsDataSO;
+    public List<SkillDataSO> allSkillsDataSO;
 
 
     public void Start()
@@ -19,18 +18,19 @@ public class DataManager : Singleton<DataManager>
         }
     }
 
-    //list¿¡ ÀúÀåµÈ ¸ðµç ½ºÅ³ so µ¥ÀÌÅÍ¸¦ »õ·Î ¸¸µé skill list¿¡ ³Ö¾îÁÖ´Â ÇÔ¼ö
+    //listï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ so ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ skill listï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½
     public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
     {
         _skillsDataSO.AddRange(allSkillsDataSO);
     }
+
     public void FillAllWeaponsData(List<EquipmentDataSO> _weaponEquipmentDataSO)
     {
         _weaponEquipmentDataSO.AddRange(weaponEquipmentDataSO);
     }
+
     public void FillAllarmorData(List<EquipmentDataSO> _armorEquipmentDataSO)
     {
         _armorEquipmentDataSO.AddRange(armorEquipmentDataSO);
     }
-
 }

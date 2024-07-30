@@ -99,7 +99,7 @@ public class SkillUIManager : MonoBehaviour
     public void StartEquipProcess(SkillDataSO skill)
     {
         skillInfoPanel.SetActive(false);
-        instructionText.text = "±³Ã¼ÇÒ ½ºÅ³ ½½·ÔÀ» ¼±ÅÃÇÏ¼¼¿ä";
+        instructionText.text = "ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½";
         SetEquippedSkillsInteractable(true, skill);
     }
 
@@ -147,12 +147,12 @@ public class SkillUIManager : MonoBehaviour
     {
         switch (rarity)
         {
-            case SkillRarity.Normal: return "³ë¸»";
-            case SkillRarity.Rare: return "·¹¾î";
-            case SkillRarity.Unique: return "À¯´ÏÅ©";
-            case SkillRarity.Epic: return "¿¡ÇÈ";
-            case SkillRarity.Legendary: return "·¹Àü´õ¸®";
-            default: return "¾Ë ¼ö ¾øÀ½";
+            case SkillRarity.Normal: return "ï¿½ë¸»";
+            case SkillRarity.Rare: return "ï¿½ï¿½ï¿½ï¿½";
+            case SkillRarity.Unique: return "ï¿½ï¿½ï¿½ï¿½Å©";
+            case SkillRarity.Epic: return "ï¿½ï¿½ï¿½ï¿½";
+            case SkillRarity.Legendary: return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+            default: return "ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
         }
     }
 }
