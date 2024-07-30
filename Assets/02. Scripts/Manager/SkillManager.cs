@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-    public List<SkillDataSO> allSkills = new List<SkillDataSO>();
     public List<SkillDataSO> equippedSkills = new List<SkillDataSO>();
     public int maxEquippedSkills = 5;
     public event Action OnEquippedSkillsChanged;
@@ -25,7 +24,6 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        DataManager.Instance.FillAllSkillsData(allSkills);
         UpdateEquippedSkills();
         OnEquippedSkillsChanged?.Invoke();
     }
@@ -46,7 +44,8 @@ public class SkillManager : MonoBehaviour
 
     public void EquipSkill(SkillDataSO skill)
     {
-        if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill))
+        if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill) &&
+            DataManager.Instance.allSkillsDataSO.Contains(skill))
         {
             equippedSkills.Add(skill);
             OnEquippedSkillsChanged?.Invoke();
