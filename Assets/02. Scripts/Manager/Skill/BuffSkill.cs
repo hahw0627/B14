@@ -18,10 +18,10 @@ public class BuffSkill : MonoBehaviour
     {
         switch (skillData.skillType)
         {
-            case SkillType.AttackBuff:
+            case Define.SkillType.AttackBuff:
                 ApplyAttackBuff();
                 break;
-            case SkillType.HealBuff:
+            case Define.SkillType.HealBuff:
                 ApplyHealBuff();
                 break;
             default:

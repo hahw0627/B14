@@ -6,16 +6,18 @@ using System;
 public class Monster123 : MonoBehaviour, IDamageable
 {
     public MonsterDataSO monsterData;
-    //public PlayerDataSO playerData;
-    public GameObject monsterProjectilePrefab;
-    public Transform target;
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    public GameObject target;
+
     public int Hp;
     public int damage;
     public float attackSpeed;
     private float moveTime = 0.0f;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
+
     private bool isAttacking = false;
+    public GameObject hudDamgeText;
+    public Transform hudPos;
 
     private int goldReward;
 
@@ -26,33 +28,33 @@ public class Monster123 : MonoBehaviour, IDamageable
         goldReward = 10;
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-    }
- 
-    public void Die()
-    {
-
-        DataManager.Instance.playerDataSO.Gold += goldReward;
-        OnDeath?.Invoke(this);
+        target = GameObject.Find("Player");
     }
 
-    private void OnEnable()
+    // Î™¨Ïä§ÌÑ∞ ÌôúÏÑ±Ìôî Ïãú
+    protected virtual void OnEnable()
     {
         if (monsterData == null)
         {
-            Debug.LogError("MonsterDataSO_Test ø¨∞· Ω«∆–");
+            Debug.LogError("MonsterDataSO_Test instance fale");
             return;
         }
-        // »∞º∫»≠µ… ∂ß ∏ÛΩ∫≈Õ¿« µ•¿Ã≈Õ∏¶ √ ±‚»≠
+
         Hp = monsterData.Hp;
         damage = monsterData.Damage;
         attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f; // moveTime √ ±‚»≠
+        moveTime = 0.0f;
         isAttacking = false;
     }
 
-    private void Update()
+    void Update()
     {
-        // ∏ÛΩ∫≈Õ ¿Ãµø Ω√¿€
+        MoveAndAttck();
+    }
+
+    // Ïù¥ÎèôÍ≥º Í≥µÍ≤© Ïã§Ìñâ
+    private void MoveAndAttck()
+    {
         if (moveTime < 1.5f)
         {
             spriteRenderer.flipX = true;
@@ -69,6 +71,7 @@ public class Monster123 : MonoBehaviour, IDamageable
         }
     }
 
+    // Î™¨Ïä§ÌÑ∞ Í≥µÍ≤©
     private IEnumerator Attack()
     {
         isAttacking = true;
@@ -76,26 +79,45 @@ public class Monster123 : MonoBehaviour, IDamageable
         {
             if (target != null)
             {
-                GameObject projectile = Instantiate(monsterProjectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<MonsterProjectile>().target = target;
-                projectile.GetComponent<MonsterProjectile>().damage = damage;
+                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                projectile.transform.position = transform.position;
+                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.target = target.transform;
+                projectileScript.SetDirection(target.transform.position);
+                projectileScript.damage = damage;
+                projectileScript.shooterTag = "Monster";
+                projectileScript.SetColor(Color.red);
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }
     }
 
-    public void TakeDamage(int damage)
+    // Î™¨Ïä§ÌÑ∞ ÌîºÍ≤©
+    public virtual void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        Hp -= damage;
-        Debug.Log("∏ÛΩ∫≈Õ HP ∞®º“\n" + "HP : " + Hp + " / µ•πÃ¡ˆ : " + damage);
+        GameObject hudText = Instantiate(hudDamgeText);
+        hudText.transform.position = hudPos.position;
 
+        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
+
+        if(damageTextComponent != null)
+        {
+            damageTextComponent.SetDamage(damage);
+        }
+
+        Hp -= damage;
         if (Hp <= 0)
         {
             this.Die();
             gameObject.SetActive(false);
-            // UIø° ø¨∞·«œø© ¡ı∞° »Æ¿Œ«“ ºˆ ¿÷∞‘ «ÿ¡Ÿ ∞Õ
-            Debug.Log("∫Ò»∞º∫»≠");
         }
+    }
+
+    // Î™¨Ïä§ÌÑ∞ ÏÇ¨Îßù
+    public void Die()
+    {
+        DataManager.Instance.playerDataSO.Gold += goldReward;
+        OnDeath?.Invoke(this);
     }
 }
 
@@ -129,7 +151,7 @@ public class Monster123 : MonoBehaviour, IDamageable
 
 //    private void Start()
 //    {
-//        Debug.Log($"{_monsterStatistics.Name} ª˝º∫ øœ∑·");
+//        Debug.Log($"{_monsterStatistics.Name} ÔøΩÔøΩÔøΩÔøΩ ÔøΩœ∑ÔøΩ");
 //        Hp = _monsterStatistics.Hp;
 //        StartCoroutine(MoveForSeconds(1.5f));
 //    }
@@ -156,26 +178,26 @@ public class Monster123 : MonoBehaviour, IDamageable
 //        _isCollision = true;
 //        if (other.gameObject.name != "Player(Test)") return;
 //        Debug.Log("---");
-//        Debug.Log($"{_monsterStatistics.Name} ∞¯∞› Ω√¿€");
+//        Debug.Log($"{_monsterStatistics.Name} ÔøΩÔøΩÔøΩÔøΩ ÔøΩÔøΩÔøΩÔøΩ");
 //        StartCoroutine(nameof(Attack));
 //    }
 
 //    private IEnumerator Attack()
 //    {
-//        Debug.Log($"«√∑π¿ÃæÓ √º∑¬: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//        Debug.Log($"ÔøΩ√∑ÔøΩÔøΩÃæÔøΩ √ºÔøΩÔøΩ: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
 //        while (true)
 //        {
 //            if (PlayerTest.CurrentHp <= 0) yield break;
 //            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
 //            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-//            Debug.Log($"«√∑π¿ÃæÓ √º∑¬: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
+//            Debug.Log($"ÔøΩ√∑ÔøΩÔøΩÃæÔøΩ √ºÔøΩÔøΩ: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
 //        }
 //    }
 
 //    public void TakeDamage(int damage)
 //    {
 //        Hp -= damage;
-//        Debug.Log("∏ÛΩ∫≈Õ HP ∞®º“\n" + "HP : " + Hp + " / µ•πÃ¡ˆ : " + damage);
+//        Debug.Log("ÔøΩÔøΩÔøΩÔøΩ HP ÔøΩÔøΩÔøΩÔøΩ\n" + "HP : " + Hp + " / ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ : " + damage);
 
 //        if (Hp <= 0)
 //        {
