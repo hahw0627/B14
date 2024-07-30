@@ -18,19 +18,20 @@ public class DataManager : Singleton<DataManager>
             playerDataSO = Resources.Load<PlayerDataSO>("ScripableObjects/" + "PlayerDataSO");
         }
     }
-
-    //list에 저장된 모든 스킬 so 데이터를 새로 만들 skill list에 넣어주는 함수
+   
+    //addRange는 한번에 다수의 원소를 추가하는데 마지막에 들어간다. 
+    //기존 데이터의 새로운 리스트를 추가해서 늘려주는 함수.
     public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
     {
-        _skillsDataSO.AddRange(allSkillsDataSO);
+        allSkillsDataSO.AddRange(_skillsDataSO);
     }
     public void FillAllWeaponsData(List<EquipmentDataSO> _weaponEquipmentDataSO)
     {
-        _weaponEquipmentDataSO.AddRange(weaponEquipmentDataSO);
+        weaponEquipmentDataSO.AddRange(_weaponEquipmentDataSO);
     }
     public void FillAllarmorData(List<EquipmentDataSO> _armorEquipmentDataSO)
     {
-        _armorEquipmentDataSO.AddRange(armorEquipmentDataSO);
+        armorEquipmentDataSO.AddRange(_armorEquipmentDataSO);
     }
 
 }
