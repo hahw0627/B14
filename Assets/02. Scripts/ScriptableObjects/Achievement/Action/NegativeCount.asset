@@ -9,12 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b49eb55beefa147acc4d765237bfdb, type: 3}
-  m_Name: MonsterDataSO
+  m_Script: {fileID: 11500000, guid: f89aab0310af9fe4489e1ca8305bfa29, type: 3}
+  m_Name: NegativeCount
   m_EditorClassIdentifier: 
-  monsterName: Monster
-  Hp: 208
-  Damage: 1
-  AttackSpeed: 1
-  stagePage: 0
-  stage: 4

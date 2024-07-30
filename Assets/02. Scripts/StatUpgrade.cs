@@ -95,6 +95,7 @@ public class StatUpgrade : MonoBehaviour
         recoverHpCostTxt.text = recoverHpCost.ToString();
         criticalPercentCostTxt.text = criticalPercentCost.ToString();
         criticalDamageCostTxt.text = criticalDamageCost.ToString();
-
+    
+        UIManager.Instance.UpdateCurrencyUI();    
     }
 }

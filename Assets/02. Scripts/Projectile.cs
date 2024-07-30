@@ -62,7 +62,7 @@ public class Projectile : MonoBehaviour
             }
             else if (collision.CompareTag("Monster"))
             {
-                Monster123 monster = collision.GetComponent<Monster123>();
+                Monster monster = collision.GetComponent<Monster>();
                 if (monster != null)
                 {
                     monster.TakeDamage(damage);
