@@ -143,15 +143,15 @@ public class SkillUIManager : MonoBehaviour
     {
         skillManager.UnequipSkill(skill);
     }
-    public static string GetRarityString(SkillRarity rarity)
+    public static string GetRarityString(Define.SkillRarity rarity)
     {
         switch (rarity)
         {
-            case SkillRarity.Normal: return "노말";
-            case SkillRarity.Rare: return "레어";
-            case SkillRarity.Unique: return "유니크";
-            case SkillRarity.Epic: return "에픽";
-            case SkillRarity.Legendary: return "레전더리";
+            case Define.SkillRarity.Normal: return "노말";
+            case Define.SkillRarity.Rare: return "레어";
+            case Define.SkillRarity.Unique: return "유니크";
+            case Define.SkillRarity.Epic: return "에픽";
+            case Define.SkillRarity.Legendary: return "레전더리";
             default: return "알 수 없음";
         }
     }

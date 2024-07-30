@@ -93,13 +93,19 @@ public class Monster123 : MonoBehaviour, IDamageable
     }
 
     // 몬스터 피격
-    public virtual void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage, bool isSkillDamage = false)
     {
         GameObject hudText = Instantiate(hudDamgeText);
         hudText.transform.position = hudPos.position;
-        hudText.GetComponent<DamageText>().SetDamage(DataManager.Instance.playerDataSO.Damage);
-        Hp -= damage;
 
+        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
+
+        if(damageTextComponent != null)
+        {
+            damageTextComponent.SetDamage(damage);
+        }
+
+        Hp -= damage;
         if (Hp <= 0)
         {
             this.Die();

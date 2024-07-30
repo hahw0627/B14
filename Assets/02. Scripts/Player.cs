@@ -19,14 +19,13 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        UpdateDamage();
 
         playerData = DataManager.Instance.playerDataSO;
         scanner = GetComponent<Scanner>();
 
-        damage = playerData.Damage;
         attackSpeed = playerData.AttackSpeed;
         currentHp = playerData.Hp;
+        UpdateDamage();
     }
 
     private void Start()
@@ -48,7 +47,7 @@ public class Player : MonoBehaviour
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
-                projectileScript.damage = this.damage;   // 생성된 투사체에 데미지 설정
+                projectileScript.damage = this.CurrentDamage;   // 생성된 투사체에 데미지 설정
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
@@ -112,6 +111,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log($"Updating damage. Base: {playerData.Damage}, Buff: {playerData.Damage}");
         CurrentDamage = playerData.Damage;
+        damage = CurrentDamage;
         Debug.Log($"New damage: {CurrentDamage}");
     }
 
