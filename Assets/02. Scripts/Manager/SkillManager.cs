@@ -167,4 +167,27 @@ public class SkillManager : MonoBehaviour
 
         skillCooldowns = updatedCooldowns;
     }
+
+    public void EquipSkillAtIndex(int index, SkillDataSO newSkill)
+    {
+        if (index < 0 || index >= maxEquippedSkills)
+        {
+            Debug.LogWarning("Invalid index for equipping skill.");
+            return;
+        }
+
+        if (!DataManager.Instance.allSkillsDataSO.Contains(newSkill))
+        {
+            Debug.LogWarning("Skill not found in allSkillsDataSO.");
+            return;
+        }
+
+        while (equippedSkills.Count <= index)
+        {
+            equippedSkills.Add(null);
+        }
+
+        equippedSkills[index] = newSkill;
+        OnEquippedSkillsChanged?.Invoke();
+    }
 }

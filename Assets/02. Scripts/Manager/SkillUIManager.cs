@@ -40,10 +40,11 @@ public class SkillUIManager : MonoBehaviour
             Image iconImage = equippedSkillSlots[i].GetComponent<Image>();
             Text levelText = equippedSkillSlots[i].GetComponentInChildren<Text>();
 
-            if (i < skillManager.equippedSkills.Count)
+            if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
                 SkillDataSO skill = skillManager.equippedSkills[i];
                 iconImage.sprite = skill.icon;
+                iconImage.color = Color.white;
                 levelText.text = $"Lv.{skill.level}";
             }
             else
@@ -125,20 +126,13 @@ public class SkillUIManager : MonoBehaviour
         int index = equippedSkillSlots.IndexOf(slot);
         if (index != -1)
         {
-            if (index < skillManager.equippedSkills.Count)
-            {
-                skillManager.ReplaceSkill(index, newSkill);
-            }
-            else
-            {
-                skillManager.EquipSkill(newSkill);
-            }
+            skillManager.EquipSkillAtIndex(index, newSkill);
         }
 
         SetEquippedSkillsInteractable(false);
         instructionText.text = "";
+        RefreshSkillUI();
     }
-
     public void UnequipSkill(SkillDataSO skill)
     {
         skillManager.UnequipSkill(skill);
