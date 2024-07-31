@@ -9,12 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46b49eb55beefa147acc4d765237bfdb, type: 3}
-  m_Name: MonsterDataSO
+  m_Script: {fileID: 11500000, guid: 9f0cabd28ef7ee543b2a69be73595545, type: 3}
+  m_Name: KillMonster
   m_EditorClassIdentifier: 
-  monsterName: Monster
-  Hp: 208
-  Damage: 1
-  AttackSpeed: 1
-  stagePage: 0
-  stage: 4
+  Title: "\uBAAC\uC2A4\uD130 \uCC98\uCE58"
+  ConditionCount: 10
+  RewardGold: 1000

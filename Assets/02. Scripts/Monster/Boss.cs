@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : Monster123  // 몬스터 스크립트 상속
+public class Boss : Monster  // 몬스터 스크립트 상속
 {
     public MonsterSpawner monsterSpawner;
 
     // 보스 몬스터 활성화 시
     protected override void OnEnable()
     {
+        moveTime = 0.0f;
         Hp = monsterData.Hp * 3; // 보스 몬스터는 HP를 2배로 설정
         damage = monsterData.Damage * 2; // 보스 몬스터는 데미지도 2배로 설정
         attackSpeed = monsterData.AttackSpeed;

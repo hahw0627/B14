@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-    public List<SkillDataSO> allSkills = new List<SkillDataSO>();
     public List<SkillDataSO> equippedSkills = new List<SkillDataSO>();
     public int maxEquippedSkills = 5;
     public event Action OnEquippedSkillsChanged;
@@ -25,7 +24,6 @@ public class SkillManager : MonoBehaviour
 
     private void Awake()
     {
-        DataManager.Instance.FillAllSkillsData(allSkills);
         UpdateEquippedSkills();
         OnEquippedSkillsChanged?.Invoke();
     }
@@ -46,7 +44,8 @@ public class SkillManager : MonoBehaviour
 
     public void EquipSkill(SkillDataSO skill)
     {
-        if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill))
+        if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill) &&
+            DataManager.Instance.allSkillsDataSO.Contains(skill))
         {
             equippedSkills.Add(skill);
             OnEquippedSkillsChanged?.Invoke();
@@ -55,8 +54,10 @@ public class SkillManager : MonoBehaviour
 
     public void UnequipSkill(SkillDataSO skill)
     {
-        if (equippedSkills.Remove(skill))
+        int index = equippedSkills.IndexOf(skill);
+        if (index != -1)
         {
+            equippedSkills[index] = null;
             OnEquippedSkillsChanged?.Invoke();
         }
     }
@@ -137,6 +138,7 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+
     private SkillDataSO FindUsableSkill()
     {
         return equippedSkills.Find(skill => !skillCooldowns.ContainsKey(skill) || skillCooldowns[skill] <= 0);
@@ -167,5 +169,45 @@ public class SkillManager : MonoBehaviour
         }
 
         skillCooldowns = updatedCooldowns;
+    }
+
+    public void EquipSkillAtIndex(int index, SkillDataSO newSkill)
+    {
+        if (index < 0 || index >= maxEquippedSkills)
+        {
+            Debug.LogWarning("Invalid index for equipping skill.");
+            return;
+        }
+
+        if (!DataManager.Instance.allSkillsDataSO.Contains(newSkill))
+        {
+            Debug.LogWarning("Skill not found in allSkillsDataSO.");
+            return;
+        }
+
+        // 새 스킬이 이미 장착되어 있는지 확인
+        int existingIndex = equippedSkills.FindIndex(s => s != null && s.skillName == newSkill.skillName);
+
+        // 이미 장착된 스킬이 있고, 그 위치가 현재 장착하려는 위치와 다르다면
+        if (existingIndex != -1 && existingIndex != index)
+        {
+            // 이미 장착된 스킬을 제거
+            equippedSkills[existingIndex] = null;
+        }
+
+        // 새 스킬을 장착할 위치에 이미 다른 스킬이 있다면 제거
+        if (index < equippedSkills.Count && equippedSkills[index] != null)
+        {
+            equippedSkills[index] = null;
+        }
+
+        // 새 스킬 장착
+        while (equippedSkills.Count <= index)
+        {
+            equippedSkills.Add(null);
+        }
+
+        equippedSkills[index] = newSkill;
+        OnEquippedSkillsChanged?.Invoke();
     }
 }

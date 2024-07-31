@@ -42,18 +42,37 @@ public class MainSceneSkillManager : MonoBehaviour
 
     public void UpdateSkillButtons()
     {
-        List<SkillDataSO> equippedSkills = skillManager.equippedSkills;
-
         for (int i = 0; i < skillButtons.Count; i++)
         {
-            if (i < equippedSkills.Count && equippedSkills[i] != null)
+            Button button = skillButtons[i];
+            Image buttonImage = button.GetComponent<Image>();
+            Image cooldownImage = cooldownImages[i];
+            TextMeshProUGUI cooldownText = cooldownTexts[i];
+
+            if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
-                SetupSkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i], equippedSkills[i]);
+                SkillDataSO skill = skillManager.equippedSkills[i];
+                buttonImage.sprite = skill.icon;
+                buttonImage.color = Color.white;
+                button.interactable = true;
+
+                // 쿨다운 UI 설정
+                cooldownImage.gameObject.SetActive(true);
+                cooldownText.gameObject.SetActive(true);
+                RestartCooldownCoroutine(cooldownImage, cooldownText, skill);
             }
             else
             {
-                SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+                button.interactable = false;
+
+                cooldownImage.gameObject.SetActive(false);
+                cooldownText.gameObject.SetActive(false);
             }
+
+            // 버튼 클릭 이벤트 재설정
+            int index = i;
+            button.onClick.RemoveAllListeners();
+            button.onClick.AddListener(() => UseSkill(index));
         }
     }
 

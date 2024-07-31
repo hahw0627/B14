@@ -40,10 +40,11 @@ public class SkillUIManager : MonoBehaviour
             Image iconImage = equippedSkillSlots[i].GetComponent<Image>();
             Text levelText = equippedSkillSlots[i].GetComponentInChildren<Text>();
 
-            if (i < skillManager.equippedSkills.Count)
+            if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
                 SkillDataSO skill = skillManager.equippedSkills[i];
                 iconImage.sprite = skill.icon;
+                iconImage.color = Color.white;
                 levelText.text = $"Lv.{skill.level}";
             }
             else
@@ -122,26 +123,32 @@ public class SkillUIManager : MonoBehaviour
 
     private void EquipSkillToSlot(Button slot, SkillDataSO newSkill)
     {
+        // 현재 장착된 스킬을 검색
         int index = equippedSkillSlots.IndexOf(slot);
-        if (index != -1)
+        if (index == -1) return;
+
+        // 이미 같은 스킬이 장착되어 있는지 확인
+        bool isSkillAlreadyEquipped = skillManager.equippedSkills.Exists(skill => skill != null && skill == newSkill);
+        if (isSkillAlreadyEquipped)
         {
-            if (index < skillManager.equippedSkills.Count)
-            {
-                skillManager.ReplaceSkill(index, newSkill);
-            }
-            else
-            {
-                skillManager.EquipSkill(newSkill);
-            }
+            Debug.LogWarning("이미 이 스킬이 장착되어 있습니다.");
+            instructionText.text = "이미 장착된 스킬입니다.";
+            return;
         }
 
+        // 스킬을 장착
+        skillManager.EquipSkillAtIndex(index, newSkill);
+
+        // UI 업데이트
         SetEquippedSkillsInteractable(false);
         instructionText.text = "";
+        RefreshSkillUI();
     }
 
     public void UnequipSkill(SkillDataSO skill)
     {
         skillManager.UnequipSkill(skill);
+        RefreshSkillUI();
     }
     public static string GetRarityString(Define.SkillRarity rarity)
     {

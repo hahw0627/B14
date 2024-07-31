@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class ModalsController : MonoBehaviour
 {
     public TextMeshProUGUI title;
-    public Transform content; //¾ÆÀÌÅÛÀ» Ç¥½ÃÇÒ ºÎ¸ð Æ®·£½ºÆû
+    public Transform content; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject itemPrefab;
  
     private Define.EquipmentType selectedItemType;
@@ -30,18 +30,18 @@ public class ModalsController : MonoBehaviour
     public void OnWeaponButtonClick()
     {
         selectedItemType = Define.EquipmentType.Weapon;
-        title.text = "¹«±â";
+        title.text = "ë¬´ê¸°";
         currentItemName.text = DataManager.Instance.playerDataSO.currentWeaponEquip.itemName;
         currentItemImage.sprite = DataManager.Instance.playerDataSO.currentWeaponEquip.sprite;
         UpdateItemList();
     }
 
 
-    // ¹æ¾î±¸ ¹öÆ° Å¬¸¯ ½Ã È£Ãâ
+    // ï¿½ï¿½î±¸ ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½
     public void OnArmorButtonClick()
     {
         selectedItemType = Define.EquipmentType.Armor;
-        title.text = "¹æ¾î±¸";
+        title.text = "ë°©ì–´êµ¬";
         UpdateItemList();
     }
     public void OnEquip()
@@ -60,14 +60,14 @@ public class ModalsController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("¾ø¾î¼­ Àåºñ ÀåÂø ¸øÇÔ.");
+                    Debug.Log("ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
                     
                 }
             }
         }
         else
         {
-            //¹æ¾î±¸ Ãß°¡..
+            //ï¿½ï¿½î±¸ ï¿½ß°ï¿½..
         }
     }
     public void OnEnhanceButton()
@@ -80,19 +80,19 @@ public class ModalsController : MonoBehaviour
                 if (item.itemName == currentItemName.text)
                 {
                     item.EnhanceItem(selectedItemType);
-                    Debug.Log("°­È­¼º°ø");
+                    Debug.Log("ï¿½ï¿½È­ï¿½ï¿½ï¿½ï¿½");
                     
                 }
                 else
                 {
-                    Debug.Log("ÀÎº¥¿¡ ¾ø¾î¼­ °­È­ ½ÇÆÐ");
+                    Debug.Log("ï¿½Îºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¼­ ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½");
                     
                 }
             }
         }
         else
         {
-            //¹æ¾î±¸ Ãß°¡..
+            //ï¿½ï¿½î±¸ ï¿½ß°ï¿½..
         }
     }
 
