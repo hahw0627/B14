@@ -54,8 +54,10 @@ public class SkillManager : MonoBehaviour
 
     public void UnequipSkill(SkillDataSO skill)
     {
-        if (equippedSkills.Remove(skill))
+        int index = equippedSkills.IndexOf(skill);
+        if (index != -1)
         {
+            equippedSkills[index] = null;
             OnEquippedSkillsChanged?.Invoke();
         }
     }
@@ -182,6 +184,23 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
+        // 새 스킬이 이미 장착되어 있는지 확인
+        int existingIndex = equippedSkills.FindIndex(s => s != null && s.skillName == newSkill.skillName);
+
+        // 이미 장착된 스킬이 있고, 그 위치가 현재 장착하려는 위치와 다르다면
+        if (existingIndex != -1 && existingIndex != index)
+        {
+            // 이미 장착된 스킬을 제거
+            equippedSkills[existingIndex] = null;
+        }
+
+        // 새 스킬을 장착할 위치에 이미 다른 스킬이 있다면 제거
+        if (index < equippedSkills.Count && equippedSkills[index] != null)
+        {
+            equippedSkills[index] = null;
+        }
+
+        // 새 스킬 장착
         while (equippedSkills.Count <= index)
         {
             equippedSkills.Add(null);
