@@ -468,9 +468,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97136ff59d7ec4a99b7c40da845ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
-  bossMonster: {fileID: 275247953}
   spawnPoints:
   - {fileID: 1396151741}
   - {fileID: 277040747}
@@ -478,10 +475,9 @@ MonoBehaviour:
   - {fileID: 608438022}
   - {fileID: 1619295865}
   - {fileID: 980565156}
-  monsters: []
+  bossMonster: {fileID: 275247953}
   stagePage: 0
   stage: 1
-  target: {fileID: 0}
 --- !u!1 &54227259
 GameObject:
   m_ObjectHideFlags: 0
@@ -5763,7 +5759,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 9c030f9cbc9181348b2d4a2410310461, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -13816,7 +13811,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 741f9560a91c83e4a9b632aad1043201, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textMeshProUGUI: {fileID: 424052760}
+  GoldTMP: {fileID: 0}
 --- !u!1 &1359144742
 GameObject:
   m_ObjectHideFlags: 0
@@ -15309,7 +15304,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 277ceb2df66013844b5668ded71df79e, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -17097,52 +17091,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1734949371}
   m_CullTransparentMesh: 1
---- !u!1 &1735171164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1735171165}
-  - component: {fileID: 1735171166}
-  m_Layer: 0
-  m_Name: EquipManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1735171165
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735171164}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1073.7561, y: 1243.7235, z: 14.601743}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1735171166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1735171164}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf6cf3567440c1245a19b29e8a1cd22f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weapons: []
-  _armors: []
 --- !u!1 &1739166615
 GameObject:
   m_ObjectHideFlags: 0
@@ -18605,39 +18553,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.49
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.093509786
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.56256205
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.81854457
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.06902676
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.447
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 526.659
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7970529226054892294, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -290.949
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7529134723855748321, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
@@ -18686,14 +18634,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  monsterSpawner: {fileID: 17708281}
+  scanner: {fileID: 1828702166}
+  fireMuzzle: {fileID: 280144680}
   damage: 0
   attackSpeed: 0
   currentHp: 0
-  projectilePrefab: {fileID: 56453844563175838, guid: 7c9cf4b3ec5e2fd479d44430fbb6c3a3, type: 3}
-  monsterSpawner: {fileID: 17708281}
-  scanner: {fileID: 1828702166}
-  spriteRenderer: {fileID: 0}
-  fireMuzzle: {fileID: 280144680}
 --- !u!4 &1828702168 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6537006914516050989, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
@@ -19298,7 +19244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petData: {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
   scanner: {fileID: 1828702166}
-  projectilePrefab: {fileID: 56453844563175838, guid: 61e7a091030f4aa438818e827aff2c26, type: 3}
   attackSpeed: 0
   damage: 0
   petNumber: 0
@@ -21411,9 +21356,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainSceneSkillManager: {fileID: 7865766755519013975}
   autoUseInterval: 2
+  isAutoMode: 0
   autoButton: {fileID: 1191362058}
-  autoOnColor: {r: 1, g: 1, b: 1, a: 1}
-  autoOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  autoOnColor:
+    r: 1
+    g: 1
+    b: 1
+    a: 1
+  autoOffColor:
+    r: 0.5
+    g: 0.5
+    b: 0.5
+    a: 1
   player: {fileID: 1828702167}
 --- !u!114 &33416759240613411
 MonoBehaviour:
@@ -21741,8 +21695,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
   - {fileID: 11400000, guid: 2bf27f40cf62a6e458364979efbdfacd, type: 2}
   equippedSkills: []
-  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   maxEquippedSkills: 5
+  mainSceneSkillManager: {fileID: 0}
+  autoUseInterval: 0.5
+  autoButton: {fileID: 0}
+  autoOnColor: {r: 1, g: 1, b: 1, a: 1}
+  autoOffColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  player: {fileID: 0}
 --- !u!222 &490689755392500002
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23194,7 +23153,6 @@ MonoBehaviour:
   skillManager: {fileID: 479757124814390805}
   mainSceneSkillManager: {fileID: 7865766755519013975}
   skillItemPrefab: {fileID: 2580377813701729697, guid: 1ea171930f8ac394d9119d18b518a04d, type: 3}
-  equippedSkillsContainer: {fileID: 3672247471398078211}
   allSkillsContainer: {fileID: 99410145}
   skillInfoPanel: {fileID: 4250424986757793384}
   instructionText: {fileID: 5890806997159482255}
@@ -26451,7 +26409,6 @@ MonoBehaviour:
   - {fileID: 1452042717}
   - {fileID: 531412555}
   - {fileID: 407647652}
-  autoSkillManager: {fileID: 2715436519487003}
   cooldownImages:
   - {fileID: 2371808462124989086}
   - {fileID: 3408771348928197972}
@@ -26465,7 +26422,6 @@ MonoBehaviour:
   - {fileID: 1360113142}
   - {fileID: 288062760}
   playerTransform: {fileID: 1828702168}
-  enemyTransform: {fileID: 4755740371325174915, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
   aoeEffectSpawnPoint: {fileID: 1933554483}
   buffEffectSpawnPoint: {fileID: 2071055390}
 --- !u!114 &7866761177546769553
@@ -27252,7 +27208,6 @@ SceneRoots:
   - {fileID: 4942768213129089284}
   - {fileID: 7267140083760695485}
   - {fileID: 3373102061447234679}
-  - {fileID: 1735171165}
   - {fileID: 786747317}
   - {fileID: 17708280}
   - {fileID: 1287427513}
