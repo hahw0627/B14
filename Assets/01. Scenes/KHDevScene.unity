@@ -17379,7 +17379,7 @@ MonoBehaviour:
   sleepModeUI: {fileID: 796986571}
   timeText: {fileID: 654328153}
   requirePressTime: 3
-  idleTimeLimit: 20
+  idleTimeLimit: 1800
 --- !u!114 &1099035521
 MonoBehaviour:
   m_ObjectHideFlags: 0
