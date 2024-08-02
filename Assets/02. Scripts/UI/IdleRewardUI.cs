@@ -11,6 +11,8 @@ public class IdleRewardUI : MonoBehaviour
     public TextMeshProUGUI rewardText;
     public TextMeshProUGUI timeAwayText;
     public Button confirmButton;
+    public GoldAcquireEffect goldAcquireEffect;
+    private TimeSpan timeAway;
 
     private float currentReward;
 
@@ -48,7 +50,9 @@ public class IdleRewardUI : MonoBehaviour
     {
         int rewardGold = Mathf.RoundToInt(currentReward);
         DataManager.Instance.AddGold(rewardGold);
-        // 여기에 보상을 실제로 지급하는 로직을 구현
+
+        goldAcquireEffect.PlayGoldAcquireEffect(confirmButton.transform.position, rewardGold);
+
         Debug.Log($"{rewardGold} 골드를 지급했습니다.");
         UIManager.Instance.UpdateCurrencyUI();
 

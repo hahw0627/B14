@@ -10018,6 +10018,7 @@ GameObject:
   - component: {fileID: 624286064}
   - component: {fileID: 624286063}
   - component: {fileID: 624286062}
+  - component: {fileID: 624286065}
   m_Layer: 5
   m_Name: Modal_Reward
   m_TagString: Untagged
@@ -10064,6 +10065,7 @@ MonoBehaviour:
   rewardText: {fileID: 805494419}
   timeAwayText: {fileID: 782220696}
   confirmButton: {fileID: 595993289}
+  goldAcquireEffect: {fileID: 624286065}
 --- !u!114 &624286063
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10102,6 +10104,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 624286060}
   m_CullTransparentMesh: 1
+--- !u!114 &624286065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 624286060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058b0e5d207f32f438f8b0a15145cdf7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldIconPrefab: {fileID: 5164777549346167754, guid: 4a02ca7d8bac97442842bf5787bd4fb9, type: 3}
+  canvasRectTransform: {fileID: 673944542}
+  targetGoldUI: {fileID: 1614197137}
 --- !u!1 &625982101
 GameObject:
   m_ObjectHideFlags: 0
