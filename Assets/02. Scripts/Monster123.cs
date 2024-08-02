@@ -118,12 +118,6 @@ public class Monster123 : MonoBehaviour, IDamageable
     {
         DataManager instance = DataManager.Instance;
         instance.playerDataSO.Gold += goldReward;
-<<<<<<< Updated upstream:Assets/02. Scripts/Monster123.cs
-        instance.achievementDataSO.ReceiveReport(++instance.playerDataSO.CountOfMonstersKilled);
-        
-=======
-        // instance.AchievementManager.KillMonster();
->>>>>>> Stashed changes:Assets/02. Scripts/Monster.cs
         OnDeath?.Invoke(this);
     }
 }
