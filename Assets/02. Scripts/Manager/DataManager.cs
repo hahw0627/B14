@@ -34,4 +34,10 @@ public class DataManager : Singleton<DataManager>
         armorEquipmentDataSO.AddRange(_armorEquipmentDataSO);
     }
 
+    public void AddGold(int amount)
+    {
+        playerDataSO.Gold += amount;
+        Debug.Log($"플레이어의 현재 골드 : {playerDataSO.Gold}");
+        UIManager.Instance.UpdateCurrencyUI();
+    }
 }
