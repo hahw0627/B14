@@ -1,3 +1,4 @@
+using Assets.HeroEditor4D.Common.Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,24 @@ public class GachaManager : MonoBehaviour
     public List<PetDataSO> petDataList;
     public Button onePullButton;
     public Button twelvePullButton;
+    public Button closeButton;
+    public Button allOpenButton;
+
+    private List<GachaScroll> activeScrolls = new List<GachaScroll>();
 
     private void Start()
     {
-        onePullButton.onClick.AddListener(() => PullGacha(1));
-        twelvePullButton.onClick.AddListener(() => PullGacha(12));
+        // 유니티 버튼 컴포넌트에서 연결하지 않고 코드로 연결해보기
+        closeButton.onClick.AddListener(CloseGacha);
+        allOpenButton.onClick.AddListener(AllScrollOpen);
     }
 
     public void PullGacha(int pullCount)
     {
+        // 가챠페이지 활성화
         gachaPage.SetActive(true);
+        closeButton.SetActive(true);
+        allOpenButton.SetActive(true);
 
         for (int i = 0; i < pullCount; i++)
         {
@@ -27,13 +36,14 @@ public class GachaManager : MonoBehaviour
             GachaScroll scroll = scrollInstance.GetComponent<GachaScroll>();
             PetDataSO pulledPet = GetRandomPet();
             scroll.Setup(pulledPet);
+            activeScrolls.Add(scroll);
         }
     }
 
     private PetDataSO GetRandomPet()
     {
-        // 여기에 등급에 따른 확률 계산 로직을 추가하세요.
-        // 예를 들어, Rarity가 높은 펫이 낮은 확률로 나오게 합니다.
+        // 여기에 등급에 따른 확률 계산 로직
+        // Rarity가 높은 펫이 낮은 확률로 나오게
         int totalWeight = 0;
         foreach (var pet in petDataList)
         {
@@ -72,6 +82,31 @@ public class GachaManager : MonoBehaviour
                 return 1;
             default:
                 return 0;
+        }
+    }
+
+    private void CloseGacha()
+    {
+        // 모든 Scroll 오브젝트 제거
+        foreach (Transform child in gachaPage.transform)
+        {
+            Destroy(child.gameObject);
+        }
+        // 리스트 초기화
+        activeScrolls.Clear();
+
+        // GachaPage 비활성화
+        gachaPage.SetActive(false);
+        closeButton.SetActive(false);
+        allOpenButton.SetActive(false);
+    }
+
+    private void AllScrollOpen()
+    {
+        // 활성화된 모든 Scroll의 Front를 활성화
+        foreach (var scroll in activeScrolls)
+        {
+            scroll.RevealPet();
         }
     }
 }

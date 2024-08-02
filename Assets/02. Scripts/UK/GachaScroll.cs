@@ -10,6 +10,12 @@ public class GachaScroll : MonoBehaviour
     public Button revealButton;
     public Image petIcon;
 
+    public GameObject normal;
+    public GameObject rare;
+    public GameObject unique;
+    public GameObject epic;
+    public GameObject legendary;
+
     private PetDataSO petData;
 
     private void Start()
@@ -22,12 +28,37 @@ public class GachaScroll : MonoBehaviour
         petData = pet;
         front.SetActive(false);
         back.SetActive(true);
+
+        normal.SetActive(false);
+        rare.SetActive(false);
+        unique.SetActive(false);
+        epic.SetActive(false);
+        legendary.SetActive(false);
     }
 
-    private void RevealPet()
+    public void RevealPet()
     {
         back.SetActive(false);
         front.SetActive(true);
         petIcon.sprite = petData.icon;
+
+        switch (petData.rarity)
+        {
+            case Define.SkillRarity.Normal:
+                normal.SetActive(true);
+                break;
+            case Define.SkillRarity.Rare:
+                rare.SetActive(true);
+                break;
+            case Define.SkillRarity.Unique:
+                unique.SetActive(true);
+                break;
+            case Define.SkillRarity.Epic:
+                epic.SetActive(true);
+                break;
+            case Define.SkillRarity.Legendary:
+                legendary.SetActive(true);
+                break;
+        }
     }
 }
