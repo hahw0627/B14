@@ -3065,7 +3065,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uCD5C\uCD08 \uC2E4\uD589 \n\uCD08\uAE30\uD654"
+  m_text: "\uCD5C\uCD08 \uC2E4\uD589 \n\uD65C\uC131\uD654"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
   m_sharedMaterial: {fileID: 7994797209924973624, guid: ea40a4596abd88841a45f6659dcc80a4, type: 2}
@@ -6737,7 +6737,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &534361516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9883,16 +9883,17 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 198ee847fdbeb764597264fcc99e9d0d, type: 3}
   - {fileID: 21300000, guid: 2d83177bf465c8c4d80292523b44bac1, type: 3}
   _captions:
-  - "2324\uB144 \uD669\uD3D0\uD654\uB41C \uC9C0\uAD6C\uB294 \uC678\uACC4\uC5D0\uC11C
-    \uC628 \uAD34\uBB3C\uC5D0 \uC758\uD574 \uBA78\uB9DD \uC704\uAE30\uC5D0 \uB193\uC778\uB2E4."
+  - "2324\uB144, \uD669\uD3D0\uD654\uB41C \uC9C0\uAD6C\uB294 \uC678\uACC4\uC5D0\uC11C
+    \uC628 \uAD34\uBB3C\uB4E4\uC5D0 \uC758\uD574 \uBA78\uB9DD \uC704\uAE30\uC5D0
+    \uB193\uC778\uB2E4."
   - "\uC778\uB958\uB294 \uC5B4\uB5BB\uAC8C\uB4E0 \uC9C0\uAD6C\uB97C \uC9C0\uD0A4\uACE0\uC790
     \uC5ED\uC0AC\uC801\uC73C\uB85C \uAC00\uC7A5 \uB6F0\uC5B4\uB09C \uC804\uD22C\uB825\uC744
     \uBCF4\uC720\uD55C \uC778\uAC04\uC744 \uACFC\uAC70\uC5D0\uC11C \uB370\uB824\uC624\uC790\uB294
     \uC0DD\uAC01\uC5D0 \uC774\uB974\uAC8C \uB418\uACE0..."
-  - "\uC138 \uBA85\uC758 \uC804\uD22C \uC6A9\uBCD1 \uC2A4\uCE74\uC6B0\uD130\uAC00
+  - "\uC138 \uBA85\uC758 \uC804\uD22C \uC6A9\uBCD1 \uC2A4\uCE74\uC6B0\uD2B8\uAC00
     \uD0C0\uC784\uBA38\uC2E0\uC744 \uD0C0\uACE0 19\uC138\uAE30 \uBBF8\uAD6D\uC73C\uB85C
     \uAC74\uB108\uAC04\uB2E4."
-  - "\uADF8\uB807\uAC8C \uC11C\uBD80\uAC1C\uCC99\uC2DC\uB300\uC5D0 \uD65C\uC57D\uD558\uB358
+  - "\uADF8\uB807\uAC8C \uC11C\uBD80 \uAC1C\uCC99 \uC2DC\uB300\uC5D0 \uD65C\uC57D\uD558\uB358
     \uC5B4\uB290 \uD55C \uCD1D\uC7A1\uC774\uB97C \uB370\uB9AC\uACE0 \uC624\uB294\uB370..."
   _nextButton: {fileID: 791750888}
 --- !u!1 &798007693
@@ -15302,7 +15303,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  AchievementManager: {fileID: 0}
   weaponEquipmentDataSO: []
   armorEquipmentDataSO: []
   allSkillsDataSO:
@@ -22282,8 +22282,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fae27d9666d2ab1428828f8dc2679b92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Caption: {fileID: 1621278926}
-  TypingSpeed: 0.1
 --- !u!1 &1625846172
 GameObject:
   m_ObjectHideFlags: 0
@@ -24953,6 +24951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e735fd8f88e29b64c8cf0c70769a6b8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allSkills: []
   equippedSkills: []
   maxEquippedSkills: 5
   mainSceneSkillManager: {fileID: 457631945}

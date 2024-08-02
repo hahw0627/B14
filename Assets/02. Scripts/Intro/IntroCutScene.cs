@@ -20,7 +20,7 @@ public class IntroCutScene : MonoBehaviour
     [SerializeField]
     private List<Sprite> _images;
 
-    [SerializeField]
+    [SerializeField, TextArea]
     private List<string> _captions;
 
     [Header("Scene Controller")]
