@@ -13,13 +13,13 @@ public class MonsterPool : SingletonDestroyable<MonsterPool>
         for (int i = 0; i < monsters.Length; i++)
         {
             monsters[i] = Instantiate(monsterPrefab, transform);
-            monsters[i].GetComponent<Monster123>().OnDeath += HandleMonsterDeath;
+            monsters[i].GetComponent<Monster>().OnDeath += HandleMonsterDeath;
             monsters[i].SetActive(false);
         }
     }
 
     // ?
-    void HandleMonsterDeath(Monster123 monster123)
+    void HandleMonsterDeath(Monster monster123)
     {
         UIManager.Instance.UpdateCurrencyUI();
     }
