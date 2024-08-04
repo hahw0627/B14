@@ -11,15 +11,20 @@ public class IdleRewardUI : MonoBehaviour
     public TextMeshProUGUI rewardText;
     public TextMeshProUGUI timeAwayText;
     public Button confirmButton;
+    public Button closeButton;
     public GoldAcquireEffect goldAcquireEffect;
-    private TimeSpan timeAway;
+    public GameObject mainSceneRewardButton;
 
+    private TimeSpan timeAway;
     private float currentReward;
+    public IdleRewardManager idleRewardManager;
 
     private void Start()
     {
         rewardPanel.SetActive(false);
         confirmButton.onClick.AddListener(OnConfirmButtonClicked);
+        closeButton.onClick.AddListener(OnCloseButtonClicked);
+        mainSceneRewardButton.SetActive(false);
     }
 
     public void ShowReward(float reward, TimeSpan timeAway)
@@ -35,6 +40,12 @@ public class IdleRewardUI : MonoBehaviour
             timeAwayText.text = $"부재 시간 : {FormatTimeSpan(timeAway)}";
         }
         rewardPanel.SetActive(true);
+        mainSceneRewardButton.SetActive(false);
+    }
+    private void OnCloseButtonClicked()
+    {
+        rewardPanel.SetActive(false);
+        mainSceneRewardButton.SetActive(true);
     }
     private string FormatTimeSpan(TimeSpan timeSpan)
     {
@@ -48,14 +59,14 @@ public class IdleRewardUI : MonoBehaviour
 
     private void OnConfirmButtonClicked()
     {
+        idleRewardManager.ClaimReward();
         int rewardGold = Mathf.RoundToInt(currentReward);
         DataManager.Instance.AddGold(rewardGold);
-
         goldAcquireEffect.PlayGoldAcquireEffect(confirmButton.transform.position, rewardGold);
-
         Debug.Log($"{rewardGold} 골드를 지급했습니다.");
         UIManager.Instance.UpdateCurrencyUI();
-
-        rewardPanel.SetActive(false );
+        rewardPanel.SetActive(false);
+        mainSceneRewardButton.SetActive(false);
+        currentReward = 0;
     }
 }
