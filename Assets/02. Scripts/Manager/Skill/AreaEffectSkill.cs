@@ -11,7 +11,8 @@ public class AreaEffectSkill : MonoBehaviour
     public void Initialize(SkillDataSO skill)
     {
         skillData = skill;
-        StartCoroutine(DealDamageOverTime());    
+        StartCoroutine(DealDamageOverTime());
+        StartCoroutine(CameraShake.Instance.Shake(0.5f, 0.2f));
     }
 
     private IEnumerator DealDamageOverTime()
