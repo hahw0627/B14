@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99358337809ac64c8ddaaacfadaf075, type: 3}
   m_Name: PetNum_15
   m_EditorClassIdentifier: 
-  skillName: "\uB3D9\uB8CC15"
+  petName: "\uB85C\uBE48\uD6D7"
   icon: {fileID: 21300000, guid: b05602f4a126731459f9c3fc358791de, type: 3}
   level: 1
   rarity: 4

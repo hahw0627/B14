@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99358337809ac64c8ddaaacfadaf075, type: 3}
   m_Name: PetNum_6
   m_EditorClassIdentifier: 
-  skillName: "\uB3D9\uB8CC6"
-  icon: {fileID: 21300000, guid: 4629ea4429c9fce459966fb18e510229, type: 3}
+  petName: "\uD574\uC801"
+  icon: {fileID: 21300000, guid: 4834696266d0a334e9b0389122b24870, type: 3}
   level: 1
   rarity: 1
   description: "\uCCAB \uBC88\uC9F8 \uB3D9\uB8CC"
   damage: 5
   attackSpeed: 1
-  count: 0
+  count: 2

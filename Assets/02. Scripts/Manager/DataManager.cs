@@ -9,6 +9,7 @@ public class DataManager : Singleton<DataManager>
     public List<EquipmentDataSO> weaponEquipmentDataSO;
     public List<EquipmentDataSO> armorEquipmentDataSO;
     public List<SkillDataSO>     allSkillsDataSO;
+    public List<PetDataSO>       allPetsDataSO;
 
 
     public void Start()
@@ -34,4 +35,8 @@ public class DataManager : Singleton<DataManager>
         armorEquipmentDataSO.AddRange(_armorEquipmentDataSO);
     }
 
+    public void FillAllPetsData(List<PetDataSO> _petsDataSO)
+    {
+        allPetsDataSO.AddRange(_petsDataSO);
+    }
 }

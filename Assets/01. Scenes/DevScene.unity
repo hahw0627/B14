@@ -15111,6 +15111,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
   - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
   - {fileID: 11400000, guid: b1887d08b304cd74b9ea97ca6aa18b0d, type: 2}
+  allPetsDataSO:
+  - {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
+  - {fileID: 11400000, guid: 590ff672e95cb7440b369e4e7c29e77f, type: 2}
+  - {fileID: 11400000, guid: 1e40efbe9718a544aaaa4656ea0ca41d, type: 2}
+  - {fileID: 11400000, guid: c6310295b49eb744cbed7ccec88d359c, type: 2}
+  - {fileID: 11400000, guid: bcdeac0c094e34c43bfc30f9ffe468a2, type: 2}
+  - {fileID: 11400000, guid: 29ecb88e3621d194ebdb3a3f185c3429, type: 2}
+  - {fileID: 11400000, guid: 45329a2c0e5187240addbbf0043e890b, type: 2}
+  - {fileID: 11400000, guid: 7d41823e5e3a9ba478a60a05ff68fe08, type: 2}
+  - {fileID: 11400000, guid: d37b5d2c9fe963045aaf08d4e9ee5aa3, type: 2}
+  - {fileID: 11400000, guid: 1cc7f31c5d3e5fd4ebf29dd16a4c4b44, type: 2}
+  - {fileID: 11400000, guid: a32727e07ffd20541a5418338ec3f1b6, type: 2}
+  - {fileID: 11400000, guid: 1b8fac8e7b8557a45b18241268188156, type: 2}
+  - {fileID: 11400000, guid: 6d0f32ce5ad26a2488d07eeb11a5c1be, type: 2}
+  - {fileID: 11400000, guid: d9ee962a2bc8c31469f7c63ed784a089, type: 2}
+  - {fileID: 11400000, guid: e0dc826494e8f81488f669392213a1ef, type: 2}
 --- !u!4 &955688140
 Transform:
   m_ObjectHideFlags: 0

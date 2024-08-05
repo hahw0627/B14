@@ -3,7 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewPetData", menuName = "ScriptableObjects/PetDataSO", order = 3)]
 public class PetDataSO : ScriptableObject
 {
-    public string skillName;
+    public string petName;
     public Sprite icon;
     public int level;
     public Define.SkillRarity rarity;
