@@ -138,6 +138,7 @@ public class SkillManager : MonoBehaviour
         }
     }
 
+
     private SkillDataSO FindUsableSkill()
     {
         return equippedSkills.Find(skill => !skillCooldowns.ContainsKey(skill) || skillCooldowns[skill] <= 0);

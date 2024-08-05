@@ -116,10 +116,8 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
-        DataManager instance = DataManager.Instance;
+        var instance = DataManager.Instance;
         instance.playerDataSO.Gold += goldReward;
-        //instance.achievementDataSO.ReceiveReport(++instance.playerDataSO.CountOfMonstersKilled);
-        
         OnDeath?.Invoke(this);
     }
 }

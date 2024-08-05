@@ -1,6 +1,4 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class DataManager : Singleton<DataManager>
@@ -9,7 +7,6 @@ public class DataManager : Singleton<DataManager>
     public List<EquipmentDataSO> weaponEquipmentDataSO;
     public List<EquipmentDataSO> armorEquipmentDataSO;
     public List<SkillDataSO>     allSkillsDataSO;
-    public List<PetDataSO>       allPetsDataSO;
 
 
     public void Start()
@@ -20,8 +17,8 @@ public class DataManager : Singleton<DataManager>
         }
     }
    
-    //addRange´Â ÇÑ¹ø¿¡ ´Ù¼öÀÇ ¿ø¼Ò¸¦ Ãß°¡ÇÏ´Âµ¥ ¸¶Áö¸·¿¡ µé¾î°£´Ù. 
-    //±âÁ¸ µ¥ÀÌÅÍÀÇ »õ·Î¿î ¸®½ºÆ®¸¦ Ãß°¡ÇØ¼­ ´Ã·ÁÁÖ´Â ÇÔ¼ö.
+    //addRangeï¿½ï¿½ ï¿½Ñ¹ï¿½ï¿½ï¿½ ï¿½Ù¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ò¸ï¿½ ï¿½ß°ï¿½ï¿½Ï´Âµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°£ï¿½ï¿½. 
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½ï¿½Ø¼ï¿½ ï¿½Ã·ï¿½ï¿½Ö´ï¿½ ï¿½Ô¼ï¿½.
     public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
     {
         allSkillsDataSO.AddRange(_skillsDataSO);
@@ -35,8 +32,10 @@ public class DataManager : Singleton<DataManager>
         armorEquipmentDataSO.AddRange(_armorEquipmentDataSO);
     }
 
-    public void FillAllPetsData(List<PetDataSO> _petsDataSO)
+    public void AddGold(int amount)
     {
-        allPetsDataSO.AddRange(_petsDataSO);
+        playerDataSO.Gold += amount;
+        Debug.Log($"ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç °ñµå : {playerDataSO.Gold}");
+        UIManager.Instance.UpdateCurrencyUI();
     }
 }
