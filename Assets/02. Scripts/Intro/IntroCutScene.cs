@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Debug = UnityEngine.Debug;
 
 public class IntroCutScene : MonoBehaviour
 {
@@ -26,11 +27,13 @@ public class IntroCutScene : MonoBehaviour
     [Header("Scene Controller")]
     [SerializeField]
     private Button _nextButton;
-
+    
+    [Header("Settings")]
+    public float TypingSpeed = 0.2f; // 글자 출력 속도
+    
     private int _resourceIndex;
-
-    // [Header("Settings")]
-    // public float TypingSpeed = 0.1f; // 글자 출력 속도
+    private Coroutine _typingCoroutine;
+    private TextMeshProUGUI _captionTmp;
 
     private void Awake()
     {
@@ -40,52 +43,53 @@ public class IntroCutScene : MonoBehaviour
 
     private void Start()
     {
+        _captionTmp = _captionObject.GetComponent<TextMeshProUGUI>();
         UpdateScene();
     }
 
     private void UpdateScene()
     {
-        if (_resourceIndex < _images.Count && _resourceIndex < _captions.Count)
+        // 화면에 표시될 리소스가 남아있는지 여부
+        if (_resourceIndex < _images.Count && _resourceIndex < _captions.Count) // 아직 남아있다면
         {
             _imageObject.GetComponent<Image>().sprite = _images[_resourceIndex];
-            _captionObject.GetComponent<TextMeshProUGUI>().text = _captions[_resourceIndex];
-            // StartCoroutine(nameof(TypeText));
+            _captionObject.GetComponent<TextMeshProUGUI>().text = ""; // 캡션 초기화
+            _typingCoroutine = StartCoroutine(TypeText()); // 타이핑 효과 시작
         }
-        else
+        else // 남아 있지 않다면
         {
             // 모든 장면을 보여준 후의 처리 (예: 씬 전환 또는 종료)
             Debug.Log("인트로: 모든 장면을 표시했습니다.");
             Time.timeScale = 1f;
-            _introCutSceneObject.SetActive(false);
+            Destroy(_introCutSceneObject);
+            FirstRunCheck.SaveKeyOfFirstRun();
         }
     }
 
     private void OnNextButtonClicked()
     {
-        _resourceIndex++;
-        UpdateScene();
-/*
-        if (_captionObject.GetComponent<TextMeshProUGUI>().text == _captions[_resourceIndex])
+        if (_typingCoroutine != null)
         {
-            StopCoroutine(nameof(TypeText));
-            _resourceIndex++;
+            // 타이핑 효과가 진행 중이라면
+            StopCoroutine(_typingCoroutine);
+            _captionObject.GetComponent<TextMeshProUGUI>().text = _captions[_resourceIndex]; // 캡션을 모두 표시
+            _typingCoroutine = null; // 코루틴 참조 초기화
         }
         else
         {
-            StopCoroutine(nameof(TypeText));
-            _captionObject.GetComponent<TextMeshProUGUI>().text = _captions[_resourceIndex];
+            // 타이핑 효과가 끝났다면 다음 리소스로 넘어감
+            _resourceIndex++;
+            UpdateScene();
         }
-        */
     }
-    /*
-    private IEnumerator TypeText()
+    
+    private IEnumerator TypeText()  // 타이핑 효과(자막)
     {
         foreach (var letter in _captions[_resourceIndex])
         {
-            _captionObject.GetComponent<TextMeshProUGUI>().text += letter; // 한 글자씩 추가
-            yield return new WaitForSeconds(TypingSpeed); // 지정한 시간만큼 대기
+            _captionTmp.text += letter; // 한 글자씩 추가
+            yield return new WaitForSecondsRealtime(TypingSpeed); // 지정한 시간만큼 대기
         }
-        _nextButton.interactable = true; // 대사가 끝난 후 버튼 활성화
+        _typingCoroutine = null; // 코루틴 종료 후 참조 초기화
     }
-    */
 }
