@@ -20,3 +20,4 @@ MonoBehaviour:
   damage: 5
   attackSpeed: 1
   count: 0
+  isEquipped: 0

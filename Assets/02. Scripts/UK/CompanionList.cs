@@ -53,4 +53,9 @@ public class CompanionList : MonoBehaviour
             companionInfoPanel.ShowPetInfo(petDataArray[index]);
         }
     }
+
+    public PetDataSO[] GetAllPetData()
+    {
+        return petDataArray;
+    }
 }
