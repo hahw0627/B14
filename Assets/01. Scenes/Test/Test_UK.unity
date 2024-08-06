@@ -18378,7 +18378,7 @@ MonoBehaviour:
   currentCompanionButton2: {fileID: 892332336}
   currentCompanionButton3: {fileID: 1604194898}
   currentPetData: {fileID: 0}
-  companionList: {fileID: 0}
+  companionList: {fileID: 1766287113}
 --- !u!1 &1262551111
 GameObject:
   m_ObjectHideFlags: 0

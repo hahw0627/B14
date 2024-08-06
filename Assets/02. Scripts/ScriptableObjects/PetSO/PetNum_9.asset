@@ -16,8 +16,9 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: cdbb8fbc9e301f848bed91f0ceb74c5b, type: 3}
   level: 1
   rarity: 2
-  description: "\uCCAB \uBC88\uC9F8 \uB3D9\uB8CC"
-  damage: 5
+  description: "\uD3C9\uBC94\uD55C \uACBD\uBE44\uBCD1. \uC8C4\uB97C \uC9C0\uC73C\uBA74
+    \uCC3E\uC544\uC628\uB2E4\uACE0 \uD55C\uB2E4."
+  damage: 35
   attackSpeed: 1
   count: 0
   isEquipped: 0
