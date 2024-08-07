@@ -21681,7 +21681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1159004991
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25850,6 +25850,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1402042177}
   m_CullTransparentMesh: 1
+--- !u!1 &1402696975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402696977}
+  - component: {fileID: 1402696976}
+  m_Layer: 0
+  m_Name: StatUpgrade
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1402696976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402696975}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c959949f4e014104fb73b421b2a235e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  AttackTmp: {fileID: 611802377}
+  AttackSpeedTmp: {fileID: 1801011656}
+  HpTmp: {fileID: 440751694}
+  RecoverHpTmp: {fileID: 1920412233}
+  CriticalPercentTmp: {fileID: 664816094}
+  CriticalDamageTmp: {fileID: 14805013}
+  AttackCostTmp: {fileID: 2048518699}
+  AttackSpeedCostTmp: {fileID: 709770381}
+  HpCostTmp: {fileID: 483424305}
+  RecoverHpCostTmp: {fileID: 1523250145}
+  CriticalPercentCostTmp: {fileID: 1403628773}
+  CriticalDamageCostTmp: {fileID: 1148152710}
+  AttackBtn: {fileID: 1534057419}
+  AttackSpeedBtn: {fileID: 445235338}
+  HpBtn: {fileID: 1472091372}
+  RecoverHpBtn: {fileID: 2130806737}
+  CriticalPercentBtn: {fileID: 1460739288}
+  CriticalDamageBtn: {fileID: 732111144}
+--- !u!4 &1402696977
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402696975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1403628770
 GameObject:
   m_ObjectHideFlags: 0
@@ -29217,69 +29280,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1547655884}
   m_CullTransparentMesh: 1
---- !u!1 &1557286320
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1557286322}
-  - component: {fileID: 1557286321}
-  m_Layer: 0
-  m_Name: StatUpgrade
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1557286321
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557286320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c959949f4e014104fb73b421b2a235e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerData: {fileID: 0}
-  AttackTmp: {fileID: 0}
-  AttackSpeedTmp: {fileID: 0}
-  HpTmp: {fileID: 0}
-  RecoverHpTmp: {fileID: 0}
-  CriticalPercentTmp: {fileID: 0}
-  CriticalDamageTmp: {fileID: 0}
-  AttackCostTmp: {fileID: 0}
-  AttackSpeedCostTmp: {fileID: 0}
-  HpCostTmp: {fileID: 0}
-  RecoverHpCostTmp: {fileID: 0}
-  CriticalPercentCostTmp: {fileID: 0}
-  CriticalDamageCostTmp: {fileID: 0}
-  AttackBtn: {fileID: 0}
-  AttackSpeedBtn: {fileID: 0}
-  HpBtn: {fileID: 0}
-  RecoverHpBtn: {fileID: 0}
-  CriticalPercentBtn: {fileID: 0}
-  CriticalDamageBtn: {fileID: 0}
---- !u!4 &1557286322
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557286320}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8921875, y: -0.34953135, z: 90}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1563393143
 GameObject:
   m_ObjectHideFlags: 0
@@ -38522,8 +38522,8 @@ SceneRoots:
   - {fileID: 1048139084}
   - {fileID: 659442485}
   - {fileID: 1270987366}
-  - {fileID: 1557286322}
   - {fileID: 1693188730}
+  - {fileID: 1402696977}
   - {fileID: 1373255071}
   - {fileID: 1434115744}
   - {fileID: 1233531903}
