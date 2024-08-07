@@ -28,6 +28,8 @@ public class EquipmentDataSO : ScriptableObject
     public float attackIncreasePerLevel; //레벨당 공격력 상승량
     public float defIncreasePerLevel;   //레벨당 방어력 상승량
 
+    public int count;
+
     //추가
     public void EnhanceItem(Define.EquipmentType equipType)
     {
