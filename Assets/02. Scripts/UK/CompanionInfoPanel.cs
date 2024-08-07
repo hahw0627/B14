@@ -7,25 +7,34 @@ using UnityEngine.UI;
 
 public class CompanionInfoPanel : MonoBehaviour
 {
-    public Image petIcon;
-    public TextMeshProUGUI petNameText;
-    public TextMeshProUGUI petDescriptionText;
-    public TextMeshProUGUI petLevelText;
-    public TextMeshProUGUI petCountText;
+    [Header("")]
+    public Image companionIcon;
+    public TextMeshProUGUI companionNameText;
+    public TextMeshProUGUI companionDescriptionText;
+    public TextMeshProUGUI companionLevelText;
+    public TextMeshProUGUI companionCountText;
+    public TextMeshProUGUI companionDamageText;
 
+    [Header("")]
     public GameObject btnChoice;
     public GameObject choiceFail;
 
+    [Header("")]
     public Button equipButton;
     public Button currentCompanionButton1;
     public Button currentCompanionButton2;
     public Button currentCompanionButton3;
 
-    public PetDataSO currentPetData;
+    [Header("")]
+    public Button upgradeButton;
+
+    [Header("")]
+    public CompanionDataSO currentCompanionData;
 
     private Button selectedButton;
 
     public CompanionList companionList;
+
 
     private void Start()
     {
@@ -37,28 +46,31 @@ public class CompanionInfoPanel : MonoBehaviour
         currentCompanionButton2.onClick.AddListener(() => SelectButton(currentCompanionButton2));
         currentCompanionButton3.onClick.AddListener(() => SelectButton(currentCompanionButton3));
 
+        upgradeButton.onClick.AddListener(CompanionUpgrade);
+
     }
 
-    public void ShowPetInfo(PetDataSO petData)
+    public void ShowCompanionInfo(CompanionDataSO companionData)
     {
-        currentPetData = petData;
-        petIcon.sprite = petData.icon;
-        petNameText.text = petData.petName;
-        petDescriptionText.text = petData.description;
-        petLevelText.text = petData.level.ToString();
-        petCountText.text = petData.count.ToString();
+        currentCompanionData = companionData;
+        companionIcon.sprite = companionData.icon;
+        companionNameText.text = companionData.companionName;
+        companionDescriptionText.text = companionData.description;
+        companionLevelText.text = companionData.level.ToString();
+        companionCountText.text = companionData.count.ToString();
+        companionDamageText.text = companionData.damage.ToString();
 
         gameObject.SetActive(true);
     }
 
     public void EquipCompanion()
     {
-        if (currentPetData.isEquipped)
+        if (currentCompanionData.isEquipped)
         {
             choiceFail.SetActive(true);
             return;
         }
-        else if(currentPetData.count == 0 && currentPetData.level == 1)
+        else if(currentCompanionData.count == 0 && currentCompanionData.level == 1)
         {
             choiceFail.SetActive(true);
             return;
@@ -70,17 +82,17 @@ public class CompanionInfoPanel : MonoBehaviour
     }
 
     public void SelectButton(Button button)
-    {
+    {   // 버튼골라서 이미지 입히기
         if (selectedButton == null) // 버튼이 아직 선택되지 않았다면
         {
             selectedButton = button;
             btnChoice.gameObject.SetActive(false); // 버튼 선택 완료 후, 선택 UI 숨김
 
-            if (currentPetData.isEquipped)
+            if (currentCompanionData.isEquipped)
             {
                 return;
             }
-            else if (currentPetData.count == 0 && currentPetData.level == 1)
+            else if (currentCompanionData.count == 0 && currentCompanionData.level == 1)
             {
                 return;
             }
@@ -90,7 +102,7 @@ public class CompanionInfoPanel : MonoBehaviour
                 Image buttonImage = button.GetComponent<Image>();
                 if (buttonImage != null)
                 {
-                    buttonImage.sprite = currentPetData.icon;
+                    buttonImage.sprite = currentCompanionData.icon;
                 }
             }
 
@@ -100,18 +112,31 @@ public class CompanionInfoPanel : MonoBehaviour
     }
 
     private void UpdateEquippedStatus(Button newButton)
-    {
-        // CompanionList에서 모든 펫 데이터를 가져옵니다.
+    {   // 펫 장착 여부 업데이트
+        // CompanionList에서 모든 펫 데이터를 가져옴
         // DataManager로 변경하는게 좋아보임 잠시 보류
-        PetDataSO[] allPetData = companionList.GetAllPetData();
-        foreach (PetDataSO petData in allPetData)
+        CompanionDataSO[] allCompanionData = companionList.GetAllCompanionData();
+        foreach (CompanionDataSO companionData in allCompanionData)
         {
-            if (petData.isEquipped && petData != currentPetData)
+            if (companionData.isEquipped && companionData != currentCompanionData)
             {
-                petData.isEquipped = false; // 이미 장착된 다른 펫의 장착 상태를 해제합니다.
+                companionData.isEquipped = false; // 이미 장착된 다른 펫의 장착 상태를 해제
             }
         }
 
-        currentPetData.isEquipped = true; // 현재 선택된 펫을 장착합니다.
+        currentCompanionData.isEquipped = true; // 현재 선택된 펫을 장착
+    }
+
+    public void CompanionUpgrade()
+    {
+        if(currentCompanionData.count > 4)
+        {
+            currentCompanionData.level += 1;
+            currentCompanionData.count -= 5;
+            currentCompanionData.damage += 5;
+            companionLevelText.text = currentCompanionData.level.ToString();
+            companionCountText.text = currentCompanionData.count.ToString();
+            companionDamageText.text = currentCompanionData.damage.ToString();
+        }
     }
 }

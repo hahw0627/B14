@@ -25,3 +25,4 @@ MonoBehaviour:
   projectileSpeed: 0
   aoeRadius: 0
   buffAmount: 10
+  count: 0

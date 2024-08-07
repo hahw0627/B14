@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Pet : MonoBehaviour
 {
-    public PetDataSO petData;
+    public CompanionDataSO companionData;
     public Scanner scanner;
     public float attackSpeed;
     public int damage;
-    public int petNumber;
 
     private void Awake()
     {
-        damage = petData.damage; // 기본 설정 값 사용
-        attackSpeed = petData.attackSpeed; // 기본 설정 값 사용
+        damage = companionData.damage; // 기본 설정 값 사용
+        attackSpeed = companionData.attackSpeed; // 기본 설정 값 사용
     }
 
     private void Start()

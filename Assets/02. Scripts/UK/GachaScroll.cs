@@ -7,25 +7,45 @@ public class GachaScroll : MonoBehaviour
 {
     public GameObject back;
     public GameObject front;
-    public Button revealButton;
-    public Image petIcon;
+    public Button OpenButton;
+    public Image icon;
 
+    [Header("rarity")]
     public GameObject normal;
     public GameObject rare;
     public GameObject unique;
     public GameObject epic;
     public GameObject legendary;
 
-    private PetDataSO petData;
+    public CompanionDataSO companionData;
+    public SkillDataSO skillData;
+    public EquipmentDataSO weaponData;
 
     private void Start()
     {
-        revealButton.onClick.AddListener(RevealPet);
+        OpenButton.onClick.AddListener(OpenScroll);
     }
 
-    public void Setup(PetDataSO pet)
+    public void Setup(CompanionDataSO companion)
     {
-        petData = pet;
+        companionData = companion;
+        SetupCommon();
+    }
+
+    public void Setup(SkillDataSO skill)
+    {
+        skillData = skill;
+        SetupCommon();
+    }
+
+    public void Setup(EquipmentDataSO weapon)
+    {
+        weaponData = weapon;
+        SetupCommon();
+    }
+
+    private void SetupCommon()
+    {
         front.SetActive(false);
         back.SetActive(true);
 
@@ -36,29 +56,76 @@ public class GachaScroll : MonoBehaviour
         legendary.SetActive(false);
     }
 
-    public void RevealPet()
+    public void OpenScroll()
     {
         back.SetActive(false);
         front.SetActive(true);
-        petIcon.sprite = petData.icon;
 
-        switch (petData.rarity)
+        if (companionData != null)
         {
-            case Define.SkillRarity.Normal:
-                normal.SetActive(true);
-                break;
-            case Define.SkillRarity.Rare:
-                rare.SetActive(true);
-                break;
-            case Define.SkillRarity.Unique:
-                unique.SetActive(true);
-                break;
-            case Define.SkillRarity.Epic:
-                epic.SetActive(true);
-                break;
-            case Define.SkillRarity.Legendary:
-                legendary.SetActive(true);
-                break;
+            icon.sprite = companionData.icon;
+            switch (companionData.rarity)
+            {
+                case Define.SkillRarity.Normal:
+                    normal.SetActive(true);
+                    break;
+                case Define.SkillRarity.Rare:
+                    rare.SetActive(true);
+                    break;
+                case Define.SkillRarity.Unique:
+                    unique.SetActive(true);
+                    break;
+                case Define.SkillRarity.Epic:
+                    epic.SetActive(true);
+                    break;
+                case Define.SkillRarity.Legendary:
+                    legendary.SetActive(true);
+                    break;
+            }
+        }
+        else if (skillData != null)
+        {
+            icon.sprite = skillData.icon;
+            switch (skillData.rarity)
+            {
+                case Define.SkillRarity.Normal:
+                    normal.SetActive(true);
+                    break;
+                case Define.SkillRarity.Rare:
+                    rare.SetActive(true);
+                    break;
+                case Define.SkillRarity.Unique:
+                    unique.SetActive(true);
+                    break;
+                case Define.SkillRarity.Epic:
+                    epic.SetActive(true);
+                    break;
+                case Define.SkillRarity.Legendary:
+                    legendary.SetActive(true);
+                    break;
+            }
+        }
+        else if (weaponData != null)
+        {
+            icon.sprite = weaponData.sprite;
+            switch (weaponData.gachaRarity)
+            {
+                case (Define.GachaRarity)Define.SkillRarity.Normal:
+                    normal.SetActive(true);
+                    break;
+                case (Define.GachaRarity)Define.SkillRarity.Rare:
+                    rare.SetActive(true);
+                    break;
+                case (Define.GachaRarity)Define.SkillRarity.Unique:
+                    unique.SetActive(true);
+                    break;
+                case (Define.GachaRarity)Define.SkillRarity.Epic:
+                    epic.SetActive(true);
+                    break;
+                case (Define.GachaRarity)Define.SkillRarity.Legendary:
+                    legendary.SetActive(true);
+                    break;
+            }
         }
     }
 }

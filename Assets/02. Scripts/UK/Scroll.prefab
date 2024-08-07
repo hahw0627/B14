@@ -52,8 +52,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   back: {fileID: 8726204725450379196}
   front: {fileID: 8018044352447806029}
-  revealButton: {fileID: 1204976826515389171}
-  petIcon: {fileID: 7512007534745199004}
+  OpenButton: {fileID: 1204976826515389171}
+  icon: {fileID: 7512007534745199004}
   normal: {fileID: 2522059486258716680}
   rare: {fileID: 4823924534530295232}
   unique: {fileID: 1495168388128339095}
@@ -794,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4293601118835465115
 RectTransform:
   m_ObjectHideFlags: 0
@@ -836,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4206212112831346235
 RectTransform:
   m_ObjectHideFlags: 0

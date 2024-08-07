@@ -8,7 +8,9 @@ public class Define
     {
         Normal,
         Rare,
-        //추가 변경
+        Unique,
+        Epic,
+        Legendary
     }
     public enum EquipmentType
     {

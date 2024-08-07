@@ -19,4 +19,5 @@ public class SkillDataSO : ScriptableObject
     public float projectileSpeed; // 투사체 스킬용
     public float aoeRadius; // 범위 스킬용
     public int buffAmount; // 공격력 올라가는 수치 or 회복량
+    public int count;
 }
