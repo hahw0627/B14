@@ -9,6 +9,11 @@ TagManager:
   - ModalTitle
   - ModalCurrentEquipment
   - ModalCurrentEquipmentImage
+  - AchievementItemRewardTxt
+  - AchievementItemSuccessConditionTxt
+  - AchievementItemDescriptionTxt
+  - AchievementItemButton
+  - AchievementIconImage
   layers:
   - Default
   - TransparentFX

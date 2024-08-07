@@ -29,12 +29,12 @@ public class DataTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
             saveLoadManager.SaveSOData();
-            Debug.Log("ÀúÀå¿Ï·á");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½Ï·ï¿½");
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             saveLoadManager.LoadSOData();
-            Debug.Log("ºÒ·¯¿È");
+            Debug.Log("ï¿½Ò·ï¿½ï¿½ï¿½");
         }
 
 
@@ -67,11 +67,11 @@ public class DataTest : MonoBehaviour
 
         
         //equipment
-        //±×³É ÇÊ¿äÇÒ¶§¸¸ ÄÚµå·Î ºÒ·¯¿Íµµ »ó°ü¾ø´ÙÇÑ´Ù. 
-        //ÄÚµå´Â ÀÇ¹Ì¸¦ °¡ÁöÁö ¾ÊÀ¸¸é ±×³É ¼ýÀÚ·Î ¹Þ´Â°Ô ´õ °¡º±´Ù, B S  ÀÌ·±½ÄÀ¸·Î Å¸ÀÔÀ» ÁöÁ¤ÇØ¼­
-        //split ÇØ¼­ »ç¿ëÇÒ¼öµµÀÖ´Ù Å¸ÀÔÀ»,
+        //ï¿½×³ï¿½ ï¿½Ê¿ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
+        //ï¿½Úµï¿½ï¿½ ï¿½Ç¹Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½×³ï¿½ ï¿½ï¿½ï¿½Ú·ï¿½ ï¿½Þ´Â°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, B S  ï¿½Ì·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½
+        //split ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ò¼ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ Å¸ï¿½ï¿½ï¿½ï¿½,
 
-        //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("¤±¤¤¤·")); 
+        //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")); 
     }
 
 
@@ -81,12 +81,12 @@ public class DataTest : MonoBehaviour
     //    if (gameData == null)
     //    {
     //        IninData();
-    //        Debug.Log("¾ø¾î¼­ ·Îµå ¸øÇÔ");
+    //        Debug.Log("ï¿½ï¿½ï¿½î¼­ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½");
 
     //    }
     //    else
     //    {         
-    //        Debug.Log("ÀÖ´ø°Å ·ÎµåÇÔ");
+    //        Debug.Log("ï¿½Ö´ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½");
     //    }
        
     //}
@@ -94,7 +94,7 @@ public class DataTest : MonoBehaviour
     //public void SaveGame()
     //{
     //    saveLoadManager.SaveGame(gameData);
-    //    // °ÔÀÓ Á¾·á ½Ã µ¥ÀÌÅÍ ÀúÀå
+    //    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //}
     public void Exit()
     {
