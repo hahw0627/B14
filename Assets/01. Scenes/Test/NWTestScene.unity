@@ -319,6 +319,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 13198120}
   m_CullTransparentMesh: 1
+--- !u!1 &15937962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 15937963}
+  - component: {fileID: 15937964}
+  m_Layer: 0
+  m_Name: QuestTest
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &15937963
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15937962}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 935.0779, y: 2948.8586, z: 9.420226}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &15937964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 15937962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e794073bef996a34bb4cb8cef1eaa40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _quest: {fileID: 11400000, guid: bea91d21e14a6a3488230db0eb702a29, type: 2}
+  _category: {fileID: 11400000, guid: 57c4a0b4b793fb04391eff1c083a4420, type: 2}
+  _target: {fileID: 11400000, guid: d582256c0f410af4b8d697b5c3a92161, type: 2}
 --- !u!1 &24616787
 GameObject:
   m_ObjectHideFlags: 0
@@ -2900,11 +2947,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 662673233}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &221665705
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6615,7 +6661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &534361516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15991,25 +16037,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c959949f4e014104fb73b421b2a235e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  attackTxt: {fileID: 369874908}
-  hpTxt: {fileID: 954870717}
-  recoverHpTxt: {fileID: 1978931264}
-  attackSpeedTxt: {fileID: 350505996}
-  criticalPercentTxt: {fileID: 1747988772}
-  criticalDamageTxt: {fileID: 1763136100}
-  attackCostTxt: {fileID: 1681563143}
-  hpCostTxt: {fileID: 1960560576}
-  recoverHpCostTxt: {fileID: 1981944753}
-  attackSpeedCostTxt: {fileID: 1524400705}
-  criticalPercentCostTxt: {fileID: 1465275899}
-  criticalDamageCostTxt: {fileID: 1578705894}
-  attackBtn: {fileID: 1376262806}
-  hpBtn: {fileID: 557516021}
-  recoverHpBtn: {fileID: 535987562}
-  attackSpeedBtn: {fileID: 864210222}
-  criticalPercentBtn: {fileID: 75602229}
-  criticalDamageBtn: {fileID: 1810802722}
+  PlayerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  AttackTmp: {fileID: 369874908}
+  AttackSpeedTmp: {fileID: 350505996}
+  HpTmp: {fileID: 954870717}
+  RecoverHpTmp: {fileID: 1978931264}
+  CriticalPercentTmp: {fileID: 1747988772}
+  CriticalDamageTmp: {fileID: 1763136100}
+  AttackCostTmp: {fileID: 1681563143}
+  AttackSpeedCostTmp: {fileID: 1524400705}
+  HpCostTmp: {fileID: 1960560576}
+  RecoverHpCostTmp: {fileID: 1981944753}
+  CriticalPercentCostTmp: {fileID: 1465275899}
+  CriticalDamageCostTmp: {fileID: 1578705894}
+  AttackBtn: {fileID: 1376262806}
+  AttackSpeedBtn: {fileID: 864210222}
+  HpBtn: {fileID: 557516021}
+  RecoverHpBtn: {fileID: 535987562}
+  CriticalPercentBtn: {fileID: 75602229}
+  CriticalDamageBtn: {fileID: 1810802722}
 --- !u!4 &1173942283
 Transform:
   m_ObjectHideFlags: 0
@@ -17088,11 +17134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 9c030f9cbc9181348b2d4a2410310461, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 662673233}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &1258780389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25694,11 +25739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 277ceb2df66013844b5668ded71df79e, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 662673233}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &1927983199
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -30739,3 +30783,4 @@ SceneRoots:
   - {fileID: 221665706}
   - {fileID: 1258780390}
   - {fileID: 1927983200}
+  - {fileID: 15937963}

@@ -1,100 +1,95 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StatUpgrade : MonoBehaviour
 {
-    public PlayerDataSO playerData;
+    public PlayerDataSO PlayerData;
 
-    public Text attackTxt;
-    public Text hpTxt;
-    public Text recoverHpTxt;
-    public Text attackSpeedTxt;
-    public Text criticalPercentTxt;
-    public Text criticalDamageTxt;
+    [Header("Label")]
+    public Text AttackTmp;
+    public Text AttackSpeedTmp;
+    public Text HpTmp;
+    public Text RecoverHpTmp;
+    public Text CriticalPercentTmp;
+    public Text CriticalDamageTmp;
+    
+    [Header("Cost Label")]
+    public Text AttackCostTmp;
+    public Text AttackSpeedCostTmp;
+    public Text HpCostTmp;
+    public Text RecoverHpCostTmp;
+    public Text CriticalPercentCostTmp;
+    public Text CriticalDamageCostTmp;
 
-    public Text attackCostTxt;
-    public Text hpCostTxt;
-    public Text recoverHpCostTxt;
-    public Text attackSpeedCostTxt;
-    public Text criticalPercentCostTxt;
-    public Text criticalDamageCostTxt;
+    [Header("Upgrade Button")]
+    public Button AttackBtn;
+    public Button AttackSpeedBtn;
+    public Button HpBtn;
+    public Button RecoverHpBtn;
+    public Button CriticalPercentBtn;
+    public Button CriticalDamageBtn;
 
-    public Button attackBtn;
-    public Button hpBtn;
-    public Button recoverHpBtn;
-    public Button attackSpeedBtn;
-    public Button criticalPercentBtn;
-    public Button criticalDamageBtn;
+    private int _attackCost = 1;
+    private int _hpCost = 1;
+    private int _recoverHpCost = 3;
+    private int _attackSpeedCost = 10;
+    private int _criticalPercentCost = 100;
+    private int _criticalDamageCost = 50;
 
-    private int attackCost = 1;
-    private int hpCost = 1;
-    private int recoverHpCost = 3;
-    private int attackSpeedCost = 10;
-    private int criticalPercentCost = 100;
-    private int criticalDamageCost = 50;
-
-    public static event System.Action OnStatsChanged;
+    public static event System.Action onStatsChanged;
 
     private void Start()
     {
         UpdateUI();
 
-        attackBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Damage, 2, ref attackCost, attackTxt, "���ݷ� : ", attackCostTxt));
-        hpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.Hp, 100, ref hpCost, hpTxt, "ü�� : ", hpCostTxt));
-        recoverHpBtn.onClick.AddListener(() => UpgradeStat(ref playerData.HpRecovery, 100, ref recoverHpCost, recoverHpTxt, "ü��ȸ���� : ", recoverHpCostTxt));
-        attackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref playerData.AttackSpeed, 0.5f, ref attackSpeedCost, attackSpeedTxt, "���ݼӵ� : ", attackSpeedCostTxt));
-        criticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalPer, 0.2f, ref criticalPercentCost, criticalPercentTxt, "ġ��ŸȮ�� : ", criticalPercentCostTxt));
-        criticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref playerData.CriticalDamage, 0.3f, ref criticalDamageCost, criticalDamageTxt, "ġ��Ÿ������ : ", criticalDamageCostTxt));
+        AttackBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "���ݷ� : ", AttackCostTmp));
+        HpBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "ü�� : ", HpCostTmp));
+        RecoverHpBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "ü��ȸ���� : ", RecoverHpCostTmp));
+        AttackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "���ݼӵ� : ", AttackSpeedCostTmp));
+        CriticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalPer, 0.2f, ref _criticalPercentCost, CriticalPercentTmp, "ġ��ŸȮ�� : ", CriticalPercentCostTmp));
+        CriticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalDamage, 0.3f, ref _criticalDamageCost, CriticalDamageTmp, "ġ��Ÿ������ : ", CriticalDamageCostTmp));
     }
 
-    private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTxt, string statName, Text costTxt)
+    private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTmp, string statName, Text costTmp)
     {
-        if (playerData.Gold >= cost)
-        {
-            
-            stat += increment;
+        if (PlayerData.Gold < cost) return;
+        stat += increment;
 
-            playerData.Gold -= cost;
-            cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
-            statTxt.text = statName +stat;
-            costTxt.text = "Upgrade\n"+ cost;
-            UpdateUI();
-            OnStatsChanged?.Invoke();
-        }
+        PlayerData.Gold -= cost;
+        cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
+        statTmp.text = statName +stat;
+        costTmp.text = "Upgrade\n"+ cost;
+        UpdateUI();
+        onStatsChanged?.Invoke();
     }
 
-    private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTxt, string statName, Text costTxt)
+    private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTmp, string statName, Text costTmp)
     {
-        if (playerData.Gold >= cost)
-        {
+        if (PlayerData.Gold < cost) return;
+        stat += increment;
 
-            stat += increment;
-
-            playerData.Gold -= cost;
-            cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
-            statTxt.text = statName + stat;
-            costTxt.text = cost.ToString();
-            UpdateUI();
-        }
+        PlayerData.Gold -= cost;
+        cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
+        statTmp.text = statName + stat;
+        costTmp.text = cost.ToString();
+        UpdateUI();
     }
-
+    
     private void UpdateUI()
     {
-        attackTxt.text = "공격력\n" + playerData.Damage;
-        attackSpeedTxt.text = "공격속도\n" + playerData.AttackSpeed+"%";
-        hpTxt.text = "체력\n" + playerData.Hp;
-        recoverHpTxt.text = "체력 회복량\n" + playerData.HpRecovery;
-        criticalPercentTxt.text = "치명타 확률" + playerData.CriticalPer+"%";
-        criticalDamageTxt.text = "치명타 데미지\n" + playerData.CriticalDamage;
+        AttackTmp.text = "공격력\n" + PlayerData.Damage;
+        AttackSpeedTmp.text = "공격속도\n" + PlayerData.AttackSpeed+"%";
+        HpTmp.text = "체력\n" + PlayerData.Hp;
+        RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
+        CriticalPercentTmp.text = "치명타 확률" + PlayerData.CriticalPer+"%";
+        CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalDamage;
 
-        attackCostTxt.text = attackCost.ToString();
-        attackSpeedCostTxt.text = attackSpeedCost.ToString();
-        hpCostTxt.text = hpCost.ToString();
-        recoverHpCostTxt.text = recoverHpCost.ToString();
-        criticalPercentCostTxt.text = criticalPercentCost.ToString();
-        criticalDamageCostTxt.text = criticalDamageCost.ToString();
+        AttackCostTmp.text = _attackCost.ToString();
+        AttackSpeedCostTmp.text = _attackSpeedCost.ToString();
+        HpCostTmp.text = _hpCost.ToString();
+        RecoverHpCostTmp.text = _recoverHpCost.ToString();
+        CriticalPercentCostTmp.text = _criticalPercentCost.ToString();
+        CriticalDamageCostTmp.text = _criticalDamageCost.ToString();
     
         UIManager.Instance.UpdateCurrencyUI();    
     }

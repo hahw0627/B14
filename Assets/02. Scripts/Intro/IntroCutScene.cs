@@ -29,7 +29,7 @@ public class IntroCutScene : MonoBehaviour
     private Button _nextButton;
     
     [Header("Settings")]
-    public float TypingSpeed = 0.2f; // 글자 출력 속도
+    public float TypingSpeed = 0.14f; // 글자 출력 속도
     
     private int _resourceIndex;
     private Coroutine _typingCoroutine;
@@ -88,7 +88,11 @@ public class IntroCutScene : MonoBehaviour
         foreach (var letter in _captions[_resourceIndex])
         {
             _captionTmp.text += letter; // 한 글자씩 추가
-            yield return new WaitForSecondsRealtime(TypingSpeed); // 지정한 시간만큼 대기
+            // 공백인 경우에는 기다리지 않음
+            if (letter != ' ')
+            {
+                yield return new WaitForSecondsRealtime(TypingSpeed); // 지정한 시간만큼 대기
+            }
         }
         _typingCoroutine = null; // 코루틴 종료 후 참조 초기화
     }
