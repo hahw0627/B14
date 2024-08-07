@@ -9212,11 +9212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 9c030f9cbc9181348b2d4a2410310461, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 1828702166}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &590904329
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24097,11 +24096,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 277ceb2df66013844b5668ded71df79e, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 1828702166}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &1498905567
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29734,11 +29732,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petData: {fileID: 11400000, guid: 356f93c70aa67c34296a4a5063223de5, type: 2}
+  companionData: {fileID: 0}
   scanner: {fileID: 1828702166}
   attackSpeed: 0
   damage: 0
-  petNumber: 0
 --- !u!212 &1872640616
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -35729,25 +35726,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c959949f4e014104fb73b421b2a235e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  attackTxt: {fileID: 1424307565004067263}
-  hpTxt: {fileID: 6837719233696815013}
-  recoverHpTxt: {fileID: 3370417155206411117}
-  attackSpeedTxt: {fileID: 4081540266323648824}
-  criticalPercentTxt: {fileID: 1032994671111029929}
-  criticalDamageTxt: {fileID: 1483488816359007654}
-  attackCostTxt: {fileID: 9044127474240676115}
-  hpCostTxt: {fileID: 47704464696454558}
-  recoverHpCostTxt: {fileID: 6979738482753257030}
-  attackSpeedCostTxt: {fileID: 3948983840592691868}
-  criticalPercentCostTxt: {fileID: 551593460148853587}
-  criticalDamageCostTxt: {fileID: 7145035005453049471}
-  attackBtn: {fileID: 7091198014077595090}
-  hpBtn: {fileID: 7920391032169787650}
-  recoverHpBtn: {fileID: 5503886417751632990}
-  attackSpeedBtn: {fileID: 345699833054549070}
-  criticalPercentBtn: {fileID: 4917498810948191905}
-  criticalDamageBtn: {fileID: 3509326067239007552}
+  PlayerData: {fileID: 0}
+  AttackTmp: {fileID: 0}
+  AttackSpeedTmp: {fileID: 0}
+  HpTmp: {fileID: 0}
+  RecoverHpTmp: {fileID: 0}
+  CriticalPercentTmp: {fileID: 0}
+  CriticalDamageTmp: {fileID: 0}
+  AttackCostTmp: {fileID: 0}
+  AttackSpeedCostTmp: {fileID: 0}
+  HpCostTmp: {fileID: 0}
+  RecoverHpCostTmp: {fileID: 0}
+  CriticalPercentCostTmp: {fileID: 0}
+  CriticalDamageCostTmp: {fileID: 0}
+  AttackBtn: {fileID: 0}
+  AttackSpeedBtn: {fileID: 0}
+  HpBtn: {fileID: 0}
+  RecoverHpBtn: {fileID: 0}
+  CriticalPercentBtn: {fileID: 0}
+  CriticalDamageBtn: {fileID: 0}
 --- !u!222 &3281289918192081833
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37165,63 +37162,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!1001 &5280030202114280360
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.94
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 328816945828097076, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8216201110706687102, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
-      propertyPath: m_Name
-      value: SoundManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58ff46e8e9070bc4eb84dde35599631d, type: 3}
 --- !u!1 &5306630570411644650
 GameObject:
   m_ObjectHideFlags: 0
@@ -39604,4 +39544,3 @@ SceneRoots:
   - {fileID: 590904330}
   - {fileID: 1498905568}
   - {fileID: 551980154}
-  - {fileID: 5280030202114280360}
