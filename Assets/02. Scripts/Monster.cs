@@ -108,7 +108,8 @@ public class Monster : MonoBehaviour, IDamageable
         Hp -= damage;
         if (Hp <= 0)
         {
-            this.Die();
+            Die();
+            QuestTest.Instance.CountOneQuestSuccess();
             gameObject.SetActive(false);
         }
     }

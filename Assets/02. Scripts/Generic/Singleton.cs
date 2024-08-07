@@ -8,22 +8,22 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     {
         get
         {
-            if (s_instance != null) return s_instance;
+            if (s_instance is not null) return s_instance;
 
-            GameObject go = GameObject.Find(typeof(T).Name);
+            var go = GameObject.Find(typeof(T).Name);
             
             var prefabPath = "Prefabs/" + typeof(T).Name;
             var prefab = Resources.Load<GameObject>(prefabPath);
 
             // 씬 내에 찾고자 하는 (이 싱글톤 클래스를 상속 받고 있는 스크립트가 붙어 있는) 오브젝트가
-            if (go != null) // 있다면 
+            if (go is not null) // 있다면 
             {
                 s_instance = go.GetComponent<T>(); // 해당 오브젝트의 컴포넌트 받아옴 
             }
-            else if (prefab != null) // 프리팹으로 돼 있다면
+            else if (prefab is not null) // 프리팹으로 돼 있다면
             {
                 // 씬에 생성하고 해당 프리팹 오브젝트의 컴포넌트를 불러와 (싱글톤) 인스턴스에 저장한 후 이름을 새로 지정
-                GameObject singletonObject = Instantiate(prefab);  
+                var singletonObject = Instantiate(prefab);  
                 s_instance = singletonObject.GetComponent<T>();
                 singletonObject.name = typeof(T) + " (Singleton)";
             }

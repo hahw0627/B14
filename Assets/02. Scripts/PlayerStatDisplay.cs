@@ -8,12 +8,12 @@ public class PlayerStatDisplay : MonoBehaviour
 
     private void OnEnable()
     {
-        StatUpgrade.OnStatsChanged += UpdateDisplay;
+        StatUpgrade.onStatsChanged += UpdateDisplay;
     }
 
     private void OnDisable()
     {
-        StatUpgrade.OnStatsChanged -= UpdateDisplay;
+        StatUpgrade.onStatsChanged -= UpdateDisplay;
     }
 
     private void Start()

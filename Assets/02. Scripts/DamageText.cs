@@ -1,41 +1,49 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Runtime.InteropServices;
 
 public class DamageText : MonoBehaviour
 {
-    public float moveSpeed; // ÅØ½ºÆ® ÀÌµ¿¼Óµµ
-    public float alphaSpeed; // Åõ¸íµµ º¯È¯¼Óµµ
-    public float destroyTime;
-    TextMeshPro text;
-    Color alpha;
-    public int damage;
+    [SerializeField]
+    private float _moveSpeed; // ï¿½Ø½ï¿½Æ® ï¿½Ìµï¿½ï¿½Óµï¿½
+
+    [SerializeField]
+    private float _alphaSpeed; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Óµï¿½
+
+    [SerializeField]
+    private float _destroyTime;
+
+    [SerializeField]
+    private int _damage;
+
+    private TextMeshPro _text;
+    private Color _alpha;
+
 
     public void SetDamage(int damageValue)
     {
-        damage = damageValue;
-        if( text != null)
+        _damage = damageValue;
+        if (_text is not null)
         {
-            text.text = damage.ToString();
+            _text.text = _damage.ToString();
         }
     }
-    void Start()
+
+    private void Start()
     {
-        text = GetComponent<TextMeshPro>();
-        SetDamage(damage);
-        alpha = text.color;
-        Invoke("DestroyObject", destroyTime);
+        _text = GetComponent<TextMeshPro>();
+        SetDamage(_damage);
+        _alpha = _text.color;
+        Invoke(nameof(DestroyObject), _destroyTime);
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        transform.Translate(new Vector3(0, moveSpeed * Time.deltaTime, 0));
-        alpha.a = Mathf.Lerp(alpha.a, 0, Time.deltaTime * alphaSpeed);
-        text.color = alpha;
+        transform.Translate(new Vector3(0, _moveSpeed * Time.deltaTime, 0));
+        _alpha.a = Mathf.Lerp(_alpha.a, 0, Time.deltaTime * _alphaSpeed);
+        _text.color = _alpha;
     }
+
     private void DestroyObject()
     {
         Destroy(gameObject);
