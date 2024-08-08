@@ -15,7 +15,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (spawnPoints.Length < 6)
         {
-            Debug.LogError("½ºÆùÁöÁ¡ ¿¬°á ½ÇÆÐ.");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
             return;
         }
 
@@ -25,17 +25,17 @@ public class MonsterSpawner : MonoBehaviour
     }
 
     
-    // ¸ó½ºÅÍ »óÅÂ È®ÀÎ + ¼ÒÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ + ï¿½ï¿½È¯
     private IEnumerator CheckMonsters()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
 
-            // ¸ó½ºÅÍ ¹è¿­ÀÌ ÀüºÎ ºñÈ°¼ºÈ­ µÇ¾îÀÖ´ÂÁö È®ÀÎ
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (AllMonstersDeactivated())
             {
-                // StagePage¸¦ 1 Áõ°¡
+                // StagePageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
                 stagePage++;
                 if (stagePage <= 3)
                 {
@@ -49,7 +49,7 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    // ¸ðµç ¸ó½ºÅÍ ºñÈ°¼ºÈ­ È®ÀÎ
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ È®ï¿½ï¿½
     private bool AllMonstersDeactivated()
     {
         foreach (GameObject monster in MonsterPool.Instance.monsters)
@@ -59,10 +59,10 @@ public class MonsterSpawner : MonoBehaviour
         return true;
     }
 
-    // ¸ó½ºÅÍ ¼ÒÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     private void SpawnMonsters()
     {
-        // StagePage°¡ 1 Áõ°¡ÇÏ¸é ½ºÆ÷³Ê ¹è¿­ÀÇ À§Ä¡¿¡¼­ ¸ó½ºÅÍ¸¦ È°¼ºÈ­
+        // StagePageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ È°ï¿½ï¿½È­
         for (int i = 0; i < MonsterPool.Instance.monsters.Length; i++)
         {
             MonsterPool.Instance.monsters[i].transform.position = spawnPoints[i].position;
@@ -71,7 +71,7 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    // º¸½º ¼ÒÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     private void SpawnBoss()
     {
         bossMonster.transform.position = spawnPoints[3].position;
@@ -128,7 +128,7 @@ public class MonsterSpawner : MonoBehaviour
 //            }
 //        }
 
-//        // ¸ó½ºÅÍ ºñÈ°¼ºÈ­ Å×½ºÆ®¸¦ À§ÇÑ ÄÚµå(ÇÕÄ¡°í ³ª¼­ »èÁ¦ ¿¹Á¤) 
+//        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½(ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) 
 //        private void Update()
 //        {
 //            if (!PlayerTest.isAlive)
@@ -142,7 +142,7 @@ public class MonsterSpawner : MonoBehaviour
 //            _monster = MonsterPool.Monsters.Count == 0 ? Instantiate(_monsterPrefab, position, Quaternion.identity) :
 //                //MonsterPool.Monsters.Enqueue(_monster.gameObject);
 //                MonsterPool.GetQueue();
-//            _monster.GetComponent<global::Monster>().MonsterStatistics = _monsterStatistics[(int)type];
+//            _monster.GetComponent<Monster>().MonsterStatistics = _monsterStatistics[(int)type];
 //        }
 
 //        private void Die()

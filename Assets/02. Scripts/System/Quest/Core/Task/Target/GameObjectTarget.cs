@@ -1,16 +1,20 @@
+using Quest.Core.Task.Target.Base;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quest/Task/Target/GameObject", fileName = "Target_")]
-public class GameObjectTarget : TaskTarget
+namespace Quest.Core.Task.Target
 {
-    [SerializeField]
-    private GameObject _value;
-
-    public override object Value => _value;
-
-    public override bool IsEqual(object target)
+    [CreateAssetMenu(menuName = "Quest/Task/Target/GameObject", fileName = "Target_")]
+    public class GameObjectTarget : TaskTarget
     {
-        var targetAsGameObject = target as GameObject;
-        return targetAsGameObject && targetAsGameObject.name.Contains(_value.name);
+        [SerializeField]
+        private GameObject _value;
+
+        public override object Value => _value;
+
+        public override bool IsEqual(object target)
+        {
+            var targetAsGameObject = target as GameObject;
+            return targetAsGameObject && targetAsGameObject.name.Contains(_value.name);
+        }
     }
 }
