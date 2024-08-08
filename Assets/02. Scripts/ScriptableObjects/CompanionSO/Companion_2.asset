@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionName: "\uCD08\uBCF4 \uC0AC\uB0E5\uAFBC"
   icon: {fileID: 21300000, guid: df6af3510c571f74496dd0d05d916530, type: 3}
-  level: 2
+  level: 1
   rarity: 0
   description: "\uC870\uC7A1\uD55C \uD65C\uC744 \uB4E4\uACE0 \uC788\uB2E4."
   damage: 10
   attackSpeed: 1
-  count: 4
+  count: 0
   isEquipped: 0

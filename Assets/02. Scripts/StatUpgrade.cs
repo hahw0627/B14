@@ -47,7 +47,7 @@ public class StatUpgrade : MonoBehaviour
         RecoverHpBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "ü��ȸ���� : ", RecoverHpCostTmp));
         AttackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "���ݼӵ� : ", AttackSpeedCostTmp));
         CriticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalPer, 0.2f, ref _criticalPercentCost, CriticalPercentTmp, "ġ��ŸȮ�� : ", CriticalPercentCostTmp));
-        CriticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalDamage, 0.3f, ref _criticalDamageCost, CriticalDamageTmp, "ġ��Ÿ������ : ", CriticalDamageCostTmp));
+        CriticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "ġ��Ÿ������ : ", CriticalDamageCostTmp));
     }
 
     private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTmp, string statName, Text costTmp)
@@ -82,7 +82,7 @@ public class StatUpgrade : MonoBehaviour
         HpTmp.text = "체력\n" + PlayerData.Hp;
         RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
         CriticalPercentTmp.text = "치명타 확률" + PlayerData.CriticalPer+"%";
-        CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalDamage;
+        CriticalDamageTmp.text = "치명타 데미지\n" + (PlayerData.CriticalMultiplier * 100) +"%";
 
         AttackCostTmp.text = _attackCost.ToString();
         AttackSpeedCostTmp.text = _attackSpeedCost.ToString();

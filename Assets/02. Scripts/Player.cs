@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     private bool isUsingSkill = false;
     public int CurrentDamage { get; private set; }
 
+    public float criticalPer;
+    public float criticalMultiplier;
+
     private void Awake()
     {
 
@@ -25,6 +28,10 @@ public class Player : MonoBehaviour
 
         attackSpeed = playerData.AttackSpeed;
         currentHp = playerData.Hp;
+
+        criticalPer = playerData.CriticalPer;
+        criticalMultiplier = playerData.CriticalMultiplier;
+
         UpdateDamage();
     }
 
@@ -47,13 +54,31 @@ public class Player : MonoBehaviour
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.target = scanner.nearestTarget;   // 생성된 투사체에 타겟 설정
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
-                projectileScript.damage = this.CurrentDamage;   // 생성된 투사체에 데미지 설정
+
+                bool isCritical = IsCriticalHit();
+                float finalDamage = CurrentDamage;
+
+                if (isCritical)
+                {
+                    finalDamage *= criticalMultiplier;
+                    Debug.Log("Critical Hit!");
+                }
+
+                projectileScript.damage = Mathf.RoundToInt(finalDamage);    // 생성된 투사체에 데미지 설정
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1초에 / attackSpeed 만큼 공격
         }
+    }
+
+    private bool IsCriticalHit()
+    {
+        // 랜덤 값 생성 (0.0에서 100.0 사이)
+        float randomValue = Random.Range(0f, 100f);
+        // 랜덤 값이 치명타 확률보다 작으면 치명타 발생
+        return randomValue < criticalPer;
     }
 
     // 체력 회복 기능
@@ -140,20 +165,4 @@ public class Player : MonoBehaviour
             attackCoroutine = null;
         }
     }
-
-    //private void Update()
-    //{
-    //    if (scanner.nearestTarget != null)
-    //    {
-    //        // target이 존재하면 IsBattel을 true로 설정
-    //        animator.SetBool("IsBattle", true);
-    //        Debug.Log("배틀 시작");
-    //    }
-    //    else
-    //    {
-    //        // target이 null이면 IsBattel을 false로 설정
-    //        animator.SetBool("IsBattle", false);
-    //        Debug.Log("배틀 종료");
-    //    }
-    //}
 }
