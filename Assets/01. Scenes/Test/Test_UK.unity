@@ -21177,6 +21177,9 @@ MonoBehaviour:
   currentCompanionButton3: {fileID: 1981267878}
   upgradeButton: {fileID: 1792606090}
   currentCompanionData: {fileID: 0}
+  formerCompanionData1: {fileID: 0}
+  formerCompanionData2: {fileID: 0}
+  formerCompanionData3: {fileID: 0}
   companionList: {fileID: 56446600}
 --- !u!114 &1206951703
 MonoBehaviour:
