@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class Player : MonoBehaviour
 {
     public PlayerDataSO playerData;
-    public MonsterSpawner monsterSpawner;
+    public GameManager gameManager;
     public Scanner scanner;
 
     private Coroutine attackCoroutine;
     public Transform fireMuzzle;
 
-    public int damage;
+    public float damage;
     public float attackSpeed;
     public int currentHp;
     private bool isUsingSkill = false;
@@ -56,15 +56,14 @@ public class Player : MonoBehaviour
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
 
                 bool isCritical = IsCriticalHit();
-                float finalDamage = CurrentDamage;
+                damage = CurrentDamage;
 
                 if (isCritical)
                 {
-                    finalDamage *= criticalMultiplier;
-                    Debug.Log("Critical Hit!");
+                    damage *= criticalMultiplier;
                 }
 
-                projectileScript.damage = Mathf.RoundToInt(finalDamage);    // 생성된 투사체에 데미지 설정
+                projectileScript.damage = Mathf.RoundToInt(damage);    // 생성된 투사체에 데미지 설정
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
@@ -113,12 +112,17 @@ public class Player : MonoBehaviour
                 monster.SetActive(false);
             }
 
-            // 스테이지 페이즈 초기화
-            monsterSpawner.stagePage = 0;
-
-            // 체력 초기화
-            currentHp = playerData.Hp;
+            StageReset();
         }
+    }
+
+    public void StageReset()
+    {
+        // 스테이지 페이즈 초기화
+        gameManager.stagePage = 0;
+
+        // 체력 초기화
+        currentHp = playerData.Hp;
     }
 
     public void SetUsingSkill(bool usingSkill)

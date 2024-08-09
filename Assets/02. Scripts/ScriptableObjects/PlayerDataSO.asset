@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
   armors: []
   playerName: 00011
-  Gold: 1356
+  Gold: 2376
   Diamond: 100
   TotalPower: 10
   Damage: 20
@@ -28,7 +28,7 @@ MonoBehaviour:
   AttackSpeed: 4
   Hp: 200
   HpRecovery: 5
-  CriticalPer: 0
+  CriticalPer: 50
   CriticalMultiplier: 1.5
   currentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   currentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}

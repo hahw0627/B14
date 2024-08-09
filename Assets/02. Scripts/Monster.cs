@@ -15,7 +15,7 @@ public class Monster : MonoBehaviour, IDamageable
     public float attackSpeed;
     public float moveTime = 0.0f;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
     public GameObject hudDamgeText;
     public Transform hudPos;
 
@@ -122,88 +122,3 @@ public class Monster : MonoBehaviour, IDamageable
         OnDeath?.Invoke(this);
     }
 }
-
-
-
-
-
-
-
-
-//==================================================================================================
-//using System.Collections;
-//using UnityEngine;
-//using Vector3 = UnityEngine.Vector3;
-
-//public class Monster : MonoBehaviour
-//{
-//    [SerializeField]
-//    private MonsterStatistics _monsterStatistics;
-//    private int Hp;
-
-//    public MonsterStatistics MonsterStatistics
-//    {
-//        set => _monsterStatistics = value;
-//    }
-
-//    [SerializeField]
-//    private float _moveSpeed = 2.0f;
-
-//    private bool _isCollision;
-
-//    private void Start()
-//    {
-//        Debug.Log($"{_monsterStatistics.Name} ���� �Ϸ�");
-//        Hp = _monsterStatistics.Hp;
-//        StartCoroutine(MoveForSeconds(1.5f));
-//    }
-
-//    private void Update()
-//    {
-//        if (_isCollision) return;
-//    }
-
-//    private IEnumerator MoveForSeconds(float duration)
-//    {
-//        float moveTime = 0.0f;
-
-//        while (moveTime < duration)
-//        {
-//            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
-//            moveTime += Time.deltaTime;
-//            yield return null;
-//        }
-//    }
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        _isCollision = true;
-//        if (other.gameObject.name != "Player(Test)") return;
-//        Debug.Log("---");
-//        Debug.Log($"{_monsterStatistics.Name} ���� ����");
-//        StartCoroutine(nameof(Attack));
-//    }
-
-//    private IEnumerator Attack()
-//    {
-//        Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        while (true)
-//        {
-//            if (PlayerTest.CurrentHp <= 0) yield break;
-//            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
-//            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-//            Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        }
-//    }
-
-//    public void TakeDamage(int damage)
-//    {
-//        Hp -= damage;
-//        Debug.Log("���� HP ����\n" + "HP : " + Hp + " / ������ : " + damage);
-
-//        if (Hp <= 0)
-//        {
-//            MonsterPool.InsertQueue(gameObject);
-//        }
-//    }
-//}

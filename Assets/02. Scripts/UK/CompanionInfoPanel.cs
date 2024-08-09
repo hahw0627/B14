@@ -118,83 +118,37 @@ public class CompanionInfoPanel : MonoBehaviour
     {
         if (newButton == currentCompanionButton1)
         {
-            if (formerCompanionData1 != currentCompanionData)
-            {
-                if(formerCompanionData1 == null)
-                {
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData1 = currentCompanionData;
-                }
-                else
-                {
-                    formerCompanionData1.isEquipped = false;
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData1 = currentCompanionData;
-                }
-            }
+            EquippedCheck(ref formerCompanionData1);
         }
         else if (newButton == currentCompanionButton2)
         {
-            if (formerCompanionData2 != currentCompanionData)
-            {
-                if (formerCompanionData2 == null)
-                {
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData2 = currentCompanionData;
-                }
-                else
-                {
-                    formerCompanionData2.isEquipped = false;
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData2 = currentCompanionData;
-                }
-            }
+            EquippedCheck(ref formerCompanionData2);
         }
         else if (newButton == currentCompanionButton3)
         {
-            if (formerCompanionData3 != currentCompanionData)
-            {
-                if (formerCompanionData3 == null)
-                {
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData3 = currentCompanionData;
-                }
-                else
-                {
-                    formerCompanionData3.isEquipped = false;
-                    currentCompanionData.isEquipped = true;
-                    formerCompanionData3 = currentCompanionData;
-                }
-            }
+            EquippedCheck(ref formerCompanionData3);
         }
     }
 
-    //public void EquipCompanionChecking(CompanionDataSO companion)
-    //{
-    //    currentCompanionData = companion;
-    //    if (currentCompanionData == null)
-    //    {
-    //        Debug.LogError("현재 동료가 설정되지 않았습니다.");
-    //        return;
-    //    }
+    private void EquippedCheck(ref CompanionDataSO formerCompanionData)
+    {
+        if (formerCompanionData == currentCompanionData)
+        {
+            return;
+        }
 
-    //    // 이전 장착된 동료가 없으면
-    //    if (formerCompanion == null)
-    //    {
-    //        currentCompanionData.isEquipped = true;
-    //        formerCompanion = currentCompanionData;
-    //    }
-    //    else
-    //    {
-    //        // 이전 동료와 현재 동료가 다르면
-    //        if (formerCompanion != currentCompanionData)
-    //        {
-    //            formerCompanion.isEquipped = false;
-    //            currentCompanionData.isEquipped = true;
-    //            formerCompanion = currentCompanionData;
-    //        }
-    //    }
-    //}
+        if (formerCompanionData == null)
+        {
+            currentCompanionData.isEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
+        else
+        {
+            formerCompanionData.isEquipped = false;
+            currentCompanionData.isEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
+    }
 
     public void CompanionUpgrade()
     {
