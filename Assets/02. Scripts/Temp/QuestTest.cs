@@ -1,9 +1,11 @@
+using Quest.Core;
+using Quest.Core.Task.Target.Base;
 using UnityEngine;
 
 public class QuestTest : SingletonDestroyable<QuestTest>
 {
     [SerializeField]
-    private Quest _quest;
+    private Quest.Core.Quest _quest;
 
     [SerializeField]
     private Category _category;

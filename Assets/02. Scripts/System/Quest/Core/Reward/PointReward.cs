@@ -1,14 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quest/Reward/Point", fileName = "PointReward_")]
-public class PointReward : Reward
+namespace Quest.Core.Reward
 {
-    public override void Give(Quest quest)
+    [CreateAssetMenu(menuName = "Quest/Reward/Point", fileName = "PointReward_")]
+    public class PointReward : Reward
     {
-        // GameSystem.Instance.AddScore(Quantity);
-        PlayerPrefs.SetInt("bonusScore", Quantity);
-        PlayerPrefs.Save();
+        public override void Give(Quest quest)
+        {
+            // GameSystem.Instance.AddScore(Quantity);
+            PlayerPrefs.SetInt("bonusScore", Quantity);
+            PlayerPrefs.Save();
+        }
     }
 }

@@ -1,11 +1,14 @@
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Quest/Condition/IsQuestComplete", fileName = "IsQuestComplete_")]
-public class IsQuestComplete : Condition
+namespace Quest.Core.Condition
 {
-    [SerializeField]
-    private Quest _target;
+    [CreateAssetMenu(menuName = "Quest/Condition/IsQuestComplete", fileName = "IsQuestComplete_")]
+    public class IsQuestComplete : Base.Condition
+    {
+        [SerializeField]
+        private Quest _target;
 
-    public override bool IsPass(Quest quest)
-        => QuestSystem.Instance.ContainsInCompleteQuests(_target);
+        public override bool IsPass(Quest quest)
+            => QuestSystem.Instance.ContainsInCompleteQuests(_target);
+    }
 }

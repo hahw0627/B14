@@ -1,18 +1,21 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class QuestGiver : MonoBehaviour
+namespace Quest.Core
 {
-    [FormerlySerializedAs("quests")]
-    [SerializeField]
-    private Quest[] _quests;
-
-    private void Start()
+    public class QuestGiver : MonoBehaviour
     {
-        foreach (var quest in _quests)
+        [FormerlySerializedAs("quests")]
+        [SerializeField]
+        private Quest[] _quests;
+
+        private void Start()
         {
-            if (quest.IsAcceptable && !QuestSystem.Instance.ContainsInCompleteQuests(quest))
-                QuestSystem.Instance.Register(quest);
+            foreach (var quest in _quests)
+            {
+                if (quest.IsAcceptable && !QuestSystem.Instance.ContainsInCompleteQuests(quest))
+                    QuestSystem.Instance.Register(quest);
+            }
         }
     }
 }
