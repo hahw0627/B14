@@ -12,6 +12,7 @@ public class SkillInfoPanel : MonoBehaviour
     public TextMeshProUGUI skillDescription;
     public TextMeshProUGUI skillLevel;
     public TextMeshProUGUI skillEffect;
+    public TextMeshProUGUI skillCount;
 
     public Button equipButton;
     public Button enhanceButton;
@@ -35,6 +36,7 @@ public class SkillInfoPanel : MonoBehaviour
         skillName.text = currentSkill.skillName;
         skillDescription.text = currentSkill.description;
         skillLevel.text = "Level: " + currentSkill.level.ToString();
+        skillCount.text = "5 / " + currentSkill.count.ToString();
         switch (currentSkill.skillType)
         {
             case Define.SkillType.AttackBuff:
@@ -47,6 +49,8 @@ public class SkillInfoPanel : MonoBehaviour
                 skillEffect.text = "Damage: " + currentSkill.damage.ToString();
                 break;
         }
+
+        enhanceButton.interactable = (currentSkill.count >= 5);
     }
 
     public void OnClickEquipButton()
@@ -64,8 +68,8 @@ public class SkillInfoPanel : MonoBehaviour
         if (currentSkill != null)
         {
             // 여기에 강화에 필요한 조건 (예: 골드, 아이템 등) 확인 로직 추가
-
             currentSkill.level++;
+            currentSkill.count -= 5;
             switch (currentSkill.skillType)
             {
                 case Define.SkillType.AttackBuff:
@@ -88,7 +92,10 @@ public class SkillInfoPanel : MonoBehaviour
             {
                 skillUIManager.RefreshSkillUI();
             }
-
+        }
+        else
+        {
+            Debug.Log("강화에 필요한 스킬 카운트가 부족합니다.");
         }
     }
 }

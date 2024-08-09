@@ -24,6 +24,7 @@ public class GachaManager : MonoBehaviour
     public Button closeButton;
     public Button allOpenButton;
 
+    private SkillUIManager skillUIManager;
     private List<GachaScroll> activeScrolls = new List<GachaScroll>();
 
     private void Start()
@@ -38,6 +39,7 @@ public class GachaManager : MonoBehaviour
         twelveSkillPullButton.onClick.AddListener(() => PullGacha(12, "Skill"));
         oneWeaponPullButton.onClick.AddListener(() => PullGacha(1, "Weapon"));
         twelveWeaponPullButton.onClick.AddListener(() => PullGacha(12, "Weapon"));
+        skillUIManager = FindObjectOfType<SkillUIManager>();
     }
 
     public void PullGacha(int pullCount, string type)
@@ -113,6 +115,7 @@ public class GachaManager : MonoBehaviour
             if (randomValue < accumulatedWeight)
             {
                 skill.count++;
+                skillUIManager.AcquireSkill(skill);
                 return skill;
             }
         }

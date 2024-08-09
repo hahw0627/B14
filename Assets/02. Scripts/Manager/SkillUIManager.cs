@@ -66,7 +66,7 @@ public class SkillUIManager : MonoBehaviour
 
         foreach (var skill in sortedSkills)
         {
-            CreateSkillItem(skill, allSkillsContainer);
+            CreateSkillItem(skill, allSkillsContainer, skill.isUnlocked);
         }
     }
 
@@ -75,7 +75,7 @@ public class SkillUIManager : MonoBehaviour
         return a.rarity.CompareTo(b.rarity);
     }
 
-    private void CreateSkillItem(SkillDataSO skill, Transform container)
+    private void CreateSkillItem(SkillDataSO skill, Transform container, bool isUnlocked)
     {
         GameObject skillItemObj = Instantiate(skillItemPrefab, container);
         Button button = skillItemObj.GetComponent<Button>();
@@ -85,7 +85,14 @@ public class SkillUIManager : MonoBehaviour
         iconImage.sprite = skill.icon;
         levelText.text = $"Lv.{skill.level}";
 
+        button.interactable = isUnlocked;
         button.onClick.AddListener(() => ShowSkillInfo(skill));
+    }
+
+    public void AcquireSkill(SkillDataSO skill)
+    {
+        skill.isUnlocked = true;
+        RefreshSkillUI();
     }
 
     private void ShowSkillInfo(SkillDataSO skill)
