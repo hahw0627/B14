@@ -18,15 +18,12 @@ public class Boss : Monster  // 몬스터 스크립트 상속
     // 보스 몬스터 피격
     public override void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        GameObject hudText = Instantiate(hudDamgeText);
-        hudText.transform.position = hudPos.position;
-
-        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
-
-        if (damageTextComponent != null)
-        {
-            damageTextComponent.SetDamage(damage);
-        }
+        DamageTextPool pool = FindObjectOfType<DamageTextPool>();
+        DamageText damageText = pool.GetDamageText();
+        damageText.Initialize(pool);
+        damageText.SetDamage(damage);
+        damageText.transform.position = hudPos.position;
+        damageText.gameObject.SetActive(true);
         Hp -= damage;
 
         if (Hp <= 0)
