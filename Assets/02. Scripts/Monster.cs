@@ -15,9 +15,9 @@ public class Monster : MonoBehaviour, IDamageable
     public float attackSpeed;
     public float moveTime = 0.0f;
 
-    private bool isAttacking = false;
+    public bool isAttacking = false;
+    public GameObject hudDamgeText;
     public Transform hudPos;
-    private DamageTextPool damageTextPool;
 
     private int goldReward;
 
@@ -29,11 +29,6 @@ public class Monster : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         target = GameObject.Find("Player");
-        damageTextPool = FindObjectOfType<DamageTextPool>();
-        if (damageTextPool == null)
-        {
-            Debug.LogError("DamageTextPool not found in the scene. Make sure it exists.");
-        }
     }
 
     // 몬스터 활성화 시
@@ -100,22 +95,14 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 피격
     public virtual void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        if (damageTextPool != null)
+        GameObject hudText = Instantiate(hudDamgeText);
+        hudText.transform.position = hudPos.position;
+
+        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
+
+        if(damageTextComponent != null)
         {
-            DamageText damageText = damageTextPool.GetDamageText();
-            if (damageText != null)
-            {
-                damageText.transform.position = hudPos.position;
-                damageText.SetDamage(damage);
-            }
-            else
-            {
-                Debug.LogWarning("Failed to get DamageText from pool.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("DamageTextPool is not initialized.");
+            damageTextComponent.SetDamage(damage);
         }
 
         Hp -= damage;
@@ -135,88 +122,3 @@ public class Monster : MonoBehaviour, IDamageable
         OnDeath?.Invoke(this);
     }
 }
-
-
-
-
-
-
-
-
-//==================================================================================================
-//using System.Collections;
-//using UnityEngine;
-//using Vector3 = UnityEngine.Vector3;
-
-//public class Monster : MonoBehaviour
-//{
-//    [SerializeField]
-//    private MonsterStatistics _monsterStatistics;
-//    private int Hp;
-
-//    public MonsterStatistics MonsterStatistics
-//    {
-//        set => _monsterStatistics = value;
-//    }
-
-//    [SerializeField]
-//    private float _moveSpeed = 2.0f;
-
-//    private bool _isCollision;
-
-//    private void Start()
-//    {
-//        Debug.Log($"{_monsterStatistics.Name} ���� �Ϸ�");
-//        Hp = _monsterStatistics.Hp;
-//        StartCoroutine(MoveForSeconds(1.5f));
-//    }
-
-//    private void Update()
-//    {
-//        if (_isCollision) return;
-//    }
-
-//    private IEnumerator MoveForSeconds(float duration)
-//    {
-//        float moveTime = 0.0f;
-
-//        while (moveTime < duration)
-//        {
-//            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
-//            moveTime += Time.deltaTime;
-//            yield return null;
-//        }
-//    }
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        _isCollision = true;
-//        if (other.gameObject.name != "Player(Test)") return;
-//        Debug.Log("---");
-//        Debug.Log($"{_monsterStatistics.Name} ���� ����");
-//        StartCoroutine(nameof(Attack));
-//    }
-
-//    private IEnumerator Attack()
-//    {
-//        Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        while (true)
-//        {
-//            if (PlayerTest.CurrentHp <= 0) yield break;
-//            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
-//            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-//            Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        }
-//    }
-
-//    public void TakeDamage(int damage)
-//    {
-//        Hp -= damage;
-//        Debug.Log("���� HP ����\n" + "HP : " + Hp + " / ������ : " + damage);
-
-//        if (Hp <= 0)
-//        {
-//            MonsterPool.InsertQueue(gameObject);
-//        }
-//    }
-//}

@@ -15,10 +15,10 @@ MonoBehaviour:
   companionName: "\uADF8\uB9BC\uC790"
   icon: {fileID: 21300000, guid: 4175bac6603f86c40bb77b7711909e3a, type: 3}
   level: 1
-  rarity: 4
+  rarity: 0
   description: "\uC5B4\uB514\uC11C \uB098\uD0C0 \uB09C\uAC70\uC9C0? \uBC29\uAE08\uAE4C\uC9C0\uB294
     \uBD84\uBA85...."
   damage: 90
   attackSpeed: 1
-  count: 2
+  count: 0
   isEquipped: 0

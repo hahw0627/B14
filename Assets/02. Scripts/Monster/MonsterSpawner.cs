@@ -8,49 +8,10 @@ public class MonsterSpawner : MonoBehaviour
     public Transform[] spawnPoints;
     public GameObject bossMonster;
 
-    public int stagePage = 0;
-    public int stage = 1;
+    public GameManager gameManager;
 
-    private void Start()
-    {
-        if (spawnPoints.Length < 6)
-        {
-            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.");
-            return;
-        }
-
-        bossMonster.SetActive(false);
-
-        StartCoroutine(CheckMonsters());
-    }
-
-    
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ + ï¿½ï¿½È¯
-    private IEnumerator CheckMonsters()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(1f);
-
-            // ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½Ç¾ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
-            if (AllMonstersDeactivated())
-            {
-                // StagePageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½
-                stagePage++;
-                if (stagePage <= 3)
-                {
-                    SpawnMonsters();
-                }
-                else if (stagePage == 4)
-                {
-                    SpawnBoss();
-                }
-            }
-        }
-    }
-
-    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ È®ï¿½ï¿½
-    private bool AllMonstersDeactivated()
+    // ¸ðµç ¸ó½ºÅÍ ºñÈ°¼ºÈ­ È®ÀÎ
+    public bool AllMonstersDeactivated()
     {
         foreach (GameObject monster in MonsterPool.Instance.monsters)
         {
@@ -59,95 +20,38 @@ public class MonsterSpawner : MonoBehaviour
         return true;
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
-    private void SpawnMonsters()
+    // ¸ó½ºÅÍ ¼ÒÈ¯
+    public void SpawnMonsters()
     {
-        // StagePageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ È°ï¿½ï¿½È­
-        for (int i = 0; i < MonsterPool.Instance.monsters.Length; i++)
+        // StagePage°¡ 1 Áõ°¡ÇÏ¸é ½ºÆ÷³Ê ¹è¿­ÀÇ À§Ä¡¿¡¼­ ¸ó½ºÅÍ¸¦ È°¼ºÈ­
+        if(gameManager.stage <= 2)
         {
-            MonsterPool.Instance.monsters[i].transform.position = spawnPoints[i].position;
-            //MonsterPool.Instance.monsters[i].GetComponent<Monster123>().target = target;
-            MonsterPool.Instance.monsters[i].SetActive(true);
+            ActiveMonsters(1);
+        }
+        else if(gameManager.stage >= 3 && gameManager.stage <= 5)
+        {
+            ActiveMonsters(3);
+        }
+        else
+        {
+            ActiveMonsters(6);
         }
     }
 
-    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
-    private void SpawnBoss()
+    // º¸½º ¼ÒÈ¯
+    public void SpawnBoss()
     {
         bossMonster.transform.position = spawnPoints[3].position;
         bossMonster.SetActive(true);
     }
+
+    private void ActiveMonsters(int num)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            MonsterPool.Instance.monsters[i].transform.position = spawnPoints[i].position;
+            MonsterPool.Instance.monsters[i].SetActive(true);
+        }
+    }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//============================================================================================================================
-//using System.Collections.Generic;
-//using UnityEngine;
-
-//namespace _02._Scripts.Monster
-//{
-//    public class MonsterSpawner : MonoBehaviour
-//    {
-//        [SerializeField]
-//        private List<MonsterStatistics> _monsterStatistics;
-
-//        [SerializeField]
-//        private List<Transform> _monsterPositions;
-
-//        [SerializeField]
-//        private GameObject _monsterPrefab;
-
-//        private GameObject _monster;
-
-//        private void Start()
-//        {
-//            StartMonsterSpawn();
-//        }
-
-//        private void StartMonsterSpawn()
-//        {
-//            foreach (Transform t in _monsterPositions)
-//            {
-//                SpawnMonster((MonsterType)StageTest.StageLevel,
-//                    new Vector3(t.position.x, t.position.y, 0.0f));
-//            }
-//        }
-
-//        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½×½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½(ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½) 
-//        private void Update()
-//        {
-//            if (!PlayerTest.isAlive)
-//            {
-//                Die();
-//            }
-//        }
-
-//        private void SpawnMonster(MonsterType type, Vector3 position)
-//        {
-//            _monster = MonsterPool.Monsters.Count == 0 ? Instantiate(_monsterPrefab, position, Quaternion.identity) :
-//                //MonsterPool.Monsters.Enqueue(_monster.gameObject);
-//                MonsterPool.GetQueue();
-//            _monster.GetComponent<Monster>().MonsterStatistics = _monsterStatistics[(int)type];
-//        }
-
-//        private void Die()
-//        {
-//            MonsterPool.InsertQueue(gameObject);
-//        }
-//    }
-//}

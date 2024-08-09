@@ -30,6 +30,9 @@ public class CompanionInfoPanel : MonoBehaviour
 
     [Header("")]
     public CompanionDataSO currentCompanionData;
+    public CompanionDataSO formerCompanionData1;
+    public CompanionDataSO formerCompanionData2;
+    public CompanionDataSO formerCompanionData3;
 
     private Button selectedButton;
 
@@ -70,7 +73,7 @@ public class CompanionInfoPanel : MonoBehaviour
             choiceFail.SetActive(true);
             return;
         }
-        else if(currentCompanionData.count == 0 && currentCompanionData.level == 1)
+        else if (currentCompanionData.count == 0 && currentCompanionData.level == 1)
         {
             choiceFail.SetActive(true);
             return;
@@ -112,24 +115,44 @@ public class CompanionInfoPanel : MonoBehaviour
     }
 
     private void UpdateEquippedStatus(Button newButton)
-    {   // 펫 장착 여부 업데이트
-        // CompanionList에서 모든 펫 데이터를 가져옴
-        // DataManager로 변경하는게 좋아보임 잠시 보류
-        CompanionDataSO[] allCompanionData = companionList.GetAllCompanionData();
-        foreach (CompanionDataSO companionData in allCompanionData)
+    {
+        if (newButton == currentCompanionButton1)
         {
-            if (companionData.isEquipped && companionData != currentCompanionData)
-            {
-                companionData.isEquipped = false; // 이미 장착된 다른 펫의 장착 상태를 해제
-            }
+            EquippedCheck(ref formerCompanionData1);
+        }
+        else if (newButton == currentCompanionButton2)
+        {
+            EquippedCheck(ref formerCompanionData2);
+        }
+        else if (newButton == currentCompanionButton3)
+        {
+            EquippedCheck(ref formerCompanionData3);
+        }
+    }
+
+    private void EquippedCheck(ref CompanionDataSO formerCompanionData)
+    {
+        if (formerCompanionData == currentCompanionData)
+        {
+            return;
         }
 
-        currentCompanionData.isEquipped = true; // 현재 선택된 펫을 장착
+        if (formerCompanionData == null)
+        {
+            currentCompanionData.isEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
+        else
+        {
+            formerCompanionData.isEquipped = false;
+            currentCompanionData.isEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
     }
 
     public void CompanionUpgrade()
     {
-        if(currentCompanionData.count > 4)
+        if (currentCompanionData.count > 4)
         {
             currentCompanionData.level += 1;
             currentCompanionData.count -= 5;

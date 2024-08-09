@@ -15,7 +15,7 @@ MonoBehaviour:
   companionName: "\uB5A0\uB3CC\uC774 \uBAA8\uD5D8\uAC00"
   icon: {fileID: 21300000, guid: fa1a11ff1c5dfc5439a7ac14580bc0b4, type: 3}
   level: 1
-  rarity: 2
+  rarity: 0
   description: "\uC9C0\uC800\uBD84\uD558\uB2E4. \uB9C8\uCE58 \uBC29\uAE08 \uC2F8\uC6B0\uAE30\uB77C\uB3C4
     \uD55C \uAC83\uCC98\uB7FC...."
   damage: 35
