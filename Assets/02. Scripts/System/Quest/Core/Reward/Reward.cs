@@ -13,7 +13,7 @@ namespace Quest.Core.Reward
 
         public Sprite Icon => _icon;
         public string Description => _description;
-        protected int Quantity => _quantity;
+        public int Quantity => _quantity;
 
         public abstract void Give(Quest quest);
     }

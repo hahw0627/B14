@@ -2,14 +2,12 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Quest.Core
 {
     [CreateAssetMenu(menuName = "Quest/QuestDatabase")]
     public class QuestDatabase : ScriptableObject
     {
-        [FormerlySerializedAs("quests")]
         [SerializeField]
         private List<Quest> _quests;
 

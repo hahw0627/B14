@@ -16,7 +16,6 @@ namespace Quest.Core.Task
     [System.Serializable]
     public class TaskGroup
     {
-        [FormerlySerializedAs("tasks")]
         [SerializeField]
         private Task[] _tasks;
 

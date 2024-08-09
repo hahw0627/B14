@@ -77,7 +77,7 @@ namespace Quest.Core
         public IReadOnlyList<Reward.Reward> Rewards => _rewards;
         private bool IsRegistered => State != QuestState.Inactive;
         public bool IsCompletable => State == QuestState.WaitingForCompletion;
-        private bool IsComplete => State == QuestState.Complete;
+        public bool IsComplete => State == QuestState.Complete;
         private bool IsCancel => State == QuestState.Cancel;
         protected virtual bool IsCancelable => _isCancelable && _cancelConditions.All(x => x.IsPass(this));
         public bool IsAcceptable => _acceptionConditions.All(x => x.IsPass(this));
