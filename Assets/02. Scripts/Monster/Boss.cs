@@ -22,12 +22,23 @@ public class Boss : Monster  // 몬스터 스크립트 상속
     // 보스 몬스터 피격
     public override void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        DamageTextPool pool = FindObjectOfType<DamageTextPool>();
-        DamageText damageText = pool.GetDamageText();
-        damageText.Initialize(pool);
-        damageText.SetDamage(damage);
-        damageText.transform.position = hudPos.position;
-        damageText.gameObject.SetActive(true);
+        if (damageTextPool != null)
+        {
+            DamageText damageText = damageTextPool.GetDamageText();
+            if (damageText != null)
+            {
+                damageText.transform.position = hudPos.position;
+                damageText.SetDamage(damage);
+            }
+            else
+            {
+                Debug.LogWarning("Failed to get DamageText from pool.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("DamageTextPool is not initialized.");
+        }
         Hp -= damage;
 
         if (Hp <= 0)

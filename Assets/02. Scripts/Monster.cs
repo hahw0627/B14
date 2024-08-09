@@ -16,8 +16,8 @@ public class Monster : MonoBehaviour, IDamageable
     public float moveTime = 0.0f;
 
     public bool isAttacking = false;
-    public GameObject hudDamgeText;
     public Transform hudPos;
+    public DamageTextPool damageTextPool;
 
     private int goldReward;
 
@@ -29,6 +29,11 @@ public class Monster : MonoBehaviour, IDamageable
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         target = GameObject.Find("Player");
+        damageTextPool = FindObjectOfType<DamageTextPool>();
+        if (damageTextPool == null)
+        {
+            Debug.LogError("DamageTextPool not found in the scene. Make sure it exists.");
+        }
     }
 
     // 몬스터 활성화 시
@@ -95,14 +100,22 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 피격
     public virtual void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        GameObject hudText = Instantiate(hudDamgeText);
-        hudText.transform.position = hudPos.position;
-
-        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
-
-        if(damageTextComponent != null)
+        if (damageTextPool != null)
         {
-            damageTextComponent.SetDamage(damage);
+            DamageText damageText = damageTextPool.GetDamageText();
+            if (damageText != null)
+            {
+                damageText.transform.position = hudPos.position;
+                damageText.SetDamage(damage);
+            }
+            else
+            {
+                Debug.LogWarning("Failed to get DamageText from pool.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
         Hp -= damage;
