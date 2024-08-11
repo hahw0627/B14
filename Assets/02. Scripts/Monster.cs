@@ -17,7 +17,7 @@ public class Monster : MonoBehaviour, IDamageable
 
     public bool isAttacking = false;
     public Transform hudPos;
-    public DamageTextPool damageTextPool;
+    protected DamageTextPool damageTextPool;
 
     private int goldReward;
 

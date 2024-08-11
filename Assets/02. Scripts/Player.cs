@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     public float criticalPer;
     public float criticalMultiplier;
 
+    public DamageTextPool damageTextPool;
+
     private void Awake()
     {
 
@@ -66,6 +68,16 @@ public class Player : MonoBehaviour
                 projectileScript.damage = Mathf.RoundToInt(damage);    // 생성된 투사체에 데미지 설정
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
+                if (damageTextPool != null)
+                {
+                    DamageText damageText = damageTextPool.GetDamageText();
+                    if (damageText != null)
+                    {
+                        damageText.SetDamage(Mathf.RoundToInt(damage), isCritical);
+                        damageText.transform.position = scanner.nearestTarget.transform.position;
+                    }
+                }
+
             }
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1초에 / attackSpeed 만큼 공격

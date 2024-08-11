@@ -7,6 +7,9 @@ public class DamageText : MonoBehaviour
     [SerializeField] private float _alphaSpeed;
     [SerializeField] private float _activeTime;
     [SerializeField] private int _damage;
+    [SerializeField] private Color _normalColor = Color.white;
+    [SerializeField] private Color _criticalColor = Color.red;
+    [SerializeField] private float _criticalScale = 1.5f;
 
     private TextMeshPro _text;
     private Color _alpha;
@@ -20,11 +23,21 @@ public class DamageText : MonoBehaviour
 
     public void SetDamage(int damageValue)
     {
-        _damage = damageValue;
-        if (_text != null)
-        {
-            _text.text = _damage.ToString();
-        }
+        SetDamage(damageValue, false);  // 기본적으로 치명타가 아닌 것으로 처리
+    }
+
+    public void SetDamage(int damageValue, bool isCritical)
+    {
+        if (_text == null) _text = GetComponent<TextMeshPro>();
+
+        _text.text = damageValue.ToString();
+        _text.color = isCritical ? _criticalColor : _normalColor;
+        transform.localScale = isCritical ? Vector3.one * _criticalScale : Vector3.one;
+
+        _alpha = _text.color;
+        _alpha.a = 1f;
+        _text.color = _alpha;
+        _timer = 0f;
     }
 
     private void Awake()

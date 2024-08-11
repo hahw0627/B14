@@ -6396,6 +6396,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387612805}
   m_CullTransparentMesh: 1
+--- !u!1 &390386769
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 390386771}
+  - component: {fileID: 390386770}
+  m_Layer: 0
+  m_Name: DamageTextPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &390386770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390386769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4007637fc10ed44081fe64ee2226985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageTextPrefab: {fileID: 2209120376791910756, guid: bb0c75f2472f37444b265d68f730f48e, type: 3}
+  poolSize: 10
+--- !u!4 &390386771
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390386769}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 257, y: 2812, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &401243291
 GameObject:
   m_ObjectHideFlags: 0
@@ -22404,7 +22450,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 1
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 2
@@ -28574,21 +28620,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 755379415}
     - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
-      propertyPath: bossTimer
-      value: 
-      objectReference: {fileID: 1485538812}
-    - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 1515949835}
-    - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
-      propertyPath: monsterSpawner
-      value: 
-      objectReference: {fileID: 1693188729}
-    - target: {fileID: -7285749137232064016, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
-      propertyPath: monsterProjectilePrefab
-      value: 
-      objectReference: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
     - target: {fileID: 6321971594190417357, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.18
@@ -28633,40 +28667,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss
       objectReference: {fileID: 0}
-    - target: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
+    - target: {fileID: 7239959567920684118, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+      propertyPath: timerText
+      value: 
+      objectReference: {fileID: 1652965995}
+    - target: {fileID: 7239959567920684118, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+      propertyPath: timerImage
+      value: 
+      objectReference: {fileID: 579994964}
+    - target: {fileID: 7239959567920684118, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+      propertyPath: timerBackground
+      value: 
+      objectReference: {fileID: 296789107}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
-      insertIndex: 4
-      addedObject: {fileID: 1485538812}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
 --- !u!1 &1485538811 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
   m_PrefabInstance: {fileID: 1485538810}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1485538812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485538811}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 165519f1ccebbc540a79b4299d7e2aa3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timerBackground: {fileID: 296789107}
-  timerImage: {fileID: 579994964}
-  timerText: {fileID: 1652965995}
-  time: 90
-  currentTime: 0
 --- !u!1 &1498366311
 GameObject:
   m_ObjectHideFlags: 0
@@ -32038,6 +32060,7 @@ MonoBehaviour:
   skillDescription: {fileID: 473438456}
   skillLevel: {fileID: 1220244193}
   skillEffect: {fileID: 686825756}
+  skillCount: {fileID: 0}
   equipButton: {fileID: 833590891}
   enhanceButton: {fileID: 467786360}
 --- !u!114 &1688853959
@@ -40881,6 +40904,7 @@ SceneRoots:
   - {fileID: 1515949836}
   - {fileID: 1693188730}
   - {fileID: 1402696977}
+  - {fileID: 390386771}
   - {fileID: 1373255071}
   - {fileID: 1434115744}
   - {fileID: 1233531903}
