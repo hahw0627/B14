@@ -1,4 +1,6 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class StatUpgrade : MonoBehaviour
@@ -37,17 +39,47 @@ public class StatUpgrade : MonoBehaviour
     private int _criticalDamageCost = 50;
 
     public static event System.Action onStatsChanged;
+    private Coroutine _currentCoroutine;
+    private float _holdTime = 0.5f; // 롱 터치로 인식할 시간
+    private float _upgradeInterval = 0.1f; // 연속 업그레이드 간격
 
     private void Start()
     {
         UpdateUI();
+        SetupButton(AttackBtn, () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
+        SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
+        SetupButton(RecoverHpBtn, () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ", RecoverHpCostTmp));
+        SetupButton(AttackSpeedBtn, () => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ", AttackSpeedCostTmp));
+        SetupButton(CriticalPercentBtn, () => UpgradeStat(ref PlayerData.CriticalPer, 1.0f, ref _criticalPercentCost, CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp));
+        SetupButton(CriticalDamageBtn, () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "치명타데미지 : ", CriticalDamageCostTmp));
+    }
 
-        AttackBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "���ݷ� : ", AttackCostTmp));
-        HpBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "ü�� : ", HpCostTmp));
-        RecoverHpBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "ü��ȸ���� : ", RecoverHpCostTmp));
-        AttackSpeedBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "���ݼӵ� : ", AttackSpeedCostTmp));
-        CriticalPercentBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalPer, 0.2f, ref _criticalPercentCost, CriticalPercentTmp, "ġ��ŸȮ�� : ", CriticalPercentCostTmp));
-        CriticalDamageBtn.onClick.AddListener(() => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "ġ��Ÿ������ : ", CriticalDamageCostTmp));
+    private void SetupButton(Button button, System.Action upgradeAction)
+    {
+        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry pointerDown = new EventTrigger.Entry();
+        pointerDown.eventID = EventTriggerType.PointerDown;
+        pointerDown.callback.AddListener((data) => { _currentCoroutine = StartCoroutine(LongPressCoroutine(upgradeAction)); });
+        trigger.triggers.Add(pointerDown);
+
+        EventTrigger.Entry pointerUp = new EventTrigger.Entry();
+        pointerUp.eventID = EventTriggerType.PointerUp;
+        pointerUp.callback.AddListener((data) => { if (_currentCoroutine != null) StopCoroutine(_currentCoroutine); });
+        trigger.triggers.Add(pointerUp);
+
+        button.onClick.AddListener(() => upgradeAction());
+    }
+
+    private IEnumerator LongPressCoroutine(System.Action upgradeAction)
+    {
+        yield return new WaitForSeconds(_holdTime);
+
+        while (true)
+        {
+            upgradeAction();
+            yield return new WaitForSeconds(_upgradeInterval);
+        }
     }
 
     private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTmp, string statName, Text costTmp)

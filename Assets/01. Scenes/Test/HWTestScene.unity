@@ -29050,6 +29050,7 @@ MonoBehaviour:
   RecoverHpBtn: {fileID: 1807539642}
   CriticalPercentBtn: {fileID: 955294176}
   CriticalDamageBtn: {fileID: 1150993264}
+  DamageTextPool: {fileID: 989608204}
 --- !u!4 &1603932581
 Transform:
   m_ObjectHideFlags: 0
