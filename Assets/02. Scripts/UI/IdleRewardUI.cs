@@ -21,10 +21,14 @@ public class IdleRewardUI : MonoBehaviour
 
     private void Start()
     {
-        rewardPanel.SetActive(false);
         confirmButton.onClick.AddListener(OnConfirmButtonClicked);
         closeButton.onClick.AddListener(OnCloseButtonClicked);
         mainSceneRewardButton.SetActive(false);
+    }
+
+    private void Update()
+    {
+        mainSceneRewardButton.SetActive(currentReward > 0 && !rewardPanel.activeSelf);
     }
 
     public void ShowReward(float reward, TimeSpan timeAway)

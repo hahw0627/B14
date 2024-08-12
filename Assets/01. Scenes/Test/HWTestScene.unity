@@ -9501,6 +9501,7 @@ GameObject:
   m_Component:
   - component: {fileID: 595917686}
   - component: {fileID: 595917685}
+  - component: {fileID: 595917687}
   m_Layer: 0
   m_Name: IdleRewardManager
   m_TagString: Untagged
@@ -9522,6 +9523,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldPerSecond: 1
   rewardUI: {fileID: 1382846777}
+  firstRunCheck: {fileID: 595917687}
 --- !u!4 &595917686
 Transform:
   m_ObjectHideFlags: 0
@@ -9537,6 +9539,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &595917687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 595917684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1de42fc820a594241b15c7025ae58b88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _introCanvas: {fileID: 0}
 --- !u!1 &597075517
 GameObject:
   m_ObjectHideFlags: 0
@@ -25251,7 +25266,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1382846775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38919,7 +38934,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GoldTMP: {fileID: 1162642165}
-  clickParticle: {fileID: 2856701945969505437, guid: f10ca4af7fc94614992ba15bbd55870e, type: 3}
+  GemTMP: {fileID: 0}
+  ClickParticle: {fileID: 2856701945969505437, guid: f10ca4af7fc94614992ba15bbd55870e, type: 3}
 --- !u!114 &2081519058
 MonoBehaviour:
   m_ObjectHideFlags: 0

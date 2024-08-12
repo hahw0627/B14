@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class GoogleRewardedAds : MonoBehaviour
 {
+    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
 #if UNITY_ANDROID
     private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
 #else
-  private string _adUnitId = "unused";
+    private string _adUnitId = "unused";
 #endif
 
     // Start is called before the first frame update
