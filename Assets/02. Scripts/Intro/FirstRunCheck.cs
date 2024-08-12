@@ -9,9 +9,9 @@ public class FirstRunCheck : MonoBehaviour
     private const string FIRST_RUN_KEY = "FirstRun";
 
     [NonSerialized]
-    public bool IsFirstRun;
+    public static bool IsFirstRun;
     
-    private void Start()
+    private void Awake()
     {
         Debug.Log($"최초 실행 여부: {!PlayerPrefs.HasKey(FIRST_RUN_KEY)}");
         // PlayerPrefs에서 'FirstRun' 키 확인

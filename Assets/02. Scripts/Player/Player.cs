@@ -19,7 +19,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-
         playerData = DataManager.Instance.playerDataSO;
         scanner = GetComponent<Scanner>();
 
@@ -34,29 +33,29 @@ public class Player : MonoBehaviour
         StartCoroutine(RecoverHp());
     }
 
-    // °ø°Ý±â´É
+    // ï¿½ï¿½ï¿½Ý±ï¿½ï¿½
     private IEnumerator Attack()
     {
         while (true)
         {
-            // scannerÀÇ nearestTargetÀÌ nullÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ nearestTargetÀ» °¡Á®¿Í targetÀ¸·Î ¼³Á¤ + Åõ»çÃ¼ »ý¼º
+            // scannerï¿½ï¿½ nearestTargetï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ nearestTargetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ targetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
             if (!isUsingSkill && scanner.nearestTarget != null)
             {
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = fireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = scanner.nearestTarget;   // »ý¼ºµÈ Åõ»çÃ¼¿¡ Å¸°Ù ¼³Á¤
+                projectileScript.target = scanner.nearestTarget;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
-                projectileScript.damage = this.CurrentDamage;   // »ý¼ºµÈ Åõ»çÃ¼¿¡ µ¥¹ÌÁö ¼³Á¤
+                projectileScript.damage = this.CurrentDamage;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
 
-            yield return new WaitForSeconds(1 / attackSpeed); // 1ÃÊ¿¡ / attackSpeed ¸¸Å­ °ø°Ý
+            yield return new WaitForSeconds(1 / attackSpeed); // 1ï¿½Ê¿ï¿½ / attackSpeed ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
-    // Ã¼·Â È¸º¹ ±â´É
+    // Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
     private IEnumerator RecoverHp()
     {
         while (true)
@@ -74,24 +73,24 @@ public class Player : MonoBehaviour
         }
     }
 
-    // ÇÇ°Ý ±â´É
+    // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
 
         if (currentHp <= 0)
         {
-            // ¸ó½ºÅÍ ºñÈ°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
             foreach (GameObject monster in monsters)
             {
                 monster.SetActive(false);
             }
 
-            // ½ºÅ×ÀÌÁö ÆäÀÌÁî ÃÊ±âÈ­
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
             monsterSpawner.stagePage = 0;
 
-            // Ã¼·Â ÃÊ±âÈ­
+            // Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­
             currentHp = playerData.Hp;
         }
     }
@@ -115,7 +114,7 @@ public class Player : MonoBehaviour
         Debug.Log($"New damage: {CurrentDamage}");
     }
 
-    public void Heal(int amount) // ÃßÈÄ ÇÃ·¹ÀÌ¾î ÇÇ°Ý ±¸Çö½Ã ±¸Çö ¿¹Á¤
+    public void Heal(int amount) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
 
     }
@@ -145,15 +144,15 @@ public class Player : MonoBehaviour
     //{
     //    if (scanner.nearestTarget != null)
     //    {
-    //        // targetÀÌ Á¸ÀçÇÏ¸é IsBattelÀ» true·Î ¼³Á¤
+    //        // targetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ IsBattelï¿½ï¿½ trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //        animator.SetBool("IsBattle", true);
-    //        Debug.Log("¹èÆ² ½ÃÀÛ");
+    //        Debug.Log("ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½");
     //    }
     //    else
     //    {
-    //        // targetÀÌ nullÀÌ¸é IsBattelÀ» false·Î ¼³Á¤
+    //        // targetï¿½ï¿½ nullï¿½Ì¸ï¿½ IsBattelï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     //        animator.SetBool("IsBattle", false);
-    //        Debug.Log("¹èÆ² Á¾·á");
+    //        Debug.Log("ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½");
     //    }
     //}
 }

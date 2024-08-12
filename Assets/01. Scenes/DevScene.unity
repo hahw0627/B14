@@ -559,7 +559,7 @@ GameObject:
   - component: {fileID: 14805012}
   - component: {fileID: 14805013}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CriticalDamageLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7027,7 +7027,7 @@ GameObject:
   - component: {fileID: 440751693}
   - component: {fileID: 440751694}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: HPLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8350,7 +8350,7 @@ GameObject:
   - component: {fileID: 483424304}
   - component: {fileID: 483424305}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: HPCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8468,8 +8468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2c9f50a4fcba14d9a4b87efc5108f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  damageText: {fileID: 201472350}
+  PlayerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  DamageText: {fileID: 1900408260}
 --- !u!114 &485383164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8718,6 +8718,7 @@ RectTransform:
   - {fileID: 2090657478}
   - {fileID: 829787713}
   - {fileID: 1293298749}
+  - {fileID: 1730296659}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -10998,7 +10999,7 @@ GameObject:
   - component: {fileID: 611802376}
   - component: {fileID: 611802377}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: AttackLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11480,7 +11481,7 @@ GameObject:
   - component: {fileID: 664816093}
   - component: {fileID: 664816094}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CriticalPercentLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12725,7 +12726,7 @@ GameObject:
   - component: {fileID: 709770380}
   - component: {fileID: 709770381}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: AttackSpeedCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14224,6 +14225,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -1185705530092183406, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+      propertyPath: MoveSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1185705530092183406, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+      propertyPath: DialogueText
+      value: "\uC774\uACF3\uC778\uAC00..."
+      objectReference: {fileID: 0}
     - target: {fileID: 3047012900879697454, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -14331,6 +14340,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5496103263673470288, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 755379418}
+    - targetCorrespondingSourceObject: {fileID: 5496103263673470288, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 755379428}
   m_SourcePrefab: {fileID: 100100000, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
 --- !u!212 &755379414 stripped
 SpriteRenderer:
@@ -14388,6 +14400,21 @@ MonoBehaviour:
   damage: 0
   attackSpeed: 0
   currentHp: 0
+--- !u!114 &755379428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755379417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e554c289d008114582b2a4d9ae9e70c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speechContents:
+  - "\uC774\uC9C0\uD558\uAD70..."
+  - 
 --- !u!1 &764611592
 GameObject:
   m_ObjectHideFlags: 0
@@ -22173,7 +22200,7 @@ GameObject:
   - component: {fileID: 1148152709}
   - component: {fileID: 1148152710}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CriticalDamageCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26636,7 +26663,7 @@ GameObject:
   - component: {fileID: 1403628772}
   - component: {fileID: 1403628773}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: CriticalPercentCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29509,7 +29536,7 @@ GameObject:
   - component: {fileID: 1523250144}
   - component: {fileID: 1523250145}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: RecoverCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33028,6 +33055,144 @@ MonoBehaviour:
   QuestItemPrefab: {fileID: 2370760323496471779, guid: 681f4c2fb478c0043afc00290b420d59, type: 3}
   QuestListParent: {fileID: 276891838}
   _questDatabase: {fileID: 11400000, guid: 035019b591b3d8e4086b8752daaa89cb, type: 2}
+--- !u!1001 &1730296658
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 502610928}
+    m_Modifications:
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: Offset.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: _typingSpeed
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: ShakeMagnitude
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: _shakeDuration
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: _shakeMagnitude
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: _speechDuration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183330697589260692, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_text
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6183330697589260692, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -91
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 455
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6458207656132757393, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730076349142879319, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_Name
+      value: PlayerSpeechBubble
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+--- !u!224 &1730296659 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+  m_PrefabInstance: {fileID: 1730296658}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736448690
 GameObject:
   m_ObjectHideFlags: 0
@@ -33740,7 +33905,7 @@ GameObject:
   - component: {fileID: 1801011655}
   - component: {fileID: 1801011656}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: AttackSpeedLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35879,7 +36044,7 @@ GameObject:
   - component: {fileID: 1920412232}
   - component: {fileID: 1920412233}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: RecoverLabel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38110,7 +38275,7 @@ GameObject:
   - component: {fileID: 2048518698}
   - component: {fileID: 2048518699}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: AttackCostTxt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
