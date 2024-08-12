@@ -17,7 +17,7 @@ public class DataManager : Singleton<DataManager>
         }
     }
    
-    //addRange�� �ѹ��� �ټ��� ���Ҹ� �߰��ϴµ� �������� ����? 
+    //addRange�� �ѹ��� �ټ��� ���Ҹ� �߰��ϴµ� �������� ����? 
     //���� �������� ���ο� ����Ʈ�� �߰��ؼ� �÷��ִ� �Լ�.
     public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
     {
@@ -35,7 +35,14 @@ public class DataManager : Singleton<DataManager>
     public void AddGold(int amount)
     {
         playerDataSO.Gold += amount;
-        Debug.Log($"�÷��̾��� ���� ��� : {playerDataSO.Gold}");
+        Debug.Log($"�÷��̾��� ���� ��� : {playerDataSO.Gold}");
+        UIManager.Instance.UpdateCurrencyUI();
+    }
+
+    public void AddGem(int amount)
+    {
+        playerDataSO.Gem += amount;
+        Debug.Log($"젬 증가: {playerDataSO.Gem}");
         UIManager.Instance.UpdateCurrencyUI();
     }
 }
