@@ -50,7 +50,7 @@ public class StatUpgrade : MonoBehaviour
         SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
         SetupButton(RecoverHpBtn, () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ", RecoverHpCostTmp));
         SetupButton(AttackSpeedBtn, () => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ", AttackSpeedCostTmp));
-        SetupButton(CriticalPercentBtn, () => UpgradeStat(ref PlayerData.CriticalPer, 1.0f, ref _criticalPercentCost, CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp));
+        SetupButton(CriticalPercentBtn, () => UpgradeCriticalPercent());
         SetupButton(CriticalDamageBtn, () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "치명타데미지 : ", CriticalDamageCostTmp));
     }
 
@@ -95,6 +95,23 @@ public class StatUpgrade : MonoBehaviour
         onStatsChanged?.Invoke();
     }
 
+    private void UpgradeCriticalPercent()
+    {
+        if (PlayerData.CriticalPer >= 100f)
+        {
+            CriticalPercentBtn.interactable = false;
+            return;
+        }
+
+        float newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
+        UpgradeStat(ref PlayerData.CriticalPer, newValue - PlayerData.CriticalPer, ref _criticalPercentCost, CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp);
+
+        if (PlayerData.CriticalPer >= 100f)
+        {
+            CriticalPercentBtn.interactable = false;
+        }
+    }
+
     private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTmp, string statName, Text costTmp)
     {
         if (PlayerData.Gold < cost) return;
@@ -113,7 +130,8 @@ public class StatUpgrade : MonoBehaviour
         AttackSpeedTmp.text = "공격속도\n" + PlayerData.AttackSpeed+"%";
         HpTmp.text = "체력\n" + PlayerData.Hp;
         RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
-        CriticalPercentTmp.text = "치명타 확률" + PlayerData.CriticalPer+"%";
+        CriticalPercentTmp.text = "치명타 확률\n" + PlayerData.CriticalPer.ToString("F1") + "%";
+        CriticalPercentBtn.interactable = PlayerData.CriticalPer < 100f;
         CriticalDamageTmp.text = "치명타 데미지\n" + (PlayerData.CriticalMultiplier * 100) +"%";
 
         AttackCostTmp.text = _attackCost.ToString();
