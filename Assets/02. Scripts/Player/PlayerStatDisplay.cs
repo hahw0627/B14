@@ -3,8 +3,8 @@ using TMPro;
 
 public class PlayerStatDisplay : MonoBehaviour
 {
-    public PlayerDataSO playerData;
-    public TextMeshProUGUI damageText;
+    public PlayerDataSO PlayerData;
+    public TextMeshProUGUI DamageText;
 
     private void OnEnable()
     {
@@ -23,9 +23,9 @@ public class PlayerStatDisplay : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        if (playerData != null)
+        if (PlayerData != null)
         {
-            damageText.text = $"공격력 {playerData.Damage}";
+            DamageText.text = $"공격력 {PlayerData.Damage}";
         }
     }
 }

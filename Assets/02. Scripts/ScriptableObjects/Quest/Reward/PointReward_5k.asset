@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: PointReward_5k
   m_EditorClassIdentifier: 
   _icon: {fileID: 21300000, guid: cb850f55bd934b645911c12e5eb0d75e, type: 3}
-  _description: "1000G \uC99D\uAC00"
-  _quantity: 1000
+  _description: "5000G \uC99D\uAC00"
+  _quantity: 5000

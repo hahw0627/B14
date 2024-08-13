@@ -7,7 +7,7 @@ public class AdButtonManager : MonoBehaviour
 {
     public TextMeshProUGUI CooldownText;
 
-    public const int COOLDOWN_TIME = 5;
+    public const int COOLDOWN_TIME = 180;
     private Button _rewardedAdButton;
 
     private void Start()

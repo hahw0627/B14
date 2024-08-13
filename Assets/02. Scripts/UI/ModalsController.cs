@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class ModalsController : MonoBehaviour
 {
     public TextMeshProUGUI title;
-    public Transform content; //�������� ǥ���� �θ� Ʈ������
+    public Transform content; 
     public GameObject itemPrefab;
  
     private Define.EquipmentType selectedItemType;
@@ -30,18 +30,18 @@ public class ModalsController : MonoBehaviour
     public void OnWeaponButtonClick()
     {
         selectedItemType = Define.EquipmentType.Weapon;
-        title.text = "무기";
+        title.text = "����";
         currentItemName.text = DataManager.Instance.playerDataSO.currentWeaponEquip.itemName;
         currentItemImage.sprite = DataManager.Instance.playerDataSO.currentWeaponEquip.sprite;
         UpdateItemList();
     }
 
 
-    // �� ��ư Ŭ�� �� ȣ��
+    // ���?��ư Ŭ�� �� ȣ��
     public void OnArmorButtonClick()
     {
         selectedItemType = Define.EquipmentType.Armor;
-        title.text = "방어구";
+        title.text = "��";
         UpdateItemList();
     }
     public void OnEquip()
@@ -60,14 +60,14 @@ public class ModalsController : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("��� ��� ���� ����.");
+                    Debug.Log("��� ���?���� ����.");
                     
                 }
             }
         }
         else
         {
-            //�� �߰�..
+            //���?�߰�..
         }
     }
     public void OnEnhanceButton()
@@ -92,7 +92,7 @@ public class ModalsController : MonoBehaviour
         }
         else
         {
-            //�� �߰�..
+            //���?�߰�..
         }
     }
 

@@ -15,10 +15,11 @@ public class DataManager : Singleton<DataManager>
         {
             playerDataSO = Resources.Load<PlayerDataSO>("ScripableObjects/" + "PlayerDataSO");
         }
+
+        DontDestroyOnLoad(gameObject);
     }
    
-    //addRange�� �ѹ��� �ټ��� ���Ҹ� �߰��ϴµ� �������� ����? 
-    //���� �������� ���ο� ����Ʈ�� �߰��ؼ� �÷��ִ� �Լ�.
+   
     public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
     {
         allSkillsDataSO.AddRange(_skillsDataSO);

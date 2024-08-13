@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Collections;
 using Assets.HeroEditor4D.Common.Scripts.Common;
 using Assets.HeroEditor4D.Common.Scripts.Data;
@@ -10,7 +11,7 @@ using Assets.HeroEditor4D.InventorySystem.Scripts.Data;
 using Assets.HeroEditor4D.InventorySystem.Scripts.Enums;
 using UnityEngine;
 
-namespace Assets.HeroEditor4D.Common.Scripts.CharacterScripts
+namespace _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts
 {
 	/// <summary>
 	/// Controls 4 characters (for each direction).
