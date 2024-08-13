@@ -36,7 +36,14 @@ public class DataManager : Singleton<DataManager>
     public void AddGold(int amount)
     {
         playerDataSO.Gold += amount;
-        Debug.Log($"ÇÃ·¹ÀÌ¾îÀÇ ÇöÀç °ñµå : {playerDataSO.Gold}");
+        Debug.Log($"ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ : {playerDataSO.Gold}");
+        UIManager.Instance.UpdateCurrencyUI();
+    }
+
+    public void AddGem(int amount)
+    {
+        playerDataSO.Gem += amount;
+        Debug.Log($"ì ¬ ì¦ê°€: {playerDataSO.Gem}");
         UIManager.Instance.UpdateCurrencyUI();
     }
 }

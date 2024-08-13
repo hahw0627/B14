@@ -1,3 +1,4 @@
+using Quest.Core.Task;
 using UnityEngine;
 
 public abstract class InitialSuccessValue : ScriptableObject

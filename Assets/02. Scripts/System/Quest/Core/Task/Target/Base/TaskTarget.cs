@@ -1,8 +1,11 @@
 using UnityEngine;
 
-public abstract class TaskTarget : ScriptableObject
+namespace Quest.Core.Task.Target.Base
 {
-    public abstract object Value { get; }
+    public abstract class TaskTarget : ScriptableObject
+    {
+        public abstract object Value { get; }
 
-    public abstract bool IsEqual(object target);
+        public abstract bool IsEqual(object target);
+    }
 }

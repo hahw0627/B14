@@ -16,7 +16,7 @@ MonoBehaviour:
   _icon: {fileID: 0}
   _codeName: KILL_THE_BOSS
   _displayName: "\uBCF4\uC2A4 \uCC98\uCE58"
-  _description: "\uBCF4\uC2A4 \uD55C \uB9C8\uB9AC \uCC98\uCE58"
+  _description: "\uBCF4\uC2A4 \uCC98\uCE58"
   _taskGroups:
   - _tasks:
     - {fileID: 11400000, guid: 9cfd6b471ddd6f04491e2e1391c0a951, type: 2}
