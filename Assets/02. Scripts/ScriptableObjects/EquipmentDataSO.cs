@@ -1,39 +1,58 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static Define;
+using UnityEngine.Serialization;
 
+[System.Serializable]
 [CreateAssetMenu(fileName = "EquipmentDataSO", menuName = "ScriptableObjects/EquipmentDataSO", order = 6)]
 public class EquipmentDataSO : ScriptableObject
 {
+    [FormerlySerializedAs("equipmentType")]
+    public Define.EquipmentType EquipmentType;
 
-    public Define.EquipmentType equipmentType;
-    public Define.EquipmentGrade equipmentGrade;
-    public Define.GachaRarity gachaRarity;
+    [FormerlySerializedAs("equipmentGrade")]
+    public Define.EquipmentGrade EquipmentGrade;
 
-    public string itemName;
-    public string description;
+    [FormerlySerializedAs("gachaRarity")]
+    public Define.GachaRarity GachaRarity;
 
-    public Sprite sprite;
+    [FormerlySerializedAs("itemName")]
+    public string ItemName;
 
-    public float atk; //°ø°Ý·Â
-    public float def; //¹æ¾î·Â
-    public float attackSpeed; //°ø°Ý¼Óµµ.
+    [FormerlySerializedAs("description")]
+    public string Description;
 
-    public int currentLevel;
+    [FormerlySerializedAs("sprite")]
+    public Sprite Sprite;
+
+    [FormerlySerializedAs("atk")]
+    public float Atk; //ï¿½ï¿½ï¿½Ý·ï¿½
+
+    [FormerlySerializedAs("def")]
+    public float Def; //ï¿½ï¿½ï¿½ï¿½
+
+    [FormerlySerializedAs("attackSpeed")]
+    public float AttackSpeed; //ï¿½ï¿½ï¿½Ý¼Óµï¿½.
+
+    [FormerlySerializedAs("currentLevel")]
+    public int CurrentLevel;
+
     public int MaxLevel;
 
-    public int baseGoldCost; // 1·¾¶§ ¾÷±×·¹ÀÌµå¿¡ ÇÊ¿äÇÑ °ñµå·®
-    public float attackIncreasePerLevel; //·¹º§´ç °ø°Ý·Â »ó½Â·®
-    public float defIncreasePerLevel;   //·¹º§´ç ¹æ¾î·Â »ó½Â·®
+    [FormerlySerializedAs("baseGoldCost")]
+    public int BaseGoldCost; // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½×·ï¿½ï¿½Ìµå¿¡ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½å·®
 
-    public int count;
+    [FormerlySerializedAs("attackIncreasePerLevel")]
+    public float AttackIncreasePerLevel; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½Â·ï¿½
 
-    //Ãß°¡
+    [FormerlySerializedAs("defIncreasePerLevel")]
+    public float DefIncreasePerLevel; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Â·ï¿½
+
+    [FormerlySerializedAs("count")]
+    public int Count;
+
+    //ï¿½ß°ï¿½
     public void EnhanceItem(Define.EquipmentType equipType)
     {
-        switch(equipType)
+        switch (equipType)
         {
             case Define.EquipmentType.Weapon:
                 Enhance(Define.EquipmentType.Weapon);
@@ -41,48 +60,48 @@ public class EquipmentDataSO : ScriptableObject
             case Define.EquipmentType.Armor:
                 Enhance(Define.EquipmentType.Armor);
                 break;
+            default:
+                throw new System.ArgumentOutOfRangeException(nameof(equipType), equipType, null);
         }
     }
-    void Enhance(Define.EquipmentType equipType)
+
+    private void Enhance(Define.EquipmentType equipType)
     {
-        if (equipmentType == Define.EquipmentType.Weapon)
+        if (EquipmentType == Define.EquipmentType.Weapon)
         {
-            if (currentLevel < MaxLevel)
+            if (CurrentLevel < MaxLevel)
             {
-                int goldRequired = CalculateGoldRequired(currentLevel);
+                var goldRequired = CalculateGoldRequired(CurrentLevel);
 
-                if (DataManager.Instance.playerDataSO.Gold >= goldRequired)
+                if (DataManager.Instance.PlayerDataSo.Gold >= goldRequired)
                 {
-                    DataManager.Instance.playerDataSO.Gold -= goldRequired;
-                    currentLevel++;
-                    atk += attackIncreasePerLevel;
+                    DataManager.Instance.PlayerDataSo.Gold -= goldRequired;
+                    CurrentLevel++;
+                    Atk += AttackIncreasePerLevel;
 
-                    Debug.Log($"¾ÆÀÌÅÛ '{itemName}'ÀÌ(°¡) {currentLevel}·¹º§·Î °­È­µÇ¾ú½À´Ï´Ù. °ø°Ý·Â: {atk}, ³²Àº °ñµå: {DataManager.Instance.playerDataSO.Gold}");
+                    Debug.Log(
+                        $"ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ '{ItemName}'ï¿½ï¿½(ï¿½ï¿½) {CurrentLevel}ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½. ï¿½ï¿½ï¿½Ý·ï¿½: {Atk}, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: {DataManager.Instance.PlayerDataSo.Gold}");
                 }
                 else
                 {
-                    Debug.Log($"°ñµå°¡ ºÎÁ·ÇÕ´Ï´Ù! ÇÊ¿äÇÑ °ñµå: {goldRequired}, ÇöÀç °ñµå: {DataManager.Instance.playerDataSO.Gold}");
+                    Debug.Log(
+                        $"ï¿½ï¿½å°¡ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½! ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: {goldRequired}, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½: {DataManager.Instance.PlayerDataSo.Gold}");
                 }
             }
             else
             {
-                Debug.Log($"{itemName}Àº(´Â) ÀÌ¹Ì ÃÖ´ë ·¹º§ÀÔ´Ï´Ù.");
+                Debug.Log($"{ItemName}ï¿½ï¿½(ï¿½ï¿½) ï¿½Ì¹ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ô´Ï´ï¿½.");
             }
         }
         else
         {
-            //¹æ¾î±¸ Ãß°¡ 
+            //ï¿½ï¿½î±¸ ï¿½ß°ï¿½ 
         }
-
     }
 
     private int CalculateGoldRequired(int currentLevel)
     {
-        //°ñµå·®ÀÌ ·¹º§¿¡ µû¶ó 1.5¹è¾¿ Áõ°¡
-        return baseGoldCost * (int)Mathf.Pow(1.5f, currentLevel);
+        //ï¿½ï¿½å·®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.5ï¿½è¾¿ ï¿½ï¿½ï¿½ï¿½
+        return BaseGoldCost * (int)Mathf.Pow(1.5f, currentLevel);
     }
 }
-    
-
-    
-

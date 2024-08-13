@@ -6,6 +6,7 @@ public class MonsterSpawner : MonoBehaviour
 {
     [FormerlySerializedAs("spawnPoints")]
     public Transform[] SpawnPoints;
+
     [FormerlySerializedAs("bossMonster")]
     public GameObject BossMonster;
 
@@ -19,6 +20,7 @@ public class MonsterSpawner : MonoBehaviour
         {
             return false;
         }
+
         return !BossMonster.activeSelf;
     }
 
@@ -49,7 +51,7 @@ public class MonsterSpawner : MonoBehaviour
 
     private void ActiveMonsters(int num)
     {
-        for (int i = 0; i < num; i++)
+        for (var i = 0; i < num; i++)
         {
             MonsterPool.Instance.Monsters[i].transform.position = SpawnPoints[i].position;
             MonsterPool.Instance.Monsters[i].SetActive(true);

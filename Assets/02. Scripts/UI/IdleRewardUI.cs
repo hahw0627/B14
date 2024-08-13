@@ -78,8 +78,6 @@ public class IdleRewardUI : MonoBehaviour
         
         var rewardGold = Mathf.RoundToInt(_currentReward);
         
-        DataManager.Instance.AddGold(rewardGold);
-        
         GoldAcquireEffect.PlayGoldAcquireEffect(ConfirmButton.transform.position, rewardGold);
         
         Debug.Log($"{rewardGold} 골드를 지급했습니다.");

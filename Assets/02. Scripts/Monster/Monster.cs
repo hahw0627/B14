@@ -7,33 +7,40 @@ using UnityEngine.Serialization;
 public class Monster : MonoBehaviour, IDamageable
 {
     public Character4D Character;
-    
+
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
+
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+
     [FormerlySerializedAs("target")]
     public GameObject Target;
 
     public int Hp;
+
     [FormerlySerializedAs("damage")]
     public int Damage;
+
     [FormerlySerializedAs("attackSpeed")]
     public float AttackSpeed;
+
     [FormerlySerializedAs("moveTime")]
     public float MoveTime;
 
     [FormerlySerializedAs("isAttacking")]
     public bool IsAttacking;
+
     [FormerlySerializedAs("hudPos")]
     public Transform HUDPos;
+
     protected DamageTextPool DamageTextPool;
 
     private int _goldReward;
     private static readonly int IsBattle = Animator.StringToHash("IsBattle");
 
     public event Action<Monster> onDeath;
-
+    
     private void Awake()
     {
         _goldReward = 10;
@@ -43,7 +50,7 @@ public class Monster : MonoBehaviour, IDamageable
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
         {
-            Debug.LogError("DamageTextPool not found in the scene. Make sure it exists.");
+            Debug.LogError("<color=red>DamageTextPool not found in the scene. Make sure it exists.</color>");
         }
     }
 
@@ -52,7 +59,7 @@ public class Monster : MonoBehaviour, IDamageable
     {
         if (MonsterData == null)
         {
-            Debug.LogError("MonsterDataSO_Test instance is missing");
+            Debug.LogError("<color=red>MonsterDataSO_Test instance is missing</color>");
             return;
         }
 
@@ -66,7 +73,7 @@ public class Monster : MonoBehaviour, IDamageable
     private void Update()
     {
         #region MoveAndAttack
-        
+
         if (MoveTime < 1.5f)
         {
             _spriteRenderer.flipX = true;
@@ -97,12 +104,13 @@ public class Monster : MonoBehaviour, IDamageable
                 var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = transform.position;
                 var projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = Target.transform;
+                projectileScript.Target = Target.transform;
                 projectileScript.SetDirection(Target.transform.position);
-                projectileScript.damage = Damage;
-                projectileScript.shooterTag = "Monster";
+                projectileScript.Damage = Damage;
+                projectileScript.ShooterTag = "Monster";
                 projectileScript.SetColor(Color.red);
             }
+
             yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
@@ -139,7 +147,7 @@ public class Monster : MonoBehaviour, IDamageable
     public void Die()
     {
         var instance = DataManager.Instance;
-        instance.playerDataSO.Gold += _goldReward;
+        instance.PlayerDataSo.Gold += _goldReward;
         onDeath?.Invoke(this);
     }
 }

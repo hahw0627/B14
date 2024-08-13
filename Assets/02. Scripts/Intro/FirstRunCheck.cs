@@ -14,7 +14,6 @@ public class FirstRunCheck : MonoBehaviour
     
     private void Awake()
     {
-        Debug.Log($"최초 실행 여부: {!PlayerPrefs.HasKey(FIRST_RUN_KEY)}");
         // PlayerPrefs에서 'FirstRun' 키 확인
         if (!PlayerPrefs.HasKey(FIRST_RUN_KEY))
         {
@@ -22,14 +21,14 @@ public class FirstRunCheck : MonoBehaviour
             IsFirstRun = true;
             Time.timeScale = 0f;
             _introCanvas.SetActive(true);
-            Debug.Log("인트로: 게임을 처음 실행합니다!");
+            Debug.Log("<color=white>인트로: 게임을 처음 실행합니다!</color>");
         }
         else
         {
             // 이미 실행된 경우
             IsFirstRun = false;
             Destroy(_introCanvas);
-            Debug.Log("인트로: 게임을 이미 실행했습니다.");   
+            Debug.Log("<color=white>인트로: 게임을 전에 실행했었습니다.</color>");   
         }
     }
 
@@ -41,6 +40,7 @@ public class FirstRunCheck : MonoBehaviour
     
     public void InitFirstRun()
     {
+        DebugConsole.ClearLog();
         PlayerPrefs.DeleteKey(FIRST_RUN_KEY);
         SceneLoader.LoadScene( SceneManager.GetActiveScene().name );
     }

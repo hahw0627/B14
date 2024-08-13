@@ -63,8 +63,8 @@ public class GachaScroll : MonoBehaviour
 
         if (companionData != null)
         {
-            icon.sprite = companionData.icon;
-            switch (companionData.rarity)
+            icon.sprite = companionData.Icon;
+            switch (companionData.Rarity)
             {
                 case Define.SkillRarity.Normal:
                     normal.SetActive(true);
@@ -85,8 +85,8 @@ public class GachaScroll : MonoBehaviour
         }
         else if (skillData != null)
         {
-            icon.sprite = skillData.icon;
-            switch (skillData.rarity)
+            icon.sprite = skillData.Icon;
+            switch (skillData.Rarity)
             {
                 case Define.SkillRarity.Normal:
                     normal.SetActive(true);
@@ -107,8 +107,8 @@ public class GachaScroll : MonoBehaviour
         }
         else if (weaponData != null)
         {
-            icon.sprite = weaponData.sprite;
-            switch (weaponData.gachaRarity)
+            icon.sprite = weaponData.Sprite;
+            switch (weaponData.GachaRarity)
             {
                 case (Define.GachaRarity)Define.SkillRarity.Normal:
                     normal.SetActive(true);

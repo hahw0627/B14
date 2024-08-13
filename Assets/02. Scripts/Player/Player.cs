@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
 
-        PlayerData = DataManager.Instance.playerDataSO;
+        PlayerData = DataManager.Instance.PlayerDataSo;
         Scanner = GetComponent<Scanner>();
 
         AttackSpeed = PlayerData.AttackSpeed;
@@ -68,7 +68,7 @@ public class Player : MonoBehaviour
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = Scanner.nearestTarget;   // ������ ����ü�� Ÿ�� ����
+                projectileScript.Target = Scanner.nearestTarget;   // ������ ����ü�� Ÿ�� ����
                 projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
 
                 bool isCritical = IsCriticalHit();
@@ -79,8 +79,8 @@ public class Player : MonoBehaviour
                     Damage *= CriticalMultiplier;
                 }
 
-                projectileScript.damage = Mathf.RoundToInt(Damage);    // ������ ����ü�� ������ ����
-                projectileScript.shooterTag = "Player";
+                projectileScript.Damage = Mathf.RoundToInt(Damage);    // ������ ����ü�� ������ ����
+                projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
                 if (DamageTextPool != null)
                 {

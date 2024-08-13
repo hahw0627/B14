@@ -52,7 +52,7 @@ public class DamageTextPool : MonoBehaviour
     {
         if (_damageTextPrefab is null)
         {
-            Debug.LogError("DamageTextPrefab is not assigned in the inspector!");
+            Debug.LogError("<color=red>DamageTextPrefab is not assigned in the inspector!</color>");
             return;
         }
 
@@ -60,7 +60,7 @@ public class DamageTextPool : MonoBehaviour
         var damageText = newObject.GetComponent<DamageText>();
         if (damageText is null)
         {
-            Debug.LogError("DamageText component not found on the instantiated prefab!");
+            Debug.LogError("<color=red>DamageText component not found on the instantiated prefab!</color>");
             Destroy(newObject);
             return;
         }

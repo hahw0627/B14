@@ -48,7 +48,7 @@ public class CompanionInfoPanel : MonoBehaviour
 
     private void Start()
     {
-        // ½ÃÀÛ ½Ã Á¤º¸Ã¢À» ºñÈ°¼ºÈ­ »óÅÂ·Î ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
         gameObject.SetActive(false);
 
         equipButton.onClick.AddListener(EquipCompanion);
@@ -63,24 +63,24 @@ public class CompanionInfoPanel : MonoBehaviour
     public void ShowCompanionInfo(CompanionDataSO companionData)
     {
         currentCompanionData = companionData;
-        companionIcon.sprite = companionData.icon;
-        companionNameText.text = companionData.companionName;
-        companionDescriptionText.text = companionData.description;
-        companionLevelText.text = companionData.level.ToString();
-        companionCountText.text = companionData.count.ToString();
-        companionDamageText.text = companionData.damage.ToString();
+        companionIcon.sprite = companionData.Icon;
+        companionNameText.text = companionData.CompanionName;
+        companionDescriptionText.text = companionData.Description;
+        companionLevelText.text = companionData.Level.ToString();
+        companionCountText.text = companionData.Count.ToString();
+        companionDamageText.text = companionData.Damage.ToString();
 
         gameObject.SetActive(true);
     }
 
     public void EquipCompanion()
     {
-        if (currentCompanionData.isEquipped)
+        if (currentCompanionData.IsEquipped)
         {
             choiceFail.SetActive(true);
             return;
         }
-        else if (currentCompanionData.count == 0 && currentCompanionData.level == 1)
+        else if (currentCompanionData.Count == 0 && currentCompanionData.Level == 1)
         {
             choiceFail.SetActive(true);
             return;
@@ -88,35 +88,35 @@ public class CompanionInfoPanel : MonoBehaviour
 
         choiceFail.SetActive(false);
         btnChoice.gameObject.SetActive(true);
-        selectedButton = null; // ¹öÆ°ÀÌ ¼±ÅÃµÇÁö ¾Ê¾ÒÀ½À» Ç¥½Ã
+        selectedButton = null; // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
     }
 
     public void SelectButton(Button button)
-    {   // ¹öÆ°°ñ¶ó¼­ ÀÌ¹ÌÁö ÀÔÈ÷±â
-        if (selectedButton == null) // ¹öÆ°ÀÌ ¾ÆÁ÷ ¼±ÅÃµÇÁö ¾Ê¾Ò´Ù¸é
+    {   // ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (selectedButton == null) // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½
         {
             selectedButton = button;
-            btnChoice.gameObject.SetActive(false); // ¹öÆ° ¼±ÅÃ ¿Ï·á ÈÄ, ¹öÆ° ¼±ÅÃ UI ¼û±è
+            btnChoice.gameObject.SetActive(false); // ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½, ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
 
-            if (currentCompanionData.isEquipped)
+            if (currentCompanionData.IsEquipped)
             {
                 return;
             }
-            else if (currentCompanionData.count == 0 && currentCompanionData.level == 1)
+            else if (currentCompanionData.Count == 0 && currentCompanionData.Level == 1)
             {
                 return;
             }
             else
             {
-                // ¼±ÅÃµÈ ¹öÆ°ÀÇ ÀÌ¹ÌÁö¸¦ º¯°æÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 Image buttonImage = button.GetComponent<Image>();
                 if (buttonImage != null)
                 {
-                    buttonImage.sprite = currentCompanionData.icon;
+                    buttonImage.sprite = currentCompanionData.Icon;
                 }
             }
 
-            // ÇöÀç ÆêÀÇ ÀåÂø ¿©ºÎ¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Õ´Ï´ï¿½.
             UpdateEquippedStatus(button);
         }
     }
@@ -149,27 +149,27 @@ public class CompanionInfoPanel : MonoBehaviour
 
         if (formerCompanionData == null)
         {
-            currentCompanionData.isEquipped = true;
+            currentCompanionData.IsEquipped = true;
             formerCompanionData = currentCompanionData;
         }
         else
         {
-            formerCompanionData.isEquipped = false;
-            currentCompanionData.isEquipped = true;
+            formerCompanionData.IsEquipped = false;
+            currentCompanionData.IsEquipped = true;
             formerCompanionData = currentCompanionData;
         }
     }
 
     public void CompanionUpgrade()
     {
-        if (currentCompanionData.count > 4)
+        if (currentCompanionData.Count > 4)
         {
-            currentCompanionData.level += 1;
-            currentCompanionData.count -= 5;
-            currentCompanionData.damage += 5;
-            companionLevelText.text = currentCompanionData.level.ToString();
-            companionCountText.text = currentCompanionData.count.ToString();
-            companionDamageText.text = currentCompanionData.damage.ToString();
+            currentCompanionData.Level += 1;
+            currentCompanionData.Count -= 5;
+            currentCompanionData.Damage += 5;
+            companionLevelText.text = currentCompanionData.Level.ToString();
+            companionCountText.text = currentCompanionData.Count.ToString();
+            companionDamageText.text = currentCompanionData.Damage.ToString();
         }
     }
 
@@ -189,13 +189,13 @@ public class CompanionInfoPanel : MonoBehaviour
 
     private void DestroyCompanion()
     {
-        // ÇöÀç ¾ÀÀÇ PetÄÄÆ÷³ÍÆ®¸¦ °Ë»öÇÏ¿© ¹è¿­¿¡ ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Petï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Pet[] allPets = FindObjectsOfType<Pet>();
 
-        // ÇØ´ç PetÄÄÆ÷³ÍÆ®ÀÇ SO¿¡ Á¢±ÙÇÏ¿© ÀåÂø¿©ºÎ°¡ falseÀÌ¸é ¿ÀºêÁ§Æ® Á¦°Å
+        // ï¿½Ø´ï¿½ Petï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ falseï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         foreach (Pet pet in allPets)
         {
-            if (!pet.companionData.isEquipped)
+            if (!pet.companionData.IsEquipped)
             {
                 Destroy(pet.gameObject);
             }
@@ -207,7 +207,7 @@ public class CompanionInfoPanel : MonoBehaviour
         CompanionDataSO[] allCompanionData = companionList.companionDataArray;
         foreach(CompanionDataSO companionDataSO in allCompanionData)
         {
-            companionDataSO.isEquipped = false;
+            companionDataSO.IsEquipped = false;
         }
         currentCompanionButton1.image.sprite = nullIcon;
         currentCompanionButton2.image.sprite = nullIcon;

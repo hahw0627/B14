@@ -5,6 +5,7 @@ public class MonsterPool : SingletonDestroyable<MonsterPool>
 {
     [FormerlySerializedAs("monsterPrefab")]
     public GameObject MonsterPrefab;
+
     [FormerlySerializedAs("monsters")]
     public GameObject[] Monsters;
 

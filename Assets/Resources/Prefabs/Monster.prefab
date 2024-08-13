@@ -166,14 +166,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterProjectilePrefab: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
-  target: {fileID: 0}
+  Character: {fileID: 0}
+  MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  Target: {fileID: 0}
   Hp: 0
-  damage: 0
-  attackSpeed: 0
-  hudDamgeText: {fileID: 2209120376791910756, guid: bb0c75f2472f37444b265d68f730f48e, type: 3}
-  hudPos: {fileID: 836049591532378945}
+  Damage: 0
+  AttackSpeed: 0
+  MoveTime: 0
+  IsAttacking: 0
+  HUDPos: {fileID: 836049591532378945}
 --- !u!1 &9098567280438256890
 GameObject:
   m_ObjectHideFlags: 0

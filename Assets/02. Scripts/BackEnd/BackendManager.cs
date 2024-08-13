@@ -16,15 +16,15 @@ public class BackendManager : MonoBehaviour
     }
     void BackendSetting()
     {
-        var bro = Backend.Initialize(); // µÚ³¡ ÃÊ±âÈ­ 
+        var bro = Backend.Initialize(); // ï¿½Ú³ï¿½ ï¿½Ê±ï¿½È­ 
 
         if (bro.IsSuccess())
         {
-            Debug.Log("ÃÊ±âÈ­ ¼º°ø : " +bro);
+            Debug.Log("ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ : " +bro);
         }
         else
         {
-            Debug.LogError("ÃÊ±âÈ­ ½ÇÆÐ : " + bro); // statusCode 400´ë ¿¡·¯¹ß»ý 
+            Debug.LogError("<color=red>ï¿½Ê±ï¿½È­ ï¿½ï¿½ï¿½ï¿½ : " + bro + "</color>"); // statusCode 400ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß»ï¿½ 
         }
     }
 

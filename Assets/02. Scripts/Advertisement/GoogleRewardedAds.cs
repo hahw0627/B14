@@ -49,25 +49,25 @@ public class GoogleRewardedAds : MonoBehaviour
             _rewardedAd = null;
         }
 
-        Debug.Log("Loading the rewarded ad.");
+        Debug.Log("<color=#87ceeb>Loading the rewarded ad.</color>");
 
         // create our request used to load the ad.
         var adRequest = new AdRequest();
 
         // send the request to load the ad.
         RewardedAd.Load(AD_UNIT_ID, adRequest,
-            (RewardedAd ad, LoadAdError error) =>
+            (ad, error) =>
             {
                 // if error is not null, the load request failed.
                 if (error != null || ad == null)
                 {
-                    Debug.LogError("Rewarded ad failed to load an ad " +
-                                   "with error : " + error);
+                    Debug.LogError("<color=red>Rewarded ad failed to load an ad " +
+                                   "with error : " + error + "</color>");
                     return;
                 }
 
-                Debug.Log("Rewarded ad loaded with response : "
-                          + ad.GetResponseInfo());
+                Debug.Log("<color=#87ceeb>Rewarded ad loaded with response : "
+                          + ad.GetResponseInfo() + "</color>");
 
                 _rewardedAd = ad;
 
@@ -78,11 +78,11 @@ public class GoogleRewardedAds : MonoBehaviour
     public void ShowRewardedAd()
     {
         const string rewardMsg =
-            "Rewarded ad rewarded the user. Type: {0}, amount: {1}.";
+            "<color=#87ceeb>Rewarded ad rewarded the user. Type: {0}, amount: {1}.</color>";
 
         if (_rewardedAd != null && _rewardedAd.CanShowAd())
         {
-            _rewardedAd.Show((Reward reward) =>
+            _rewardedAd.Show(reward =>
             {
                 // TODO: Reward the user.
                 Debug.Log(string.Format(rewardMsg, reward.Type, reward.Amount));
@@ -93,27 +93,27 @@ public class GoogleRewardedAds : MonoBehaviour
     private void RegisterEventHandlers(RewardedAd ad)
     {
         // Raised when the ad is estimated to have earned money.
-        ad.OnAdPaid += (AdValue adValue) => { Debug.Log($"Rewarded ad paid {adValue.Value} {adValue.CurrencyCode}."); };
+        ad.OnAdPaid += adValue => { Debug.Log($"<color=#87ceeb>Rewarded ad paid {adValue.Value} {adValue.CurrencyCode}.</color>"); };
         // Raised when an impression is recorded for an ad.
-        ad.OnAdImpressionRecorded += () => { Debug.Log("Rewarded ad recorded an impression."); };
+        ad.OnAdImpressionRecorded += () => { Debug.Log("<color=#87ceeb>Rewarded ad recorded an impression.</color>"); };
         // Raised when a click is recorded for an ad.
-        ad.OnAdClicked += () => { Debug.Log("Rewarded ad was clicked."); };
+        ad.OnAdClicked += () => { Debug.Log("<color=#87ceeb>Rewarded ad was clicked.</color>"); };
         // Raised when an ad opened full screen content.
-        ad.OnAdFullScreenContentOpened += () => { Debug.Log("Rewarded ad full screen content opened."); };
+        ad.OnAdFullScreenContentOpened += () => { Debug.Log("<color=#87ceeb>Rewarded ad full screen content opened.</color>"); };
         // Raised when the ad closed full screen content.
         ad.OnAdFullScreenContentClosed += () =>
         {
-            Debug.Log("Rewarded ad full screen content closed.");
+            Debug.Log("<color=#87ceeb>Rewarded ad full screen content closed.</color>");
             LoadRewardedAd();
             gameObject.GetComponent<AdButtonManager>().StartCooldown(AdButtonManager.COOLDOWN_DURATION); // 광고 쿨다운 시작
             _goldAcquireEffect.PlayGoldAcquireEffect(_startPositionTransformOfEffect.position,
                 AD_VIEW_GEM_AMOUNT); // 코인 이펙트 시작
         };
         // Raised when the ad failed to open full screen content.
-        ad.OnAdFullScreenContentFailed += (AdError error) =>
+        ad.OnAdFullScreenContentFailed += error =>
         {
-            Debug.LogError("Rewarded ad failed to open full screen content " +
-                           "with error : " + error);
+            Debug.LogError("<color=red>Rewarded ad failed to open full screen content " +
+                           "with error : " + error + "</color>");
             LoadRewardedAd();
         };
     }

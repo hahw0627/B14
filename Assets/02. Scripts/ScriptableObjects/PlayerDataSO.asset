@@ -12,24 +12,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41ab849a55c4f944bb12019f340a880, type: 3}
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
-  skills: []
-  companions: []
-  weapons:
+  Skills: []
+  Companions: []
+  Weapons:
   - {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
   - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
-  armors: []
-  playerName: 00011
-  Gold: 63288
-  Gem: 150
+  Armors: []
+  PlayerName: 00011
+  Gold: 7726
+  Gem: 200
   Diamond: 100
   TotalPower: 10
-  Damage: 20
+  Damage: 210
   Def: 0
   AttackSpeed: 4
   Hp: 200
   HpRecovery: 105
   CriticalPer: 1
   CriticalMultiplier: 1.5
-  currentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
-  currentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
+  CurrentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
+  CurrentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}

@@ -36,16 +36,16 @@ public class SkillManager : MonoBehaviour
     public void UpdateEquippedSkills()
     {
         equippedSkills.Clear();
-        if (DataManager.Instance.playerDataSO.skills != null)
+        if (DataManager.Instance.PlayerDataSo.Skills != null)
         {
-            equippedSkills.AddRange(DataManager.Instance.playerDataSO.skills);
+            equippedSkills.AddRange(DataManager.Instance.PlayerDataSo.Skills);
         }
     }
 
     public void EquipSkill(SkillDataSO skill)
     {
         if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill) &&
-            DataManager.Instance.allSkillsDataSO.Contains(skill))
+            DataManager.Instance.AllSkillsDataSo.Contains(skill))
         {
             equippedSkills.Add(skill);
             OnEquippedSkillsChanged?.Invoke();
@@ -146,7 +146,7 @@ public class SkillManager : MonoBehaviour
 
     public void SetSkillOnCooldown(SkillDataSO skill)
     {
-        skillCooldowns[skill] = skill.cooldown;
+        skillCooldowns[skill] = skill.Cooldown;
     }
 
     public float GetSkillCooldown(SkillDataSO skill)
@@ -179,14 +179,14 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        if (!DataManager.Instance.allSkillsDataSO.Contains(newSkill))
+        if (!DataManager.Instance.AllSkillsDataSo.Contains(newSkill))
         {
             Debug.LogWarning("Skill not found in allSkillsDataSO.");
             return;
         }
 
         // �� ��ų�� �̹� �����Ǿ� �ִ��� Ȯ��
-        int existingIndex = equippedSkills.FindIndex(s => s != null && s.skillName == newSkill.skillName);
+        int existingIndex = equippedSkills.FindIndex(s => s != null && s.SkillName == newSkill.SkillName);
 
         // �̹� ������ ��ų�� �ְ�, �� ��ġ�� ���� �����Ϸ��� ��ġ�� �ٸ��ٸ�
         if (existingIndex != -1 && existingIndex != index)

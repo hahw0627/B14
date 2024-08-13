@@ -59,7 +59,7 @@ public class IntroCutScene : MonoBehaviour
         else // 남아 있지 않다면
         {
             // 모든 장면을 보여준 후의 처리 (예: 씬 전환 또는 종료)
-            Debug.Log("인트로: 모든 장면을 표시했습니다.");
+            Debug.Log("<color=#00ff00>인트로: 모든 장면을 표시했습니다.</color>");
             Time.timeScale = 1f;
             Destroy(_introCutSceneObject);
             FirstRunCheck.SaveKeyOfFirstRun();
