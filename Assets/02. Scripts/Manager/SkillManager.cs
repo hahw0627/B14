@@ -114,7 +114,7 @@ public class SkillManager : MonoBehaviour
     {
         while (isAutoMode)
         {
-            if (player.scanner.nearestTarget != null)
+            if (player.Scanner.nearestTarget != null)
             {
                 SkillDataSO skillToUse = FindUsableSkill();
                 if (skillToUse != null)

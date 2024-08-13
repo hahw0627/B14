@@ -1,24 +1,25 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MonsterPool : SingletonDestroyable<MonsterPool>
 {
-    public GameObject monsterPrefab;
-    public GameObject[] monsters;
+    [FormerlySerializedAs("monsterPrefab")]
+    public GameObject MonsterPrefab;
+    [FormerlySerializedAs("monsters")]
+    public GameObject[] Monsters;
 
     private void Start()
     {
-        monsters = new GameObject[6];
-        for (int i = 0; i < monsters.Length; i++)
+        Monsters = new GameObject[6];
+        for (var i = 0; i < Monsters.Length; i++)
         {
-            monsters[i] = Instantiate(monsterPrefab, transform);
-            monsters[i].GetComponent<Monster>().OnDeath += HandleMonsterDeath;
-            monsters[i].SetActive(false);
+            Monsters[i] = Instantiate(MonsterPrefab, transform);
+            Monsters[i].GetComponent<Monster>().OnDeath += HandleMonsterDeath;
+            Monsters[i].SetActive(false);
         }
     }
 
-    void HandleMonsterDeath(Monster monster123)
+    public void HandleMonsterDeath(Monster monster123)
     {
         UIManager.Instance.UpdateCurrencyUI();
     }

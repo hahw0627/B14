@@ -11,14 +11,28 @@ public class GoogleRewardedAds : MonoBehaviour
     private string _adUnitId = "unused";
 #endif
 
+    [SerializeField]
+    private GoldAcquireEffect _goldAcquireEffect;
+
+    [SerializeField]
+    private Transform _startPositionTransformOfEffect;
+
+    private const byte AD_VIEW_GEM_AMOUNT = 50;
+
     // Start is called before the first frame update
     private void Start()
     {
-        MobileAds.Initialize((InitializationStatus initStatus) =>
+        _goldAcquireEffect.OnEffectCompleted += HandleEffectCompleted;
+        MobileAds.Initialize(_ =>
         {
             // This callback is called once the MobileAds SDK is initialized.
             LoadRewardedAd();
         });
+    }
+
+    private static void HandleEffectCompleted()
+    {
+        DataManager.Instance.AddGem(AD_VIEW_GEM_AMOUNT);
     }
 
     private RewardedAd _rewardedAd;
@@ -79,32 +93,21 @@ public class GoogleRewardedAds : MonoBehaviour
     private void RegisterEventHandlers(RewardedAd ad)
     {
         // Raised when the ad is estimated to have earned money.
-        ad.OnAdPaid += (AdValue adValue) =>
-        {
-            Debug.Log($"Rewarded ad paid {adValue.Value} {adValue.CurrencyCode}.");
-        };
+        ad.OnAdPaid += (AdValue adValue) => { Debug.Log($"Rewarded ad paid {adValue.Value} {adValue.CurrencyCode}."); };
         // Raised when an impression is recorded for an ad.
-        ad.OnAdImpressionRecorded += () =>
-        {
-            Debug.Log("Rewarded ad recorded an impression.");
-        };
+        ad.OnAdImpressionRecorded += () => { Debug.Log("Rewarded ad recorded an impression."); };
         // Raised when a click is recorded for an ad.
-        ad.OnAdClicked += () =>
-        {
-            Debug.Log("Rewarded ad was clicked.");
-        };
+        ad.OnAdClicked += () => { Debug.Log("Rewarded ad was clicked."); };
         // Raised when an ad opened full screen content.
-        ad.OnAdFullScreenContentOpened += () =>
-        {
-            Debug.Log("Rewarded ad full screen content opened.");
-        };
+        ad.OnAdFullScreenContentOpened += () => { Debug.Log("Rewarded ad full screen content opened."); };
         // Raised when the ad closed full screen content.
         ad.OnAdFullScreenContentClosed += () =>
         {
             Debug.Log("Rewarded ad full screen content closed.");
             LoadRewardedAd();
-            gameObject.GetComponent<AdButtonManager>().StartCooldown(AdButtonManager.COOLDOWN_TIME);
-            DataManager.Instance.AddGem(50);
+            gameObject.GetComponent<AdButtonManager>().StartCooldown(AdButtonManager.COOLDOWN_DURATION); // 광고 쿨다운 시작
+            _goldAcquireEffect.PlayGoldAcquireEffect(_startPositionTransformOfEffect.position,
+                AD_VIEW_GEM_AMOUNT); // 코인 이펙트 시작
         };
         // Raised when the ad failed to open full screen content.
         ad.OnAdFullScreenContentFailed += (AdError error) =>

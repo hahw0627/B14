@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class FirstRunCheck : MonoBehaviour
 {
@@ -41,5 +42,6 @@ public class FirstRunCheck : MonoBehaviour
     public void InitFirstRun()
     {
         PlayerPrefs.DeleteKey(FIRST_RUN_KEY);
+        SceneLoader.LoadScene( SceneManager.GetActiveScene().name );
     }
 }

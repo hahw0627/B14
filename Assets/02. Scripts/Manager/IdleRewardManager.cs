@@ -28,7 +28,7 @@ public class IdleRewardManager : MonoBehaviour
         }
         else
         {
-            // Ã¹ ½ÇÇàÀÎ °æ¿ì ÇöÀç ½Ã°£À» ¸¶Áö¸· º¸»ó ½Ã°£À¸·Î ¼³Á¤
+            // Ã¹ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             lastRewardTime = DateTime.Now;
             SaveLastRewardTime();
         }
@@ -54,9 +54,9 @@ public class IdleRewardManager : MonoBehaviour
         {
             TimeSpan timeAway = pendingRewardTime - lastRewardTime;
             ShowRewardUI(pendingReward, timeAway);
-            if (rewardUI.rewardPanel != null && !rewardUI.rewardPanel.activeSelf)
+            if (rewardUI.RewardPanel != null && !rewardUI.RewardPanel.activeSelf)
             {
-                rewardUI.rewardPanel.SetActive(true);
+                rewardUI.RewardPanel.SetActive(true);
             }
         }
     }

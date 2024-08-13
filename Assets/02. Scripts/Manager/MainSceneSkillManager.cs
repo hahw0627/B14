@@ -169,9 +169,9 @@ public class MainSceneSkillManager : MonoBehaviour
                 break;
 
             case Define.SkillType.Projectile:
-                if (player.scanner.nearestTarget != null)
+                if (player.Scanner.nearestTarget != null)
                 {
-                    spawnPosition = playerTransform.position + (player.scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
+                    spawnPosition = playerTransform.position + (player.Scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
                     GameObject projectileObject = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
                     InitializeProjectileSkill(projectileObject, skill);
                 }
@@ -209,7 +209,7 @@ public class MainSceneSkillManager : MonoBehaviour
         SkillProjectile projectile = projectileObject.GetComponent<SkillProjectile>();
         if (projectile != null)
         {
-            projectile.Initialize(skill, player.scanner.nearestTarget.position);
+            projectile.Initialize(skill, player.Scanner.nearestTarget.position);
         }
         else
         {

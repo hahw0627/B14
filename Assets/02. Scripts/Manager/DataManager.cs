@@ -36,7 +36,7 @@ public class DataManager : Singleton<DataManager>
     public void AddGold(int amount)
     {
         playerDataSO.Gold += amount;
-        Debug.Log($"�÷��̾��� ���� ��� : {playerDataSO.Gold}");
+        Debug.Log($"방치 보상 획득 골드 : {playerDataSO.Gold}");
         UIManager.Instance.UpdateCurrencyUI();
     }
 

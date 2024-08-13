@@ -1,38 +1,62 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public MonsterSpawner spawner;
+    public event Action<int, int> onStageChanged;
+    public MonsterSpawner Spawner;
 
-    public int stagePage = 0;
-    public int stage = 1;
+    public int StagePage
+    {
+        get => _stagePage;
+        set
+        {
+            if (_stagePage == value) return;
+            _stagePage = value;
+            onStageChanged?.Invoke(_stage, _stagePage);
+        }
+    }
 
+    public int Stage
+    {
+        get => _stage;
+        set
+        {
+            if (_stage == value) return;
+            _stage = value;
+            onStageChanged?.Invoke(_stage, _stagePage);
+        }
+    }
+
+    [SerializeField]
+    private int _stagePage;
+
+    [SerializeField]
+    private int _stage = 1;
+    
     private void Start()
     {
         StartCoroutine(CheckMonsters());
     }
 
-    // 몬스터 상태 확인 + 소환
     private IEnumerator CheckMonsters()
     {
         while (true)
         {
             yield return new WaitForSeconds(1f);
 
-            // 몬스터 배열이 전부 비활성화 되어있는지 확인
-            if (spawner.AllMonstersDeactivated())
+            if (Spawner.AllMonstersDeactivated())
             {
-                // StagePage를 1 증가
-                stagePage++;
-                if (stagePage <= 3)
+                StagePage++;
+                switch (_stagePage)
                 {
-                    spawner.SpawnMonsters();
-                }
-                else if (stagePage == 4)
-                {
-                    spawner.SpawnBoss();
+                    case <= 3:
+                        Spawner.SpawnMonsters();
+                        break;
+                    case 4:
+                        Spawner.SpawnBoss();
+                        break;
                 }
             }
         }

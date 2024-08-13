@@ -2,23 +2,33 @@ using UnityEngine;
 using System.Collections;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using System.Globalization;
 
 public class AdButtonManager : MonoBehaviour
 {
     public TextMeshProUGUI CooldownText;
 
-    public const int COOLDOWN_TIME = 180;
+    public const float COOLDOWN_DURATION = 180f;
     private Button _rewardedAdButton;
+
+    private const string COOLDOWN_KEY = "AdCooldownEndTime";
+    private DateTime _cooldownEndTime;
 
     private void Start()
     {
         _rewardedAdButton = gameObject.GetComponent<Button>();
         CooldownText.gameObject.SetActive(false);
+
+        LoadCooldownTime();
     }
-    
+
     public void StartCooldown(float cooldownTime)
     {
-        CooldownText.gameObject.SetActive(true); // 쿨다운 텍스트 활성화
+        _cooldownEndTime = DateTime.Now.AddSeconds(cooldownTime);
+        SaveCooldownTime();
+
+        CooldownText.gameObject.SetActive(true);
         _rewardedAdButton.interactable = false;
         StartCoroutine(CooldownTimer(cooldownTime));
     }
@@ -37,6 +47,31 @@ public class AdButtonManager : MonoBehaviour
         }
 
         _rewardedAdButton.interactable = true;
-        CooldownText.gameObject.SetActive(false); // 쿨다운 텍스트 비활성화
+        CooldownText.gameObject.SetActive(false);
+    }
+
+    private void LoadCooldownTime()
+    {
+        if (!PlayerPrefs.HasKey(COOLDOWN_KEY)) return;
+        var storedTime = PlayerPrefs.GetString(COOLDOWN_KEY);
+
+        if (!DateTime.TryParse(storedTime, out _cooldownEndTime)) return;
+        var remainingTime = (_cooldownEndTime - DateTime.Now).TotalSeconds;
+        if (remainingTime > 0)
+        {
+            StartCooldown((float)remainingTime); // 남은 시간이 있다면 쿨다운 시작
+        }
+        else
+        {
+            CooldownText.gameObject.SetActive(false); // 쿨다운이 끝났다면 텍스트 비활성화
+            _rewardedAdButton.interactable = true; // 광고 보상 버튼 활성화
+        }
+    }
+
+    private void SaveCooldownTime()
+    {
+        PlayerPrefs.SetString(COOLDOWN_KEY,
+            _cooldownEndTime.ToString(CultureInfo.InvariantCulture)); // DateTime 문자열로 저장
+        PlayerPrefs.Save();
     }
 }
