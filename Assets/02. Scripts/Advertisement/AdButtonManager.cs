@@ -59,12 +59,13 @@ public class AdButtonManager : MonoBehaviour
         var remainingTime = (_cooldownEndTime - DateTime.Now).TotalSeconds;
         if (remainingTime > 0)
         {
+            _rewardedAdButton.interactable = false;
             StartCooldown((float)remainingTime); // 남은 시간이 있다면 쿨다운 시작
         }
         else
         {
-            CooldownText.gameObject.SetActive(false); // 쿨다운이 끝났다면 텍스트 비활성화
             _rewardedAdButton.interactable = true; // 광고 보상 버튼 활성화
+            CooldownText.gameObject.SetActive(false); // 쿨다운이 끝났다면 텍스트 비활성화
         }
     }
 
