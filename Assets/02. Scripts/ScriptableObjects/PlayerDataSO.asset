@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
   armors: []
   playerName: 00011
-  Gold: 59501
+  Gold: 63288
   Gem: 150
   Diamond: 100
   TotalPower: 10

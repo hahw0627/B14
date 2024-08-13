@@ -20,13 +20,7 @@ public class IdleRewardManager : MonoBehaviour
 
     private void Start()
     {
-        if (firstRunCheck == null)
-        {
-            Debug.LogError("FirstRunCheck is not assigned to IdleRewardManager!");
-            return;
-        }
-        // 첫 실행이 아닌 경우에만 방치 보상 시스템 초기화
-        if (!firstRunCheck.IsFirstRun)
+        if (!FirstRunCheck.IsFirstRun)
         {
             LoadLastRewardTime();
             LoadPendingReward();
@@ -121,9 +115,9 @@ public class IdleRewardManager : MonoBehaviour
 
     public void ActivateIdleRewardSystem()
     {
-        if (firstRunCheck.IsFirstRun)
+        if (FirstRunCheck.IsFirstRun)
         {
-            firstRunCheck.IsFirstRun = false;
+            FirstRunCheck.IsFirstRun = false;
             FirstRunCheck.SaveKeyOfFirstRun();
             LoadLastRewardTime();
             LoadPendingReward();
