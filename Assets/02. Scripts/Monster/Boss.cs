@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boss : Monster  // ¸ó½ºÅÍ ½ºÅ©¸³Æ® »ó¼Ó
+public class Boss : Monster  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 {
     public GameManager gameManager;
     public BossTimer bossTimer;
 
-    // º¸½º ¸ó½ºÅÍ È°¼ºÈ­ ½Ã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½
     protected override void OnEnable()
     {
-        Hp = monsterData.Hp * 3; // º¸½º ¸ó½ºÅÍ´Â HP¸¦ 2¹è·Î ¼³Á¤
-        damage = monsterData.Damage * 2; // º¸½º ¸ó½ºÅÍ´Â µ¥¹ÌÁöµµ 2¹è·Î ¼³Á¤
+        Hp = monsterData.Hp * 3; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ HPï¿½ï¿½ 2ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        damage = monsterData.Damage * 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         attackSpeed = monsterData.AttackSpeed;
         moveTime = 0.0f;
         isAttacking = false;
@@ -19,7 +19,7 @@ public class Boss : Monster  // ¸ó½ºÅÍ ½ºÅ©¸³Æ® »ó¼Ó
         bossTimer.ActivateTimer();
     }
 
-    // º¸½º ¸ó½ºÅÍ ÇÇ°Ý
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½
     public override void TakeDamage(int damage, bool isSkillDamage = false)
     {
         if (damageTextPool != null)
@@ -51,16 +51,18 @@ public class Boss : Monster  // ¸ó½ºÅÍ ½ºÅ©¸³Æ® »ó¼Ó
         }
     }
 
-    // º¸½º »ç¸Á
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void BossDeath()
     {
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é StagePage´Â 0ÀÌ µÈ´Ù.
+        // BossMonsterï¿½ï¿½ HPï¿½ï¿½ 0 ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½ StagePageï¿½ï¿½ 0ï¿½ï¿½ ï¿½È´ï¿½.
         gameManager.stagePage = 0;
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é Stage¸¦ 1 Áõ°¡½ÃÅ²´Ù.
+        // BossMonsterï¿½ï¿½ HPï¿½ï¿½ 0 ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½ Stageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å²ï¿½ï¿½.
         gameManager.stage++;
-        monsterData.stage = gameManager.stage;  // ¸ó½ºÅÍSOÀÇ ½ºÅ×ÀÌÁö Á¤º¸ ÀúÀå?
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é MonsterDataSO_TestÀÇ °ªÀ» 1.2f °öÇÏ°í ÀÎÆ®ÇüÀ¸·Î º¯È¯ÇØ¼­ ÀúÀå
+        monsterData.stage = gameManager.stage;  // ï¿½ï¿½ï¿½ï¿½SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
+        // BossMonsterï¿½ï¿½ HPï¿½ï¿½ 0 ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½ MonsterDataSO_Testï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.2f ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
         monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
+        
+        PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.SHORT);
     }
 }

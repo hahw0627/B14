@@ -1,10 +1,12 @@
 using UnityEngine;
 using System.Collections;
-using TMPro;
 using System;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
 
 public class Monster : MonoBehaviour, IDamageable
 {
+    public Character4D Character;
+    
     public MonsterDataSO monsterData;
     private Animator animator;
     private SpriteRenderer spriteRenderer;
@@ -82,11 +84,12 @@ public class Monster : MonoBehaviour, IDamageable
         isAttacking = true;
         while (true)
         {
-            if (target != null)
+            if (target is not null)
             {
-                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                //Character.AnimationManager.Fire();
+                var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = transform.position;
-                Projectile projectileScript = projectile.GetComponent<Projectile>();
+                var projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.target = target.transform;
                 projectileScript.SetDirection(target.transform.position);
                 projectileScript.damage = damage;

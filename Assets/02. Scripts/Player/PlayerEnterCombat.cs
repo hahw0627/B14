@@ -10,11 +10,12 @@ public class PlayerEnterCombat : MonoBehaviour
 
     public float MoveSpeed = 1f;
     public string DialogueText; // 대사 텍스트
+    public Vector3 ArrivalPosition;
 
     private void Awake()
     {
         _animationManager = gameObject.GetComponent<AnimationManager>();
-        _combatPosition = new Vector3(-1.3f, 1.11f, 0.0f);
+        _combatPosition = ArrivalPosition;
     }
 
     private void Start()
@@ -40,6 +41,6 @@ public class PlayerEnterCombat : MonoBehaviour
 
         // 걷는 애니메이션 중지
         _animationManager.SetState(CharacterState.Idle);
-        PlayerSpeechBubble.Instance.ShowMessage(DialogueText);
+        PlayerSpeechBubble.Instance.ShowMessage(DialogueText, SpeechLength.LONG);
     }
 }

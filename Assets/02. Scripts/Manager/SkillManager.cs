@@ -185,23 +185,23 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        // »õ ½ºÅ³ÀÌ ÀÌ¹Ì ÀåÂøµÇ¾î ÀÖ´ÂÁö È®ÀÎ
+        // ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         int existingIndex = equippedSkills.FindIndex(s => s != null && s.skillName == newSkill.skillName);
 
-        // ÀÌ¹Ì ÀåÂøµÈ ½ºÅ³ÀÌ ÀÖ°í, ±× À§Ä¡°¡ ÇöÀç ÀåÂøÇÏ·Á´Â À§Ä¡¿Í ´Ù¸£´Ù¸é
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½
         if (existingIndex != -1 && existingIndex != index)
         {
-            // ÀÌ¹Ì ÀåÂøµÈ ½ºÅ³À» Á¦°Å
+            // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             equippedSkills[existingIndex] = null;
         }
 
-        // »õ ½ºÅ³À» ÀåÂøÇÒ À§Ä¡¿¡ ÀÌ¹Ì ´Ù¸¥ ½ºÅ³ÀÌ ÀÖ´Ù¸é Á¦°Å
+        // ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (index < equippedSkills.Count && equippedSkills[index] != null)
         {
             equippedSkills[index] = null;
         }
 
-        // »õ ½ºÅ³ ÀåÂø
+        // ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
         while (equippedSkills.Count <= index)
         {
             equippedSkills.Add(null);

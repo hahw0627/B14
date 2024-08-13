@@ -1,9 +1,11 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
 
 public class Player : MonoBehaviour
 {
+    public Character4D Character;
+    
     public PlayerDataSO playerData;
     public GameManager gameManager;
     public Scanner scanner;
@@ -43,18 +45,18 @@ public class Player : MonoBehaviour
         StartCoroutine(RecoverHp());
     }
 
-    // °ø°Ý±â´É
+    // ï¿½ï¿½ï¿½Ý±ï¿½ï¿½
     private IEnumerator Attack()
     {
         while (true)
         {
-            // scannerÀÇ nearestTargetÀÌ nullÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸ nearestTargetÀ» °¡Á®¿Í targetÀ¸·Î ¼³Á¤ + Åõ»çÃ¼ »ý¼º
+            // scannerï¿½ï¿½ nearestTargetï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ nearestTargetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ targetï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ + ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½
             if (!isUsingSkill && scanner.nearestTarget != null)
             {
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = fireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = scanner.nearestTarget;   // »ý¼ºµÈ Åõ»çÃ¼¿¡ Å¸°Ù ¼³Á¤
+                projectileScript.target = scanner.nearestTarget;   // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
 
                 bool isCritical = IsCriticalHit();
@@ -65,7 +67,7 @@ public class Player : MonoBehaviour
                     damage *= criticalMultiplier;
                 }
 
-                projectileScript.damage = Mathf.RoundToInt(damage);    // »ý¼ºµÈ Åõ»çÃ¼¿¡ µ¥¹ÌÁö ¼³Á¤
+                projectileScript.damage = Mathf.RoundToInt(damage);    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
                 if (damageTextPool != null)
@@ -80,19 +82,19 @@ public class Player : MonoBehaviour
 
             }
 
-            yield return new WaitForSeconds(1 / attackSpeed); // 1ÃÊ¿¡ / attackSpeed ¸¸Å­ °ø°Ý
+            yield return new WaitForSeconds(1 / attackSpeed); // 1ï¿½Ê¿ï¿½ / attackSpeed ï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½
         }
     }
 
     private bool IsCriticalHit()
     {
-        // ·£´ý °ª »ý¼º (0.0¿¡¼­ 100.0 »çÀÌ)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0.0ï¿½ï¿½ï¿½ï¿½ 100.0 ï¿½ï¿½ï¿½ï¿½)
         float randomValue = Random.Range(0f, 100f);
-        // ·£´ý °ªÀÌ Ä¡¸íÅ¸ È®·üº¸´Ù ÀÛÀ¸¸é Ä¡¸íÅ¸ ¹ß»ý
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½Å¸ È®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½Å¸ ï¿½ß»ï¿½
         return randomValue < criticalPer;
     }
 
-    // Ã¼·Â È¸º¹ ±â´É
+    // Ã¼ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½ï¿½ï¿½
     private IEnumerator RecoverHp()
     {
         while (true)
@@ -110,14 +112,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    // ÇÇ°Ý ±â´É
+    // ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
 
         if (currentHp <= 0)
         {
-            // ¸ó½ºÅÍ ºñÈ°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
             foreach (GameObject monster in monsters)
             {
@@ -130,10 +132,10 @@ public class Player : MonoBehaviour
 
     public void StageReset()
     {
-        // ½ºÅ×ÀÌÁö ÆäÀÌÁî ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         gameManager.stagePage = 0;
 
-        // Ã¼·Â ÃÊ±âÈ­
+        // Ã¼ï¿½ï¿½ ï¿½Ê±ï¿½È­
         currentHp = playerData.Hp;
     }
 
@@ -156,7 +158,7 @@ public class Player : MonoBehaviour
         Debug.Log($"New damage: {CurrentDamage}");
     }
 
-    public void Heal(int amount) // ÃßÈÄ ÇÃ·¹ÀÌ¾î ÇÇ°Ý ±¸Çö½Ã ±¸Çö ¿¹Á¤
+    public void Heal(int amount) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ç°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
 
     }

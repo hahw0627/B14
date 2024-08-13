@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class GoogleRewardedAds : MonoBehaviour
 {
-    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
 #if UNITY_ANDROID
     private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379";
 #elif UNITY_IPHONE

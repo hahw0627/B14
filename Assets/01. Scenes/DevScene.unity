@@ -8800,6 +8800,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2c9f50a4fcba14d9a4b87efc5108f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerData: {fileID: 0}
+  DamageText: {fileID: 0}
 --- !u!114 &485383164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14698,6 +14700,14 @@ PrefabInstance:
       propertyPath: DialogueText
       value: "\uC774\uACF3\uC778\uAC00..."
       objectReference: {fileID: 0}
+    - target: {fileID: -1185705530092183406, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+      propertyPath: ArrivalPosition.x
+      value: -0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: -1185705530092183406, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
+      propertyPath: ArrivalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3047012900879697454, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -14858,6 +14868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e6d75b75d467b3458863e364875cf75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Character: {fileID: 0}
   playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   gameManager: {fileID: 2073042256}
   scanner: {fileID: 755379418}
@@ -14880,9 +14891,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e554c289d008114582b2a4d9ae9e70c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speechContents:
+  SpeechContents:
   - "\uC774\uC9C0\uD558\uAD70..."
-  - 
+  - "\uC774\uC9C0 \uBE0C\uB85C"
+  - "\uB2E4\uC74C"
+  - Next
 --- !u!1 &758109732 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
@@ -27991,6 +28004,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b91b2e37060dc488929df59380e4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CooldownText: {fileID: 1944830241}
 --- !u!1 &1427140296
 GameObject:
   m_ObjectHideFlags: 0
@@ -33562,7 +33576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6183330697589260692, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_text
-      value: 
+      value: qweqwe
       objectReference: {fileID: 0}
     - target: {fileID: 6183330697589260692, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_HorizontalAlignment
@@ -33630,7 +33644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -91
+      value: -114.3
       objectReference: {fileID: 0}
     - target: {fileID: 6262170906351630705, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -33655,6 +33669,14 @@ PrefabInstance:
     - target: {fileID: 7730076349142879319, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_Name
       value: PlayerSpeechBubble
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603221161112989321, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8603221161112989321, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 306
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

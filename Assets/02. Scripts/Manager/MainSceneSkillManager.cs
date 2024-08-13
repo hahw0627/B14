@@ -56,7 +56,7 @@ public class MainSceneSkillManager : MonoBehaviour
                 buttonImage.color = Color.white;
                 button.interactable = true;
 
-                // Äð´Ù¿î UI ¼³Á¤
+                // ï¿½ï¿½Ù¿ï¿½ UI ï¿½ï¿½ï¿½ï¿½
                 cooldownImage.gameObject.SetActive(true);
                 cooldownText.gameObject.SetActive(true);
                 RestartCooldownCoroutine(cooldownImage, cooldownText, skill);
@@ -69,7 +69,7 @@ public class MainSceneSkillManager : MonoBehaviour
                 cooldownText.gameObject.SetActive(false);
             }
 
-            // ¹öÆ° Å¬¸¯ ÀÌº¥Æ® Àç¼³Á¤
+            // ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ç¼³ï¿½ï¿½
             int index = i;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => UseSkill(index));

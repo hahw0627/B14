@@ -12425,6 +12425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 1
   DialogueText: 
+  ArrivalPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &5507060777770277453
 GameObject:
   m_ObjectHideFlags: 0
