@@ -1,12 +1,18 @@
 using UnityEngine;
-using TMPro;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class DamageTextPool : MonoBehaviour
 {
-    [SerializeField] private GameObject damageTextPrefab;
-    [SerializeField] private int poolSize = 10;
-    private Queue<DamageText> pool;
+    [FormerlySerializedAs("damageTextPrefab")]
+    [SerializeField]
+    private GameObject _damageTextPrefab;
+
+    [FormerlySerializedAs("poolSize")]
+    [SerializeField]
+    private int _poolSize = 10;
+
+    private Queue<DamageText> _pool;
 
     private void Awake()
     {
@@ -15,8 +21,8 @@ public class DamageTextPool : MonoBehaviour
 
     private void InitializePool()
     {
-        pool = new Queue<DamageText>();
-        for (int i = 0; i < poolSize; i++)
+        _pool = new Queue<DamageText>();
+        for (var i = 0; i < _poolSize; i++)
         {
             CreateNewDamageText();
         }
@@ -24,11 +30,12 @@ public class DamageTextPool : MonoBehaviour
 
     public DamageText GetDamageText()
     {
-        if (pool.Count == 0)
+        if (_pool.Count == 0)
         {
             CreateNewDamageText();
         }
-        DamageText damageText = pool.Dequeue();
+
+        var damageText = _pool.Dequeue();
         damageText.gameObject.SetActive(true);
         damageText.Initialize(this);
         return damageText;
@@ -36,24 +43,22 @@ public class DamageTextPool : MonoBehaviour
 
     public void ReturnDamageText(DamageText damageText)
     {
-        if (damageText != null)
-        {
-            damageText.gameObject.SetActive(false);
-            pool.Enqueue(damageText);
-        }
+        if (damageText is null) return;
+        damageText.gameObject.SetActive(false);
+        _pool.Enqueue(damageText);
     }
 
     private void CreateNewDamageText()
     {
-        if (damageTextPrefab == null)
+        if (_damageTextPrefab is null)
         {
             Debug.LogError("DamageTextPrefab is not assigned in the inspector!");
             return;
         }
 
-        GameObject newObject = Instantiate(damageTextPrefab, transform);
-        DamageText damageText = newObject.GetComponent<DamageText>();
-        if (damageText == null)
+        var newObject = Instantiate(_damageTextPrefab, transform);
+        var damageText = newObject.GetComponent<DamageText>();
+        if (damageText is null)
         {
             Debug.LogError("DamageText component not found on the instantiated prefab!");
             Destroy(newObject);
@@ -62,6 +67,6 @@ public class DamageTextPool : MonoBehaviour
 
         newObject.SetActive(false);
         damageText.Initialize(this);
-        pool.Enqueue(damageText);
+        _pool.Enqueue(damageText);
     }
 }

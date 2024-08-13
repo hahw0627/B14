@@ -11,11 +11,11 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
     // ���� ���� Ȱ��ȭ ��
     protected override void OnEnable()
     {
-        Hp = monsterData.Hp * 3; // ���� ���ʹ� HP�� 2��� ����
-        damage = monsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
-        attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f;
-        isAttacking = false;
+        Hp = MonsterData.Hp * 3; // ���� ���ʹ� HP�� 2��� ����
+        Damage = MonsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
+        AttackSpeed = MonsterData.AttackSpeed;
+        MoveTime = 0.0f;
+        IsAttacking = false;
 
         BossTimer.ActivateTimer();
     }
@@ -23,12 +23,12 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
     // ���� ���� �ǰ�
     public override void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        if (damageTextPool is not null)
+        if (DamageTextPool is not null)
         {
-            var damageText = damageTextPool.GetDamageText();
+            var damageText = DamageTextPool.GetDamageText();
             if (damageText is not null)
             {
-                damageText.transform.position = hudPos.position;
+                damageText.transform.position = HUDPos.position;
                 damageText.SetDamage(damage);
             }
             else
@@ -57,10 +57,10 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
         GameManager.StagePage = 0;
         // BossMonster�� HP�� 0 ���ϰ� �Ǹ� Stage�� 1 ������Ų��.
         GameManager.Stage++;
-        monsterData.stage = GameManager.Stage;  // ����SO�� �������� ���� ����?
+        MonsterData.stage = GameManager.Stage;  // ����SO�� �������� ���� ����?
         // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
-        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
-        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
+        MonsterData.Hp = Mathf.RoundToInt(MonsterData.Hp * 1.2f);
+        MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
         
         PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.Short);
     }
