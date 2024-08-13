@@ -7,7 +7,14 @@ public class CompanionList : MonoBehaviour
 {
     public GameObject[] panels;
     public CompanionDataSO[] companionDataArray;
+    public GameObject[] companionPrefabs;
     public CompanionInfoPanel companionInfoPanel;
+    public Button allUnEquipBtn;
+
+    private void Start()
+    {
+        allUnEquipBtn.onClick.AddListener(companionInfoPanel.UnEquippedCompanion);
+    }
 
     // 패널 활성화 되면 정보 초기화
     private void OnEnable()
@@ -54,8 +61,8 @@ public class CompanionList : MonoBehaviour
         }
     }
 
-    public CompanionDataSO[] GetAllCompanionData()
+    public GameObject[] GetAllCompanionPrefabs()
     {
-        return companionDataArray;
+        return companionPrefabs;
     }
 }
