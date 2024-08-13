@@ -1,0 +1,111 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using BackEnd;
+using TMPro;
+using Unity.VisualScripting;
+public class RegisterAccount : LoginBase
+{
+    [SerializeField]
+    Image imageID;
+    [SerializeField]
+    TMP_InputField inputFieldID;
+    [SerializeField]
+    Image imagePW;
+    [SerializeField]
+    TMP_InputField inputFieldPW;
+    [SerializeField]
+    Image imageConfirmPW; // cinfirm pw 필드 색상 변경
+    [SerializeField]
+    TMP_InputField inputFieldConfirmPW; // confirm pw 필드 텍스트 정보 추출
+    [SerializeField]
+    Image imageEmail;
+    [SerializeField]
+    TMP_InputField inputFieldEmail;
+
+    [SerializeField]
+    Button btnRegisterAccount;
+
+    public void OnClickRegisterAccount()
+    {
+        //매개변수로 입력한 InputField UI의 색상과 Mesage내용 초기화
+        ResetUI(imageID, imagePW, imageConfirmPW, imageEmail);
+
+        //필드값이 비어있는지 체크
+        if (IsFieldDataEmpty(imageID, inputFieldID.text, "아이디")) return;
+        if (IsFieldDataEmpty(imagePW, inputFieldPW.text, "비밀번호")) return;
+        if (IsFieldDataEmpty(imageConfirmPW, inputFieldConfirmPW.text, "비밀번호 확인")) return;
+        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "메일주소")) return;
+
+        //비밀번호와 비밀번호 확인의 내용이 다를 때
+        if (!inputFieldPW.text.Equals(inputFieldConfirmPW.text))
+        {
+            GuideForIncorrectlyEnteredData(imageConfirmPW, "비밀번호가 일치하지 않습니다.");
+            return;
+        }
+
+        //메일 형식 검사
+        if (!inputFieldEmail.text.Contains("@"))
+        {
+            GuideForIncorrectlyEnteredData(imageEmail, "메일 형식이 잘못 되었습니다. (ex. address@xx.xx )");
+            return;
+
+        }
+
+        //계정 생성 버튼의 상호작용 비활성화
+        btnRegisterAccount.interactable = false;
+        SetMessage("계정 생성중입니다..");
+        //뒤끝 서버 계정 생성시도
+        CustomSignUp();
+    }
+    /// <summary>
+    /// 계정 생성 시도 후 서버로 부터 전달받은 message를 기반으로 로직 처리 
+    /// </summary>
+    void CustomSignUp()
+    {
+        Backend.BMember.CustomSignUp(inputFieldID.text, inputFieldPW.text, callback =>
+        {
+            //계정 생성 버튼 상호작용 활성화
+            btnRegisterAccount.interactable = true;
+            //계정생성 성공
+            if (callback.IsSuccess())
+            {
+                //e-mail 정보 업데이트
+                Backend.BMember.UpdateCustomEmail(inputFieldEmail.text, callback =>
+                {
+                    if (callback.IsSuccess())
+                    {
+                        SetMessage($"계정 생성 성공.{inputFieldID.text}님 환영합니다.");
+                    }
+                });
+            }
+            //계정생성 실패
+            else
+            {
+                string message = string.Empty;
+                switch (int.Parse(callback.GetStatusCode()))
+                {
+                    case 409:// 중복된 customID가 존재하는 경우
+                        message = "이미 존재하는 아이디 입니다";
+                        break;
+                    case 403: //차단당한디바이스일경우
+                    case 401: //프로젝트 상태가 '점검' 일경우
+                    case 400: //디바이스 정보가 null 일경우
+                    default:
+                        message = callback.GetMessage();
+                        break;
+                }
+                if (message.Contains("아이디"))
+                {
+                    GuideForIncorrectlyEnteredData(imageID, message);
+                }
+                else
+                {
+                    SetMessage(message);
+                }
+            }
+        });
+    }
+
+}

@@ -15,6 +15,8 @@ public class DataManager : Singleton<DataManager>
         {
             playerDataSO = Resources.Load<PlayerDataSO>("ScripableObjects/" + "PlayerDataSO");
         }
+
+        DontDestroyOnLoad(gameObject);
     }
    
    
