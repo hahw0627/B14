@@ -22,7 +22,7 @@ public class CompanionInfoPanel : MonoBehaviour
     public GameObject choiceFail;
 
     [Header("Btn_Equip")]
-    public Image nullIcon;
+    public Sprite nullIcon;
     public Button equipButton;
     public Button currentCompanionButton1;
     public Button currentCompanionButton2;
@@ -209,9 +209,9 @@ public class CompanionInfoPanel : MonoBehaviour
         {
             companionDataSO.isEquipped = false;
         }
-        currentCompanionButton1.image = nullIcon;
-        currentCompanionButton2.image = nullIcon;
-        currentCompanionButton3.image = nullIcon;
+        currentCompanionButton1.image.sprite = nullIcon;
+        currentCompanionButton2.image.sprite = nullIcon;
+        currentCompanionButton3.image.sprite = nullIcon;
         formerCompanionData1 = null;
         formerCompanionData2 = null;
         formerCompanionData3 = null;
