@@ -18,26 +18,8 @@ public class MonsterPool : SingletonDestroyable<MonsterPool>
         }
     }
 
-    // ?
     void HandleMonsterDeath(Monster monster123)
     {
         UIManager.Instance.UpdateCurrencyUI();
     }
 }
-
-
-//public static readonly Queue<GameObject> Monsters = new();
-
-//public static void InsertQueue(GameObject monster)
-//{
-//    Monsters.Enqueue(monster);
-//    monster.SetActive(false);
-//}
-
-//public static GameObject GetQueue()
-//{ 
-//    GameObject monster = Monsters.Dequeue();
-//    monster.SetActive(true);
-
-//    return monster;
-//}

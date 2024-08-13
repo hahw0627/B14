@@ -11427,6 +11427,7 @@ GameObject:
   - component: {fileID: 6621910691824416445}
   - component: {fileID: 5922712021284904702}
   - component: {fileID: 7100765926250251727}
+  - component: {fileID: 9181449031609821201}
   m_Layer: 0
   m_Name: Companion_9
   m_TagString: Untagged
@@ -11755,6 +11756,23 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
+--- !u!114 &9181449031609821201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4678673331965726332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ce7f0174b8120a418d0c5153a3f2538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  companionData: {fileID: 11400000, guid: 64dc12b63dcb3dd46925f84dc4758b46, type: 2}
+  scanner: {fileID: 0}
+  fireMuzzle: {fileID: 2917370510675534434}
+  attackSpeed: 0
+  damage: 0
 --- !u!1 &4689386739701188660
 GameObject:
   m_ObjectHideFlags: 0

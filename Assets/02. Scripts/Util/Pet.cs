@@ -6,6 +6,7 @@ public class Pet : MonoBehaviour
 {
     public CompanionDataSO companionData;
     public Scanner scanner;
+    public Transform fireMuzzle;
     public float attackSpeed;
     public int damage;
 
@@ -17,6 +18,8 @@ public class Pet : MonoBehaviour
 
     private void Start()
     {
+        GameObject player = GameObject.Find("Player");
+        scanner = player.GetComponent<Scanner>();
         StartCoroutine(Attack());
     }
 
@@ -28,7 +31,7 @@ public class Pet : MonoBehaviour
             if (scanner.nearestTarget != null)
             {
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.transform.position = this.transform.position;
+                projectile.transform.position = fireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.target = scanner.nearestTarget.transform;
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);

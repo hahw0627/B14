@@ -2,12 +2,14 @@ using Assets.HeroEditor4D.Common.Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class CompanionInfoPanel : MonoBehaviour
 {
-    [Header("")]
+    [Header("UI_CompanionStatus")]
     public Image companionIcon;
     public TextMeshProUGUI companionNameText;
     public TextMeshProUGUI companionDescriptionText;
@@ -15,11 +17,12 @@ public class CompanionInfoPanel : MonoBehaviour
     public TextMeshProUGUI companionCountText;
     public TextMeshProUGUI companionDamageText;
 
-    [Header("")]
+    [Header("UI_Guide")]
     public GameObject btnChoice;
     public GameObject choiceFail;
 
-    [Header("")]
+    [Header("Btn_Equip")]
+    public Image nullIcon;
     public Button equipButton;
     public Button currentCompanionButton1;
     public Button currentCompanionButton2;
@@ -28,16 +31,20 @@ public class CompanionInfoPanel : MonoBehaviour
     [Header("")]
     public Button upgradeButton;
 
-    [Header("")]
+    [Header("SO_CompanionData")]
     public CompanionDataSO currentCompanionData;
     public CompanionDataSO formerCompanionData1;
     public CompanionDataSO formerCompanionData2;
     public CompanionDataSO formerCompanionData3;
 
+    [Header("Position")]
+    public GameObject pos1;
+    public GameObject pos2;
+    public GameObject pos3;
+
     private Button selectedButton;
 
     public CompanionList companionList;
-
 
     private void Start()
     {
@@ -89,7 +96,7 @@ public class CompanionInfoPanel : MonoBehaviour
         if (selectedButton == null) // 버튼이 아직 선택되지 않았다면
         {
             selectedButton = button;
-            btnChoice.gameObject.SetActive(false); // 버튼 선택 완료 후, 선택 UI 숨김
+            btnChoice.gameObject.SetActive(false); // 버튼 선택 완료 후, 버튼 선택 UI 숨김
 
             if (currentCompanionData.isEquipped)
             {
@@ -119,14 +126,17 @@ public class CompanionInfoPanel : MonoBehaviour
         if (newButton == currentCompanionButton1)
         {
             EquippedCheck(ref formerCompanionData1);
+            SpawnCompanion(pos1);
         }
         else if (newButton == currentCompanionButton2)
         {
             EquippedCheck(ref formerCompanionData2);
+            SpawnCompanion(pos2);
         }
         else if (newButton == currentCompanionButton3)
         {
             EquippedCheck(ref formerCompanionData3);
+            SpawnCompanion(pos3);
         }
     }
 
@@ -161,5 +171,52 @@ public class CompanionInfoPanel : MonoBehaviour
             companionCountText.text = currentCompanionData.count.ToString();
             companionDamageText.text = currentCompanionData.damage.ToString();
         }
+    }
+
+    private void SpawnCompanion(GameObject pos)
+    {
+        GameObject[] allCompanionPrefabs = companionList.GetAllCompanionPrefabs();
+        foreach (GameObject companionPrefab in allCompanionPrefabs)
+        {
+            if (companionPrefab.GetComponent<Pet>().companionData == currentCompanionData)
+            {
+                Instantiate(companionPrefab, pos.transform.position, Quaternion.identity);
+                break;
+            }
+        }
+        DestroyCompanion();
+    }
+
+    private void DestroyCompanion()
+    {
+        // 현재 씬의 Pet컴포넌트를 검색하여 배열에 저장
+        Pet[] allPets = FindObjectsOfType<Pet>();
+
+        // 해당 Pet컴포넌트의 SO에 접근하여 장착여부가 false이면 오브젝트 제거
+        foreach (Pet pet in allPets)
+        {
+            if (!pet.companionData.isEquipped)
+            {
+                Destroy(pet.gameObject);
+            }
+        }
+    }
+
+    public void UnEquippedCompanion()
+    {
+        CompanionDataSO[] allCompanionData = companionList.companionDataArray;
+        foreach(CompanionDataSO companionDataSO in allCompanionData)
+        {
+            companionDataSO.isEquipped = false;
+        }
+        currentCompanionButton1.image = nullIcon;
+        currentCompanionButton2.image = nullIcon;
+        currentCompanionButton3.image = nullIcon;
+        formerCompanionData1 = null;
+        formerCompanionData2 = null;
+        formerCompanionData3 = null;
+        selectedButton = null;
+        currentCompanionData = null;
+        DestroyCompanion();
     }
 }
