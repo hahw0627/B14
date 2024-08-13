@@ -8800,8 +8800,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e2c9f50a4fcba14d9a4b87efc5108f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  DamageText: {fileID: 1900408260}
 --- !u!114 &485383164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14885,6 +14883,11 @@ MonoBehaviour:
   _speechContents:
   - "\uC774\uC9C0\uD558\uAD70..."
   - 
+--- !u!1 &758109732 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7203235908898737639, guid: 072196d3a1137434db56b55e2e1dca8f, type: 3}
+  m_PrefabInstance: {fileID: 1485538810}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &764611592
 GameObject:
   m_ObjectHideFlags: 0
@@ -15900,8 +15903,8 @@ MonoBehaviour:
   - {fileID: 1102471553}
   - {fileID: 1144883840}
   - {fileID: 543586319}
-  bossMonster: {fileID: 0}
-  gameManager: {fileID: 0}
+  bossMonster: {fileID: 758109732}
+  gameManager: {fileID: 2073042256}
 --- !u!4 &803125299
 Transform:
   m_ObjectHideFlags: 0
@@ -27988,7 +27991,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 49b91b2e37060dc488929df59380e4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CooldownText: {fileID: 1944830241}
 --- !u!1 &1427140296
 GameObject:
   m_ObjectHideFlags: 0
@@ -38800,7 +38802,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d81d3b6341d54041ac6fa6cd28f953b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawner: {fileID: 0}
+  spawner: {fileID: 803125298}
   stagePage: 0
   stage: 1
 --- !u!4 &2073042257
