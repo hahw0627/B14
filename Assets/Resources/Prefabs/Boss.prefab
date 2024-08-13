@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 3801021533789012983}
   - component: {fileID: 8623607138752365629}
   - component: {fileID: -7285749137232064016}
+  - component: {fileID: 7239959567920684118}
   - component: {fileID: 2487440169686842367}
   m_Layer: 6
   m_Name: Boss
@@ -50,7 +51,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6321971594190417357
 Transform:
   m_ObjectHideFlags: 0
@@ -177,15 +178,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
-  monsterProjectilePrefab: {fileID: 56453844563175838, guid: 8b3ee28d388f970419ff6c94309fa63d, type: 3}
   target: {fileID: 0}
   Hp: 0
   damage: 0
   attackSpeed: 0
-  monsterSpawner: {fileID: 0}
-  playerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
-  hudDamgeText: {fileID: 2209120376791910756, guid: bb0c75f2472f37444b265d68f730f48e, type: 3}
+  moveTime: 0
+  isAttacking: 0
   hudPos: {fileID: 597374207535014183}
+  gameManager: {fileID: 0}
+  bossTimer: {fileID: 7239959567920684118}
+--- !u!114 &7239959567920684118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7203235908898737639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165519f1ccebbc540a79b4299d7e2aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerBackground: {fileID: 0}
+  timerImage: {fileID: 0}
+  timerText: {fileID: 0}
+  time: 90
+  currentTime: 0
 --- !u!95 &2487440169686842367
 Animator:
   serializedVersion: 5

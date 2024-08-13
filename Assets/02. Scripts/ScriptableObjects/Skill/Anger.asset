@@ -26,3 +26,4 @@ MonoBehaviour:
   aoeRadius: 0
   buffAmount: 10
   count: 0
+  isUnlocked: 0

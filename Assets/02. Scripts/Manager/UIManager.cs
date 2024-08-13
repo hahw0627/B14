@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -7,6 +6,7 @@ using UnityEngine.EventSystems;
 public class UIManager : SingletonDestroyable<UIManager>, IPointerDownHandler
 {
     public TextMeshProUGUI GoldTMP;
+    public TextMeshProUGUI GemTMP;
 
 
     private void Start()
@@ -16,20 +16,19 @@ public class UIManager : SingletonDestroyable<UIManager>, IPointerDownHandler
 
     public void UpdateCurrencyUI()
     {
-        if(GoldTMP != null && DataManager.Instance != null && DataManager.Instance.playerDataSO != null)
-        {
-            GoldTMP.text = DataManager.Instance.playerDataSO.Gold.ToString();
-        }
+        if (GoldTMP is null || GemTMP is null || DataManager.Instance is null ||
+            DataManager.Instance.playerDataSO is null) return;
+        GoldTMP.text = DataManager.Instance.playerDataSO.Gold.ToString();
+        GemTMP.text = DataManager.Instance.playerDataSO.Gem.ToString();
     }
-    public ParticleSystem clickParticle;
+
+    public ParticleSystem ClickParticle;
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Vector3 touchPosition = Camera.main.ScreenToWorldPoint(eventData.position);
+        if (Camera.main == null) return;
+        var touchPosition = Camera.main.ScreenToWorldPoint(eventData.position);
         touchPosition.z = 0;
-        ParticleSystem newParticle = Instantiate(clickParticle, touchPosition, Quaternion.identity);
-
-
+        var newParticle = Instantiate(ClickParticle, touchPosition, Quaternion.identity);
     }
-
 }

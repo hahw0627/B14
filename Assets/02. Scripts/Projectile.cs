@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     private Vector3 direction;
     public string shooterTag; // 투사체를 발사한 주체의 태그 (Player 또는 Monster)
     private SpriteRenderer spriteRenderer;
+    private int cachedPlayerDamage;
 
     private void Awake()
     {
@@ -28,6 +29,10 @@ public class Projectile : MonoBehaviour
 
     private void OnEnable()
     {
+        if (shooterTag == "Player")
+        {
+            cachedPlayerDamage = DataManager.Instance.playerDataSO.Damage;
+        }
         // 3초 후에 삭제
         StartCoroutine(DestroyAfterTime(1.5f));
 
@@ -51,13 +56,14 @@ public class Projectile : MonoBehaviour
         if ((shooterTag == "Player" && collision.CompareTag("Monster")) ||
             (shooterTag == "Monster" && collision.CompareTag("Player")))
         {
+            int currentDamage = (shooterTag == "Player") ? cachedPlayerDamage : damage;
             // 다른 팀일 경우에만 공격
             if (collision.CompareTag("Player"))
             {
                 Player player = collision.GetComponent<Player>();
                 if (player != null)
                 {
-                    player.TakeDamage(damage);
+                    player.TakeDamage(currentDamage);
                 }
             }
             else if (collision.CompareTag("Monster"))
@@ -65,7 +71,7 @@ public class Projectile : MonoBehaviour
                 Monster monster = collision.GetComponent<Monster>();
                 if (monster != null)
                 {
-                    monster.TakeDamage(damage);
+                    monster.TakeDamage(currentDamage);
                 }
             }
             ProjectilePool.Instance.ReturnProjectile(gameObject);

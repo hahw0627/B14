@@ -16,11 +16,22 @@ public class IdleRewardManager : MonoBehaviour
     private DateTime lastRewardTime;
     private DateTime pendingRewardTime;
 
+    public FirstRunCheck firstRunCheck;
+
     private void Start()
     {
-        LoadLastRewardTime();
-        LoadPendingReward();
-        CheckIdleReward();
+        if (!FirstRunCheck.IsFirstRun)
+        {
+            LoadLastRewardTime();
+            LoadPendingReward();
+            CheckIdleReward();
+        }
+        else
+        {
+            // 첫 실행인 경우 현재 시간을 마지막 보상 시간으로 설정
+            lastRewardTime = DateTime.Now;
+            SaveLastRewardTime();
+        }
     }
 
     private void OnApplicationQuit()
@@ -43,6 +54,10 @@ public class IdleRewardManager : MonoBehaviour
         {
             TimeSpan timeAway = pendingRewardTime - lastRewardTime;
             ShowRewardUI(pendingReward, timeAway);
+            if (rewardUI.rewardPanel != null && !rewardUI.rewardPanel.activeSelf)
+            {
+                rewardUI.rewardPanel.SetActive(true);
+            }
         }
     }
 
@@ -95,6 +110,18 @@ public class IdleRewardManager : MonoBehaviour
             pendingReward = PlayerPrefs.GetFloat(PendingRewardKey);
             long pendingRewardTimeBinary = Convert.ToInt64(PlayerPrefs.GetString(PendingRewardTimeKey));
             pendingRewardTime = DateTime.FromBinary(pendingRewardTimeBinary);
+        }
+    }
+
+    public void ActivateIdleRewardSystem()
+    {
+        if (FirstRunCheck.IsFirstRun)
+        {
+            FirstRunCheck.IsFirstRun = false;
+            FirstRunCheck.SaveKeyOfFirstRun();
+            LoadLastRewardTime();
+            LoadPendingReward();
+            CheckIdleReward();
         }
     }
 }

@@ -1,35 +1,39 @@
 using System.Linq;
+using Quest.Core.Task.Target.Base;
 using UnityEngine;
 
-public class QuestReporter : MonoBehaviour
+namespace Quest.Core
 {
-    [SerializeField]
-    private Category _category;
-    [SerializeField]
-    private TaskTarget _target;
-    [SerializeField]
-    private int _successCount;
-    [SerializeField]
-    private string[] _colliderTags;
-
-    private void OnTriggerEnter(Collider other)
+    public class QuestReporter : MonoBehaviour
     {
-        ReportIfPassCondition(other);
-    }
+        [SerializeField]
+        private Category _category;
+        [SerializeField]
+        private TaskTarget _target;
+        [SerializeField]
+        private int _successCount;
+        [SerializeField]
+        private string[] _colliderTags;
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        ReportIfPassCondition(collision);
-    }
+        private void OnTriggerEnter(Collider other)
+        {
+            ReportIfPassCondition(other);
+        }
 
-    public void Report()
-    {
-        QuestSystem.Instance.ReceiveReport(_category, _target, _successCount);
-    }
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            ReportIfPassCondition(collision);
+        }
 
-    private void ReportIfPassCondition(Component other)
-    {
-        if (_colliderTags.Any(other.CompareTag))
-            Report();
+        public void Report()
+        {
+            QuestSystem.Instance.ReceiveReport(_category, _target, _successCount);
+        }
+
+        private void ReportIfPassCondition(Component other)
+        {
+            if (_colliderTags.Any(other.CompareTag))
+                Report();
+        }
     }
 }

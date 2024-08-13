@@ -5,31 +5,33 @@ using UnityEngine;
 public class PlayerDataSO : ScriptableObject
 {
     
-    public List<SkillDataSO> skills;    //ÀÎº¥Åä¸® Ã³·³ ¿©±â¿¡ ½ºÅ³ »ÌÀº°Ô µé¾î°¡°ÔµÊ.
-    public List<CompanionDataSO> companions;        //Æê Á¤º¸
+    public List<SkillDataSO> skills;    //ï¿½Îºï¿½ï¿½ä¸® Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î°¡ï¿½Ôµï¿?
+    public List<CompanionDataSO> companions;        //ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-    public List<EquipmentDataSO> weapons; //¹«±â 
-    public List<EquipmentDataSO> armors;  //¹æ¾î±¸
-    //Ãß°¡
+    public List<EquipmentDataSO> weapons; //ï¿½ï¿½ï¿½ï¿½ 
+    public List<EquipmentDataSO> armors;  //ï¿½ï¿½î±?
+    //ï¿½ß°ï¿½
 
     public string playerName;
-    // ÇÃ·¹ÀÌ¾î ÀÌ¸§
-    // °Ô½ºÆ® ·Î±×ÀÎÀ¸·Î ÇÃ·¹ÀÌÇÏ¸é Guest-Login À¸·Î Ç¥½ÃÇÏ¸é µÉ µíÇÔ
-    // ¼Ò¼È ·Î±×ÀÎÀ¸·Î ÇÃ·¹ÀÌÇÏ¸é ?
-    public int Gold;                // °ÔÀÓ ÀçÈ­ (°­È­¿ë)
-    public int Diamond;             // Çö±Ý ÀçÈ­ (»Ì±â¿ë)
+    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ì¸ï¿½
+    // ï¿½Ô½ï¿½Æ® ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ Guest-Login ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½Ò¼ï¿½ ï¿½Î±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ?
+    public int Gold;                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ (ï¿½ï¿½È­ï¿½ï¿½)
+    public int Gem;
+    public int Diamond;             // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­ (ï¿½Ì±ï¿½ï¿?
   
-    public int TotalPower;          // Á¾ÇÕ ÀüÅõ·Â
-    public int Damage;              // °ø°Ý·Â
-    public int Def;                 // ¹æ¾î·Â
-    public float AttackSpeed;       // °ø°Ý¼Óµµ
+    public int TotalPower;          // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public int Damage;              // ï¿½ï¿½ï¿½Ý·ï¿½
+    public int Def;                 // ï¿½ï¿½ï¿½ï¿½
+    public float AttackSpeed;       // ï¿½ï¿½ï¿½Ý¼Óµï¿½
     
-    public int Hp;                  // Ã¼·Â
-    public int HpRecovery;          // Ã¼·ÂÈ¸º¹ (1ÃÊ´ç È¸º¹)
+    public int Hp;                  // Ã¼ï¿½ï¿½
+    public int HpRecovery;          // Ã¼ï¿½ï¿½È¸ï¿½ï¿½ (1ï¿½Ê´ï¿½ È¸ï¿½ï¿½)
 
     // Ä¡¸íÅ¸´Â ÃÖ´ë °­È­ ·¹º§À» 500À¸·Î?
     public float CriticalPer;           // Ä¡¸íÅ¸ È®·ü 1·¹º§ ½ÃÀÛ ( °­È­¸¶´Ù 0.2 Áõ°¡ÇÏ¸é µÉ µíÇÔ )
     public float CriticalMultiplier;    // Ä¡¸íÅ¸ ¹èÀ² 1·¹º§ ½ÃÀÛ ( 0·¹º§ 150ÆÛ¼¾Æ® µ¥¹ÌÁö ½ÃÀÛ + ·¹º§´ç 0.3%Áõ°¡? )
+
 
     public EquipmentDataSO currentWeaponEquip;
     public EquipmentDataSO currentArmorEquip;

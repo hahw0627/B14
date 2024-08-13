@@ -12086,6 +12086,7 @@ GameObject:
   - component: {fileID: 4604316013196644987}
   - component: {fileID: 2153867474107994532}
   - component: {fileID: 5081476270974893151}
+  - component: {fileID: -1185705530092183406}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -12102,8 +12103,8 @@ Transform:
   m_GameObject: {fileID: 5496103263673470288}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.2, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
+  m_LocalPosition: {x: -1.3, y: 1.11, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5109004123001716435}
@@ -12410,6 +12411,20 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 1}
   m_Size: {x: 2, y: 2.5}
   m_Direction: 0
+--- !u!114 &-1185705530092183406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5496103263673470288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5f2ff1e9c158f4fa906a50e5a6861b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 1
+  DialogueText: 
 --- !u!1 &5507060777770277453
 GameObject:
   m_ObjectHideFlags: 0

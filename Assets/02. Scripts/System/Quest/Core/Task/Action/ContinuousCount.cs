@@ -1,3 +1,4 @@
+using Quest.Core.Task;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Quest/Task/Action/ContinuousCount", fileName = "ContinuousCount")]

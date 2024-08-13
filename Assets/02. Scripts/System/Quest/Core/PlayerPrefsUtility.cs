@@ -1,10 +1,13 @@
 using UnityEngine;
 
-public class PlayerPrefsUtility : MonoBehaviour
+namespace Quest.Core
 {
-    [ContextMenu("DeleteSaveData")]
-    private void DeleteSaveData()
+    public class PlayerPrefsUtility : MonoBehaviour
     {
-        PlayerPrefs.DeleteAll();
+        [ContextMenu("DeleteSaveData")]
+        private void DeleteSaveData()
+        {
+            PlayerPrefs.DeleteAll();
+        }
     }
 }
