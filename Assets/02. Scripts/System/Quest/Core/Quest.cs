@@ -72,14 +72,14 @@ namespace Quest.Core
         public string DisplayName => _displayName;
         public string Description => _description;
         private QuestState State { get; set; }
-        private TaskGroup CurrentTaskGroup => _taskGroups[_currentTaskGroupIndex];
+        public TaskGroup CurrentTaskGroup => _taskGroups[_currentTaskGroupIndex];
         public IReadOnlyList<TaskGroup> TaskGroups => _taskGroups;
         public IReadOnlyList<Reward.Reward> Rewards => _rewards;
         private bool IsRegistered => State != QuestState.Inactive;
         public bool IsCompletable => State == QuestState.WaitingForCompletion;
         public bool IsComplete => State == QuestState.Complete;
         private bool IsCancel => State == QuestState.Cancel;
-        protected virtual bool IsCancelable => _isCancelable && _cancelConditions.All(x => x.IsPass(this));
+        public virtual bool IsCancelable => _isCancelable && _cancelConditions.All(x => x.IsPass(this));
         public bool IsAcceptable => _acceptionConditions.All(x => x.IsPass(this));
         public virtual bool IsSavable => _isSavable;
 
