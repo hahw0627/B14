@@ -5027,14 +5027,15 @@ GameObject:
   - component: {fileID: 6921823521839315444}
   - component: {fileID: 5450281682338917648}
   - component: {fileID: 3115051939476753654}
-  - component: {fileID: -641221078984171753}
+  - component: {fileID: 7580376685699536019}
+  - component: {fileID: 2687931724481591850}
   m_Layer: 6
   m_Name: Goblin_Captain
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6124717720052169194
 Transform:
   m_ObjectHideFlags: 0
@@ -5352,7 +5353,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.8}
   m_Size: {x: 1, y: 1.5}
   m_Direction: 0
---- !u!114 &-641221078984171753
+--- !u!114 &7580376685699536019
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5361,7 +5362,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2299043503731004178}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
+  m_Script: {fileID: 11500000, guid: ec17ffbcfd2c9594c82619700ecfa728, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Character: {fileID: 0}
@@ -5373,6 +5374,24 @@ MonoBehaviour:
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 0}
+  BossTimer: {fileID: 0}
+--- !u!114 &2687931724481591850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2299043503731004178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165519f1ccebbc540a79b4299d7e2aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerBackground: {fileID: 0}
+  timerImage: {fileID: 0}
+  timerText: {fileID: 0}
+  time: 90
+  currentTime: 0
 --- !u!1 &2321245137547656967
 GameObject:
   m_ObjectHideFlags: 0
