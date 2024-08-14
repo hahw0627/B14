@@ -1,5 +1,8 @@
+using System;
 using System.Collections;
 using System.Linq;
+using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -9,7 +12,7 @@ public class MonsterSpawner : MonoBehaviour
     public Transform[] SpawnPoints;
 
     [FormerlySerializedAs("bossMonster")]
-    public GameObject BossMonster;
+    public GameObject[] BossMonsters;
 
     [FormerlySerializedAs("gameManager")]
     public GameManager GameManager;
@@ -17,12 +20,12 @@ public class MonsterSpawner : MonoBehaviour
     // ��� ���� ��Ȱ��ȭ Ȯ��
     public bool AllMonstersDeactivated()
     {
-        if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf))
+        if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf) || BossMonsters.Any(boss => boss.activeSelf))
         {
             return false;
         }
 
-        return !BossMonster.activeSelf;
+        return true;
     }
 
     // ���� ��ȯ
@@ -46,8 +49,25 @@ public class MonsterSpawner : MonoBehaviour
     // ���� ��ȯ
     public void SpawnBoss()
     {
-        BossMonster.transform.position = SpawnPoints[3].position;
-        BossMonster.SetActive(true);
+        switch (StageManager.Instance.StageDataSO.Stage)
+        {
+            // StagePage�� 1 �����ϸ� ������ �迭�� ��ġ���� ���͸� Ȱ��ȭ
+            case <= 2:
+                ActiveBoss(0);
+                break;
+            case <= 5:
+                ActiveBoss(1);
+                break;
+            default:
+                ActiveBoss(2);
+                break;
+        }
+    }
+
+    private void ActiveBoss(int num)
+    {
+        BossMonsters[num].transform.position = SpawnPoints[3].position;
+        BossMonsters[num].SetActive(true);
     }
 
     private void ActiveMonsters(int num)
