@@ -30,10 +30,10 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
  
     public void LoadSOData()
     {
-        if (File.Exists(_playerSavePath))
+        if (File.Exists(playerSavePath))
         {
-            var playerJson = File.ReadAllText(_playerSavePath);
-            JsonUtility.FromJsonOverwrite(playerJson, PlayerDataSO);
+            var playerJson = File.ReadAllText(playerSavePath);
+            JsonUtility.FromJsonOverwrite(playerJson, playerDataSO);
             Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
         }
         else
