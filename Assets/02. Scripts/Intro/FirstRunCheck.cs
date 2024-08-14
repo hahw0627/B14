@@ -10,17 +10,20 @@ public class FirstRunCheck : MonoBehaviour
     [NonSerialized]
     public static bool IsFirstRun;
 
-    public const string FIRST_RUN_KEY = "FirstRun";
+    private const string FIRST_RUN_KEY = "FirstRun";
 
     private void Awake()
     {
+        if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 0)
+        {
+            FirstRun();
+            return;
+        }
+
         // PlayerPrefs에서 'FirstRun' 키 확인
         if (!PlayerPrefs.HasKey(FIRST_RUN_KEY))
         {
-            IsFirstRun = true;
-            Time.timeScale = 0f;
-            _introCanvas.SetActive(true);
-            Debug.Log("<color=white>인트로: 게임을 처음 실행합니다!</color>");
+            FirstRun();
         }
         else
         {
@@ -29,6 +32,14 @@ public class FirstRunCheck : MonoBehaviour
             Destroy(_introCanvas);
             Debug.Log("<color=white>인트로: 게임을 전에 실행했었습니다.</color>");
         }
+    }
+
+    private void FirstRun()
+    {
+        IsFirstRun = true;
+        Time.timeScale = 0f;
+        _introCanvas.SetActive(true);
+        Debug.Log("<color=white>인트로: 게임을 처음 실행합니다!</color>");
     }
 
     public static void SaveKeyOfFirstRun()
