@@ -47,6 +47,7 @@ public class DamageText : MonoBehaviour
 
     private void OnEnable()
     {
+        SetDamage(_damage);
         _alpha = _text.color;
         _alpha.a = 1f;
         _text.color = _alpha;
