@@ -24014,12 +24014,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1440, y: 3200}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -28592,6 +28592,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerData: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  StatData: {fileID: 11400000, guid: f9ea684a1834bf749ae5cdd3830fa433, type: 2}
   AttackTmp: {fileID: 611802377}
   AttackSpeedTmp: {fileID: 1801011656}
   HpTmp: {fileID: 440751694}
@@ -30703,7 +30704,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002dac3e1f598ff4a8d9a2e01f27fc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  StatSavePath: 
+  PlayerDataSO: {fileID: 0}
+  StageDataSO: {fileID: 0}
+  StatDataSO: {fileID: 0}
 --- !u!114 &1488033854
 MonoBehaviour:
   m_ObjectHideFlags: 0

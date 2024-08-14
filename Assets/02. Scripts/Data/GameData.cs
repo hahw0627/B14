@@ -1,19 +1,14 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.U2D.Animation;
 using UnityEngine;
 
 [Serializable]
 public class GameData
 {
     public CharacterData characterData;
-    public List<StageData> clearedStages; //Å¬¸®¾î µÈ ½ºÅ×ÀÌÁö Á¤º¸ ÀúÀå
+    public List<StageData> clearedStages; //Å¬ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public CurrencyData currencyData;
-    //Ãß°¡
+    //ï¿½ß°ï¿½
 
 }
 
@@ -28,7 +23,7 @@ public class CharacterData
     public List<Skill> skills;
     public List<EquipmentData> equipmentsData;
     //public List<Pet> pets;
-    //public List<Companion> companions; //µ¿·á
+    //public List<Companion> companions; //ï¿½ï¿½ï¿½ï¿½
 
  
 }
@@ -44,7 +39,7 @@ public class Stats
     public int totalPower;
     public float attackSpeed;
     
-    //Ãß°¡
+    //ï¿½ß°ï¿½
 }
 
 [Serializable]
@@ -59,17 +54,17 @@ public class Skill
 [Serializable]
 public class EquipmentData
 {
-    public string id;                                  //ºÐ·ù¿ë itemcode
-    public Define.GachaRarity gachaRarity;          //µî±Þ
-    public Define.EquipmentType equipmentType;      //Àåºñ Å¸ÀÔ
-    public Define.EquipmentGrade equipmentGrade;    //Àåºñ µî±Þ
+    public string id;                                  //ï¿½Ð·ï¿½ï¿½ï¿½ itemcode
+    public Define.GachaRarity gachaRarity;          //ï¿½ï¿½ï¿½
+    public Define.EquipmentType equipmentType;      //ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
+    public Define.EquipmentGrade equipmentGrade;    //ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-    public string equipmentName;                    //Àåºñ ÀÌ¸§
-    public string description;                      //¼³¸í
-    public string spriteName;                       //½ºÇÁ¶óÀÌÆ® ÀÌ¸§
+    public string equipmentName;                    //ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+    public string description;                      //ï¿½ï¿½ï¿½ï¿½
+    public string spriteName;                       //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ì¸ï¿½
     public Sprite sprite;
-    public int atackPower;                          //°ø°Ý·Â
-    public int defense;                             //¹æ¾î·Â
+    public int atackPower;                          //ï¿½ï¿½ï¿½Ý·ï¿½
+    public int defense;                             //ï¿½ï¿½ï¿½ï¿½
 
 
 }
@@ -102,5 +97,5 @@ public class CurrencyData
 {
     public int gold;
     public int dia;
-    // ÇÊ¿ä¿¡ µû¶ó Ãß°¡ÀûÀÎ ÀçÈ­
+    // ï¿½Ê¿ä¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È­
 }
