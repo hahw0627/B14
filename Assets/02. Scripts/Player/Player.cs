@@ -37,7 +37,6 @@ public class Player : MonoBehaviour
     public float CriticalMultiplier;
 
     [FormerlySerializedAs("damageTextPool")]
-    public DamageTextPool DamageTextPool;
 
     private bool _isUsingSkill;
     private Coroutine _attackCoroutine;
@@ -76,39 +75,19 @@ public class Player : MonoBehaviour
                 projectileScript.Target = Scanner.nearestTarget; // ������ ����ü�� Ÿ�� ����
                 projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
 
-                bool isCritical = IsCriticalHit();
                 Damage = CurrentDamage;
 
-                if (isCritical)
-                {
-                    Damage *= CriticalMultiplier;
-                }
+
 
                 projectileScript.Damage = Mathf.RoundToInt(Damage); // ������ ����ü�� ������ ����
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
-                if (DamageTextPool != null)
-                {
-                    DamageText damageText = DamageTextPool.GetDamageText();
-                    if (damageText != null)
-                    {
-                        damageText.SetDamage(Mathf.RoundToInt(Damage), isCritical);
-                        damageText.transform.position = Scanner.nearestTarget.transform.position;
-                    }
-                }
             }
 
             yield return new WaitForSeconds(1 / AttackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
         }
     }
 
-    private bool IsCriticalHit()
-    {
-        // ���� �� ���� (0.0���� 100.0 ����)
-        float randomValue = Random.Range(0f, 100f);
-        // ���� ���� ġ��Ÿ Ȯ������ ������ ġ��Ÿ �߻�
-        return randomValue < CriticalPer;
-    }
 
     // ü�� ȸ�� ���
     private IEnumerator RecoverHp()
@@ -142,19 +121,9 @@ public class Player : MonoBehaviour
                 monster.SetActive(false);
             }
 
-            StageReset();
+            StageManager.StageReset();
+            CurrentHp = PlayerData.Hp;
         }
-    }
-
-    public void StageReset()
-    {
-        // �������� ������ �ʱ�ȭ
-        StageManager.Instance.StageDataSO.StagePage = 0;
-        StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
-            StageManager.Instance.StageDataSO.StagePage);
-
-        // ü�� �ʱ�ȭ
-        CurrentHp = PlayerData.Hp;
     }
 
     public void SetUsingSkill(bool usingSkill)

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -14,28 +13,24 @@ public class StageManager : SingletonDestroyable<StageManager>
 
     [SerializeField]
     private MonsterSpawner _monsterSpawner;
-
+    
     protected override void Awake()
     {
-        onStageChanged -= UpdateStageDisplay;
+        base.Awake();
+        onStageChanged += UpdateStageDisplay;
+    }
+    
+    public static void StageReset()
+    {
+        Instance.StageDataSO.StagePage = 0;
+        Instance.ChangeStage(Instance.StageDataSO.Stage,
+            Instance.StageDataSO.StagePage);
     }
 
     private void Start()
     {
-        UpdateStageDisplay(StageDataSO.Stage, StageDataSO.StagePage);
-        onStageChanged += UpdateStageDisplay;
-        
-        //if (StageDataSO.Stage == 1 && StageDataSO.StagePage == 0)
-        //{
-        //    StartCoroutine(WaitTime(4.0f));
-        //    StartCoroutine(_monsterSpawner.CheckMonsters());
-        //}
+        UpdateStageDisplay(Instance.StageDataSO.Stage, Instance.StageDataSO.StagePage);
         StartCoroutine(_monsterSpawner.CheckMonsters());
-    }
-
-    public IEnumerator WaitTime(float num)
-    {
-        yield return new WaitForSeconds(num);
     }
 
     public void ChangeStage(int newStage, int newStagePage)

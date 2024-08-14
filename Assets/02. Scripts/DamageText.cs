@@ -9,7 +9,7 @@ public class DamageText : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private Color _normalColor = Color.white;
     [SerializeField] private Color _criticalColor = Color.red;
-    [SerializeField] private float _criticalScale = 1.5f;
+    [SerializeField] private float _criticalScale = 1.2f;
 
     private TextMeshPro _text;
     private Color _alpha;
@@ -26,13 +26,21 @@ public class DamageText : MonoBehaviour
         SetDamage(damageValue, false);  // 기본적으로 치명타가 아닌 것으로 처리
     }
 
-    public void SetDamage(int damageValue, bool isCritical)
+    public void SetDamage(int damageValue, bool isCritical = false, Color? customColor = null, float customScale = 1f)
     {
         if (_text == null) _text = GetComponent<TextMeshPro>();
-
         _text.text = damageValue.ToString();
-        _text.color = isCritical ? _criticalColor : _normalColor;
-        transform.localScale = isCritical ? Vector3.one * _criticalScale : Vector3.one;
+
+        if (customColor.HasValue)
+        {
+            _text.color = customColor.Value;
+        }
+        else
+        {
+            _text.color = isCritical ? _criticalColor : _normalColor;
+        }
+
+        transform.localScale = Vector3.one * (isCritical ? _criticalScale : customScale);
 
         _alpha = _text.color;
         _alpha.a = 1f;

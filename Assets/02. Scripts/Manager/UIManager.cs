@@ -12,6 +12,7 @@ public class UIManager : SingletonDestroyable<UIManager>, IPointerDownHandler
     private void Start()
     {
         UpdateCurrencyUI();
+        
     }
 
     public void UpdateCurrencyUI()

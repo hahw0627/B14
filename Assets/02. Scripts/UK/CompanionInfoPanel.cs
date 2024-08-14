@@ -170,6 +170,20 @@ public class CompanionInfoPanel : MonoBehaviour
             companionLevelText.text = currentCompanionData.Level.ToString();
             companionCountText.text = currentCompanionData.Count.ToString();
             companionDamageText.text = currentCompanionData.Damage.ToString();
+
+            UpdateActivePetDamage();
+        }
+    }
+
+    private void UpdateActivePetDamage()
+    {
+        Pet[] allPets = FindObjectsOfType<Pet>();
+        foreach (Pet pet in allPets)
+        {
+            if (pet.companionData == currentCompanionData)
+            {
+                pet.UpdateDamage(currentCompanionData.Damage);
+            }
         }
     }
 
@@ -178,9 +192,12 @@ public class CompanionInfoPanel : MonoBehaviour
         GameObject[] allCompanionPrefabs = companionList.GetAllCompanionPrefabs();
         foreach (GameObject companionPrefab in allCompanionPrefabs)
         {
-            if (companionPrefab.GetComponent<Pet>().companionData == currentCompanionData)
+            Pet petComponent = companionPrefab.GetComponent<Pet>();
+            if (petComponent.companionData == currentCompanionData)
             {
-                Instantiate(companionPrefab, pos.transform.position, Quaternion.identity);
+                GameObject newPet = Instantiate(companionPrefab, pos.transform.position, Quaternion.identity);
+                Pet newPetComponent = newPet.GetComponent<Pet>();
+                newPetComponent.UpdateDamage(currentCompanionData.Damage);
                 break;
             }
         }

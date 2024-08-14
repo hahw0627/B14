@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625f7edd82ea70d4bb1ff554350a5cca, type: 3}
-  m_Name: Weapon8
+  m_Name: Weapon2
   m_EditorClassIdentifier: 
-  equipmentType: 0
-  equipmentGrade: 0
-  gachaRarity: 0
-  itemName: "8\uBC88\uCD1D"
-  description: 
-  sprite: {fileID: 21300000, guid: d959aafab53b4004c9845cddd6027fc7, type: 3}
-  atk: 0
-  def: 0
-  attackSpeed: 0
-  currentLevel: 0
-  MaxLevel: 0
-  baseGoldCost: 0
-  attackIncreasePerLevel: 0
-  defIncreasePerLevel: 0
-  count: 0
+  EquipmentType: 0
+  EquipmentGrade: 0
+  GachaRarity: 0
+  ItemName: Beretta
+  Description: 
+  Sprite: {fileID: 21300000, guid: 7bc9e71c2e60ea843a42d8c28a4590d9, type: 3}
+  Atk: 0
+  Def: 0
+  AttackSpeed: 0
+  CurrentLevel: 13
+  MaxLevel: 13
+  BaseGoldCost: 0
+  AttackIncreasePerLevel: 0
+  DefIncreasePerLevel: 0
+  Count: 0

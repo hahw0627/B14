@@ -20,8 +20,8 @@ public class PlayerEnterCombat : MonoBehaviour
 
     private void Start()
     {
-        // 게임 첫 실행이 아니라면 실행하지 않음
-        if (!FirstRunCheck.IsFirstRun) return;
+        // 스테이지 1-0이 아니라면 플레이어 등장 컷신은 실행하지 않음
+        if (StageManager.Instance.StageDataSO.Stage != 1 || StageManager.Instance.StageDataSO.StagePage != 0) return;
         // 시작 시 플레이어를 화면 좌측 밖으로 이동
         transform.position = new Vector3(-4f, transform.position.y, transform.position.z);
         // 좌측 밖에서 전투 위치로 걷기 애니메이션과 함께 이동

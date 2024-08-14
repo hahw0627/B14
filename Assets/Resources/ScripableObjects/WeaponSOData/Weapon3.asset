@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625f7edd82ea70d4bb1ff554350a5cca, type: 3}
-  m_Name: Weapon1
+  m_Name: Weapon3
   m_EditorClassIdentifier: 
-  equipmentType: 0
-  equipmentGrade: 0
-  gachaRarity: 0
-  itemName: 
-  description: 
-  sprite: {fileID: -4064889734069160559, guid: f4a962c36b560034da0a4a06ed90563c, type: 3}
-  atk: 0
-  def: 0
-  attackSpeed: 0
-  currentLevel: 0
+  EquipmentType: 0
+  EquipmentGrade: 0
+  GachaRarity: 0
+  ItemName: Cobra
+  Description: 
+  Sprite: {fileID: 21300000, guid: 14cc8b5624db00b40b8f2e825213ef28, type: 3}
+  Atk: 0
+  Def: 0
+  AttackSpeed: 0
+  CurrentLevel: 0
   MaxLevel: 0
-  baseGoldCost: 0
-  attackIncreasePerLevel: 0
-  defIncreasePerLevel: 0
-  count: 0
+  BaseGoldCost: 0
+  AttackIncreasePerLevel: 0
+  DefIncreasePerLevel: 0
+  Count: 0

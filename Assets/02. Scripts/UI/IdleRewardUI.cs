@@ -74,20 +74,30 @@ public class IdleRewardUI : MonoBehaviour
 
     private void OnConfirmButtonClicked()
     {
-        IdleRewardManager.ClaimReward();
-        
         var rewardGold = Mathf.RoundToInt(_currentReward);
-        
+
         GoldAcquireEffect.PlayGoldAcquireEffect(ConfirmButton.transform.position, rewardGold);
-        
-        Debug.Log($"{rewardGold} 골드를 지급했습니다.");
-        
-        UIManager.Instance.UpdateCurrencyUI();
-        
+
+        // 이펙트가 완료된 후에 실행될 콜백 등록
+        GoldAcquireEffect.OnEffectCompleted += OnGoldEffectCompleted;
+
         RewardPanel.SetActive(false);
-        
         MainSceneRewardButton.SetActive(false);
-        
+    }
+
+    private void OnGoldEffectCompleted()
+    {
+        // 이펙트 완료 후 실행될 로직
+        IdleRewardManager.ClaimReward();
+
+        var rewardGold = Mathf.RoundToInt(_currentReward);
+        Debug.Log($"<color=yellow>{rewardGold} 골드를 지급했습니다.</color>");
+
+        UIManager.Instance.UpdateCurrencyUI();
+
         _currentReward = 0;
+
+        // 이벤트 구독 해제
+        GoldAcquireEffect.OnEffectCompleted -= OnGoldEffectCompleted;
     }
 }

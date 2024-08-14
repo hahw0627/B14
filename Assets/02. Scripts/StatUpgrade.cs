@@ -43,8 +43,38 @@ public class StatUpgrade : MonoBehaviour
     private float _holdTime = 0.5f; // 롱 터치로 인식할 시간
     private float _upgradeInterval = 0.1f; // 연속 업그레이드 간격
 
+    void Init()
+    {
+        //코스트 불러오기
+        _attackCost = PlayerData.attackCost;
+        _hpCost = PlayerData.hpCost;
+        _recoverHpCost = PlayerData.recoverHpCost;
+        _attackSpeedCost = PlayerData.attackSpeedCost;
+        _criticalPercentCost = PlayerData.criticalPercentCost;
+        _criticalDamageCost = PlayerData.criticalDamageCost;
+    }
+
+    public void SaveCost()
+    {
+        //코스트 저장 
+        PlayerData.attackCost = _attackCost;
+        PlayerData.hpCost = _attackCost;
+        PlayerData.recoverHpCost = _attackCost;
+        PlayerData.attackSpeedCost = _attackCost;
+        PlayerData.criticalPercentCost = _attackCost;
+        PlayerData.criticalDamageCost = _attackCost;
+    }
+    public void OnApplicationQuit()
+    {
+        SaveCost();
+    }
+
     private void Start()
     {
+        if (SaveLoadManager.Instance.ExistJson())
+            Init();
+
+
         UpdateUI();
         SetupButton(AttackBtn, () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
         SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
@@ -88,7 +118,7 @@ public class StatUpgrade : MonoBehaviour
         stat += increment;
 
         PlayerData.Gold -= cost;
-        cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
+        cost = Mathf.CeilToInt(cost * 1.1f); 
         statTmp.text = statName +stat;
         costTmp.text = "Upgrade\n"+ cost;
         UpdateUI();
@@ -118,7 +148,7 @@ public class StatUpgrade : MonoBehaviour
         stat += increment;
 
         PlayerData.Gold -= cost;
-        cost = Mathf.CeilToInt(cost * 1.1f); // ��� 10% ����
+        cost = Mathf.CeilToInt(cost * 1.1f);
         statTmp.text = statName + stat;
         costTmp.text = cost.ToString();
         UpdateUI();
