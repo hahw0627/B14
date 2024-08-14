@@ -28,13 +28,14 @@ public class MonsterSpawner : MonoBehaviour
     // ���� ��ȯ
     public void SpawnMonsters()
     {
-        switch (StageManager.Instance.StageDataSO.Stage)
+        var currentStage = StageManager.Instance.StageDataSO.Stage;
+
+        switch (currentStage)
         {
-            // StagePage�� 1 �����ϸ� ������ �迭�� ��ġ���� ���͸� Ȱ��ȭ
             case <= 2:
                 ActiveMonsters(1);
                 break;
-            case >= 3 and <= 5:
+            case <= 5:
                 ActiveMonsters(3);
                 break;
             default:
@@ -73,14 +74,22 @@ public class MonsterSpawner : MonoBehaviour
                         ++StageManager.Instance.StageDataSO.StagePage);
                 }
 
-                switch (StageManager.Instance.StageDataSO.StagePage)
+                if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 0)
                 {
-                    case <= 3:
-                        SpawnMonsters();
-                        break;
-                    default:
-                        SpawnBoss();
-                        break;
+                    yield return new WaitForSeconds(4f);
+                    SpawnMonsters();
+                }
+                else
+                {
+                    switch (StageManager.Instance.StageDataSO.StagePage)
+                    {
+                        case <= 3:
+                            SpawnMonsters();
+                            break;
+                        default:
+                            SpawnBoss();
+                            break;
+                    }
                 }
             }
         }

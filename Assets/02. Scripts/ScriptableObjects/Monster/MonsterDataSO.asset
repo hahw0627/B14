@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MonsterDataSO
   m_EditorClassIdentifier: 
   monsterName: Monster
-  Hp: 250
+  Hp: 746
   Damage: 1
   AttackSpeed: 1
   stagePage: 0
-  stage: 6
+  stage: 3

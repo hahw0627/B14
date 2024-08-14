@@ -37,21 +37,21 @@ public class BossTimer : MonoBehaviour
             yield return null;
         }
 
-        // ³²Àº ½Ã°£ÀÌ 0 ÀÌÇÏ°¡ µÇ¸é
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½
         DeactivateBoss();
         DeactivateTimer();
     }
 
     private void DeactivateBoss()
     {
-        // º¸½º ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         gameObject.SetActive(false);
 
-        // PlayerÀÇ StageReset È£Ãâ
+        // Playerï¿½ï¿½ StageReset È£ï¿½ï¿½
         Player player = FindObjectOfType<Player>();
         if (player != null)
         {
-            player.StageReset();
+            StageManager.StageReset();
         }
         DeactivateTimer();
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class StageManager : SingletonDestroyable<StageManager>
 {
     public event Action<int, int> onStageChanged;
-    
+
     [SerializeField]
     private TextMeshProUGUI _stageTmp;
 
@@ -13,24 +13,31 @@ public class StageManager : SingletonDestroyable<StageManager>
 
     [SerializeField]
     private MonsterSpawner _monsterSpawner;
-
+    
     protected override void Awake()
     {
-        onStageChanged -= UpdateStageDisplay;
+        base.Awake();
+        onStageChanged += UpdateStageDisplay;
+    }
+    
+    public static void StageReset()
+    {
+        Instance.StageDataSO.StagePage = 0;
+        Instance.ChangeStage(Instance.StageDataSO.Stage,
+            Instance.StageDataSO.StagePage);
     }
 
     private void Start()
     {
-        UpdateStageDisplay(StageDataSO.Stage, StageDataSO.StagePage);
-        onStageChanged += UpdateStageDisplay;
+        UpdateStageDisplay(Instance.StageDataSO.Stage, Instance.StageDataSO.StagePage);
         StartCoroutine(_monsterSpawner.CheckMonsters());
     }
-    
+
     public void ChangeStage(int newStage, int newStagePage)
     {
         onStageChanged?.Invoke(newStage, newStagePage);
     }
-    
+
     private void UpdateStageDisplay(int newStage, int newStagePage)
     {
         _stageTmp.text = $"스테이지 {newStage}-{newStagePage}";
