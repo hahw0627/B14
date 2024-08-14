@@ -63,7 +63,7 @@ public class DataTest : MonoBehaviour
         gameData.characterData.stats.hpRecovery = playerDataSO.HpRecovery;
 
         gameData.currencyData.gold = playerDataSO.Gold;
-        gameData.currencyData.dia = playerDataSO.Diamond;
+        gameData.currencyData.dia = playerDataSO.Gem;
 
         
         //equipment

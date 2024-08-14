@@ -10843,6 +10843,7 @@ GameObject:
   - component: {fileID: 5922187920735051681}
   - component: {fileID: 7903865673398423272}
   - component: {fileID: 4280118485878501711}
+  - component: {fileID: 5146352676669730298}
   m_Layer: 6
   m_Name: Goblin_Shaman
   m_TagString: Monster
@@ -11161,12 +11162,33 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.8}
   m_Size: {x: 1, y: 1.5}
   m_Direction: 0
+--- !u!114 &5146352676669730298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5727807507281821840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Character: {fileID: 0}
+  MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  Target: {fileID: 0}
+  Hp: 0
+  Damage: 0
+  AttackSpeed: 0
+  MoveTime: 0
+  IsAttacking: 0
+  HUDPos: {fileID: 9052041219361479218}
 --- !u!1 &5737961628810534210
 GameObject:
   m_ObjectHideFlags: 0

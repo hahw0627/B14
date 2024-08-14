@@ -26,7 +26,6 @@ public class PlayerDataSO : ScriptableObject
     // �Ҽ� �α������� �÷����ϸ� ?
     public int Gold; // ���� ��ȭ (��ȭ��)
     public int Gem;
-    public int Diamond; // ���� ��ȭ (�̱��?
 
     public int TotalPower; // ���� ������
     public int Damage; // ���ݷ�

@@ -11,8 +11,7 @@ public class Monster : MonoBehaviour, IDamageable
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
 
-    private Animator _animator;
-    private SpriteRenderer _spriteRenderer;
+    //private Animator _animator;
 
     [FormerlySerializedAs("target")]
     public GameObject Target;
@@ -44,8 +43,7 @@ public class Monster : MonoBehaviour, IDamageable
     private void Awake()
     {
         _goldReward = 10;
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        //_animator = GetComponent<Animator>();
         Target = GameObject.Find("Player");
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
@@ -76,13 +74,12 @@ public class Monster : MonoBehaviour, IDamageable
 
         if (MoveTime < 1.5f)
         {
-            _spriteRenderer.flipX = true;
             transform.Translate(Vector3.left * (2.0f * Time.deltaTime));
             MoveTime += Time.deltaTime;
         }
         else
         {
-            _animator.SetBool(IsBattle, true);
+            //_animator.SetBool(IsBattle, true);
             if (!IsAttacking)
             {
                 StartCoroutine(Attack());

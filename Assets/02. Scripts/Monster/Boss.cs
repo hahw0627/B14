@@ -55,7 +55,7 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
         StageManager.Instance.StageDataSO.StagePage = 0;
         StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
             StageManager.Instance.StageDataSO.StagePage);
-        MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
+        //MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
 
         // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
         MonsterData.Hp = Mathf.RoundToInt(MonsterData.Hp * 1.2f);

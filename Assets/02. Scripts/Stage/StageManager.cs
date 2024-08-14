@@ -25,11 +25,12 @@ public class StageManager : SingletonDestroyable<StageManager>
         UpdateStageDisplay(StageDataSO.Stage, StageDataSO.StagePage);
         onStageChanged += UpdateStageDisplay;
         
-        if (StageDataSO.Stage == 1 && StageDataSO.StagePage == 0)
-        {
-            StartCoroutine(WaitTime(4.0f));
-            StartCoroutine(_monsterSpawner.CheckMonsters());
-        }
+        //if (StageDataSO.Stage == 1 && StageDataSO.StagePage == 0)
+        //{
+        //    StartCoroutine(WaitTime(4.0f));
+        //    StartCoroutine(_monsterSpawner.CheckMonsters());
+        //}
+        StartCoroutine(_monsterSpawner.CheckMonsters());
     }
 
     public IEnumerator WaitTime(float num)

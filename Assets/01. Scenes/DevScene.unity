@@ -16177,7 +16177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41bf79d440666c448a61290573fe5d7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MonsterPrefab: {fileID: 2827527121020484550, guid: b91abeb7ab11e904d9aced1f066cb24b, type: 3}
+  MonsterArray:
+  - {fileID: 7017585059123541959, guid: 6f00b12bc1073d54181f0d6e7ed1fb14, type: 3}
+  - {fileID: 7017585059123541959, guid: 6f00b12bc1073d54181f0d6e7ed1fb14, type: 3}
+  - {fileID: 7017585059123541959, guid: 6f00b12bc1073d54181f0d6e7ed1fb14, type: 3}
+  - {fileID: 4945660636006030323, guid: 816fe038a3f0efe46947dfa0418322b1, type: 3}
+  - {fileID: 527277773974407779, guid: f866ff078acfa0b42b8b3c3275e4b13f, type: 3}
+  - {fileID: 527277773974407779, guid: f866ff078acfa0b42b8b3c3275e4b13f, type: 3}
   Monsters: []
 --- !u!114 &803125298
 MonoBehaviour:
