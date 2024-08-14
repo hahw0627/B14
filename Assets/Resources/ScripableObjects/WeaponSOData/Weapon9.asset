@@ -10,20 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625f7edd82ea70d4bb1ff554350a5cca, type: 3}
-  m_Name: Weapon3
+  m_Name: Weapon9
   m_EditorClassIdentifier: 
-  equipmentType: 0
-  equipmentGrade: 0
-  gachaRarity: 0
-  itemName: "3\uBC88\uCD1D"
-  description: 
-  sprite: {fileID: 21300000, guid: 7a4b94e0d025ac34fad9ba9527552a03, type: 3}
-  atk: 0
-  def: 0
-  attackSpeed: 0
-  currentLevel: 0
+  EquipmentType: 0
+  EquipmentGrade: 0
+  GachaRarity: 0
+  ItemName: MAC10
+  Description: 
+  Sprite: {fileID: 21300000, guid: 47caec8851bf7a84b8073a274a094c15, type: 3}
+  Atk: 0
+  Def: 0
+  AttackSpeed: 0
+  CurrentLevel: 0
   MaxLevel: 0
-  baseGoldCost: 0
-  attackIncreasePerLevel: 0
-  defIncreasePerLevel: 0
-  count: 0
+  BaseGoldCost: 0
+  AttackIncreasePerLevel: 0
+  DefIncreasePerLevel: 0
+  Count: 0

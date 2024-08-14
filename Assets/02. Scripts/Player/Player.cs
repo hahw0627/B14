@@ -142,19 +142,9 @@ public class Player : MonoBehaviour
                 monster.SetActive(false);
             }
 
-            StageReset();
+            StageManager.StageReset();
+            CurrentHp = PlayerData.Hp;
         }
-    }
-
-    public void StageReset()
-    {
-        // �������� ������ �ʱ�ȭ
-        StageManager.Instance.StageDataSO.StagePage = 0;
-        StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
-            StageManager.Instance.StageDataSO.StagePage);
-
-        // ü�� �ʱ�ȭ
-        CurrentHp = PlayerData.Hp;
     }
 
     public void SetUsingSkill(bool usingSkill)

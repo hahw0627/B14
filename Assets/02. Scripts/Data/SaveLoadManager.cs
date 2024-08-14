@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -36,10 +37,20 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveSOData()
     {
-        var playerJson = JsonUtility.ToJson(PlayerDataSO, true);
-        File.WriteAllText(_playerSavePath, playerJson);
-        var stageJson = JsonUtility.ToJson(StageDataSO, true);
-        File.WriteAllText(_stageSavePath, stageJson);
+        try
+        {
+            var playerJson = JsonUtility.ToJson(PlayerDataSO, true);
+            File.WriteAllText(_playerSavePath, playerJson);
+            Debug.Log("<color=#00ff00>Player data saved successfully at: " + _playerSavePath + "</color>");
+            
+            var stageJson = JsonUtility.ToJson(StageDataSO, true);
+            File.WriteAllText(_stageSavePath, stageJson);
+            Debug.Log("<color=#00ff00>Stage data saved successfully at: " + _stageSavePath + "</color>");
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("<color=red>Failed to save data: " + ex.Message + "</color>"); // 오류 발생 시 로그
+        }
         //SkillsDataWrapper wrapper = new SkillsDataWrapper
         //{
         //    skills = skillsDataSO
