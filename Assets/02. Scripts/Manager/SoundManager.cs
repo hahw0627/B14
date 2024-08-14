@@ -32,6 +32,12 @@ public class SoundManager : Singleton<SoundManager>
 
         }
     }
+
+    public void Soundw()
+    {
+        
+    }
+
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)

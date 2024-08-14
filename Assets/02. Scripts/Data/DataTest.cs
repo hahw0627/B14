@@ -65,11 +65,7 @@ public class DataTest : MonoBehaviour
         gameData.currencyData.gold = playerDataSO.Gold;
         gameData.currencyData.dia = playerDataSO.Diamond;
 
-        
-        //equipment
-        //�׳� �ʿ��Ҷ��� �ڵ�� �ҷ��͵� ��������Ѵ�. 
-        //�ڵ�� �ǹ̸� ������ ������ �׳� ���ڷ� �޴°� �� ������, B S  �̷������� Ÿ���� �����ؼ�
-        //split �ؼ� ����Ҽ����ִ� Ÿ����,
+
 
         //gameData.characterData.equipmentsData.Add(tempCsv.GetEquipmentByCode("������")); 
     }
