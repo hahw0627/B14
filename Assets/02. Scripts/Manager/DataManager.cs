@@ -1,49 +1,59 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class DataManager : Singleton<DataManager>
 {
-    public PlayerDataSO          playerDataSO;
-    public List<EquipmentDataSO> weaponEquipmentDataSO;
-    public List<EquipmentDataSO> armorEquipmentDataSO;
-    public List<SkillDataSO>     allSkillsDataSO;
+    [FormerlySerializedAs("playerDataSO")]
+    public PlayerDataSO PlayerDataSo;
+
+    [FormerlySerializedAs("weaponEquipmentDataSO")]
+    public List<EquipmentDataSO> WeaponEquipmentDataSo;
+
+    [FormerlySerializedAs("armorEquipmentDataSO")]
+    public List<EquipmentDataSO> ArmorEquipmentDataSo;
+
+    [FormerlySerializedAs("allSkillsDataSO")]
+    public List<SkillDataSO> AllSkillsDataSo;
 
 
     public void Start()
     {
-        if (playerDataSO == null)
+        if (PlayerDataSo == null)
         {
-            playerDataSO = Resources.Load<PlayerDataSO>("ScripableObjects/" + "PlayerDataSO");
+            PlayerDataSo = Resources.Load<PlayerDataSO>("ScriptableObjects/" + "PlayerDataSO");
         }
 
         DontDestroyOnLoad(gameObject);
     }
-   
-   
-    public void FillAllSkillsData(List<SkillDataSO> _skillsDataSO)
+
+
+    public void FillAllSkillsData(List<SkillDataSO> skillsDataSo)
     {
-        allSkillsDataSO.AddRange(_skillsDataSO);
+        AllSkillsDataSo.AddRange(skillsDataSo);
     }
-    public void FillAllWeaponsData(List<EquipmentDataSO> _weaponEquipmentDataSO)
+
+    public void FillAllWeaponsData(List<EquipmentDataSO> weaponEquipmentDataSo)
     {
-        weaponEquipmentDataSO.AddRange(_weaponEquipmentDataSO);
+        WeaponEquipmentDataSo.AddRange(weaponEquipmentDataSo);
     }
-    public void FillAllarmorData(List<EquipmentDataSO> _armorEquipmentDataSO)
+
+    public void FillAllarmorData(List<EquipmentDataSO> armorEquipmentDataSo)
     {
-        armorEquipmentDataSO.AddRange(_armorEquipmentDataSO);
+        ArmorEquipmentDataSo.AddRange(armorEquipmentDataSo);
     }
 
     public void AddGold(int amount)
     {
-        playerDataSO.Gold += amount;
-        Debug.Log($"�÷��̾��� ���� ��� : {playerDataSO.Gold}");
+        PlayerDataSo.Gold += amount;
+        Debug.Log($"<color=yellow>방치 보상 획득 후 골드 : {PlayerDataSo.Gold}</color>");
         UIManager.Instance.UpdateCurrencyUI();
     }
 
     public void AddGem(int amount)
     {
-        playerDataSO.Gem += amount;
-        Debug.Log($"젬 증가: {playerDataSO.Gem}");
+        PlayerDataSo.Gem += amount;
+        Debug.Log($"<color=#00FF22>젬 증가: {PlayerDataSo.Gem}</color>");
         UIManager.Instance.UpdateCurrencyUI();
     }
 }

@@ -1,56 +1,88 @@
-using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    public Transform[] spawnPoints;
-    public GameObject bossMonster;
+    [FormerlySerializedAs("spawnPoints")]
+    public Transform[] SpawnPoints;
 
-    public GameManager gameManager;
+    [FormerlySerializedAs("bossMonster")]
+    public GameObject BossMonster;
 
-    // ¸ðµç ¸ó½ºÅÍ ºñÈ°¼ºÈ­ È®ÀÎ
+    [FormerlySerializedAs("gameManager")]
+    public GameManager GameManager;
+
+    // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ È®ï¿½ï¿½
     public bool AllMonstersDeactivated()
     {
-        foreach (GameObject monster in MonsterPool.Instance.monsters)
+        if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf))
         {
-            if (monster.activeSelf) return false;
+            return false;
         }
-        return true;
+
+        return !BossMonster.activeSelf;
     }
 
-    // ¸ó½ºÅÍ ¼ÒÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public void SpawnMonsters()
     {
-        // StagePage°¡ 1 Áõ°¡ÇÏ¸é ½ºÆ÷³Ê ¹è¿­ÀÇ À§Ä¡¿¡¼­ ¸ó½ºÅÍ¸¦ È°¼ºÈ­
-        if(gameManager.stage <= 2)
+        switch (StageManager.Instance.StageDataSO.Stage)
         {
-            ActiveMonsters(1);
-        }
-        else if(gameManager.stage >= 3 && gameManager.stage <= 5)
-        {
-            ActiveMonsters(3);
-        }
-        else
-        {
-            ActiveMonsters(6);
+            // StagePageï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í¸ï¿½ È°ï¿½ï¿½È­
+            case <= 2:
+                ActiveMonsters(1);
+                break;
+            case >= 3 and <= 5:
+                ActiveMonsters(3);
+                break;
+            default:
+                ActiveMonsters(6);
+                break;
         }
     }
 
-    // º¸½º ¼ÒÈ¯
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
     public void SpawnBoss()
     {
-        bossMonster.transform.position = spawnPoints[3].position;
-        bossMonster.SetActive(true);
+        BossMonster.transform.position = SpawnPoints[3].position;
+        BossMonster.SetActive(true);
     }
 
     private void ActiveMonsters(int num)
     {
-        for (int i = 0; i < num; i++)
+        for (var i = 0; i < num; i++)
         {
-            MonsterPool.Instance.monsters[i].transform.position = spawnPoints[i].position;
-            MonsterPool.Instance.monsters[i].SetActive(true);
+            MonsterPool.Instance.Monsters[i].transform.position = SpawnPoints[i].position;
+            MonsterPool.Instance.Monsters[i].SetActive(true);
+        }
+    }
+
+    public IEnumerator CheckMonsters()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+
+            if (AllMonstersDeactivated())
+            {
+                if (StageManager.Instance.StageDataSO.StagePage < 4)
+                {
+                    StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
+                        ++StageManager.Instance.StageDataSO.StagePage);
+                }
+
+                switch (StageManager.Instance.StageDataSO.StagePage)
+                {
+                    case <= 3:
+                        SpawnMonsters();
+                        break;
+                    default:
+                        SpawnBoss();
+                        break;
+                }
+            }
         }
     }
 }

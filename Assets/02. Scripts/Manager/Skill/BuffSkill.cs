@@ -16,7 +16,7 @@ public class BuffSkill : MonoBehaviour
 
     private void ApplyBuff()
     {
-        switch (skillData.skillType)
+        switch (skillData.SkillType)
         {
             case Define.SkillType.AttackBuff:
                 ApplyAttackBuff();
@@ -32,15 +32,15 @@ public class BuffSkill : MonoBehaviour
 
     private void ApplyAttackBuff()
     {
-        Debug.Log($"BuffSkill applying attack buff: {skillData.buffAmount}");
-        player.ApplyAttackBuff(skillData.buffAmount);
+        Debug.Log($"BuffSkill applying attack buff: {skillData.BuffAmount}");
+        player.ApplyAttackBuff(skillData.BuffAmount);
 
     }
 
     private void ApplyHealBuff()
     {
         
-        player.Heal(skillData.buffAmount);
-        Debug.Log($"Applied heal buff Healed for : {skillData.buffAmount}");
+        player.Heal(skillData.BuffAmount);
+        Debug.Log($"Applied heal buff Healed for : {skillData.BuffAmount}");
     }
 }

@@ -12,8 +12,8 @@ public class Pet : MonoBehaviour
 
     private void Awake()
     {
-        damage = companionData.damage; // ±âº» ¼³Á¤ °ª »ç¿ë
-        attackSpeed = companionData.attackSpeed; // ±âº» ¼³Á¤ °ª »ç¿ë
+        damage = companionData.Damage; // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
+        attackSpeed = companionData.AttackSpeed; // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½
     }
 
     private void Start()
@@ -27,16 +27,16 @@ public class Pet : MonoBehaviour
     {
         while (true)
         {
-            // ÇÃ·¹ÀÌ¾îÀÇ scanner¿¡¼­ nearestTargetÀ» °¡Á®¿È
+            // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ scannerï¿½ï¿½ï¿½ï¿½ nearestTargetï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             if (scanner.nearestTarget != null)
             {
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = fireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = scanner.nearestTarget.transform;
+                projectileScript.Target = scanner.nearestTarget.transform;
                 projectileScript.SetDirection(scanner.nearestTarget.transform.position);
-                projectileScript.damage = this.damage; // ÇÃ·¹ÀÌ¾îÀÇ µ¥¹ÌÁö »ç¿ë
-                projectileScript.shooterTag = "Player";
+                projectileScript.Damage = this.damage; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+                projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.yellow);
             }
             yield return new WaitForSeconds(1 / attackSpeed);

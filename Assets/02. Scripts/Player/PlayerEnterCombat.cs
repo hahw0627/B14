@@ -41,6 +41,6 @@ public class PlayerEnterCombat : MonoBehaviour
 
         // 걷는 애니메이션 중지
         _animationManager.SetState(CharacterState.Idle);
-        PlayerSpeechBubble.Instance.ShowMessage(DialogueText, SpeechLength.LONG);
+        PlayerSpeechBubble.Instance.ShowMessage(DialogueText, SpeechLength.Long);
     }
 }

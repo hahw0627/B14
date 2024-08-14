@@ -16,22 +16,22 @@ public class CompanionList : MonoBehaviour
         allUnEquipBtn.onClick.AddListener(companionInfoPanel.UnEquippedCompanion);
     }
 
-    // ÆÐ³Î È°¼ºÈ­ µÇ¸é Á¤º¸ ÃÊ±âÈ­
+    // ï¿½Ð³ï¿½ È°ï¿½ï¿½È­ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     private void OnEnable()
     {
-        // PanelÀÇ ImageÃÊ±âÈ­
+        // Panelï¿½ï¿½ Imageï¿½Ê±ï¿½È­
         for (int i = 0; i < panels.Length; i++)
         {
             Image image = panels[i].GetComponent<Image>();
-            image.sprite = companionDataArray[i].icon;
+            image.sprite = companionDataArray[i].Icon;
             UpdatePanelColor(image, companionDataArray[i]);
 
-            // °¢ ÆÐ³Î¿¡ Button ÄÄÆ÷³ÍÆ®°¡ ÀÖÀ¸¸é
+            // ï¿½ï¿½ ï¿½Ð³Î¿ï¿½ Button ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Button button = panels[i].GetComponent<Button>();
             if (button != null)
             {
                 int index = i;
-                // ¹öÆ°À» ´­·¶À» ¶§, 
+                // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, 
                 button.onClick.AddListener(() => OnPanelClicked(index));
             }
         }
@@ -39,15 +39,15 @@ public class CompanionList : MonoBehaviour
 
     public void UpdatePanelColor(Image image, CompanionDataSO companionData)
     {
-        // Á¶°Ç¿¡ µû¶ó ColorÀÇ Alpha °ª º¯°æ
+        // ï¿½ï¿½ï¿½Ç¿ï¿½ ï¿½ï¿½ï¿½ï¿½ Colorï¿½ï¿½ Alpha ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Color color = image.color;
-        if (companionData.level == 1 && companionData.count == 0)
+        if (companionData.Level == 1 && companionData.Count == 0)
         {
-            color.a = 50 / 255f; // ¾ËÆÄ °ªÀ» 100À¸·Î ¼³Á¤ (0~1 ¹üÀ§·Î º¯È¯)
+            color.a = 50 / 255f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 100ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (0~1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯)
         }
         else
         {
-            color.a = 1f; // ¾ËÆÄ °ªÀ» 255·Î ¼³Á¤ (1·Î ¼³Á¤)
+            color.a = 1f; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 255ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
         }
         image.color = color;
     }
@@ -56,7 +56,7 @@ public class CompanionList : MonoBehaviour
     {
         if (index >= 0 && index < companionDataArray.Length)
         {
-            // Á¤º¸Ã¢À» ¾÷µ¥ÀÌÆ®ÇÏ°í È°¼ºÈ­
+            // ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Ï°ï¿½ È°ï¿½ï¿½È­
             companionInfoPanel.ShowCompanionInfo(companionDataArray[index]);
         }
     }

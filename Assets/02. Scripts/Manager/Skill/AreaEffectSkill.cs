@@ -6,7 +6,7 @@ using UnityEngine;
 public class AreaEffectSkill : MonoBehaviour
 {
     private SkillDataSO skillData;
-    private float damageInterval = 0.5f; // µ¥¹ÌÁö¸¦ ÁÖ´Â °£°Ý (ÃÊ)
+    private float damageInterval = 0.5f; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½)
 
     public void Initialize(SkillDataSO skill)
     {
@@ -18,7 +18,7 @@ public class AreaEffectSkill : MonoBehaviour
     private IEnumerator DealDamageOverTime()
     {
         float elapsedTime = 0f;
-        while (elapsedTime < skillData.duration)
+        while (elapsedTime < skillData.Duration)
         {
             ApplyDamageToEnemiesInRange();
             yield return new WaitForSeconds(damageInterval);
@@ -28,7 +28,7 @@ public class AreaEffectSkill : MonoBehaviour
 
     private void ApplyDamageToEnemiesInRange()
     {
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, skillData.aoeRadius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, skillData.AoeRadius);
         foreach (var hitCollider in hitColliders)
         {
             if (hitCollider.CompareTag("Monster"))
@@ -43,8 +43,8 @@ public class AreaEffectSkill : MonoBehaviour
         IDamageable damageable = target.GetComponent<IDamageable>();
         if(damageable!= null)
         {
-            int totalDamage = skillData.damage + DataManager.Instance.playerDataSO.Damage;
-            Debug.Log($"Area effect skill '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill : {skillData.damage}, Player Base : {DataManager.Instance.playerDataSO.Damage})");
+            int totalDamage = skillData.Damage + DataManager.Instance.PlayerDataSo.Damage;
+            Debug.Log($"Area effect skill '{skillData.SkillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill : {skillData.Damage}, Player Base : {DataManager.Instance.PlayerDataSo.Damage})");
             damageable.TakeDamage(totalDamage, true);
 
         }
@@ -59,7 +59,7 @@ public class AreaEffectSkill : MonoBehaviour
         if(skillData != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(transform.position, skillData.aoeRadius);
+            Gizmos.DrawWireSphere(transform.position, skillData.AoeRadius);
         }
     }
 }

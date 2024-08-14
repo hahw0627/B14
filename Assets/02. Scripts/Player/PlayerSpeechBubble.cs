@@ -1,11 +1,11 @@
-using System;using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;using Random = UnityEngine.Random;
 
 public enum SpeechLength {
-    SHORT,
-    LONG,
+    Short,
+    Long
 }
 
 public class PlayerSpeechBubble : SingletonDestroyable<PlayerSpeechBubble>
@@ -42,8 +42,8 @@ public class PlayerSpeechBubble : SingletonDestroyable<PlayerSpeechBubble>
         _speechText.text = ""; // 텍스트 초기화
         var speechDuration = speechLength switch
         {
-            SpeechLength.SHORT => 2f,
-            SpeechLength.LONG => 4f,
+            SpeechLength.Short => 2f,
+            SpeechLength.Long => 4f,
             _ => 3f
         };
 

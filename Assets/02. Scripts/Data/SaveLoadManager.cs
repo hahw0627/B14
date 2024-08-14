@@ -1,22 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
 public class SaveLoadManager : MonoBehaviour
 {
-    private string playerSavePath;
+    private string _playerSavePath;
+    private string _stageSavePath;
     //private string skillsSavePath;
 
-    public PlayerDataSO playerDataSO;
+    public PlayerDataSO PlayerDataSO;
+    public StageDataSO StageDataSO;
     //public List<SkillDataSO> skillsDataSO = new List<SkillDataSO>();
-
-
 
     private void Awake()
     {
-         playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
-       //skillsSavePath = Application.persistentDataPath + "/skillsSOdata.json";
+        _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
+        _stageSavePath = Application.persistentDataPath + "/stageSOdata.json";
+        //skillsSavePath = Application.persistentDataPath + "/skillsSOdata.json";
     }
 
     //public void ReceiveSOData()
@@ -37,8 +36,10 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveSOData()
     {
-        string playerJson = JsonUtility.ToJson(playerDataSO,true);
-        File.WriteAllText(playerSavePath, playerJson);
+        var playerJson = JsonUtility.ToJson(PlayerDataSO, true);
+        File.WriteAllText(_playerSavePath, playerJson);
+        var stageJson = JsonUtility.ToJson(StageDataSO, true);
+        File.WriteAllText(_stageSavePath, stageJson);
         //SkillsDataWrapper wrapper = new SkillsDataWrapper
         //{
         //    skills = skillsDataSO
@@ -47,25 +48,34 @@ public class SaveLoadManager : MonoBehaviour
         //File.WriteAllText(skillsSavePath, skillsJson);
     }
 
- 
+
     public void LoadSOData()
     {
-
-        if (File.Exists(playerSavePath))
+        if (File.Exists(_playerSavePath))
         {
-            string playerJson = File.ReadAllText(playerSavePath);
-            JsonUtility.FromJsonOverwrite(playerJson, playerDataSO);
-            Debug.Log("PlayerDataSO loaded from JSON.");
+            var playerJson = File.ReadAllText(_playerSavePath);
+            JsonUtility.FromJsonOverwrite(playerJson, PlayerDataSO);
+            Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
         }
         else
         {
-            Debug.LogWarning("Player data JSON file not found.");
+            Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
         }
 
+        if (File.Exists(_stageSavePath))
+        {
+            var stageJson = File.ReadAllText(_stageSavePath);
+            JsonUtility.FromJsonOverwrite(stageJson, StageDataSO);
+            Debug.Log("<color=#00ff00>StageDataSO loaded from JSON.</color>");
+        }
+        else
+        {
+            Debug.LogWarning("<color=yellow>Stage data JSON file not found.</color>");
+        }
         //if (File.Exists(skillsSavePath))
         //{
         //    string skillsJson = File.ReadAllText(skillsSavePath);
-        //    // JSON ¹®ÀÚ¿­À» ¿ªÁ÷·ÄÈ­ÇÏ¿© List<SkillDataSO>¸¦ °»½ÅÇÕ´Ï´Ù
+        //    // JSON ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­ï¿½Ï¿ï¿½ List<SkillDataSO>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½
         //    SkillsDataWrapper skillsWrapper = JsonUtility.FromJson<SkillsDataWrapper>(skillsJson);
         //    skillsDataSO = skillsWrapper.skills;
         //    Debug.Log("SkillsDataSO loaded from JSON.");
@@ -79,8 +89,8 @@ public class SaveLoadManager : MonoBehaviour
     //[System.Serializable]
     //private class SkillsDataWrapper
     //{
-    //    //±âÁ¸ jsonutility ´Â º¹ÀâÇÑ ±¸Á¶¸¦ ´Ù·ç´Âµ¥ ÇÑ°è°¡ÀÖ¾î¼­ ·¡ÆÛ Å¬·¡½º·Î º¯È¯ÇØ¼­ Àü´ÞÇØ¾ßÇÑ´Ù
-    //    //ÀÌ°Ô ½ÈÀ¸¸é Newtonsoft.jsonÀº º¹ÀâÇÑ ±¸Á¶µµ Áö¿øÇÑ´Ù.
+    //    //ï¿½ï¿½ï¿½ï¿½ jsonutility ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½Âµï¿½ ï¿½Ñ°è°¡ï¿½Ö¾î¼­ ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¾ï¿½ï¿½Ñ´ï¿½
+    //    //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Newtonsoft.jsonï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
     //    public List<SkillDataSO> skills = new List<SkillDataSO>();
     //}
 
@@ -89,7 +99,7 @@ public class SaveLoadManager : MonoBehaviour
     //{
     //    if (string.IsNullOrEmpty(playerSavePath))
     //    {
-    //        Debug.LogError("Save path is not set.");
+    //        Debug.LogError("<color=red>Save path is not set.");
     //        return;
     //    }
     //    string json = JsonUtility.ToJson(gameData, true);
@@ -99,20 +109,19 @@ public class SaveLoadManager : MonoBehaviour
     //public GameData LoadGame()
     //{
 
-    //    // ÆÄÀÏÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+    //    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
     //    if (File.Exists(playerSavePath))
     //    {
-    //        // ÆÄÀÏ¿¡¼­ JSON µ¥ÀÌÅÍ ÀÐ±â
+    //        // ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ JSON ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð±ï¿½
     //        string json = File.ReadAllText(playerSavePath);
     //       Debug.Log(json);
-    //        // JSON µ¥ÀÌÅÍ¸¦ GameData °´Ã¼·Î ¿ªÁ÷·ÄÈ­
+    //        // JSON ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ GameData ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È­
     //        return JsonUtility.FromJson<GameData>(json);
-            
+
     //    }
 
-    //    // ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é null ¹ÝÈ¯
-    //    Debug.Log("Á¸ÀçX");
+    //    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ null ï¿½ï¿½È¯
+    //    Debug.Log("ï¿½ï¿½ï¿½ï¿½X");
     //    return null;
     //}
-
 }

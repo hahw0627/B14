@@ -1,33 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Boss : Monster  // ���� ��ũ��Ʈ ���
+public class Boss : Monster // ���� ��ũ��Ʈ ���
 {
-    public GameManager gameManager;
-    public BossTimer bossTimer;
+    [FormerlySerializedAs("bossTimer")]
+    public BossTimer BossTimer;
 
     // ���� ���� Ȱ��ȭ ��
     protected override void OnEnable()
     {
-        Hp = monsterData.Hp * 3; // ���� ���ʹ� HP�� 2��� ����
-        damage = monsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
-        attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f;
-        isAttacking = false;
+        Hp = MonsterData.Hp * 3; // ���� ���ʹ� HP�� 2��� ����
+        Damage = MonsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
+        AttackSpeed = MonsterData.AttackSpeed;
+        MoveTime = 0.0f;
+        IsAttacking = false;
 
-        bossTimer.ActivateTimer();
+        BossTimer.ActivateTimer();
     }
 
     // ���� ���� �ǰ�
     public override void TakeDamage(int damage, bool isSkillDamage = false)
     {
-        if (damageTextPool != null)
+        if (DamageTextPool is not null)
         {
-            DamageText damageText = damageTextPool.GetDamageText();
-            if (damageText != null)
+            var damageText = DamageTextPool.GetDamageText();
+            if (damageText is not null)
             {
-                damageText.transform.position = hudPos.position;
+                damageText.transform.position = HUDPos.position;
                 damageText.SetDamage(damage);
             }
             else
@@ -39,30 +38,29 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
         {
             Debug.LogWarning("DamageTextPool is not initialized.");
         }
+
         Hp -= damage;
 
-        if (Hp <= 0)
-        {
-            this.Die();
-            BossDeath();
-            gameObject.SetActive(false);
+        if (Hp > 0) return;
+        Die();
+        BossDeath();
+        gameObject.SetActive(false);
 
-            bossTimer.DeactivateTimer();
-        }
+        BossTimer.DeactivateTimer();
     }
 
     // ���� ���
-    public void BossDeath()
+    private void BossDeath()
     {
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� StagePage�� 0�� �ȴ�.
-        gameManager.stagePage = 0;
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� Stage�� 1 ������Ų��.
-        gameManager.stage++;
-        monsterData.stage = gameManager.stage;  // ����SO�� �������� ���� ����?
+        StageManager.Instance.StageDataSO.StagePage = 0;
+        StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
+            StageManager.Instance.StageDataSO.StagePage);
+        MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
+
         // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
-        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
-        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
-        
-        PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.SHORT);
+        MonsterData.Hp = Mathf.RoundToInt(MonsterData.Hp * 1.2f);
+        MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
+
+        PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.Short);
     }
 }
