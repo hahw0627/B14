@@ -116,7 +116,7 @@ public class Monster : MonoBehaviour, IDamageable
     }
 
     // 몬스터 피격
-    public virtual void TakeDamage(int damage, bool isSkillDamage = false)
+    public virtual void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
         if (DamageTextPool is not null)
         {
@@ -124,7 +124,21 @@ public class Monster : MonoBehaviour, IDamageable
             if (damageText is not null)
             {
                 damageText.transform.position = HUDPos.position;
-                damageText.SetDamage(damage);
+                bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
+
+                if (isPetAttack)
+                {
+                    damageText.SetDamage(damage, false, Color.yellow, 0.8f);
+                }
+                else if (isCritical)
+                {
+                    damage = Mathf.RoundToInt(damage * DataManager.Instance.PlayerDataSo.CriticalMultiplier);
+                    damageText.SetDamage(damage, true);
+                }
+                else
+                {
+                    damageText.SetDamage(damage);
+                }
             }
             else
             {

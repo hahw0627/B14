@@ -12,7 +12,7 @@ public class Pet : MonoBehaviour
 
     private void Awake()
     {
-        damage = companionData.Damage; // �⺻ ���� �� ���
+        UpdateDamage(companionData.Damage); // �⺻ ���� �� ���
         attackSpeed = companionData.AttackSpeed; // �⺻ ���� �� ���
     }
 
@@ -21,6 +21,11 @@ public class Pet : MonoBehaviour
         GameObject player = GameObject.Find("Player");
         scanner = player.GetComponent<Scanner>();
         StartCoroutine(Attack());
+    }
+
+    public void UpdateDamage(int newDamage)
+    {
+        damage = newDamage;
     }
 
     private IEnumerator Attack()
@@ -38,6 +43,11 @@ public class Pet : MonoBehaviour
                 projectileScript.Damage = this.damage; // �÷��̾��� ������ ���
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.yellow);
+                Monster monster = scanner.nearestTarget.GetComponent<Monster>();
+                if (monster != null)
+                {
+                    monster.TakeDamage(this.damage, false, true);  // isPetAttack을 true로 설정
+                }
             }
             yield return new WaitForSeconds(1 / attackSpeed);
         }
