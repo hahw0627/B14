@@ -49,7 +49,7 @@ public class StatUpgrade : MonoBehaviour
         SetupButton(AttackBtn, () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
         SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
         SetupButton(RecoverHpBtn, () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ", RecoverHpCostTmp));
-        SetupButton(AttackSpeedBtn, () => UpgradeStat(ref PlayerData.AttackSpeed, 0.5f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ", AttackSpeedCostTmp));
+        SetupButton(AttackSpeedBtn, () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ", AttackSpeedCostTmp)); // 최대 3번 공격
         SetupButton(CriticalPercentBtn, () => UpgradeCriticalPercent());
         SetupButton(CriticalDamageBtn, () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "치명타데미지 : ", CriticalDamageCostTmp));
     }
@@ -127,12 +127,12 @@ public class StatUpgrade : MonoBehaviour
     private void UpdateUI()
     {
         AttackTmp.text = "공격력\n" + PlayerData.Damage;
-        AttackSpeedTmp.text = "공격속도\n" + PlayerData.AttackSpeed+"%";
+        AttackSpeedTmp.text = "공격속도\n" + (PlayerData.AttackSpeed*100).ToString("F1")+"%";
         HpTmp.text = "체력\n" + PlayerData.Hp;
         RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
         CriticalPercentTmp.text = "치명타 확률\n" + PlayerData.CriticalPer.ToString("F1") + "%";
         CriticalPercentBtn.interactable = PlayerData.CriticalPer < 100f;
-        CriticalDamageTmp.text = "치명타 데미지\n" + (PlayerData.CriticalMultiplier * 100) +"%";
+        CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalMultiplier * 100 +"%";
 
         AttackCostTmp.text = _attackCost.ToString();
         AttackSpeedCostTmp.text = _attackSpeedCost.ToString();
