@@ -6,11 +6,13 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     public Character4D Character;
-    
+
     [FormerlySerializedAs("playerData")]
     public PlayerDataSO PlayerData;
+
     [FormerlySerializedAs("gameManager")]
     public GameManager GameManager;
+
     [FormerlySerializedAs("scanner")]
     public Scanner Scanner;
 
@@ -19,14 +21,18 @@ public class Player : MonoBehaviour
 
     [FormerlySerializedAs("damage")]
     public float Damage;
+
     [FormerlySerializedAs("attackSpeed")]
     public float AttackSpeed;
+
     [FormerlySerializedAs("currentHp")]
     public int CurrentHp;
+
     public int CurrentDamage { get; private set; }
 
     [FormerlySerializedAs("criticalPer")]
     public float CriticalPer;
+
     [FormerlySerializedAs("criticalMultiplier")]
     public float CriticalMultiplier;
 
@@ -38,7 +44,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-
         PlayerData = DataManager.Instance.PlayerDataSo;
         Scanner = GetComponent<Scanner>();
 
@@ -68,7 +73,7 @@ public class Player : MonoBehaviour
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Target = Scanner.nearestTarget;   // ������ ����ü�� Ÿ�� ����
+                projectileScript.Target = Scanner.nearestTarget; // ������ ����ü�� Ÿ�� ����
                 projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
 
                 bool isCritical = IsCriticalHit();
@@ -79,7 +84,7 @@ public class Player : MonoBehaviour
                     Damage *= CriticalMultiplier;
                 }
 
-                projectileScript.Damage = Mathf.RoundToInt(Damage);    // ������ ����ü�� ������ ����
+                projectileScript.Damage = Mathf.RoundToInt(Damage); // ������ ����ü�� ������ ����
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
                 if (DamageTextPool != null)
@@ -91,7 +96,6 @@ public class Player : MonoBehaviour
                         damageText.transform.position = Scanner.nearestTarget.transform.position;
                     }
                 }
-
             }
 
             yield return new WaitForSeconds(1 / AttackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
@@ -145,7 +149,9 @@ public class Player : MonoBehaviour
     public void StageReset()
     {
         // �������� ������ �ʱ�ȭ
-        GameManager.StagePage = 0;
+        StageManager.Instance.StageDataSO.StagePage = 0;
+        StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
+            StageManager.Instance.StageDataSO.StagePage);
 
         // ü�� �ʱ�ȭ
         CurrentHp = PlayerData.Hp;
@@ -162,6 +168,7 @@ public class Player : MonoBehaviour
         PlayerData.Damage += amount;
         UpdateDamage();
     }
+
     private void UpdateDamage()
     {
         Debug.Log($"Updating damage. Base: {PlayerData.Damage}, Buff: {PlayerData.Damage}");
@@ -172,11 +179,7 @@ public class Player : MonoBehaviour
 
     public void Heal(int amount) // ���� �÷��̾� �ǰ� ������ ���� ����
     {
-
     }
-
-
-
 
 
     public void StartAttacking()

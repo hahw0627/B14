@@ -1,10 +1,8 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Boss : Monster  // ���� ��ũ��Ʈ ���
+public class Boss : Monster // ���� ��ũ��Ʈ ���
 {
-    [FormerlySerializedAs("gameManager")]
-    public GameManager GameManager;
     [FormerlySerializedAs("bossTimer")]
     public BossTimer BossTimer;
 
@@ -40,6 +38,7 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
         {
             Debug.LogWarning("DamageTextPool is not initialized.");
         }
+
         Hp -= damage;
 
         if (Hp > 0) return;
@@ -53,15 +52,15 @@ public class Boss : Monster  // ���� ��ũ��Ʈ ���
     // ���� ���
     private void BossDeath()
     {
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� StagePage�� 0�� �ȴ�.
-        GameManager.StagePage = 0;
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� Stage�� 1 ������Ų��.
-        GameManager.Stage++;
-        MonsterData.stage = GameManager.Stage;  // ����SO�� �������� ���� ����?
+        StageManager.Instance.StageDataSO.StagePage = 0;
+        StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
+            StageManager.Instance.StageDataSO.StagePage);
+        MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
+
         // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
         MonsterData.Hp = Mathf.RoundToInt(MonsterData.Hp * 1.2f);
         MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
-        
+
         PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.Short);
     }
 }

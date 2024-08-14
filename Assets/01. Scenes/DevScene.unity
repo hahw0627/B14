@@ -952,6 +952,53 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &56460998
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 56460999}
+  - component: {fileID: 56461000}
+  m_Layer: 0
+  m_Name: StageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &56460999
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56460998}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 807149268}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56461000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56460998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa1ae2b1221b944ab0d3fec450b94a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageTmp: {fileID: 486986255}
+  StageDataSO: {fileID: 11400000, guid: 0a2d50747489c6246820b0cf9430dcf1, type: 2}
+  _monsterSpawner: {fileID: 803125298}
 --- !u!1 &58939387
 GameObject:
   m_ObjectHideFlags: 0
@@ -10566,7 +10613,6 @@ GameObject:
   - component: {fileID: 571272589}
   - component: {fileID: 571272591}
   - component: {fileID: 571272590}
-  - component: {fileID: 571272592}
   m_Layer: 5
   m_Name: Stage
   m_TagString: Untagged
@@ -10632,20 +10678,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571272588}
   m_CullTransparentMesh: 1
---- !u!114 &571272592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 571272588}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fa1ae2b1221b944ab0d3fec450b94a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gameManager: {fileID: 2073042256}
-  _stageTmp: {fileID: 486986255}
 --- !u!1 &576452059
 GameObject:
   m_ObjectHideFlags: 0
@@ -16301,6 +16333,7 @@ Transform:
   - {fileID: 2073042257}
   - {fileID: 228160399}
   - {fileID: 1488033852}
+  - {fileID: 56460999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &812317659
@@ -29809,7 +29842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002dac3e1f598ff4a8d9a2e01f27fc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  PlayerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
+  StageDataSO: {fileID: 11400000, guid: 0a2d50747489c6246820b0cf9430dcf1, type: 2}
 --- !u!114 &1488033854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39608,9 +39642,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d81d3b6341d54041ac6fa6cd28f953b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Spawner: {fileID: 803125298}
-  _stagePage: 0
-  _stage: 1
 --- !u!4 &2073042257
 Transform:
   m_ObjectHideFlags: 0

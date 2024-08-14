@@ -4,15 +4,18 @@ using UnityEngine;
 public class SaveLoadManager : MonoBehaviour
 {
     private string _playerSavePath;
+    private string _stageSavePath;
     //private string skillsSavePath;
 
-    public PlayerDataSO playerDataSO;
+    public PlayerDataSO PlayerDataSO;
+    public StageDataSO StageDataSO;
     //public List<SkillDataSO> skillsDataSO = new List<SkillDataSO>();
 
     private void Awake()
     {
-         _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
-       //skillsSavePath = Application.persistentDataPath + "/skillsSOdata.json";
+        _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
+        _stageSavePath = Application.persistentDataPath + "/stageSOdata.json";
+        //skillsSavePath = Application.persistentDataPath + "/skillsSOdata.json";
     }
 
     //public void ReceiveSOData()
@@ -33,8 +36,10 @@ public class SaveLoadManager : MonoBehaviour
 
     public void SaveSOData()
     {
-        var playerJson = JsonUtility.ToJson(playerDataSO,true);
+        var playerJson = JsonUtility.ToJson(PlayerDataSO, true);
         File.WriteAllText(_playerSavePath, playerJson);
+        var stageJson = JsonUtility.ToJson(StageDataSO, true);
+        File.WriteAllText(_stageSavePath, stageJson);
         //SkillsDataWrapper wrapper = new SkillsDataWrapper
         //{
         //    skills = skillsDataSO
@@ -43,14 +48,13 @@ public class SaveLoadManager : MonoBehaviour
         //File.WriteAllText(skillsSavePath, skillsJson);
     }
 
- 
+
     public void LoadSOData()
     {
-
         if (File.Exists(_playerSavePath))
         {
             var playerJson = File.ReadAllText(_playerSavePath);
-            JsonUtility.FromJsonOverwrite(playerJson, playerDataSO);
+            JsonUtility.FromJsonOverwrite(playerJson, PlayerDataSO);
             Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
         }
         else
@@ -58,6 +62,16 @@ public class SaveLoadManager : MonoBehaviour
             Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
         }
 
+        if (File.Exists(_stageSavePath))
+        {
+            var stageJson = File.ReadAllText(_stageSavePath);
+            JsonUtility.FromJsonOverwrite(stageJson, StageDataSO);
+            Debug.Log("<color=#00ff00>StageDataSO loaded from JSON.</color>");
+        }
+        else
+        {
+            Debug.LogWarning("<color=yellow>Stage data JSON file not found.</color>");
+        }
         //if (File.Exists(skillsSavePath))
         //{
         //    string skillsJson = File.ReadAllText(skillsSavePath);
@@ -103,12 +117,11 @@ public class SaveLoadManager : MonoBehaviour
     //       Debug.Log(json);
     //        // JSON �����͸� GameData ��ü�� ������ȭ
     //        return JsonUtility.FromJson<GameData>(json);
-            
+
     //    }
 
     //    // ������ �������� ������ null ��ȯ
     //    Debug.Log("����X");
     //    return null;
     //}
-
 }

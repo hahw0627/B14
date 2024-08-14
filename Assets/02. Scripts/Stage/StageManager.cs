@@ -1,25 +1,36 @@
+using System;
 using TMPro;
 using UnityEngine;
 
-public class StageManager : MonoBehaviour
+public class StageManager : SingletonDestroyable<StageManager>
 {
-    [SerializeField]
-    private GameManager _gameManager; // PlayerSO를 참조합니다.
-
+    public event Action<int, int> onStageChanged;
+    
     [SerializeField]
     private TextMeshProUGUI _stageTmp;
 
+    public StageDataSO StageDataSO;
+
+    [SerializeField]
+    private MonsterSpawner _monsterSpawner;
+
+    protected override void Awake()
+    {
+        onStageChanged -= UpdateStageDisplay;
+    }
+
     private void Start()
     {
-        UpdateStageDisplay(_gameManager.Stage, _gameManager.StagePage);
-        _gameManager.onStageChanged += UpdateStageDisplay; // 이벤트 구독
+        UpdateStageDisplay(StageDataSO.Stage, StageDataSO.StagePage);
+        onStageChanged += UpdateStageDisplay;
+        StartCoroutine(_monsterSpawner.CheckMonsters());
     }
-
-    private void Awake()
+    
+    public void ChangeStage(int newStage, int newStagePage)
     {
-        _gameManager.onStageChanged -= UpdateStageDisplay; // 이벤트 구독 해제
+        onStageChanged?.Invoke(newStage, newStagePage);
     }
-
+    
     private void UpdateStageDisplay(int newStage, int newStagePage)
     {
         _stageTmp.text = $"스테이지 {newStage}-{newStagePage}";
