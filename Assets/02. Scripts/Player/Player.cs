@@ -70,16 +70,6 @@ public class Player : MonoBehaviour
                 projectileScript.damage = Mathf.RoundToInt(damage);    // ������ ����ü�� ������ ����
                 projectileScript.shooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
-                if (damageTextPool != null)
-                {
-                    DamageText damageText = damageTextPool.GetDamageText();
-                    if (damageText != null)
-                    {
-                        damageText.SetDamage(Mathf.RoundToInt(damage), isCritical);
-                        damageText.transform.position = scanner.nearestTarget.transform.position;
-                    }
-                }
-
             }
 
             yield return new WaitForSeconds(1 / attackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
