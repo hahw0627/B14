@@ -5034,7 +5034,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6124717720052169194
 Transform:
   m_ObjectHideFlags: 0
@@ -5373,6 +5373,7 @@ MonoBehaviour:
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 6124717720052169194}
+  FireMuzzle: {fileID: 5796590969022113175}
 --- !u!1 &2321245137547656967
 GameObject:
   m_ObjectHideFlags: 0

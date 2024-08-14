@@ -33,6 +33,9 @@ public class Monster : MonoBehaviour, IDamageable
     [FormerlySerializedAs("hudPos")]
     public Transform HUDPos;
 
+    [FormerlySerializedAs("fireMuzzle")]
+    public Transform FireMuzzle;
+
     protected DamageTextPool DamageTextPool;
 
     private int _goldReward;
@@ -99,7 +102,7 @@ public class Monster : MonoBehaviour, IDamageable
             {
                 //Character.AnimationManager.Fire();
                 var projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.transform.position = transform.position;
+                projectile.transform.position = FireMuzzle.position;
                 var projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.Target = Target.transform;
                 projectileScript.SetDirection(Target.transform.position);

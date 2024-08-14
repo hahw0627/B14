@@ -15153,6 +15153,7 @@ MonoBehaviour:
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 1837395413075678990}
+  FireMuzzle: {fileID: 1938101781934969259}
 --- !u!1 &7057183476013331861
 GameObject:
   m_ObjectHideFlags: 0
