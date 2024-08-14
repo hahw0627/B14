@@ -24,11 +24,12 @@ public class GachaManager : MonoBehaviour
     public Button closeButton;
     public Button allOpenButton;
 
+    private SkillUIManager skillUIManager;
     private List<GachaScroll> activeScrolls = new List<GachaScroll>();
 
     private void Start()
     {
-        // À¯´ÏÆ¼ ¹öÆ° ÄÄÆ÷³ÍÆ®¿¡¼­ ¿¬°áÇÏÁö ¾Ê°í ÄÚµå·Î ¿¬°áÇØº¸±â
+        // ï¿½ï¿½ï¿½ï¿½Æ¼ ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½ï¿½ï¿½
         closeButton.onClick.AddListener(CloseGacha);
         allOpenButton.onClick.AddListener(AllScrollOpen);
 
@@ -38,11 +39,12 @@ public class GachaManager : MonoBehaviour
         twelveSkillPullButton.onClick.AddListener(() => PullGacha(12, "Skill"));
         oneWeaponPullButton.onClick.AddListener(() => PullGacha(1, "Weapon"));
         twelveWeaponPullButton.onClick.AddListener(() => PullGacha(12, "Weapon"));
+        skillUIManager = FindObjectOfType<SkillUIManager>();
     }
 
     public void PullGacha(int pullCount, string type)
     {
-        // °¡Ã­ÆäÀÌÁö È°¼ºÈ­
+        // ï¿½ï¿½Ã­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­
         gachaPage.SetActive(true);
         closeButton.SetActive(true);
         allOpenButton.SetActive(true);
@@ -72,12 +74,12 @@ public class GachaManager : MonoBehaviour
 
     public CompanionDataSO GetRandomCompanion()
     {
-        // ¿©±â¿¡ µî±Þ¿¡ µû¸¥ È®·ü °è»ê ·ÎÁ÷
-        // Rarity°¡ ³ôÀº ÆêÀÌ ³·Àº È®·ü·Î ³ª¿À°Ô
+        // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½Þ¿ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // Rarityï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         int totalWeight = 0;
         foreach (CompanionDataSO companion in companionDataList)
         {
-            totalWeight += GetWeightByRarity(companion.rarity);
+            totalWeight += GetWeightByRarity(companion.Rarity);
         }
 
         int randomValue = Random.Range(0, totalWeight);
@@ -85,15 +87,15 @@ public class GachaManager : MonoBehaviour
 
         foreach (CompanionDataSO companion in companionDataList)
         {
-            accumulatedWeight += GetWeightByRarity(companion.rarity);
+            accumulatedWeight += GetWeightByRarity(companion.Rarity);
             if (randomValue < accumulatedWeight)
             {
-                companion.count++;
+                companion.Count++;
                 return companion;
             }
         }
 
-        return null; // ¾ÈÀüÀåÄ¡, ÀÌ ÄÚµå¿¡ µµ´ÞÇÏ¸é ¾È µÊ.
+        return null; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡, ï¿½ï¿½ ï¿½Úµå¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ ï¿½ï¿½.
     }
 
     public SkillDataSO GetRandomSkill()
@@ -101,7 +103,7 @@ public class GachaManager : MonoBehaviour
         int totalWeight = 0;
         foreach (SkillDataSO skill in skillDataList)
         {
-            totalWeight += GetWeightByRarity(skill.rarity);
+            totalWeight += GetWeightByRarity(skill.Rarity);
         }
 
         int randomValue = Random.Range(0, totalWeight);
@@ -109,10 +111,11 @@ public class GachaManager : MonoBehaviour
 
         foreach (SkillDataSO skill in skillDataList)
         {
-            accumulatedWeight += GetWeightByRarity(skill.rarity);
+            accumulatedWeight += GetWeightByRarity(skill.Rarity);
             if (randomValue < accumulatedWeight)
             {
-                skill.count++;
+                skill.Count++;
+                skillUIManager.AcquireSkill(skill);
                 return skill;
             }
         }
@@ -125,7 +128,7 @@ public class GachaManager : MonoBehaviour
         int totalWeight = 0;
         foreach (EquipmentDataSO weapon in weaponDataList)
         {
-            totalWeight += GetWeightByRarity((Define.SkillRarity)weapon.gachaRarity);
+            totalWeight += GetWeightByRarity((Define.SkillRarity)weapon.GachaRarity);
         }
 
         int randomValue = Random.Range(0, totalWeight);
@@ -133,10 +136,10 @@ public class GachaManager : MonoBehaviour
 
         foreach (EquipmentDataSO weapon in weaponDataList)
         {
-            accumulatedWeight += GetWeightByRarity((Define.SkillRarity)weapon.gachaRarity);
+            accumulatedWeight += GetWeightByRarity((Define.SkillRarity)weapon.GachaRarity);
             if (randomValue < accumulatedWeight)
             {
-                weapon.count++;
+                weapon.Count++;
                 return weapon;
             }
         }
@@ -165,15 +168,15 @@ public class GachaManager : MonoBehaviour
 
     private void CloseGacha()
     {
-        // ¸ðµç Scroll ¿ÀºêÁ§Æ® Á¦°Å
+        // ï¿½ï¿½ï¿½ Scroll ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         foreach (Transform child in gachaPage.transform)
         {
             Destroy(child.gameObject);
         }
-        // ¸®½ºÆ® ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ê±ï¿½È­
         activeScrolls.Clear();
 
-        // GachaPage ºñÈ°¼ºÈ­
+        // GachaPage ï¿½ï¿½È°ï¿½ï¿½È­
         gachaPage.SetActive(false);
         closeButton.SetActive(false);
         allOpenButton.SetActive(false);
@@ -181,7 +184,7 @@ public class GachaManager : MonoBehaviour
 
     private void AllScrollOpen()
     {
-        // È°¼ºÈ­µÈ ¸ðµç ScrollÀÇ Front¸¦ È°¼ºÈ­
+        // È°ï¿½ï¿½È­ï¿½ï¿½ ï¿½ï¿½ï¿½ Scrollï¿½ï¿½ Frontï¿½ï¿½ È°ï¿½ï¿½È­
         foreach (var scroll in activeScrolls)
         {
             scroll.OpenScroll();

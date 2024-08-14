@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.000015258789, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &62886754452694621
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -192,9 +192,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 685c32b7dc7c2b744930b9f38cd5063a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 5496103263673470288, guid: e4bdf42e3ece3b140ba5280eefb6debf, type: 3}
   _speechText: {fileID: 6183330697589260692}
-  Offset: {x: 0, y: 0, z: 0}
-  TypingSpeed: 0.05
-  ShakeDuration: 2
-  ShakeMagnitude: 0.1
+  _speechDuration: 4
+  _typingSpeed: 0.14

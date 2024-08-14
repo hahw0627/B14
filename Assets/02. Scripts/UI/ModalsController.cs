@@ -1,131 +1,123 @@
-using Assets.HeroEditor4D.InventorySystem.Scripts.Enums;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class ModalsController : MonoBehaviour
 {
-    public TextMeshProUGUI title;
-    public Transform content; 
-    public GameObject itemPrefab;
- 
-    private Define.EquipmentType selectedItemType;
-    public TextMeshProUGUI currentItemName;
-    public Image currentItemImage;
+    [FormerlySerializedAs("title")]
+    public TextMeshProUGUI Title;
 
-    public Sprite defaultSprite;
+    [FormerlySerializedAs("content")]
+    public Transform Content;
 
-    List<GameObject> itemTableObjects;
-    List<EquipmentDataSO> playerWeapons;
-    public SpriteRenderer weaponSprite;
-   
+    [FormerlySerializedAs("itemPrefab")]
+    public GameObject ItemPrefab;
+
+    private Define.EquipmentType _selectedItemType;
+
+    [FormerlySerializedAs("currentItemName")]
+    public TextMeshProUGUI CurrentItemName;
+
+    [FormerlySerializedAs("currentItemImage")]
+    public Image CurrentItemImage;
+
+    [FormerlySerializedAs("defaultSprite")]
+    public Sprite DefaultSprite;
+
+    private List<GameObject> _itemTableObjects;
+    private List<EquipmentDataSO> _playerWeapons;
+
+    [FormerlySerializedAs("weaponSprite")]
+    public SpriteRenderer WeaponSprite;
+
     private void Start()
     {
-       playerWeapons = DataManager.Instance.playerDataSO.weapons;
+        _playerWeapons = DataManager.Instance.PlayerDataSo.Weapons;
     }
+
     public void OnWeaponButtonClick()
     {
-        selectedItemType = Define.EquipmentType.Weapon;
-        title.text = "����";
-        currentItemName.text = DataManager.Instance.playerDataSO.currentWeaponEquip.itemName;
-        currentItemImage.sprite = DataManager.Instance.playerDataSO.currentWeaponEquip.sprite;
+        _selectedItemType = Define.EquipmentType.Weapon;
+        Title.text = "무기";
+        CurrentItemName.text = DataManager.Instance.PlayerDataSo.CurrentWeaponEquip.ItemName;
+        CurrentItemImage.sprite = DataManager.Instance.PlayerDataSo.CurrentWeaponEquip.Sprite;
         UpdateItemList();
     }
 
 
-    // ���?��ư Ŭ�� �� ȣ��
+    // ���?��ư Ŭ�� �� ȣ��
     public void OnArmorButtonClick()
     {
-        selectedItemType = Define.EquipmentType.Armor;
-        title.text = "��";
+        _selectedItemType = Define.EquipmentType.Armor;
+        Title.text = "방어구";
         UpdateItemList();
     }
+
     public void OnEquip()
     {
-        if (selectedItemType == Define.EquipmentType.Weapon)
+        if (_selectedItemType == Define.EquipmentType.Weapon)
         {
-
-            foreach (var item in playerWeapons)
+            foreach (var item in _playerWeapons)
             {
-                if (item.itemName == currentItemName.text)
+                if (item.ItemName == CurrentItemName.text)
                 {
-                    DataManager.Instance.playerDataSO.currentWeaponEquip = item;
+                    DataManager.Instance.PlayerDataSo.CurrentWeaponEquip = item;
 
-                    weaponSprite.sprite = DataManager.Instance.playerDataSO.currentWeaponEquip.sprite;
-                   
+                    WeaponSprite.sprite = DataManager.Instance.PlayerDataSo.CurrentWeaponEquip.Sprite;
                 }
                 else
                 {
-                    Debug.Log("��� ���?���� ����.");
-                    
+                    Debug.Log("��� ���?���� ����.");
                 }
             }
         }
         else
         {
-            //���?�߰�..
+            //���?�߰�..
         }
     }
+
     public void OnEnhanceButton()
     {
-        if (selectedItemType == Define.EquipmentType.Weapon)
+        if (_selectedItemType == Define.EquipmentType.Weapon)
         {
-
-            foreach (var item in playerWeapons)
-            {           
-                if (item.itemName == currentItemName.text)
+            foreach (var item in _playerWeapons)
+            {
+                if (item.ItemName == CurrentItemName.text)
                 {
-                    item.EnhanceItem(selectedItemType);
+                    item.EnhanceItem(_selectedItemType);
                     Debug.Log("��ȭ����");
-                    
                 }
                 else
                 {
                     Debug.Log("�κ��� ��� ��ȭ ����");
-                    
                 }
             }
         }
         else
         {
-            //���?�߰�..
+            //���?�߰�..
         }
     }
 
     private void UpdateItemList()
     {
-        
-        foreach (Transform child in content)
+        foreach (Transform child in Content)
         {
             Destroy(child.gameObject);
         }
 
-        if (selectedItemType == Define.EquipmentType.Weapon)
+        if (_selectedItemType != Define.EquipmentType.Weapon) return;
+        foreach (var item in DataManager.Instance.WeaponEquipmentDataSo)
         {
+            var newItem = Instantiate(ItemPrefab, Content);
+            newItem.name = item.ItemName;
+            //itemTableObjects.Add(newItem);
 
-            foreach (var item in DataManager.Instance.weaponEquipmentDataSO)
-            {
-
-                GameObject newItem = Instantiate(itemPrefab, content);
-                newItem.name = item.itemName;
-                //itemTableObjects.Add(newItem);
-
-                bool isInPlayerWeapons = playerWeapons.Exists(weapon => weapon.itemName == item.itemName);
-                if (isInPlayerWeapons)
-                {
-                    newItem.GetComponent<Image>().sprite = item.sprite;
-                }
-                else
-                {
-                    newItem.GetComponent<Image>().sprite = defaultSprite;
-                }
-            }
+            var isInPlayerWeapons = _playerWeapons.Exists(weapon => weapon.ItemName == item.ItemName);
+            newItem.GetComponent<Image>().sprite = isInPlayerWeapons ? item.Sprite : DefaultSprite;
         }
-
     }
-
 }

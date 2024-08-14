@@ -1,23 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-
+//[System.Serializable]
 [CreateAssetMenu(fileName = "SkillDataSO", menuName = "ScriptableObjects/SkillDataSO")]
 public class SkillDataSO : ScriptableObject
 {
-    public string skillName;
-    public Sprite icon;
-    public int level;
-    public Define.SkillRarity rarity;
-    public string description;
-    public float duration;
-    public float cooldown;
-    public int damage;
-    public GameObject effectPrefab;
-    public Define.SkillType skillType;
-    public float projectileSpeed; // Åõ»çÃ¼ ½ºÅ³¿ë
-    public float aoeRadius; // ¹üÀ§ ½ºÅ³¿ë
-    public int buffAmount; // °ø°Ý·Â ¿Ã¶ó°¡´Â ¼öÄ¡ or È¸º¹·®
-    public int count;
+    [FormerlySerializedAs("skillName")]
+    public string SkillName;
+
+    [FormerlySerializedAs("icon")]
+    public Sprite Icon;
+
+    [FormerlySerializedAs("level")]
+    public int Level;
+
+    [FormerlySerializedAs("rarity")]
+    public Define.SkillRarity Rarity;
+
+    [FormerlySerializedAs("description")]
+    public string Description;
+
+    [FormerlySerializedAs("duration")]
+    public float Duration;
+
+    [FormerlySerializedAs("cooldown")]
+    public float Cooldown;
+
+    [FormerlySerializedAs("damage")]
+    public int Damage;
+
+    [FormerlySerializedAs("effectPrefab")]
+    public GameObject EffectPrefab;
+
+    [FormerlySerializedAs("skillType")]
+    public Define.SkillType SkillType;
+
+    [FormerlySerializedAs("projectileSpeed")]
+    public float ProjectileSpeed; // ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½ï¿½Å³ï¿½ï¿½
+
+    [FormerlySerializedAs("aoeRadius")]
+    public float AoeRadius; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½
+
+    [FormerlySerializedAs("buffAmount")]
+    public int BuffAmount; // ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½Ã¶ó°¡´ï¿½ ï¿½ï¿½Ä¡ or È¸ï¿½ï¿½ï¿½ï¿½
+
+    [FormerlySerializedAs("count")]
+    public int Count;
+
+    [FormerlySerializedAs("isUnlocked")]
+    public bool IsUnlocked;
 }

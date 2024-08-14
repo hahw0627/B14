@@ -43,9 +43,9 @@ public class SkillUIManager : MonoBehaviour
             if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
                 SkillDataSO skill = skillManager.equippedSkills[i];
-                iconImage.sprite = skill.icon;
+                iconImage.sprite = skill.Icon;
                 iconImage.color = Color.white;
-                levelText.text = $"Lv.{skill.level}";
+                levelText.text = $"Lv.{skill.Level}";
             }
             else
             {
@@ -61,31 +61,38 @@ public class SkillUIManager : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        List<SkillDataSO> sortedSkills = new List<SkillDataSO>(DataManager.Instance.allSkillsDataSO);
+        List<SkillDataSO> sortedSkills = new List<SkillDataSO>(DataManager.Instance.AllSkillsDataSo);
         sortedSkills.Sort(CompareSkillsByRarity);
 
         foreach (var skill in sortedSkills)
         {
-            CreateSkillItem(skill, allSkillsContainer);
+            CreateSkillItem(skill, allSkillsContainer, skill.IsUnlocked);
         }
     }
 
     private int CompareSkillsByRarity(SkillDataSO a, SkillDataSO b)
     {
-        return a.rarity.CompareTo(b.rarity);
+        return a.Rarity.CompareTo(b.Rarity);
     }
 
-    private void CreateSkillItem(SkillDataSO skill, Transform container)
+    private void CreateSkillItem(SkillDataSO skill, Transform container, bool isUnlocked)
     {
         GameObject skillItemObj = Instantiate(skillItemPrefab, container);
         Button button = skillItemObj.GetComponent<Button>();
         Image iconImage = button.GetComponent<Image>();
         Text levelText = button.GetComponentInChildren<Text>();
 
-        iconImage.sprite = skill.icon;
-        levelText.text = $"Lv.{skill.level}";
+        iconImage.sprite = skill.Icon;
+        levelText.text = $"Lv.{skill.Level}";
 
+        button.interactable = isUnlocked;
         button.onClick.AddListener(() => ShowSkillInfo(skill));
+    }
+
+    public void AcquireSkill(SkillDataSO skill)
+    {
+        skill.IsUnlocked = true;
+        RefreshSkillUI();
     }
 
     private void ShowSkillInfo(SkillDataSO skill)
@@ -100,7 +107,7 @@ public class SkillUIManager : MonoBehaviour
     public void StartEquipProcess(SkillDataSO skill)
     {
         skillInfoPanel.SetActive(false);
-        instructionText.text = "±³Ã¼ÇÒ ½ºÅ³ ½½·ÔÀ» ¼±ÅÃÇÏ¼¼¿ä";
+        instructionText.text = "ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¼ï¿½ï¿½ï¿½";
         SetEquippedSkillsInteractable(true, skill);
     }
 
@@ -123,23 +130,23 @@ public class SkillUIManager : MonoBehaviour
 
     private void EquipSkillToSlot(Button slot, SkillDataSO newSkill)
     {
-        // ÇöÀç ÀåÂøµÈ ½ºÅ³À» °Ë»ö
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ë»ï¿½
         int index = equippedSkillSlots.IndexOf(slot);
         if (index == -1) return;
 
-        // ÀÌ¹Ì °°Àº ½ºÅ³ÀÌ ÀåÂøµÇ¾î ÀÖ´ÂÁö È®ÀÎ
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         bool isSkillAlreadyEquipped = skillManager.equippedSkills.Exists(skill => skill != null && skill == newSkill);
         if (isSkillAlreadyEquipped)
         {
-            Debug.LogWarning("ÀÌ¹Ì ÀÌ ½ºÅ³ÀÌ ÀåÂøµÇ¾î ÀÖ½À´Ï´Ù.");
-            instructionText.text = "ÀÌ¹Ì ÀåÂøµÈ ½ºÅ³ÀÔ´Ï´Ù.";
+            Debug.LogWarning("ï¿½Ì¹ï¿½ ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.");
+            instructionText.text = "ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½Ô´Ï´ï¿½.";
             return;
         }
 
-        // ½ºÅ³À» ÀåÂø
+        // ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         skillManager.EquipSkillAtIndex(index, newSkill);
 
-        // UI ¾÷µ¥ÀÌÆ®
+        // UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         SetEquippedSkillsInteractable(false);
         instructionText.text = "";
         RefreshSkillUI();
@@ -154,12 +161,12 @@ public class SkillUIManager : MonoBehaviour
     {
         switch (rarity)
         {
-            case Define.SkillRarity.Normal: return "³ë¸»";
-            case Define.SkillRarity.Rare: return "·¹¾î";
-            case Define.SkillRarity.Unique: return "À¯´ÏÅ©";
-            case Define.SkillRarity.Epic: return "¿¡ÇÈ";
-            case Define.SkillRarity.Legendary: return "·¹Àü´õ¸®";
-            default: return "¾Ë ¼ö ¾øÀ½";
+            case Define.SkillRarity.Normal: return "ï¿½ë¸»";
+            case Define.SkillRarity.Rare: return "ï¿½ï¿½ï¿½ï¿½";
+            case Define.SkillRarity.Unique: return "ï¿½ï¿½ï¿½ï¿½Å©";
+            case Define.SkillRarity.Epic: return "ï¿½ï¿½ï¿½ï¿½";
+            case Define.SkillRarity.Legendary: return "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½";
+            default: return "ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½";
         }
     }
 }

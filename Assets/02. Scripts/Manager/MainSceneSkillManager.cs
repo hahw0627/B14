@@ -52,11 +52,11 @@ public class MainSceneSkillManager : MonoBehaviour
             if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
                 SkillDataSO skill = skillManager.equippedSkills[i];
-                buttonImage.sprite = skill.icon;
+                buttonImage.sprite = skill.Icon;
                 buttonImage.color = Color.white;
                 button.interactable = true;
 
-                // Äð´Ù¿î UI ¼³Á¤
+                // ï¿½ï¿½Ù¿ï¿½ UI ï¿½ï¿½ï¿½ï¿½
                 cooldownImage.gameObject.SetActive(true);
                 cooldownText.gameObject.SetActive(true);
                 RestartCooldownCoroutine(cooldownImage, cooldownText, skill);
@@ -69,7 +69,7 @@ public class MainSceneSkillManager : MonoBehaviour
                 cooldownText.gameObject.SetActive(false);
             }
 
-            // ¹öÆ° Å¬¸¯ ÀÌº¥Æ® Àç¼³Á¤
+            // ï¿½ï¿½Æ° Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ç¼³ï¿½ï¿½
             int index = i;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => UseSkill(index));
@@ -78,7 +78,7 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void SetupSkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
-        button.image.sprite = skill.icon;
+        button.image.sprite = skill.Icon;
         button.interactable = true;
 
         cooldownImage.gameObject.SetActive(true);
@@ -118,7 +118,7 @@ public class MainSceneSkillManager : MonoBehaviour
 
             SpawnSkillEffect(skill);
 
-            StartCoroutine(ResumeAttackAfterSkill(skill.duration));
+            StartCoroutine(ResumeAttackAfterSkill(skill.Duration));
             RestartCooldownCoroutine(cooldownImages[index], cooldownTexts[index], skill);
         }
     }
@@ -137,7 +137,7 @@ public class MainSceneSkillManager : MonoBehaviour
             float remainingCooldown = skillManager.GetSkillCooldown(skill);
             if (remainingCooldown > 0)
             {
-                cooldownImage.fillAmount = remainingCooldown / skill.cooldown;
+                cooldownImage.fillAmount = remainingCooldown / skill.Cooldown;
                 cooldownText.text = remainingCooldown.ToString("F0");
             }
             else
@@ -153,40 +153,40 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void SpawnSkillEffect(SkillDataSO skill)
     {
-        if (skill.effectPrefab == null) return;
+        if (skill.EffectPrefab == null) return;
 
         GameObject effectInstance = null;
         Vector3 spawnPosition = Vector3.zero;
 
-        switch (skill.skillType)
+        switch (skill.SkillType)
         {
             case Define.SkillType.AttackBuff:
             case Define.SkillType.HealBuff:
                 spawnPosition = buffEffectSpawnPoint.position;
-                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity, buffEffectSpawnPoint);
+                effectInstance = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity, buffEffectSpawnPoint);
                 InitializeBuffSkill(effectInstance, skill);
                 StartCoroutine(DestroyEffectAfterDelay(effectInstance, 1f));
                 break;
 
             case Define.SkillType.Projectile:
-                if (player.scanner.nearestTarget != null)
+                if (player.Scanner.nearestTarget != null)
                 {
-                    spawnPosition = playerTransform.position + (player.scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
-                    GameObject projectileObject = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
+                    spawnPosition = playerTransform.position + (player.Scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
+                    GameObject projectileObject = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity);
                     InitializeProjectileSkill(projectileObject, skill);
                 }
                 break;
 
             case Define.SkillType.AreaOfEffect:
                 spawnPosition = aoeEffectSpawnPoint.position;
-                effectInstance = Instantiate(skill.effectPrefab, spawnPosition, Quaternion.identity);
+                effectInstance = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity);
                 InitializeAreaEffectSkill(effectInstance, skill);
                 break;
         }
 
-        if (effectInstance != null && skill.skillType != Define.SkillType.AttackBuff && skill.skillType != Define.SkillType.HealBuff)
+        if (effectInstance != null && skill.SkillType != Define.SkillType.AttackBuff && skill.SkillType != Define.SkillType.HealBuff)
         {
-            Destroy(effectInstance, skill.duration);
+            Destroy(effectInstance, skill.Duration);
         }
     }
 
@@ -209,7 +209,7 @@ public class MainSceneSkillManager : MonoBehaviour
         SkillProjectile projectile = projectileObject.GetComponent<SkillProjectile>();
         if (projectile != null)
         {
-            projectile.Initialize(skill, player.scanner.nearestTarget.position);
+            projectile.Initialize(skill, player.Scanner.nearestTarget.position);
         }
         else
         {

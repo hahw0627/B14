@@ -12,6 +12,7 @@ public class SkillInfoPanel : MonoBehaviour
     public TextMeshProUGUI skillDescription;
     public TextMeshProUGUI skillLevel;
     public TextMeshProUGUI skillEffect;
+    public TextMeshProUGUI skillCount;
 
     public Button equipButton;
     public Button enhanceButton;
@@ -31,22 +32,25 @@ public class SkillInfoPanel : MonoBehaviour
 
     private void UpdateSkillInfo()
     {
-        skillIcon.sprite = currentSkill.icon;
-        skillName.text = currentSkill.skillName;
-        skillDescription.text = currentSkill.description;
-        skillLevel.text = "Level: " + currentSkill.level.ToString();
-        switch (currentSkill.skillType)
+        skillIcon.sprite = currentSkill.Icon;
+        skillName.text = currentSkill.SkillName;
+        skillDescription.text = currentSkill.Description;
+        skillLevel.text = "Level: " + currentSkill.Level.ToString();
+        skillCount.text = "5 / " + currentSkill.Count.ToString();
+        switch (currentSkill.SkillType)
         {
             case Define.SkillType.AttackBuff:
-                skillEffect.text = "Attack Buff: +" + currentSkill.buffAmount.ToString();
+                skillEffect.text = "Attack Buff: +" + currentSkill.BuffAmount.ToString();
                 break;
             case Define.SkillType.HealBuff:
-                skillEffect.text = "Heal Amount: " + currentSkill.buffAmount.ToString();
+                skillEffect.text = "Heal Amount: " + currentSkill.BuffAmount.ToString();
                 break;
             default:
-                skillEffect.text = "Damage: " + currentSkill.damage.ToString();
+                skillEffect.text = "Damage: " + currentSkill.Damage.ToString();
                 break;
         }
+
+        enhanceButton.interactable = (currentSkill.Count >= 5);
     }
 
     public void OnClickEquipButton()
@@ -63,32 +67,35 @@ public class SkillInfoPanel : MonoBehaviour
     {
         if (currentSkill != null)
         {
-            // ¿©±â¿¡ °­È­¿¡ ÇÊ¿äÇÑ Á¶°Ç (¿¹: °ñµå, ¾ÆÀÌÅÛ µî) È®ÀÎ ·ÎÁ÷ Ãß°¡
-
-            currentSkill.level++;
-            switch (currentSkill.skillType)
+            // ï¿½ï¿½ï¿½â¿¡ ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½: ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) È®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+            currentSkill.Level++;
+            currentSkill.Count -= 5;
+            switch (currentSkill.SkillType)
             {
                 case Define.SkillType.AttackBuff:
-                    currentSkill.buffAmount += 5; // °ø°Ý·Â ¹öÇÁ Áõ°¡·®, ¹ë·±½º¿¡ ¸Â°Ô Á¶Á¤ ÇÊ¿ä
-                    Debug.Log($"{currentSkill.skillName} °­È­ ¼º°ø! ÇöÀç ·¹º§: {currentSkill.level}, Attack Buff: +{currentSkill.buffAmount}");
+                    currentSkill.BuffAmount += 5; // ï¿½ï¿½ï¿½Ý·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ë·±ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
+                    Debug.Log($"{currentSkill.SkillName} ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {currentSkill.Level}, Attack Buff: +{currentSkill.BuffAmount}");
                     break;
                 case Define.SkillType.HealBuff:
-                    currentSkill.buffAmount += 10; // Ä¡À¯·® Áõ°¡·®, ¹ë·±½º¿¡ ¸Â°Ô Á¶Á¤ ÇÊ¿ä
-                    Debug.Log($"{currentSkill.skillName} °­È­ ¼º°ø! ÇöÀç ·¹º§: {currentSkill.level}, Heal Amount: {currentSkill.buffAmount}");
+                    currentSkill.BuffAmount += 10; // Ä¡ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ë·±ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¿ï¿½
+                    Debug.Log($"{currentSkill.SkillName} ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {currentSkill.Level}, Heal Amount: {currentSkill.BuffAmount}");
                     break;
                 default:
-                    currentSkill.damage += 10; // µ¥¹ÌÁö Áõ°¡·®Àº °ÔÀÓ ¹ë·±½º¿¡ ¸Â°Ô Á¶Á¤
-                    Debug.Log($"{currentSkill.skillName} °­È­ ¼º°ø! ÇöÀç ·¹º§: {currentSkill.level}, Damage: {currentSkill.damage}");
+                    currentSkill.Damage += 10; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ë·±ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½
+                    Debug.Log($"{currentSkill.SkillName} ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½! ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½: {currentSkill.Level}, Damage: {currentSkill.Damage}");
                     break;
             }
 
             UpdateSkillInfo();
-            // SkillUIManagerÀÇ RefreshSkillUI ¸Þ¼­µå È£Ãâ
+            // SkillUIManagerï¿½ï¿½ RefreshSkillUI ï¿½Þ¼ï¿½ï¿½ï¿½ È£ï¿½ï¿½
             if (skillUIManager != null)
             {
                 skillUIManager.RefreshSkillUI();
             }
-
+        }
+        else
+        {
+            Debug.Log("ï¿½ï¿½È­ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ Ä«ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.");
         }
     }
 }

@@ -19,5 +19,5 @@ MonoBehaviour:
   description: "\uC0C1\uB2F9\uD55C \uBA85\uC0AC\uC218\uB77C\uACE0 \uD55C\uB2E4."
   damage: 60
   attackSpeed: 1
-  count: 3
+  count: 0
   isEquipped: 0

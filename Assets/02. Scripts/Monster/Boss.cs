@@ -1,52 +1,80 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Boss : Monster  // ¸ó½ºÅÍ ½ºÅ©¸³Æ® »ó¼Ó
+public class Boss : Monster // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å©ï¿½ï¿½Æ® ï¿½ï¿½ï¿½
 {
-    public MonsterSpawner monsterSpawner;
+    [FormerlySerializedAs("bossTimer")]
+    public BossTimer BossTimer;
 
-    // º¸½º ¸ó½ºÅÍ È°¼ºÈ­ ½Ã
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È°ï¿½ï¿½È­ ï¿½ï¿½
     protected override void OnEnable()
     {
-        moveTime = 0.0f;
-        Hp = monsterData.Hp * 3; // º¸½º ¸ó½ºÅÍ´Â HP¸¦ 2¹è·Î ¼³Á¤
-        damage = monsterData.Damage * 2; // º¸½º ¸ó½ºÅÍ´Â µ¥¹ÌÁöµµ 2¹è·Î ¼³Á¤
-        attackSpeed = monsterData.AttackSpeed;
+        Hp = MonsterData.Hp * 3; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ HPï¿½ï¿½ 2ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Damage = MonsterData.Damage * 2; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        AttackSpeed = MonsterData.AttackSpeed;
+        MoveTime = 0.0f;
+        IsAttacking = false;
+
+        BossTimer.ActivateTimer();
     }
 
-    // º¸½º ¸ó½ºÅÍ ÇÇ°Ý
-    public override void TakeDamage(int damage, bool isSkillDamage = false)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç°ï¿½
+    public override void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
-        GameObject hudText = Instantiate(hudDamgeText);
-        hudText.transform.position = hudPos.position;
-
-        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
-
-        if (damageTextComponent != null)
+        if (DamageTextPool is not null)
         {
-            damageTextComponent.SetDamage(damage);
+            var damageText = DamageTextPool.GetDamageText();
+            if (damageText is not null)
+            {
+                damageText.transform.position = HUDPos.position;
+                bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
+
+                if (isPetAttack)
+                {
+                    damageText.SetDamage(damage, false, Color.yellow, 0.8f);
+                }
+                else if (isCritical)
+                {
+                    damage = Mathf.RoundToInt(damage * DataManager.Instance.PlayerDataSo.CriticalMultiplier);
+                    damageText.SetDamage(damage, true);
+                }
+                else
+                {
+                    damageText.SetDamage(damage);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Failed to get DamageText from pool.");
+            }
         }
+        else
+        {
+            Debug.LogWarning("DamageTextPool is not initialized.");
+        }
+
         Hp -= damage;
 
-        if (Hp <= 0)
-        {
-            this.Die();
-            BossDeath();
-            gameObject.SetActive(false);
-        }
+        if (Hp > 0) return;
+        Die();
+        BossDeath();
+        gameObject.SetActive(false);
+
+        BossTimer.DeactivateTimer();
     }
 
-    // º¸½º »ç¸Á
-    public void BossDeath()
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
+    private void BossDeath()
     {
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é StagePage´Â 0ÀÌ µÈ´Ù.
-        monsterSpawner.stagePage = 0;
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é Stage¸¦ 1 Áõ°¡½ÃÅ²´Ù.
-        monsterSpawner.stage++;
-        monsterData.stage = monsterSpawner.stage;  // ¸ó½ºÅÍSOÀÇ ½ºÅ×ÀÌÁö Á¤º¸ ÀúÀå?
-        // BossMonsterÀÇ HP°¡ 0 ÀÌÇÏ°¡ µÇ¸é MonsterDataSO_TestÀÇ °ªÀ» 1.2f °öÇÏ°í ÀÎÆ®ÇüÀ¸·Î º¯È¯ÇØ¼­ ÀúÀå
-        monsterData.Hp = Mathf.RoundToInt(monsterData.Hp * 1.2f);
-        monsterData.Damage = Mathf.RoundToInt(monsterData.Damage * 1.2f);
+        StageManager.Instance.StageDataSO.StagePage = 0;
+        StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
+            StageManager.Instance.StageDataSO.StagePage);
+        MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ï¿½ï¿½ï¿½ï¿½SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½?
+
+        // BossMonsterï¿½ï¿½ HPï¿½ï¿½ 0 ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ç¸ï¿½ MonsterDataSO_Testï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 1.2f ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+        MonsterData.Hp = Mathf.RoundToInt(MonsterData.Hp * 1.2f);
+        MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
+
+        PlayerSpeechBubble.Instance.ShowMessage(PlayerSpeech.Instance.SpeechContents, SpeechLength.Short);
     }
 }

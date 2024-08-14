@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -31,16 +30,15 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
  
     public void LoadSOData()
     {
-
-        if (File.Exists(playerSavePath))
+        if (File.Exists(_playerSavePath))
         {
-            string playerJson = File.ReadAllText(playerSavePath);
-            JsonUtility.FromJsonOverwrite(playerJson, playerDataSO);
-            Debug.Log("PlayerDataSO loaded from JSON.");
+            var playerJson = File.ReadAllText(_playerSavePath);
+            JsonUtility.FromJsonOverwrite(playerJson, PlayerDataSO);
+            Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
         }
         else
         {
-            Debug.LogWarning("Player data JSON file not found.");
+            Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
         }
 
       

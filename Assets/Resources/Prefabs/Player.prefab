@@ -3320,7 +3320,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 4.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7529134723855748321
@@ -5020,7 +5020,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 4.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2816129304507226674
@@ -10924,7 +10924,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 4.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &1243931555671364716
@@ -11356,7 +11356,7 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 4.48}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2689152737992097108
@@ -12425,6 +12425,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveSpeed: 1
   DialogueText: 
+  ArrivalPosition: {x: 0, y: 0, z: 0}
 --- !u!1 &5507060777770277453
 GameObject:
   m_ObjectHideFlags: 0

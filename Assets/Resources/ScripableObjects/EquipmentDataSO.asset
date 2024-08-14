@@ -9,14 +9,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b826db3b9f45c7841bdf4339968a0e96, type: 3}
+  m_Script: {fileID: 11500000, guid: 625f7edd82ea70d4bb1ff554350a5cca, type: 3}
   m_Name: EquipmentDataSO
   m_EditorClassIdentifier: 
-  equipmentType: 0
-  equipmentGrade: 0
-  gachaRarity: 0
-  itemName: 38_sword
-  description: "\uAE30\uBCF8\uCE7C"
-  sprite: {fileID: 21300000, guid: b259bce8f8c0e374f80aada828bcba93, type: 3}
-  atk: 10
-  def: 0
+  EquipmentType: 0
+  EquipmentGrade: 0
+  GachaRarity: 0
+  ItemName: 
+  Description: 
+  Sprite: {fileID: 0}
+  Atk: 0
+  Def: 0
+  AttackSpeed: 0
+  CurrentLevel: 0
+  MaxLevel: 0
+  BaseGoldCost: 0
+  AttackIncreasePerLevel: 0
+  DefIncreasePerLevel: 0
+  Count: 0

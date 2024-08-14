@@ -189,64 +189,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Side
+      name: MicroUzi_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 448
-      alignment: 9
-      pivot: {x: 0.6, y: 0.25}
+        x: 88
+        y: 468
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 195fca5d25c9697c0800000000000000
-      internalID: -4064889734069160559
+      spriteID: ffda10e9a39f6ab47bd11dc27762b8a9
+      internalID: -1980800275
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bullet
+      name: MicroUzi_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 448
-        width: 64
-        height: 64
+        x: 151
+        y: 465
+        width: 18
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 367f86ad98391fb30800000000000000
-      internalID: 4319395737909131107
+      spriteID: dde9921570eb59d4fb9864d6dbe64cb0
+      internalID: -322775688
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shell
+      name: MicroUzi_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 448
-        width: 64
-        height: 64
+        x: 99
+        y: 65
+        width: 113
+        height: 120
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: eb99b2cb6290bc270800000000000000
-      internalID: 8271715202566429118
+      spriteID: a8e9c1e1ed50cab4d83388b6220e924c
+      internalID: -1671582065
       vertices: []
       indices: 
       edges: []
@@ -262,9 +262,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bullet: 4319395737909131107
-      Shell: 8271715202566429118
-      Side: -4064889734069160559
+      MicroUzi_0: -1980800275
+      MicroUzi_1: -322775688
+      MicroUzi_2: -1671582065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

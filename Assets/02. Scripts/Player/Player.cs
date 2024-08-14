@@ -1,29 +1,57 @@
 using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    public PlayerDataSO playerData;
-    public MonsterSpawner monsterSpawner;
-    public Scanner scanner;
+    public Character4D Character;
 
-    private Coroutine attackCoroutine;
-    public Transform fireMuzzle;
+    [FormerlySerializedAs("playerData")]
+    public PlayerDataSO PlayerData;
 
-    public int damage;
-    public float attackSpeed;
-    public int currentHp;
-    private bool isUsingSkill = false;
+    [FormerlySerializedAs("gameManager")]
+    public GameManager GameManager;
+
+    [FormerlySerializedAs("scanner")]
+    public Scanner Scanner;
+
+    [FormerlySerializedAs("fireMuzzle")]
+    public Transform FireMuzzle;
+
+    [FormerlySerializedAs("damage")]
+    public float Damage;
+
+    [FormerlySerializedAs("attackSpeed")]
+    public float AttackSpeed;
+
+    [FormerlySerializedAs("currentHp")]
+    public int CurrentHp;
+
     public int CurrentDamage { get; private set; }
+
+    [FormerlySerializedAs("criticalPer")]
+    public float CriticalPer;
+
+    [FormerlySerializedAs("criticalMultiplier")]
+    public float CriticalMultiplier;
+
+    [FormerlySerializedAs("damageTextPool")]
+
+    private bool _isUsingSkill;
+    private Coroutine _attackCoroutine;
 
     private void Awake()
     {
-        playerData = DataManager.Instance.playerDataSO;
-        scanner = GetComponent<Scanner>();
+        PlayerData = DataManager.Instance.PlayerDataSo;
+        Scanner = GetComponent<Scanner>();
 
-        attackSpeed = playerData.AttackSpeed;
-        currentHp = playerData.Hp;
+        AttackSpeed = PlayerData.AttackSpeed;
+        CurrentHp = PlayerData.Hp;
+
+        CriticalPer = PlayerData.CriticalPer;
+        CriticalMultiplier = PlayerData.CriticalMultiplier;
+
         UpdateDamage();
     }
 
@@ -39,21 +67,27 @@ public class Player : MonoBehaviour
         while (true)
         {
             // scanner�� nearestTarget�� null�� �ƴ� ��쿡�� nearestTarget�� ������ target���� ���� + ����ü ����
-            if (!isUsingSkill && scanner.nearestTarget != null)
+            if (!_isUsingSkill && Scanner.nearestTarget != null)
             {
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.transform.position = fireMuzzle.position;
+                projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = scanner.nearestTarget;   // ������ ����ü�� Ÿ�� ����
-                projectileScript.SetDirection(scanner.nearestTarget.transform.position);
-                projectileScript.damage = this.CurrentDamage;   // ������ ����ü�� ������ ����
-                projectileScript.shooterTag = "Player";
+                projectileScript.Target = Scanner.nearestTarget; // ������ ����ü�� Ÿ�� ����
+                projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
+
+                Damage = CurrentDamage;
+
+
+
+                projectileScript.Damage = Mathf.RoundToInt(Damage); // ������ ����ü�� ������ ����
+                projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
 
-            yield return new WaitForSeconds(1 / attackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
+            yield return new WaitForSeconds(1 / AttackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
         }
     }
+
 
     // ü�� ȸ�� ���
     private IEnumerator RecoverHp()
@@ -62,12 +96,12 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (currentHp < playerData.Hp)
+            if (CurrentHp < PlayerData.Hp)
             {
-                currentHp += playerData.HpRecovery;
-                if (currentHp > playerData.Hp)
+                CurrentHp += PlayerData.HpRecovery;
+                if (CurrentHp > PlayerData.Hp)
                 {
-                    currentHp = playerData.Hp;
+                    CurrentHp = PlayerData.Hp;
                 }
             }
         }
@@ -76,9 +110,9 @@ public class Player : MonoBehaviour
     // �ǰ� ���
     public void TakeDamage(int damage)
     {
-        currentHp -= damage;
+        CurrentHp -= damage;
 
-        if (currentHp <= 0)
+        if (CurrentHp <= 0)
         {
             // ���� ��Ȱ��ȭ
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
@@ -87,72 +121,50 @@ public class Player : MonoBehaviour
                 monster.SetActive(false);
             }
 
-            // �������� ������ �ʱ�ȭ
-            monsterSpawner.stagePage = 0;
-
-            // ü�� �ʱ�ȭ
-            currentHp = playerData.Hp;
+            StageManager.StageReset();
+            CurrentHp = PlayerData.Hp;
         }
     }
 
     public void SetUsingSkill(bool usingSkill)
     {
-        isUsingSkill = usingSkill;
+        _isUsingSkill = usingSkill;
     }
 
     public void ApplyAttackBuff(int amount)
     {
         Debug.Log($"Applying attack buff : {amount}");
-        playerData.Damage += amount;
+        PlayerData.Damage += amount;
         UpdateDamage();
     }
+
     private void UpdateDamage()
     {
-        Debug.Log($"Updating damage. Base: {playerData.Damage}, Buff: {playerData.Damage}");
-        CurrentDamage = playerData.Damage;
-        damage = CurrentDamage;
+        Debug.Log($"Updating damage. Base: {PlayerData.Damage}, Buff: {PlayerData.Damage}");
+        CurrentDamage = PlayerData.Damage;
+        Damage = CurrentDamage;
         Debug.Log($"New damage: {CurrentDamage}");
     }
 
     public void Heal(int amount) // ���� �÷��̾� �ǰ� ������ ���� ����
     {
-
     }
-
-
-
 
 
     public void StartAttacking()
     {
-        if (attackCoroutine == null)
+        if (_attackCoroutine == null)
         {
-            attackCoroutine = StartCoroutine(Attack());
+            _attackCoroutine = StartCoroutine(Attack());
         }
     }
 
     public void StopAttacking()
     {
-        if (attackCoroutine != null)
+        if (_attackCoroutine != null)
         {
-            StopCoroutine(attackCoroutine);
-            attackCoroutine = null;
+            StopCoroutine(_attackCoroutine);
+            _attackCoroutine = null;
         }
     }
-
-    //private void Update()
-    //{
-    //    if (scanner.nearestTarget != null)
-    //    {
-    //        // target�� �����ϸ� IsBattel�� true�� ����
-    //        animator.SetBool("IsBattle", true);
-    //        Debug.Log("��Ʋ ����");
-    //    }
-    //    else
-    //    {
-    //        // target�� null�̸� IsBattel�� false�� ����
-    //        animator.SetBool("IsBattle", false);
-    //        Debug.Log("��Ʋ ����");
-    //    }
-    //}
 }

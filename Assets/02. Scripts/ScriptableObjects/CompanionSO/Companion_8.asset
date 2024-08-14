@@ -20,5 +20,5 @@ MonoBehaviour:
     \uD55C \uAC83\uCC98\uB7FC...."
   damage: 35
   attackSpeed: 1
-  count: 0
+  count: 1
   isEquipped: 0

@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625f7edd82ea70d4bb1ff554350a5cca, type: 3}
+  m_Name: Weapon3
+  m_EditorClassIdentifier: 
+  EquipmentType: 0
+  EquipmentGrade: 0
+  GachaRarity: 0
+  ItemName: Cobra
+  Description: 
+  Sprite: {fileID: 21300000, guid: 14cc8b5624db00b40b8f2e825213ef28, type: 3}
+  Atk: 0
+  Def: 0
+  AttackSpeed: 0
+  CurrentLevel: 0
+  MaxLevel: 0
+  BaseGoldCost: 0
+  AttackIncreasePerLevel: 0
+  DefIncreasePerLevel: 0
+  Count: 0

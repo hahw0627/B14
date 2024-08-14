@@ -1,209 +1,167 @@
 using UnityEngine;
 using System.Collections;
-using TMPro;
 using System;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using UnityEngine.Serialization;
 
 public class Monster : MonoBehaviour, IDamageable
 {
-    public MonsterDataSO monsterData;
-    private Animator animator;
-    private SpriteRenderer spriteRenderer;
-    public GameObject target;
+    public Character4D Character;
+
+    [FormerlySerializedAs("monsterData")]
+    public MonsterDataSO MonsterData;
+
+    private Animator _animator;
+    private SpriteRenderer _spriteRenderer;
+
+    [FormerlySerializedAs("target")]
+    public GameObject Target;
 
     public int Hp;
-    public int damage;
-    public float attackSpeed;
-    public float moveTime = 0.0f;
 
-    private bool isAttacking = false;
-    public GameObject hudDamgeText;
-    public Transform hudPos;
+    [FormerlySerializedAs("damage")]
+    public int Damage;
 
-    private int goldReward;
+    [FormerlySerializedAs("attackSpeed")]
+    public float AttackSpeed;
 
-    public event Action<Monster> OnDeath;
+    [FormerlySerializedAs("moveTime")]
+    public float MoveTime;
 
+    [FormerlySerializedAs("isAttacking")]
+    public bool IsAttacking;
+
+    [FormerlySerializedAs("hudPos")]
+    public Transform HUDPos;
+
+    protected DamageTextPool DamageTextPool;
+
+    private int _goldReward;
+    private static readonly int IsBattle = Animator.StringToHash("IsBattle");
+
+    public event Action<Monster> onDeath;
+    
     private void Awake()
     {
-        goldReward = 10;
-        animator = GetComponent<Animator>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        target = GameObject.Find("Player");
+        _goldReward = 10;
+        _animator = GetComponent<Animator>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        Target = GameObject.Find("Player");
+        DamageTextPool = FindObjectOfType<DamageTextPool>();
+        if (DamageTextPool == null)
+        {
+            Debug.LogError("<color=red>DamageTextPool not found in the scene. Make sure it exists.</color>");
+        }
     }
 
     // 몬스터 활성화 시
     protected virtual void OnEnable()
     {
-        if (monsterData == null)
+        if (MonsterData == null)
         {
-            Debug.LogError("MonsterDataSO_Test instance fale");
+            Debug.LogError("<color=red>MonsterDataSO_Test instance is missing</color>");
             return;
         }
 
-        Hp = monsterData.Hp;
-        damage = monsterData.Damage;
-        attackSpeed = monsterData.AttackSpeed;
-        moveTime = 0.0f;
-        isAttacking = false;
+        Hp = MonsterData.Hp;
+        Damage = MonsterData.Damage;
+        AttackSpeed = MonsterData.AttackSpeed;
+        MoveTime = 0.0f;
+        IsAttacking = false;
     }
 
-    void Update()
+    private void Update()
     {
-        MoveAndAttck();
-    }
+        #region MoveAndAttack
 
-    // 이동과 공격 실행
-    private void MoveAndAttck()
-    {
-        if (moveTime < 1.5f)
+        if (MoveTime < 1.5f)
         {
-            spriteRenderer.flipX = true;
-            transform.Translate(Vector3.left * 2.0f * Time.deltaTime);
-            moveTime += Time.deltaTime;
+            _spriteRenderer.flipX = true;
+            transform.Translate(Vector3.left * (2.0f * Time.deltaTime));
+            MoveTime += Time.deltaTime;
         }
         else
         {
-            animator.SetBool("IsBattle", true);
-            if (!isAttacking)
+            _animator.SetBool(IsBattle, true);
+            if (!IsAttacking)
             {
                 StartCoroutine(Attack());
             }
         }
+
+        #endregion
     }
 
     // 몬스터 공격
     private IEnumerator Attack()
     {
-        isAttacking = true;
+        IsAttacking = true;
         while (true)
         {
-            if (target != null)
+            if (Target is not null)
             {
-                GameObject projectile = ProjectilePool.Instance.GetProjectile();
+                //Character.AnimationManager.Fire();
+                var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = transform.position;
-                Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.target = target.transform;
-                projectileScript.SetDirection(target.transform.position);
-                projectileScript.damage = damage;
-                projectileScript.shooterTag = "Monster";
+                var projectileScript = projectile.GetComponent<Projectile>();
+                projectileScript.Target = Target.transform;
+                projectileScript.SetDirection(Target.transform.position);
+                projectileScript.Damage = Damage;
+                projectileScript.ShooterTag = "Monster";
                 projectileScript.SetColor(Color.red);
             }
-            yield return new WaitForSeconds(1 / attackSpeed);
+
+            yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
 
     // 몬스터 피격
-    public virtual void TakeDamage(int damage, bool isSkillDamage = false)
+    public virtual void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
-        GameObject hudText = Instantiate(hudDamgeText);
-        hudText.transform.position = hudPos.position;
-
-        DamageText damageTextComponent = hudText.GetComponent<DamageText>();
-
-        if(damageTextComponent != null)
+        if (DamageTextPool is not null)
         {
-            damageTextComponent.SetDamage(damage);
+            var damageText = DamageTextPool.GetDamageText();
+            if (damageText is not null)
+            {
+                damageText.transform.position = HUDPos.position;
+                bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
+
+                if (isPetAttack)
+                {
+                    damageText.SetDamage(damage, false, Color.yellow, 0.8f);
+                }
+                else if (isCritical)
+                {
+                    damage = Mathf.RoundToInt(damage * DataManager.Instance.PlayerDataSo.CriticalMultiplier);
+                    damageText.SetDamage(damage, true);
+                }
+                else
+                {
+                    damageText.SetDamage(damage);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Failed to get DamageText from pool.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
         Hp -= damage;
-        if (Hp <= 0)
-        {
-            Die();
-            QuestTest.Instance.CountOneQuestSuccess();
-            gameObject.SetActive(false);
-        }
+        if (Hp > 0) return;
+        Die();
+        QuestTest.Instance.CountOneQuestSuccess();
+        gameObject.SetActive(false);
     }
 
     // 몬스터 사망
     public void Die()
     {
         var instance = DataManager.Instance;
-        instance.playerDataSO.Gold += goldReward;
-        OnDeath?.Invoke(this);
+        instance.PlayerDataSo.Gold += _goldReward;
+        onDeath?.Invoke(this);
     }
 }
-
-
-
-
-
-
-
-
-//==================================================================================================
-//using System.Collections;
-//using UnityEngine;
-//using Vector3 = UnityEngine.Vector3;
-
-//public class Monster : MonoBehaviour
-//{
-//    [SerializeField]
-//    private MonsterStatistics _monsterStatistics;
-//    private int Hp;
-
-//    public MonsterStatistics MonsterStatistics
-//    {
-//        set => _monsterStatistics = value;
-//    }
-
-//    [SerializeField]
-//    private float _moveSpeed = 2.0f;
-
-//    private bool _isCollision;
-
-//    private void Start()
-//    {
-//        Debug.Log($"{_monsterStatistics.Name} ���� �Ϸ�");
-//        Hp = _monsterStatistics.Hp;
-//        StartCoroutine(MoveForSeconds(1.5f));
-//    }
-
-//    private void Update()
-//    {
-//        if (_isCollision) return;
-//    }
-
-//    private IEnumerator MoveForSeconds(float duration)
-//    {
-//        float moveTime = 0.0f;
-
-//        while (moveTime < duration)
-//        {
-//            transform.Translate(Vector3.left * _moveSpeed * Time.deltaTime);
-//            moveTime += Time.deltaTime;
-//            yield return null;
-//        }
-//    }
-
-//    private void OnTriggerEnter2D(Collider2D other)
-//    {
-//        _isCollision = true;
-//        if (other.gameObject.name != "Player(Test)") return;
-//        Debug.Log("---");
-//        Debug.Log($"{_monsterStatistics.Name} ���� ����");
-//        StartCoroutine(nameof(Attack));
-//    }
-
-//    private IEnumerator Attack()
-//    {
-//        Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        while (true)
-//        {
-//            if (PlayerTest.CurrentHp <= 0) yield break;
-//            yield return new WaitForSeconds(_monsterStatistics.AttackDelay);
-//            PlayerTest.CurrentHp -= _monsterStatistics.Attack;
-//            Debug.Log($"�÷��̾� ü��: {PlayerTest.CurrentHp} / {PlayerTest.MaxHp}");
-//        }
-//    }
-
-//    public void TakeDamage(int damage)
-//    {
-//        Hp -= damage;
-//        Debug.Log("���� HP ����\n" + "HP : " + Hp + " / ������ : " + damage);
-
-//        if (Hp <= 0)
-//        {
-//            MonsterPool.InsertQueue(gameObject);
-//        }
-//    }
-//}

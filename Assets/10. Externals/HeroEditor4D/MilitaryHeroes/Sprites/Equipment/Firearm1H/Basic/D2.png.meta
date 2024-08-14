@@ -189,64 +189,64 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Side
+      name: D2_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 448
-      alignment: 9
-      pivot: {x: 0.6, y: 0.25}
+        x: 88
+        y: 468
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 195fca5d25c9697c0800000000000000
-      internalID: -4064889734069160559
+      spriteID: 54e87867a310b9946902a88137ab2cdc
+      internalID: -982109658
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Bullet
+      name: D2_1
       rect:
         serializedVersion: 2
-        x: 64
-        y: 448
-        width: 64
-        height: 64
+        x: 151
+        y: 465
+        width: 18
+        height: 29
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 367f86ad98391fb30800000000000000
-      internalID: 4319395737909131107
+      spriteID: 6cabf99393c5e4e49b79cdbce37b25ec
+      internalID: 1936439156
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shell
+      name: D2_2
       rect:
         serializedVersion: 2
-        x: 128
-        y: 448
-        width: 64
-        height: 64
+        x: 92
+        y: 80
+        width: 100
+        height: 207
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b8f478fcd95e86790800000000000000
-      internalID: -7536521510450147445
+      spriteID: 87345cf5b3555b64c968fa6d73844536
+      internalID: 66451368
       vertices: []
       indices: 
       edges: []
@@ -262,9 +262,9 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Bullet: 4319395737909131107
-      Shell: -7536521510450147445
-      Side: -4064889734069160559
+      D2_0: -982109658
+      D2_1: 1936439156
+      D2_2: 66451368
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

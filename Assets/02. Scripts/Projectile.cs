@@ -1,45 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Projectile : MonoBehaviour
 {
-    public Transform target;
-    public int damage;
-    public int speed = 3;
-    private Vector3 direction;
-    public string shooterTag; // Åõ»çÃ¼¸¦ ¹ß»çÇÑ ÁÖÃ¼ÀÇ ÅÂ±× (Player ¶Ç´Â Monster)
-    private SpriteRenderer spriteRenderer;
+    [FormerlySerializedAs("target")]
+    public Transform Target;
+    [FormerlySerializedAs("damage")]
+    public int Damage;
+    [FormerlySerializedAs("speed")]
+    public int Speed = 3;
+    private Vector3 _direction;
+    [FormerlySerializedAs("shooterTag")]
+    public string ShooterTag; // ï¿½ï¿½ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½Â±ï¿½ (Player ï¿½Ç´ï¿½ Monster)
+    private SpriteRenderer _spriteRenderer;
+    private int _cachedPlayerDamage;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
 
     private void Start()
     {
-        // targetÀÌ nullÀÌ ¾Æ´Ï¸é ¹æÇâÀ» ¼³Á¤, nullÀÌ¸é ÇöÀç ¹æÇâ À¯Áö
-        if (target != null)
+        // targetï¿½ï¿½ nullï¿½ï¿½ ï¿½Æ´Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, nullï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (Target != null)
         {
-            direction = (target.position - transform.position).normalized;
+            _direction = (Target.position - transform.position).normalized;
         }
     }
 
     private void OnEnable()
     {
-        // 3ÃÊ ÈÄ¿¡ »èÁ¦
+        if (ShooterTag == "Player")
+        {
+            _cachedPlayerDamage = DataManager.Instance.PlayerDataSo.Damage;
+        }
+        // 3ï¿½ï¿½ ï¿½Ä¿ï¿½ ï¿½ï¿½ï¿½ï¿½
         StartCoroutine(DestroyAfterTime(1.5f));
 
     }
 
     private void Update()
     {
-        // ¼³Á¤µÈ ¹æÇâÀ¸·Î Åõ»çÃ¼ ÀÌµ¿
-        transform.position += direction * speed * Time.deltaTime;
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¼ ï¿½Ìµï¿½
+        transform.position += _direction * (Speed * Time.deltaTime);
     }
 
-    // ÀÏÁ¤ ½Ã°£ ÀÌÈÄ ºñÈ°¼ºÈ­
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
     private IEnumerator DestroyAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
@@ -48,38 +57,37 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if ((shooterTag == "Player" && collision.CompareTag("Monster")) ||
-            (shooterTag == "Monster" && collision.CompareTag("Player")))
+        if ((ShooterTag != "Player" || !collision.CompareTag("Monster")) &&
+            (ShooterTag != "Monster" || !collision.CompareTag("Player"))) return;
+        var currentDamage = ShooterTag == "Player" ? _cachedPlayerDamage : Damage;
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (collision.CompareTag("Player"))
         {
-            // ´Ù¸¥ ÆÀÀÏ °æ¿ì¿¡¸¸ °ø°Ý
-            if (collision.CompareTag("Player"))
+            var player = collision.GetComponent<Player>();
+            if (player != null)
             {
-                Player player = collision.GetComponent<Player>();
-                if (player != null)
-                {
-                    player.TakeDamage(damage);
-                }
+                player.TakeDamage(currentDamage);
             }
-            else if (collision.CompareTag("Monster"))
-            {
-                Monster monster = collision.GetComponent<Monster>();
-                if (monster != null)
-                {
-                    monster.TakeDamage(damage);
-                }
-            }
-            ProjectilePool.Instance.ReturnProjectile(gameObject);
         }
+        else if (collision.CompareTag("Monster"))
+        {
+            var monster = collision.GetComponent<Monster>();
+            if (monster != null)
+            {
+                monster.TakeDamage(currentDamage);
+            }
+        }
+        ProjectilePool.Instance.ReturnProjectile(gameObject);
     }
 
     public void SetDirection(Vector3 targetPosition)
     {
-        direction = (targetPosition - transform.position).normalized;
+        _direction = (targetPosition - transform.position).normalized;
     }
 
     public void SetColor(Color color)
     {
-        spriteRenderer.color = color;
+        _spriteRenderer.color = color;
     }
 }
 

@@ -16,17 +16,17 @@ public class SkillUIItem : MonoBehaviour
         skill = newSkill;
         if (skill != null)
         {
-            iconImage.sprite = skill.icon;
-            levelText.text = $"Lv.{skill.level}";
-            iconImage.color = Color.white; // ½ºÅ³ÀÌ ÀÖÀ» ¶§ ÀÌ¹ÌÁö¸¦ º¸ÀÌ°Ô ÇÔ
+            iconImage.sprite = skill.Icon;
+            levelText.text = $"Lv.{skill.Level}";
+            iconImage.color = Color.white; // ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½
         }
         else
         {
             iconImage.sprite = null;
             levelText.text = "";
-            iconImage.color = new Color(1, 1, 1, 0); // ½ºÅ³ÀÌ ¾øÀ» ¶§ ÀÌ¹ÌÁö¸¦ Åõ¸íÇÏ°Ô ÇÔ
+            iconImage.color = new Color(1, 1, 1, 0); // ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½
         }
-        // ÀåÂø ¿©ºÎ¿¡ µû¸¥ ½Ã°¢Àû Ç¥½Ã (¿¹: Å×µÎ¸® »ö»ó º¯°æ)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½ (ï¿½ï¿½: ï¿½×µÎ¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
     }
 
     public void OnClickItem()

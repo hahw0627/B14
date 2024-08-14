@@ -36,16 +36,16 @@ public class SkillManager : MonoBehaviour
     public void UpdateEquippedSkills()
     {
         equippedSkills.Clear();
-        if (DataManager.Instance.playerDataSO.skills != null)
+        if (DataManager.Instance.PlayerDataSo.Skills != null)
         {
-            equippedSkills.AddRange(DataManager.Instance.playerDataSO.skills);
+            equippedSkills.AddRange(DataManager.Instance.PlayerDataSo.Skills);
         }
     }
 
     public void EquipSkill(SkillDataSO skill)
     {
         if (equippedSkills.Count < maxEquippedSkills && !equippedSkills.Contains(skill) &&
-            DataManager.Instance.allSkillsDataSO.Contains(skill))
+            DataManager.Instance.AllSkillsDataSo.Contains(skill))
         {
             equippedSkills.Add(skill);
             OnEquippedSkillsChanged?.Invoke();
@@ -114,7 +114,7 @@ public class SkillManager : MonoBehaviour
     {
         while (isAutoMode)
         {
-            if (player.scanner.nearestTarget != null)
+            if (player.Scanner.nearestTarget != null)
             {
                 SkillDataSO skillToUse = FindUsableSkill();
                 if (skillToUse != null)
@@ -146,7 +146,7 @@ public class SkillManager : MonoBehaviour
 
     public void SetSkillOnCooldown(SkillDataSO skill)
     {
-        skillCooldowns[skill] = skill.cooldown;
+        skillCooldowns[skill] = skill.Cooldown;
     }
 
     public float GetSkillCooldown(SkillDataSO skill)
@@ -179,29 +179,29 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        if (!DataManager.Instance.allSkillsDataSO.Contains(newSkill))
+        if (!DataManager.Instance.AllSkillsDataSo.Contains(newSkill))
         {
             Debug.LogWarning("Skill not found in allSkillsDataSO.");
             return;
         }
 
-        // »õ ½ºÅ³ÀÌ ÀÌ¹Ì ÀåÂøµÇ¾î ÀÖ´ÂÁö È®ÀÎ
-        int existingIndex = equippedSkills.FindIndex(s => s != null && s.skillName == newSkill.skillName);
+        // ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+        int existingIndex = equippedSkills.FindIndex(s => s != null && s.SkillName == newSkill.SkillName);
 
-        // ÀÌ¹Ì ÀåÂøµÈ ½ºÅ³ÀÌ ÀÖ°í, ±× À§Ä¡°¡ ÇöÀç ÀåÂøÇÏ·Á´Â À§Ä¡¿Í ´Ù¸£´Ù¸é
+        // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö°ï¿½, ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ù¸ï¿½ï¿½Ù¸ï¿½
         if (existingIndex != -1 && existingIndex != index)
         {
-            // ÀÌ¹Ì ÀåÂøµÈ ½ºÅ³À» Á¦°Å
+            // ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             equippedSkills[existingIndex] = null;
         }
 
-        // »õ ½ºÅ³À» ÀåÂøÇÒ À§Ä¡¿¡ ÀÌ¹Ì ´Ù¸¥ ½ºÅ³ÀÌ ÀÖ´Ù¸é Á¦°Å
+        // ï¿½ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½Ù¸ï¿½ ï¿½ï¿½Å³ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (index < equippedSkills.Count && equippedSkills[index] != null)
         {
             equippedSkills[index] = null;
         }
 
-        // »õ ½ºÅ³ ÀåÂø
+        // ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
         while (equippedSkills.Count <= index)
         {
             equippedSkills.Add(null);

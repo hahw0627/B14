@@ -20,5 +20,5 @@ MonoBehaviour:
     \uBD84\uBA85...."
   damage: 90
   attackSpeed: 1
-  count: 2
+  count: 0
   isEquipped: 0

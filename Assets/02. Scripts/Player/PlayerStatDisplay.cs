@@ -23,7 +23,7 @@ public class PlayerStatDisplay : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        if (PlayerData != null)
+        if (PlayerData is not null)
         {
             DamageText.text = $"공격력 {PlayerData.Damage}";
         }

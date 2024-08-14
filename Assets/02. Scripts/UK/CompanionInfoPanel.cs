@@ -2,12 +2,14 @@ using Assets.HeroEditor4D.Common.Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class CompanionInfoPanel : MonoBehaviour
 {
-    [Header("")]
+    [Header("UI_CompanionStatus")]
     public Image companionIcon;
     public TextMeshProUGUI companionNameText;
     public TextMeshProUGUI companionDescriptionText;
@@ -15,11 +17,12 @@ public class CompanionInfoPanel : MonoBehaviour
     public TextMeshProUGUI companionCountText;
     public TextMeshProUGUI companionDamageText;
 
-    [Header("")]
+    [Header("UI_Guide")]
     public GameObject btnChoice;
     public GameObject choiceFail;
 
-    [Header("")]
+    [Header("Btn_Equip")]
+    public Sprite nullIcon;
     public Button equipButton;
     public Button currentCompanionButton1;
     public Button currentCompanionButton2;
@@ -28,17 +31,24 @@ public class CompanionInfoPanel : MonoBehaviour
     [Header("")]
     public Button upgradeButton;
 
-    [Header("")]
+    [Header("SO_CompanionData")]
     public CompanionDataSO currentCompanionData;
+    public CompanionDataSO formerCompanionData1;
+    public CompanionDataSO formerCompanionData2;
+    public CompanionDataSO formerCompanionData3;
+
+    [Header("Position")]
+    public GameObject pos1;
+    public GameObject pos2;
+    public GameObject pos3;
 
     private Button selectedButton;
 
     public CompanionList companionList;
 
-
     private void Start()
     {
-        // ½ÃÀÛ ½Ã Á¤º¸Ã¢À» ºñÈ°¼ºÈ­ »óÅÂ·Î ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã¢ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½ï¿½
         gameObject.SetActive(false);
 
         equipButton.onClick.AddListener(EquipCompanion);
@@ -53,24 +63,24 @@ public class CompanionInfoPanel : MonoBehaviour
     public void ShowCompanionInfo(CompanionDataSO companionData)
     {
         currentCompanionData = companionData;
-        companionIcon.sprite = companionData.icon;
-        companionNameText.text = companionData.companionName;
-        companionDescriptionText.text = companionData.description;
-        companionLevelText.text = companionData.level.ToString();
-        companionCountText.text = companionData.count.ToString();
-        companionDamageText.text = companionData.damage.ToString();
+        companionIcon.sprite = companionData.Icon;
+        companionNameText.text = companionData.CompanionName;
+        companionDescriptionText.text = companionData.Description;
+        companionLevelText.text = companionData.Level.ToString();
+        companionCountText.text = companionData.Count.ToString();
+        companionDamageText.text = companionData.Damage.ToString();
 
         gameObject.SetActive(true);
     }
 
     public void EquipCompanion()
     {
-        if (currentCompanionData.isEquipped)
+        if (currentCompanionData.IsEquipped)
         {
             choiceFail.SetActive(true);
             return;
         }
-        else if(currentCompanionData.count == 0 && currentCompanionData.level == 1)
+        else if (currentCompanionData.Count == 0 && currentCompanionData.Level == 1)
         {
             choiceFail.SetActive(true);
             return;
@@ -78,65 +88,152 @@ public class CompanionInfoPanel : MonoBehaviour
 
         choiceFail.SetActive(false);
         btnChoice.gameObject.SetActive(true);
-        selectedButton = null; // ¹öÆ°ÀÌ ¼±ÅÃµÇÁö ¾Ê¾ÒÀ½À» Ç¥½Ã
+        selectedButton = null; // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ Ç¥ï¿½ï¿½
     }
 
     public void SelectButton(Button button)
-    {   // ¹öÆ°°ñ¶ó¼­ ÀÌ¹ÌÁö ÀÔÈ÷±â
-        if (selectedButton == null) // ¹öÆ°ÀÌ ¾ÆÁ÷ ¼±ÅÃµÇÁö ¾Ê¾Ò´Ù¸é
+    {   // ï¿½ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        if (selectedButton == null) // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½
         {
             selectedButton = button;
-            btnChoice.gameObject.SetActive(false); // ¹öÆ° ¼±ÅÃ ¿Ï·á ÈÄ, ¼±ÅÃ UI ¼û±è
+            btnChoice.gameObject.SetActive(false); // ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ ï¿½ï¿½, ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
 
-            if (currentCompanionData.isEquipped)
+            if (currentCompanionData.IsEquipped)
             {
                 return;
             }
-            else if (currentCompanionData.count == 0 && currentCompanionData.level == 1)
+            else if (currentCompanionData.Count == 0 && currentCompanionData.Level == 1)
             {
                 return;
             }
             else
             {
-                // ¼±ÅÃµÈ ¹öÆ°ÀÇ ÀÌ¹ÌÁö¸¦ º¯°æÇÕ´Ï´Ù.
+                // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
                 Image buttonImage = button.GetComponent<Image>();
                 if (buttonImage != null)
                 {
-                    buttonImage.sprite = currentCompanionData.icon;
+                    buttonImage.sprite = currentCompanionData.Icon;
                 }
             }
 
-            // ÇöÀç ÆêÀÇ ÀåÂø ¿©ºÎ¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½Õ´Ï´ï¿½.
             UpdateEquippedStatus(button);
         }
     }
 
     private void UpdateEquippedStatus(Button newButton)
-    {   // Æê ÀåÂø ¿©ºÎ ¾÷µ¥ÀÌÆ®
-        // CompanionList¿¡¼­ ¸ðµç Æê µ¥ÀÌÅÍ¸¦ °¡Á®¿È
-        // DataManager·Î º¯°æÇÏ´Â°Ô ÁÁ¾Æº¸ÀÓ Àá½Ã º¸·ù
-        CompanionDataSO[] allCompanionData = companionList.GetAllCompanionData();
-        foreach (CompanionDataSO companionData in allCompanionData)
+    {
+        if (newButton == currentCompanionButton1)
         {
-            if (companionData.isEquipped && companionData != currentCompanionData)
-            {
-                companionData.isEquipped = false; // ÀÌ¹Ì ÀåÂøµÈ ´Ù¸¥ ÆêÀÇ ÀåÂø »óÅÂ¸¦ ÇØÁ¦
-            }
+            EquippedCheck(ref formerCompanionData1);
+            SpawnCompanion(pos1);
+        }
+        else if (newButton == currentCompanionButton2)
+        {
+            EquippedCheck(ref formerCompanionData2);
+            SpawnCompanion(pos2);
+        }
+        else if (newButton == currentCompanionButton3)
+        {
+            EquippedCheck(ref formerCompanionData3);
+            SpawnCompanion(pos3);
+        }
+    }
+
+    private void EquippedCheck(ref CompanionDataSO formerCompanionData)
+    {
+        if (formerCompanionData == currentCompanionData)
+        {
+            return;
         }
 
-        currentCompanionData.isEquipped = true; // ÇöÀç ¼±ÅÃµÈ ÆêÀ» ÀåÂø
+        if (formerCompanionData == null)
+        {
+            currentCompanionData.IsEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
+        else
+        {
+            formerCompanionData.IsEquipped = false;
+            currentCompanionData.IsEquipped = true;
+            formerCompanionData = currentCompanionData;
+        }
     }
 
     public void CompanionUpgrade()
     {
-        if(currentCompanionData.count > 4)
+        if (currentCompanionData.Count > 4)
         {
-            currentCompanionData.level += 1;
-            currentCompanionData.count -= 5;
-            currentCompanionData.damage += 5;
-            companionLevelText.text = currentCompanionData.level.ToString();
-            companionCountText.text = currentCompanionData.count.ToString();
-            companionDamageText.text = currentCompanionData.damage.ToString();
+            currentCompanionData.Level += 1;
+            currentCompanionData.Count -= 5;
+            currentCompanionData.Damage += 5;
+            companionLevelText.text = currentCompanionData.Level.ToString();
+            companionCountText.text = currentCompanionData.Count.ToString();
+            companionDamageText.text = currentCompanionData.Damage.ToString();
+
+            UpdateActivePetDamage();
         }
+    }
+
+    private void UpdateActivePetDamage()
+    {
+        Pet[] allPets = FindObjectsOfType<Pet>();
+        foreach (Pet pet in allPets)
+        {
+            if (pet.companionData == currentCompanionData)
+            {
+                pet.UpdateDamage(currentCompanionData.Damage);
+            }
+        }
+    }
+
+    private void SpawnCompanion(GameObject pos)
+    {
+        GameObject[] allCompanionPrefabs = companionList.GetAllCompanionPrefabs();
+        foreach (GameObject companionPrefab in allCompanionPrefabs)
+        {
+            Pet petComponent = companionPrefab.GetComponent<Pet>();
+            if (petComponent.companionData == currentCompanionData)
+            {
+                GameObject newPet = Instantiate(companionPrefab, pos.transform.position, Quaternion.identity);
+                Pet newPetComponent = newPet.GetComponent<Pet>();
+                newPetComponent.UpdateDamage(currentCompanionData.Damage);
+                break;
+            }
+        }
+        DestroyCompanion();
+    }
+
+    private void DestroyCompanion()
+    {
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Petï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ë»ï¿½ï¿½Ï¿ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        Pet[] allPets = FindObjectsOfType<Pet>();
+
+        // ï¿½Ø´ï¿½ Petï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ SOï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ falseï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
+        foreach (Pet pet in allPets)
+        {
+            if (!pet.companionData.IsEquipped)
+            {
+                Destroy(pet.gameObject);
+            }
+        }
+    }
+
+    public void UnEquippedCompanion()
+    {
+        CompanionDataSO[] allCompanionData = companionList.companionDataArray;
+        foreach(CompanionDataSO companionDataSO in allCompanionData)
+        {
+            companionDataSO.IsEquipped = false;
+        }
+        currentCompanionButton1.image.sprite = nullIcon;
+        currentCompanionButton2.image.sprite = nullIcon;
+        currentCompanionButton3.image.sprite = nullIcon;
+        formerCompanionData1 = null;
+        formerCompanionData2 = null;
+        formerCompanionData3 = null;
+        selectedButton = null;
+        currentCompanionData = null;
+        DestroyCompanion();
     }
 }

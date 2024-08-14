@@ -14,9 +14,9 @@ public class SkillProjectile : MonoBehaviour
     {
         skillData = skill;
         targetPosition = target;
-        speed = skillData.projectileSpeed;
+        speed = skillData.ProjectileSpeed;
 
-        // Áï½Ã ¸ñÇ¥¸¦ ÇâÇØ È¸Àü
+        // ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         Vector3 direction = (targetPosition - transform.position).normalized;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
@@ -52,13 +52,13 @@ public class SkillProjectile : MonoBehaviour
             float fractionOfJourney = distCovered / journeyLength;
             transform.position = Vector3.Lerp(transform.position, targetPosition, fractionOfJourney);
 
-            // ÆÄÆ¼Å¬ ½Ã½ºÅÛ À§Ä¡ ¾÷µ¥ÀÌÆ®
+            // ï¿½ï¿½Æ¼Å¬ ï¿½Ã½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             if (particleSystem != null)
             {
                 particleSystem.transform.position = transform.position;
             }
 
-            // Ãæµ¹ Ã¼Å©
+            // ï¿½æµ¹ Ã¼Å©
             Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.1f);
             foreach (var hitCollider in hitColliders)
             {
@@ -73,7 +73,7 @@ public class SkillProjectile : MonoBehaviour
             yield return null;
         }
 
-        // ¸ñÇ¥ ÁöÁ¡¿¡ µµ´ÞÇÏ¸é ÇÁ·ÎÁ§Å¸ÀÏÀ» ÆÄ±«
+        // ï¿½ï¿½Ç¥ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½
         Destroy(gameObject);
     }
 
@@ -82,8 +82,8 @@ public class SkillProjectile : MonoBehaviour
         IDamageable damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            int totalDamage = skillData.damage + DataManager.Instance.playerDataSO.Damage;
-            Debug.Log($"Skill projectile '{skillData.skillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.damage}, Player Base: {DataManager.Instance.playerDataSO.Damage})");
+            int totalDamage = skillData.Damage + DataManager.Instance.PlayerDataSo.Damage;
+            Debug.Log($"Skill projectile '{skillData.SkillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.Damage}, Player Base: {DataManager.Instance.PlayerDataSo.Damage})");
             damageable.TakeDamage(totalDamage, true);
         }
         else
@@ -94,7 +94,7 @@ public class SkillProjectile : MonoBehaviour
 
     private void OnDestroy()
     {
-        // TrailRenderer°¡ ÀÖ´Ù¸é ÀÚ¿¬½º·´°Ô »ç¶óÁöµµ·Ï ¼³Á¤
+        // TrailRendererï¿½ï¿½ ï¿½Ö´Ù¸ï¿½ ï¿½Ú¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (trailRenderer != null)
         {
             trailRenderer.transform.SetParent(null);

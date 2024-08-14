@@ -1,41 +1,54 @@
 using UnityEngine;
 using DG.Tweening;
-
+using UnityEngine.Serialization;
 
 public class GoldAcquireEffect : MonoBehaviour
 {
-    public RectTransform goldIconPrefab;
-    public RectTransform canvasRectTransform;
-    public RectTransform targetGoldUI;
+    [FormerlySerializedAs("goldIconPrefab")]
+    public RectTransform GoldIconPrefab;
+
+    [FormerlySerializedAs("canvasRectTransform")]
+    public RectTransform CanvasRectTransform;
+
+    [FormerlySerializedAs("targetGoldUI")]
+    public RectTransform TargetGoldUI;
+
+    // ì´í™íŠ¸ ì™„ë£Œ ì´ë²¤íŠ¸
+    public delegate void EffectCompletedHandler();
+
+    public event EffectCompletedHandler OnEffectCompleted;
 
     public void PlayGoldAcquireEffect(Vector2 startPosition, int goldAmount)
     {
-        int iconCount = Mathf.Min(goldAmount, 10);  // ÃÖ´ë 10°³ÀÇ ¾ÆÀÌÄÜ¸¸ »ı¼º
-        Sequence mainSequence = DOTween.Sequence();
+        var iconCount = Mathf.Min(goldAmount, 10); // ï¿½Ö´ï¿½ 10ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ü¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        var mainSequence = DOTween.Sequence();
 
-        for (int i = 0; i < iconCount; i++)
+        for (var i = 0; i < iconCount; i++)
         {
-            RectTransform goldIcon = Instantiate(goldIconPrefab, canvasRectTransform);
+            var goldIcon = Instantiate(GoldIconPrefab, CanvasRectTransform);
             goldIcon.position = startPosition;
 
-            Sequence iconSequence = DOTween.Sequence();
+            var iconSequence = DOTween.Sequence();
 
-            // ·£´ıÇÑ À§Ä¡·Î ÆÛÁö´Â È¿°ú
-            Vector2 randomOffset = Random.insideUnitCircle * 100f;
-            iconSequence.Append(goldIcon.DOAnchorPos(goldIcon.anchoredPosition + randomOffset, 0.5f).SetEase(Ease.OutQuad));
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¿ï¿½ï¿½
+            var randomOffset = Random.insideUnitCircle * 100f;
+            iconSequence.Append(goldIcon.DOAnchorPos(goldIcon.anchoredPosition + randomOffset, 0.5f)
+                .SetEase(Ease.OutQuad));
 
-            // ¸ñÇ¥ UI·Î ÀÌµ¿
-            iconSequence.Append(goldIcon.DOMove(targetGoldUI.position, 0.5f).SetEase(Ease.InQuad));
+            // ï¿½ï¿½Ç¥ UIï¿½ï¿½ ï¿½Ìµï¿½
+            iconSequence.Append(goldIcon.DOMove(TargetGoldUI.position, 0.5f).SetEase(Ease.InQuad));
 
-            // È¿°ú Á¾·á ÈÄ ¿ÀºêÁ§Æ® Á¦°Å
+            // È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
             iconSequence.OnComplete(() => Destroy(goldIcon.gameObject));
 
             mainSequence.Join(iconSequence);
         }
 
 
-            mainSequence.OnComplete(() => {
-                targetGoldUI.DOPunchScale(Vector3.one * 0.2f, 0.25f);
-            });
+        mainSequence.OnComplete(() =>
+        {
+            TargetGoldUI.DOPunchScale(Vector3.one * 0.2f, 0.25f);
+            OnEffectCompleted?.Invoke();
+        });
     }
 }

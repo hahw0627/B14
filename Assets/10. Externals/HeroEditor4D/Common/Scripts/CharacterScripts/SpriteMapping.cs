@@ -2,16 +2,16 @@
 using System.Linq;
 using UnityEngine;
 
-namespace Assets.HeroEditor4D.Common.Scripts.CharacterScripts
+namespace _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts
 {
     /// <summary>
     /// Used to associate SpriteRenderer with SpriteCollection.
     /// </summary>
-	public class SpriteMapping : MonoBehaviour
-	{
-		public string SpriteName;
+    public class SpriteMapping : MonoBehaviour
+    {
+        public string SpriteName;
         public List<string> SpriteNameFallback;
-        
+
         /// <summary>
         /// Find sprite by SpriteName, then by SpriteNameIfNotFound. Return null if nothing found.
         /// </summary>
@@ -19,7 +19,8 @@ namespace Assets.HeroEditor4D.Common.Scripts.CharacterScripts
         {
             if (sprites == null || sprites.Count == 0) return null;
 
-            return sprites.SingleOrDefault(i => i != null && i.name == SpriteName) ?? sprites.SingleOrDefault(i => i != null && SpriteNameFallback.Contains(i.name));
+            return sprites.SingleOrDefault(i => i is not null && i.name == SpriteName) ??
+                   sprites.SingleOrDefault(i => i is not null && SpriteNameFallback.Contains(i.name));
         }
     }
 }

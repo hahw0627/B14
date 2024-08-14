@@ -42,7 +42,7 @@ public class DataTest : MonoBehaviour
 
     void IninData()
     {
-        string path = "ScripableObjects/PlayerDataSO";
+        string path = "ScriptableObjects/PlayerDataSO";
 
         if (playerDataSO == null)
             playerDataSO = Resources.Load<PlayerDataSO>(path);
@@ -54,7 +54,7 @@ public class DataTest : MonoBehaviour
        
         gameData.characterData.level = 1;
         gameData.characterData.experience = 0;
-        gameData.characterData.name = playerDataSO.playerName;
+        gameData.characterData.name = playerDataSO.PlayerName;
         gameData.characterData.stats.health = playerDataSO.Hp;
         gameData.characterData.stats.attack = playerDataSO.Damage;
         gameData.characterData.stats.defense = playerDataSO.Def;

@@ -18,9 +18,9 @@ public class UIManager : SingletonDestroyable<UIManager>, IPointerDownHandler
     public void UpdateCurrencyUI()
     {
         if (GoldTMP is null || GemTMP is null || DataManager.Instance is null ||
-            DataManager.Instance.playerDataSO is null) return;
-        GoldTMP.text = DataManager.Instance.playerDataSO.Gold.ToString();
-        GemTMP.text = DataManager.Instance.playerDataSO.Gem.ToString();
+            DataManager.Instance.PlayerDataSo is null) return;
+        GoldTMP.text = DataManager.Instance.PlayerDataSo.Gold.ToString();
+        GemTMP.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
     }
 
     public ParticleSystem ClickParticle;

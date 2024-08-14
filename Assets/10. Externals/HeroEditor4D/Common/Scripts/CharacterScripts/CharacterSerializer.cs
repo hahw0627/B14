@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
 using Assets.HeroEditor4D.Common.Scripts.Data;
 using Assets.HeroEditor4D.Common.Scripts.Enums;
 using Newtonsoft.Json;

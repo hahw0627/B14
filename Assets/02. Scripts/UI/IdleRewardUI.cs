@@ -1,72 +1,103 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class IdleRewardUI : MonoBehaviour
 {
-    public GameObject rewardPanel;
-    public TextMeshProUGUI rewardText;
-    public TextMeshProUGUI timeAwayText;
-    public Button confirmButton;
-    public Button closeButton;
-    public GoldAcquireEffect goldAcquireEffect;
-    public GameObject mainSceneRewardButton;
+    [FormerlySerializedAs("rewardPanel")]
+    public GameObject RewardPanel;
 
-    private TimeSpan timeAway;
-    private float currentReward;
-    public IdleRewardManager idleRewardManager;
+    [FormerlySerializedAs("rewardText")]
+    public TextMeshProUGUI RewardText;
+
+    [FormerlySerializedAs("timeAwayText")]
+    public TextMeshProUGUI TimeAwayText;
+
+    [FormerlySerializedAs("confirmButton")]
+    public Button ConfirmButton;
+
+    [FormerlySerializedAs("closeButton")]
+    public Button CloseButton;
+
+    [FormerlySerializedAs("goldAcquireEffect")]
+    public GoldAcquireEffect GoldAcquireEffect;
+
+    [FormerlySerializedAs("mainSceneRewardButton")]
+    public GameObject MainSceneRewardButton;
+
+    private TimeSpan _timeAway;
+    private float _currentReward;
+
+    [FormerlySerializedAs("idleRewardManager")]
+    public IdleRewardManager IdleRewardManager;
 
     private void Start()
     {
-        rewardPanel.SetActive(false);
-        confirmButton.onClick.AddListener(OnConfirmButtonClicked);
-        closeButton.onClick.AddListener(OnCloseButtonClicked);
-        mainSceneRewardButton.SetActive(false);
+        ConfirmButton.onClick.AddListener(OnConfirmButtonClicked);
+        CloseButton.onClick.AddListener(OnCloseButtonClicked);
+        MainSceneRewardButton.SetActive(false);
+    }
+
+    private void Update()
+    {
+        MainSceneRewardButton.SetActive(_currentReward > 0 && !RewardPanel.activeSelf);
     }
 
     public void ShowReward(float reward, TimeSpan timeAway)
     {
-        currentReward = reward;
-        rewardText.text = $"¹æÄ¡ º¸»ó : {reward:F0} °ñµå";
-        if (timeAway.TotalHours > 12)
-        {
-            timeAwayText.text = $"ºÎÀç ½Ã°£ : 12½Ã°£ (ÃÖ´ë) / ½ÇÁ¦ ºÎÀç ½Ã°£ : {FormatTimeSpan(timeAway)}";
-        }
-        else
-        {
-            timeAwayText.text = $"ºÎÀç ½Ã°£ : {FormatTimeSpan(timeAway)}";
-        }
-        rewardPanel.SetActive(true);
-        mainSceneRewardButton.SetActive(false);
+        _currentReward = reward;
+        RewardText.text = $"{reward:F0} ê³¨ë“œ";
+        TimeAwayText.text = timeAway.TotalHours > 12
+            ? $"12ì‹œê°„ (ìµœëŒ€) / ì‹¤ì œ ë¶€ì¬ ì‹œê°„: {FormatTimeSpan(timeAway)}"
+            : $"{FormatTimeSpan(timeAway)}";
+        RewardPanel.SetActive(true);
+        MainSceneRewardButton.SetActive(false);
     }
+
     private void OnCloseButtonClicked()
     {
-        rewardPanel.SetActive(false);
-        mainSceneRewardButton.SetActive(true);
+        RewardPanel.SetActive(false);
+        MainSceneRewardButton.SetActive(true);
     }
-    private string FormatTimeSpan(TimeSpan timeSpan)
+
+    private static string FormatTimeSpan(TimeSpan timeSpan)
     {
         if (timeSpan.TotalDays >= 1)
-            return $"{timeSpan.Days}ÀÏ {timeSpan.Hours}½Ã°£";
-        else if (timeSpan.TotalHours >= 1)
-            return $"{timeSpan.Hours}½Ã°£ {timeSpan.Minutes}ºĞ";
-        else
-            return $"{timeSpan.Minutes}ºĞ {timeSpan.Seconds}ÃÊ";
+            return $"{timeSpan.Days}ì¼ {timeSpan.Hours}ì‹œê°„";
+
+        return timeSpan.TotalHours >= 1
+            ? $"{timeSpan.Hours}ì‹œê°„ {timeSpan.Minutes}ë¶„"
+            : $"{timeSpan.Minutes}ë¶„ {timeSpan.Seconds}ì´ˆ";
     }
 
     private void OnConfirmButtonClicked()
     {
-        idleRewardManager.ClaimReward();
-        int rewardGold = Mathf.RoundToInt(currentReward);
-        DataManager.Instance.AddGold(rewardGold);
-        goldAcquireEffect.PlayGoldAcquireEffect(confirmButton.transform.position, rewardGold);
-        Debug.Log($"{rewardGold} °ñµå¸¦ Áö±ŞÇß½À´Ï´Ù.");
+        var rewardGold = Mathf.RoundToInt(_currentReward);
+
+        GoldAcquireEffect.PlayGoldAcquireEffect(ConfirmButton.transform.position, rewardGold);
+
+        // ì´í™íŠ¸ê°€ ì™„ë£Œëœ í›„ì— ì‹¤í–‰ë  ì½œë°± ë“±ë¡
+        GoldAcquireEffect.OnEffectCompleted += OnGoldEffectCompleted;
+
+        RewardPanel.SetActive(false);
+        MainSceneRewardButton.SetActive(false);
+    }
+
+    private void OnGoldEffectCompleted()
+    {
+        // ì´í™íŠ¸ ì™„ë£Œ í›„ ì‹¤í–‰ë  ë¡œì§
+        IdleRewardManager.ClaimReward();
+
+        var rewardGold = Mathf.RoundToInt(_currentReward);
+        Debug.Log($"<color=yellow>{rewardGold} ê³¨ë“œë¥¼ ì§€ê¸‰í–ˆìŠµë‹ˆë‹¤.</color>");
+
         UIManager.Instance.UpdateCurrencyUI();
-        rewardPanel.SetActive(false);
-        mainSceneRewardButton.SetActive(false);
-        currentReward = 0;
+
+        _currentReward = 0;
+
+        // ì´ë²¤íŠ¸ êµ¬ë… í•´ì œ
+        GoldAcquireEffect.OnEffectCompleted -= OnGoldEffectCompleted;
     }
 }

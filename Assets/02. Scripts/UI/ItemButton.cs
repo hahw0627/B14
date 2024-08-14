@@ -22,7 +22,7 @@ public class ItemButton : MonoBehaviour
 
     void OnButtonClick()
     {
-        modalsController.currentItemImage.sprite = gameObject.GetComponent<Image>().sprite;
-        modalsController.currentItemName.text = gameObject.name;
+        modalsController.CurrentItemImage.sprite = gameObject.GetComponent<Image>().sprite;
+        modalsController.CurrentItemName.text = gameObject.name;
     }
 }
