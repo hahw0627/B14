@@ -91,7 +91,7 @@ public class IdleRewardUI : MonoBehaviour
         IdleRewardManager.ClaimReward();
 
         var rewardGold = Mathf.RoundToInt(_currentReward);
-        Debug.Log($"{rewardGold} 골드를 지급했습니다.");
+        Debug.Log($"<color=yellow>{rewardGold} 골드를 지급했습니다.</color>");
 
         UIManager.Instance.UpdateCurrencyUI();
 
