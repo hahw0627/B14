@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +10,7 @@ public class SkillUIManager : MonoBehaviour
     [SerializeField] private GameObject skillItemPrefab;
     [SerializeField] private Transform allSkillsContainer;
     [SerializeField] private GameObject skillInfoPanel;
-    [SerializeField] private Text instructionText;
+    [SerializeField] private TextMeshProUGUI instructionText;
     [SerializeField] private List<Button> equippedSkillSlots;
 
     private SkillInfoPanel skillInfoPanelScript;
@@ -38,7 +39,7 @@ public class SkillUIManager : MonoBehaviour
         for (int i = 0; i < equippedSkillSlots.Count; i++)
         {
             Image iconImage = equippedSkillSlots[i].GetComponent<Image>();
-            Text levelText = equippedSkillSlots[i].GetComponentInChildren<Text>();
+            TextMeshProUGUI levelText = equippedSkillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
 
             if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
             {
@@ -80,7 +81,7 @@ public class SkillUIManager : MonoBehaviour
         GameObject skillItemObj = Instantiate(skillItemPrefab, container);
         Button button = skillItemObj.GetComponent<Button>();
         Image iconImage = button.GetComponent<Image>();
-        Text levelText = button.GetComponentInChildren<Text>();
+        TextMeshProUGUI levelText = button.GetComponentInChildren<TextMeshProUGUI>();
 
         iconImage.sprite = skill.Icon;
         levelText.text = $"Lv.{skill.Level}";

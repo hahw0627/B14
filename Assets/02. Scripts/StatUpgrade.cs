@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,22 +10,22 @@ public class StatUpgrade : MonoBehaviour
     public StatDataSO StatData;
 
     [Header("Label")]
-    public Text AttackTmp;
+    public TextMeshProUGUI AttackTmp;
 
-    public Text AttackSpeedTmp;
-    public Text HpTmp;
-    public Text RecoverHpTmp;
-    public Text CriticalPercentTmp;
-    public Text CriticalDamageTmp;
+    public TextMeshProUGUI AttackSpeedTmp;
+    public TextMeshProUGUI HpTmp;
+    public TextMeshProUGUI RecoverHpTmp;
+    public TextMeshProUGUI CriticalPercentTmp;
+    public TextMeshProUGUI CriticalDamageTmp;
 
     [Header("Cost Label")]
-    public Text AttackCostTmp;
+    public TextMeshProUGUI AttackCostTmp;
 
-    public Text AttackSpeedCostTmp;
-    public Text HpCostTmp;
-    public Text RecoverHpCostTmp;
-    public Text CriticalPercentCostTmp;
-    public Text CriticalDamageCostTmp;
+    public TextMeshProUGUI AttackSpeedCostTmp;
+    public TextMeshProUGUI HpCostTmp;
+    public TextMeshProUGUI RecoverHpCostTmp;
+    public TextMeshProUGUI CriticalPercentCostTmp;
+    public TextMeshProUGUI CriticalDamageCostTmp;
 
     [Header("Upgrade Button")]
     public Button AttackBtn;
@@ -128,7 +129,7 @@ public class StatUpgrade : MonoBehaviour
         }
     }
 
-    private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTmp, string statName, Text costTmp)
+    private void UpgradeStat(ref int stat, int increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
     {
         if (PlayerData.Gold < cost) return;
         stat += increment;
@@ -159,7 +160,7 @@ public class StatUpgrade : MonoBehaviour
         }
     }
 
-    private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTmp, string statName, Text costTmp)
+    private void UpgradeStat(ref float stat, float increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
     {
         if (PlayerData.Gold < cost) return;
         stat += increment;
