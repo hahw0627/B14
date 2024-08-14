@@ -11190,7 +11190,7 @@ MonoBehaviour:
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 9052041219361479218}
-  BossTimer: {fileID: 0}
+  BossTimer: {fileID: -7021456749118549816}
 --- !u!114 &-7021456749118549816
 MonoBehaviour:
   m_ObjectHideFlags: 0
