@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class SkillUIManager : MonoBehaviour
     [SerializeField] private GameObject skillInfoPanel;
     [SerializeField] private TextMeshProUGUI instructionText;
     [SerializeField] private List<Button> equippedSkillSlots;
+    [SerializeField] private Button batchEnhanceButton;
 
     private SkillInfoPanel skillInfoPanelScript;
 
@@ -20,6 +22,8 @@ public class SkillUIManager : MonoBehaviour
         skillManager.OnEquippedSkillsChanged += RefreshSkillUI;
         skillInfoPanelScript = skillInfoPanel.GetComponent<SkillInfoPanel>();
         RefreshSkillUI();
+        batchEnhanceButton.onClick.AddListener(OnBatchEnhanceButtonClick);
+        UpdateBatchEnhanceButtonState();
     }
 
     private void OnDestroy()
@@ -32,6 +36,55 @@ public class SkillUIManager : MonoBehaviour
         UpdateEquippedSkillSlots();
         UpdateAllSkillsContainer();
         mainSceneSkillManager.UpdateSkillButtons();
+        UpdateBatchEnhanceButtonState();
+    }
+
+    private void UpdateBatchEnhanceButtonState()
+    {
+        bool canEnhanceAny = DataManager.Instance.AllSkillsDataSo.Any(skill => skill.IsUnlocked && skill.Count >= 5);
+        batchEnhanceButton.interactable = canEnhanceAny;
+    }
+
+    public void OnBatchEnhanceButtonClick()
+    {
+        bool enhanced = false;
+        foreach (var skill in DataManager.Instance.AllSkillsDataSo)
+        {
+            if (skill.IsUnlocked && skill.Count >= 5)
+            {
+                EnhanceSkill(skill);
+                enhanced = true;
+            }
+        }
+
+        if (enhanced)
+        {
+            RefreshSkillUI();
+            Debug.Log("일괄 강화가 완료되었습니다.");
+        }
+        else
+        {
+            Debug.Log("강화할 수 있는 스킬이 없습니다.");
+        }
+    }
+
+    private void EnhanceSkill(SkillDataSO skill)
+    {
+        skill.Level++;
+        skill.Count -= 5;
+        switch (skill.SkillType)
+        {
+            case Define.SkillType.AttackBuff:
+                skill.BuffAmount += 5;
+                break;
+            case Define.SkillType.HealBuff:
+                skill.BuffAmount += 10;
+                break;
+            default:
+                skill.Damage += 10;
+                break;
+        }
+        Debug.Log($"{skill.SkillName} 강화 완료! 현재 레벨: {skill.Level}");
     }
 
     private void UpdateEquippedSkillSlots()
