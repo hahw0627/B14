@@ -17,17 +17,17 @@ MonoBehaviour:
   Weapons:
   - {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
-  - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
+  - {fileID: 11400000, guid: fbf330d0d569f984ca4435afded2f11b, type: 2}
   Armors: []
   PlayerName: 00011
-  Gold: 0
-  Gem: 0
+  Gold: 9862
+  Gem: 100
   TotalPower: 10
-  Damage: 10
+  Damage: 88
   Def: 0
-  AttackSpeed: 1
-  Hp: 100
-  HpRecovery: 1
+  AttackSpeed: 1.4449996
+  Hp: 600
+  HpRecovery: 501
   CriticalPer: 0
   CriticalMultiplier: 1.5
   attackCost: 0
