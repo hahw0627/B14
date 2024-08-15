@@ -6,12 +6,8 @@ using UnityEngine.Serialization;
 
 public class Monster : MonoBehaviour, IDamageable
 {
-    public Character4D Character;
-
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
-
-    //private Animator _animator;
 
     [FormerlySerializedAs("target")]
     public GameObject Target;
@@ -37,9 +33,9 @@ public class Monster : MonoBehaviour, IDamageable
     public Transform FireMuzzle;
 
     protected DamageTextPool DamageTextPool;
+    public Animator animator;
 
     private int _goldReward;
-    private static readonly int IsBattle = Animator.StringToHash("IsBattle");
 
     public event Action<Monster> onDeath;
     
@@ -48,6 +44,7 @@ public class Monster : MonoBehaviour, IDamageable
         _goldReward = 10;
         //_animator = GetComponent<Animator>();
         Target = GameObject.Find("Player");
+        animator = GetComponent<Animator>();
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
         {
@@ -100,7 +97,7 @@ public class Monster : MonoBehaviour, IDamageable
         {
             if (Target is not null)
             {
-                //Character.AnimationManager.Fire();
+                animator.SetTrigger("Slash1H");
                 var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 var projectileScript = projectile.GetComponent<Projectile>();

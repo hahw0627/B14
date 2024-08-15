@@ -12863,6 +12863,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2885485516844461214}
   - {fileID: 6442606911875474641}
   - {fileID: 2269720183516302950}
   - {fileID: 4752821237000950042}
@@ -13185,9 +13186,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionData: {fileID: 11400000, guid: 17b359bb58c4bae4296c31b74850e3e9, type: 2}
   scanner: {fileID: 0}
-  fireMuzzle: {fileID: 7298002740745405269}
+  projectilPos: {fileID: 2885485516844461214}
   attackSpeed: 0
   damage: 0
+  animator: {fileID: 655323981697181916}
 --- !u!1 &5944496474377634942
 GameObject:
   m_ObjectHideFlags: 0
@@ -17847,6 +17849,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteName: FrontLegL
   SpriteNameFallback: []
+--- !u!1 &8524527158583443776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2885485516844461214}
+  m_Layer: 0
+  m_Name: ProjectilePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2885485516844461214
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8524527158583443776}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1447597526322500164}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8567354059628107542
 GameObject:
   m_ObjectHideFlags: 0

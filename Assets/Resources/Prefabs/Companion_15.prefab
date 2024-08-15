@@ -3676,6 +3676,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4443464654921209790}
   - {fileID: 3891730016961221252}
   - {fileID: 6922227131442614398}
   - {fileID: 679112987521776364}
@@ -3998,9 +3999,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionData: {fileID: 11400000, guid: 57353a7fbbdfa9940b267bf21743f4b5, type: 2}
   scanner: {fileID: 0}
-  fireMuzzle: {fileID: 6870534929192429298}
+  projectilPos: {fileID: 4443464654921209790}
   attackSpeed: 0
   damage: 0
+  animator: {fileID: 0}
 --- !u!1 &1794652226235694685
 GameObject:
   m_ObjectHideFlags: 0
@@ -6306,6 +6308,37 @@ MonoBehaviour:
   SpriteName: Right
   SpriteNameFallback:
   - Left
+--- !u!1 &2692126754567873933
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4443464654921209790}
+  m_Layer: 0
+  m_Name: ProjectilePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4443464654921209790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692126754567873933}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5589468967103282547}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2713277510216040614
 GameObject:
   m_ObjectHideFlags: 0

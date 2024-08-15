@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    public Character4D Character;
+    //public Character4D Character;
 
     [FormerlySerializedAs("playerData")]
     public PlayerDataSO PlayerData;
@@ -40,11 +40,13 @@ public class Player : MonoBehaviour
 
     private bool _isUsingSkill;
     private Coroutine _attackCoroutine;
+    private Animator anim;
 
     private void Awake()
     {
         PlayerData = DataManager.Instance.PlayerDataSo;
         Scanner = GetComponent<Scanner>();
+        anim = GetComponent<Animator>();
 
         AttackSpeed = PlayerData.AttackSpeed;
         CurrentHp = PlayerData.Hp;
@@ -59,6 +61,7 @@ public class Player : MonoBehaviour
     {
         StartAttacking();
         StartCoroutine(RecoverHp());
+        
     }
 
     // ���ݱ��
@@ -66,25 +69,25 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            // scanner�� nearestTarget�� null�� �ƴ� ��쿡�� nearestTarget�� ������ target���� ���� + ����ü ����
             if (!_isUsingSkill && Scanner.nearestTarget != null)
             {
+                anim.Play("Fire1H");
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Target = Scanner.nearestTarget; // ������ ����ü�� Ÿ�� ����
+                projectileScript.Target = Scanner.nearestTarget;
                 projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
 
                 Damage = CurrentDamage;
 
 
 
-                projectileScript.Damage = Mathf.RoundToInt(Damage); // ������ ����ü�� ������ ����
+                projectileScript.Damage = Mathf.RoundToInt(Damage);
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
 
-            yield return new WaitForSeconds(1 / AttackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
+            yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
 
