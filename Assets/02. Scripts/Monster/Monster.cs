@@ -8,6 +8,9 @@ public class Monster : MonoBehaviour, IDamageable
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
 
+    [SerializeField]
+    private HpBar _hpBar;
+    
     [FormerlySerializedAs("target")]
     public GameObject Target;
 

@@ -1,17 +1,22 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
+    [SerializeField]
+    private GameObject _introCanvas;
+    
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
-
 
     protected override void Awake()
     {
         base.Awake();
         Init();
+        if (!_introCanvas.activeSelf)
+        {
+            Instance.Play("MainBackground", type: Define.Sound.Bgm, volume: 0.6f);
+        }
     }
 
     private void Init()
@@ -79,7 +84,7 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlaySkillSound(AudioClip skillSound)
     {
-        if (skillSound == null) return;
+        if (skillSound is null) return;
 
         var audioSource = _audioSources[(int)Define.Sound.Effect];
         audioSource.PlayOneShot(skillSound);

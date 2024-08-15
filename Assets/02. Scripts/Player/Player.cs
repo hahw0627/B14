@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
             if (!_isUsingSkill && Scanner.NearestTarget != null)
             {
                 _animator.Play("Fire1H");
-                SoundManager.Instance.Play("Fire", volume: 0.36f, pitch: 0.9f);
+                SoundManager.Instance.Play("Fire", volume: 0.36f, pitch: 0.8f);
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
@@ -141,6 +141,8 @@ public class Player : MonoBehaviour
     public IEnumerator DeathWithDelay()
     {
         _animationManager.SetState(CharacterState.Death);
+        PlayerSpeechBubble.Instance.ShowMessage("(시간을 되돌리는 중...)", SpeechLength.Short, "#0EFCFE");
+        SoundManager.Instance.Play("TimeReversed");
         yield return new WaitForSeconds(4f);
         StageManager.StageReset();
         CurrentHp = PlayerData.MaxHp;

@@ -1,21 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Serialization;
 
 public class MainSceneSkillManager : MonoBehaviour
 {
-    [SerializeField] private Player player;
-    [SerializeField] private SkillManager skillManager;
-    [SerializeField] private List<Button> skillButtons;
-    [SerializeField] private List<Image> cooldownImages;
-    [SerializeField] private List<TextMeshProUGUI> cooldownTexts;
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private Transform aoeEffectSpawnPoint;
-    [SerializeField] private Transform buffEffectSpawnPoint;
+    [FormerlySerializedAs("player")]
+    [SerializeField]
+    private Player _player;
 
-    private Dictionary<SkillDataSO, Coroutine> cooldownCoroutines = new Dictionary<SkillDataSO, Coroutine>();
+    [FormerlySerializedAs("skillManager")]
+    [SerializeField]
+    private SkillManager _skillManager;
+
+    [FormerlySerializedAs("skillButtons")]
+    [SerializeField]
+    private List<Button> _skillButtons;
+
+    [FormerlySerializedAs("cooldownImages")]
+    [SerializeField]
+    private List<Image> _cooldownImages;
+
+    [FormerlySerializedAs("cooldownTexts")]
+    [SerializeField]
+    private List<TextMeshProUGUI> _cooldownTexts;
+
+    [FormerlySerializedAs("playerTransform")]
+    [SerializeField]
+    private Transform _playerTransform;
+
+    [FormerlySerializedAs("aoeEffectSpawnPoint")]
+    [SerializeField]
+    private Transform _aoeEffectSpawnPoint;
+
+    [FormerlySerializedAs("buffEffectSpawnPoint")]
+    [SerializeField]
+    private Transform _buffEffectSpawnPoint;
+
+    private readonly Dictionary<SkillDataSO, Coroutine> _cooldownCoroutines = new();
 
     private void Start()
     {
@@ -25,15 +50,15 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void InitializeSkillButtons()
     {
-        for (int i = 0; i < skillButtons.Count; i++)
+        for (var i = 0; i < _skillButtons.Count; i++)
         {
-            int index = i;
-            skillButtons[i].onClick.AddListener(() => UseSkill(index));
-            SetupEmptySkillButton(skillButtons[i], cooldownImages[i], cooldownTexts[i]);
+            var index = i;
+            _skillButtons[i].onClick.AddListener(() => UseSkill(index));
+            SetupEmptySkillButton(_skillButtons[i], _cooldownImages[i], _cooldownTexts[i]);
         }
     }
 
-    private void SetupEmptySkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
+    private static void SetupEmptySkillButton(Button button, Image cooldownImage, TextMeshProUGUI cooldownText)
     {
         button.interactable = false;
         cooldownImage.gameObject.SetActive(false);
@@ -42,16 +67,16 @@ public class MainSceneSkillManager : MonoBehaviour
 
     public void UpdateSkillButtons()
     {
-        for (int i = 0; i < skillButtons.Count; i++)
+        for (var i = 0; i < _skillButtons.Count; i++)
         {
-            Button button = skillButtons[i];
-            Image buttonImage = button.GetComponent<Image>();
-            Image cooldownImage = cooldownImages[i];
-            TextMeshProUGUI cooldownText = cooldownTexts[i];
+            var button = _skillButtons[i];
+            var buttonImage = button.GetComponent<Image>();
+            var cooldownImage = _cooldownImages[i];
+            var cooldownText = _cooldownTexts[i];
 
-            if (i < skillManager.EquippedSkills.Count && skillManager.EquippedSkills[i] != null)
+            if (i < _skillManager.EquippedSkills.Count && _skillManager.EquippedSkills[i] != null)
             {
-                SkillDataSO skill = skillManager.EquippedSkills[i];
+                var skill = _skillManager.EquippedSkills[i];
                 buttonImage.sprite = skill.Icon;
                 buttonImage.color = Color.white;
                 button.interactable = true;
@@ -70,7 +95,7 @@ public class MainSceneSkillManager : MonoBehaviour
             }
 
             // ��ư Ŭ�� �̺�Ʈ �缳��
-            int index = i;
+            var index = i;
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(() => UseSkill(index));
         }
@@ -92,54 +117,53 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void RestartCooldownCoroutine(Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
-        if (cooldownCoroutines.TryGetValue(skill, out Coroutine existingCoroutine))
+        if (_cooldownCoroutines.TryGetValue(skill, out var existingCoroutine))
         {
             if (existingCoroutine != null)
             {
                 StopCoroutine(existingCoroutine);
             }
-            cooldownCoroutines.Remove(skill);
+
+            _cooldownCoroutines.Remove(skill);
         }
 
-        Coroutine newCoroutine = StartCoroutine(UpdateCooldown(cooldownImage, cooldownText, skill));
-        cooldownCoroutines[skill] = newCoroutine;
+        var newCoroutine = StartCoroutine(UpdateCooldown(cooldownImage, cooldownText, skill));
+        _cooldownCoroutines[skill] = newCoroutine;
     }
 
     public void UseSkill(int index)
     {
-        if (index < 0 || index >= skillManager.EquippedSkills.Count) return;
+        if (index < 0 || index >= _skillManager.EquippedSkills.Count) return;
 
-        SkillDataSO skill = skillManager.EquippedSkills[index];
-        if (skillManager.GetSkillCooldown(skill) <= 0)
+        var skill = _skillManager.EquippedSkills[index];
+        if (!(_skillManager.GetSkillCooldown(skill) <= 0)) return;
+        _skillManager.SetSkillOnCooldown(skill);
+        _player.SetUsingSkill(true);
+        _player.StopAttacking();
+
+        SpawnSkillEffect(skill);
+
+        if (skill.SkillSound != null)
         {
-            skillManager.SetSkillOnCooldown(skill);
-            player.SetUsingSkill(true);
-            player.StopAttacking();
-
-            SpawnSkillEffect(skill);
-
-            if (skill.SkillSound != null)
-            {
-                SoundManager.Instance.PlaySkillSound(skill.SkillSound);
-            }
-
-            StartCoroutine(ResumeAttackAfterSkill(skill.Duration));
-            RestartCooldownCoroutine(cooldownImages[index], cooldownTexts[index], skill);
+            SoundManager.Instance.PlaySkillSound(skill.SkillSound);
         }
+
+        StartCoroutine(ResumeAttackAfterSkill(skill.Duration));
+        RestartCooldownCoroutine(_cooldownImages[index], _cooldownTexts[index], skill);
     }
 
     private IEnumerator ResumeAttackAfterSkill(float duration)
     {
         yield return new WaitForSeconds(duration);
-        player.SetUsingSkill(false);
-        player.StartAttacking();
+        _player.SetUsingSkill(false);
+        _player.StartAttacking();
     }
 
     private IEnumerator UpdateCooldown(Image cooldownImage, TextMeshProUGUI cooldownText, SkillDataSO skill)
     {
         while (true)
         {
-            float remainingCooldown = skillManager.GetSkillCooldown(skill);
+            var remainingCooldown = _skillManager.GetSkillCooldown(skill);
             if (remainingCooldown > 0)
             {
                 cooldownImage.fillAmount = remainingCooldown / skill.Cooldown;
@@ -158,38 +182,45 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void SpawnSkillEffect(SkillDataSO skill)
     {
-        if (skill.EffectPrefab == null) return;
+        if (skill.EffectPrefab is null) return;
 
         GameObject effectInstance = null;
-        Vector3 spawnPosition = Vector3.zero;
+        Vector3 spawnPosition;
 
         switch (skill.SkillType)
         {
             case Define.SkillType.AttackBuff:
             case Define.SkillType.HealBuff:
-                spawnPosition = buffEffectSpawnPoint.position;
-                effectInstance = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity, buffEffectSpawnPoint);
+                spawnPosition = _buffEffectSpawnPoint.position;
+                effectInstance = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity,
+                    _buffEffectSpawnPoint);
                 InitializeBuffSkill(effectInstance, skill);
                 StartCoroutine(DestroyEffectAfterDelay(effectInstance, 1f));
                 break;
 
             case Define.SkillType.Projectile:
-                if (player.Scanner.NearestTarget != null)
+                if (_player.Scanner.NearestTarget != null)
                 {
-                    spawnPosition = playerTransform.position + (player.Scanner.NearestTarget.position - playerTransform.position).normalized * 0.5f;
+                    spawnPosition = _playerTransform.position +
+                                    (_player.Scanner.NearestTarget.position - _playerTransform.position).normalized *
+                                    0.5f;
                     GameObject projectileObject = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity);
                     InitializeProjectileSkill(projectileObject, skill);
                 }
+
                 break;
 
             case Define.SkillType.AreaOfEffect:
-                spawnPosition = aoeEffectSpawnPoint.position;
+                spawnPosition = _aoeEffectSpawnPoint.position;
                 effectInstance = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity);
                 InitializeAreaEffectSkill(effectInstance, skill);
                 break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
 
-        if (effectInstance != null && skill.SkillType != Define.SkillType.AttackBuff && skill.SkillType != Define.SkillType.HealBuff)
+        if (effectInstance is not null && skill.SkillType != Define.SkillType.AttackBuff &&
+            skill.SkillType != Define.SkillType.HealBuff)
         {
             Destroy(effectInstance, skill.Duration);
         }
@@ -197,10 +228,10 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void InitializeBuffSkill(GameObject effectInstance, SkillDataSO skill)
     {
-        BuffSkill buffSkill = effectInstance.GetComponent<BuffSkill>();
-        if (buffSkill != null)
+        var buffSkill = effectInstance.GetComponent<BuffSkill>();
+        if (buffSkill is not null)
         {
-            buffSkill.Initialize(skill, player);
+            buffSkill.Initialize(skill, _player);
         }
         else
         {
@@ -211,10 +242,10 @@ public class MainSceneSkillManager : MonoBehaviour
 
     private void InitializeProjectileSkill(GameObject projectileObject, SkillDataSO skill)
     {
-        SkillProjectile projectile = projectileObject.GetComponent<SkillProjectile>();
-        if (projectile != null)
+        var projectile = projectileObject.GetComponent<SkillProjectile>();
+        if (projectile is not null)
         {
-            projectile.Initialize(skill, player.Scanner.NearestTarget.position);
+            projectile.Initialize(skill, _player.Scanner.NearestTarget.position);
         }
         else
         {
@@ -223,10 +254,10 @@ public class MainSceneSkillManager : MonoBehaviour
         }
     }
 
-    private void InitializeAreaEffectSkill(GameObject effectInstance, SkillDataSO skill)
+    private static void InitializeAreaEffectSkill(GameObject effectInstance, SkillDataSO skill)
     {
-        AreaEffectSkill aoeSkill = effectInstance.GetComponent<AreaEffectSkill>();
-        if (aoeSkill != null)
+        var aoeSkill = effectInstance.GetComponent<AreaEffectSkill>();
+        if (aoeSkill is not null)
         {
             aoeSkill.Initialize(skill);
         }
@@ -237,10 +268,10 @@ public class MainSceneSkillManager : MonoBehaviour
         }
     }
 
-    private IEnumerator DestroyEffectAfterDelay(GameObject effect, float delay)
+    private static IEnumerator DestroyEffectAfterDelay(GameObject effect, float delay)
     {
         yield return new WaitForSeconds(delay);
-        if (effect != null)
+        if (effect is not null)
         {
             Destroy(effect);
         }
