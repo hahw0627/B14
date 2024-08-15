@@ -8,6 +8,9 @@ using UnityEngine.Serialization;
 
 public class MonsterSpawner : MonoBehaviour
 {
+    [SerializeField]
+    private Player _player;
+    
     [FormerlySerializedAs("spawnPoints")]
     public Transform[] SpawnPoints;
 
@@ -68,12 +71,14 @@ public class MonsterSpawner : MonoBehaviour
 
     private void ActiveBoss(int num)
     {
+        if (_player.CurrentHp <= 0) return;
         BossMonsters[num].transform.position = SpawnPoints[3].position;
         BossMonsters[num].SetActive(true);
     }
 
     private void ActiveMonsters(int num)
     {
+        if (_player.CurrentHp <= 0) return;
         for (var i = 0; i < num; i++)
         {
             MonsterPool.Instance.Monsters[i].transform.position = SpawnPoints[i].position;
@@ -89,7 +94,7 @@ public class MonsterSpawner : MonoBehaviour
 
             if (!AllMonstersDeactivated()) continue;
 
-            if (StageManager.Instance.StageDataSO.StagePage < 4)
+            if (StageManager.Instance.StageDataSO.StagePage < 4 && _player.CurrentHp > 0)
             {
                 StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
                     ++StageManager.Instance.StageDataSO.StagePage);

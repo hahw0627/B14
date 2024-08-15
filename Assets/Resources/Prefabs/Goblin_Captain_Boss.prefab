@@ -5375,7 +5375,6 @@ MonoBehaviour:
   IsAttacking: 0
   HUDPos: {fileID: 6124717720052169194}
   FireMuzzle: {fileID: 285173231863176921}
-  animator: {fileID: 0}
   BossTimer: {fileID: 2687931724481591850}
 --- !u!114 &2687931724481591850
 MonoBehaviour:

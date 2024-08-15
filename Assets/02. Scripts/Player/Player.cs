@@ -128,8 +128,6 @@ public class Player : MonoBehaviour
             }
 
             StartCoroutine(DeathWithDelay());
-            StageManager.StageReset();
-            CurrentHp = PlayerData.Hp;
         }
     }
 
@@ -137,6 +135,9 @@ public class Player : MonoBehaviour
     {
         _animationManager.SetState(CharacterState.Death);
         yield return new WaitForSeconds(4f);
+        StageManager.StageReset();
+        CurrentHp = PlayerData.Hp;
+        _animationManager.SetState(CharacterState.Idle);
     }
     
     public void SetUsingSkill(bool usingSkill)

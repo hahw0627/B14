@@ -10604,7 +10604,6 @@ MonoBehaviour:
   IsAttacking: 0
   HUDPos: {fileID: 8193879737004795274}
   FireMuzzle: {fileID: 6415059503735801436}
-  animator: {fileID: 0}
 --- !u!1 &4950627179256990984
 GameObject:
   m_ObjectHideFlags: 0
