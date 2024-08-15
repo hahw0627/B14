@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
@@ -40,13 +41,15 @@ public class Player : MonoBehaviour
 
     private bool _isUsingSkill;
     private Coroutine _attackCoroutine;
-    private Animator anim;
+    private Animator _animator;
+    private AnimationManager _animationManager;
 
     private void Awake()
     {
         PlayerData = DataManager.Instance.PlayerDataSo;
         Scanner = GetComponent<Scanner>();
-        anim = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
+        _animationManager = GetComponent<AnimationManager>();
 
         AttackSpeed = PlayerData.AttackSpeed;
         CurrentHp = PlayerData.Hp;
@@ -71,7 +74,7 @@ public class Player : MonoBehaviour
         {
             if (!_isUsingSkill && Scanner.nearestTarget != null)
             {
-                anim.Play("Fire1H");
+                _animator.Play("Fire1H");
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
@@ -124,11 +127,18 @@ public class Player : MonoBehaviour
                 monster.SetActive(false);
             }
 
+            StartCoroutine(DeathWithDelay());
             StageManager.StageReset();
             CurrentHp = PlayerData.Hp;
         }
     }
 
+    private IEnumerator DeathWithDelay()
+    {
+        _animationManager.SetState(CharacterState.Death);
+        yield return new WaitForSeconds(4f);
+    }
+    
     public void SetUsingSkill(bool usingSkill)
     {
         _isUsingSkill = usingSkill;

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
 
 public class Monster : MonoBehaviour, IDamageable
@@ -33,9 +34,10 @@ public class Monster : MonoBehaviour, IDamageable
     public Transform FireMuzzle;
 
     protected DamageTextPool DamageTextPool;
-    public Animator animator;
+    private Animator _animator;
 
     private int _goldReward;
+    private static readonly int Slash1H = Animator.StringToHash("Slash1H");
 
     public event Action<Monster> onDeath;
     
@@ -44,7 +46,7 @@ public class Monster : MonoBehaviour, IDamageable
         _goldReward = 10;
         //_animator = GetComponent<Animator>();
         Target = GameObject.Find("Player");
-        animator = GetComponent<Animator>();
+        _animator = GetComponent<Animator>();
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
         {
@@ -97,7 +99,7 @@ public class Monster : MonoBehaviour, IDamageable
         {
             if (Target is not null)
             {
-                animator.SetTrigger("Slash1H");
+                _animator.SetTrigger(Slash1H);
                 var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 var projectileScript = projectile.GetComponent<Projectile>();
@@ -157,6 +159,7 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
+        _animator.SetTrigger("Idle");
         var instance = DataManager.Instance;
         instance.PlayerDataSo.Gold += _goldReward;
         onDeath?.Invoke(this);

@@ -20,7 +20,8 @@ public class MonsterSpawner : MonoBehaviour
     // ��� ���� ��Ȱ��ȭ Ȯ��
     public bool AllMonstersDeactivated()
     {
-        if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf) || BossMonsters.Any(boss => boss.activeSelf))
+        if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf) ||
+            BossMonsters.Any(boss => boss.activeSelf))
         {
             return false;
         }
@@ -86,30 +87,29 @@ public class MonsterSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (AllMonstersDeactivated())
-            {
-                if (StageManager.Instance.StageDataSO.StagePage < 4)
-                {
-                    StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
-                        ++StageManager.Instance.StageDataSO.StagePage);
-                }
+            if (!AllMonstersDeactivated()) continue;
 
-                if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 0)
+            if (StageManager.Instance.StageDataSO.StagePage < 4)
+            {
+                StageManager.Instance.ChangeStage(StageManager.Instance.StageDataSO.Stage,
+                    ++StageManager.Instance.StageDataSO.StagePage);
+            }
+            
+            if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 1)
+            {
+                yield return new WaitForSeconds(4f);
+                SpawnMonsters();
+            }
+            else
+            {
+                switch (StageManager.Instance.StageDataSO.StagePage)
                 {
-                    yield return new WaitForSeconds(4f);
-                    SpawnMonsters();
-                }
-                else
-                {
-                    switch (StageManager.Instance.StageDataSO.StagePage)
-                    {
-                        case <= 3:
-                            SpawnMonsters();
-                            break;
-                        default:
-                            SpawnBoss();
-                            break;
-                    }
+                    case <= 3:
+                        SpawnMonsters();
+                        break;
+                    default:
+                        SpawnBoss();
+                        break;
                 }
             }
         }
