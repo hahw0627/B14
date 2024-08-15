@@ -45,8 +45,8 @@ public class StatUpgrade : MonoBehaviour
 
     public static event System.Action onStatsChanged;
     private Coroutine _currentCoroutine;
-    private float _holdTime = 0.5f; // 롱 터치로 인식할 시간
-    private float _upgradeInterval = 0.1f; // 연속 업그레이드 간격
+    private const float HOLD_TIME = 0.5f; // 롱 터치로 인식할 시간
+    private const float UPGRADE_INTERVAL = 0.1f; // 연속 업그레이드 간격
 
     public void SaveCost()
     {
@@ -89,7 +89,7 @@ public class StatUpgrade : MonoBehaviour
         SetupButton(AttackSpeedBtn,
             () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ",
                 AttackSpeedCostTmp)); // 최대 3번 공격
-        SetupButton(CriticalPercentBtn, () => UpgradeCriticalPercent());
+        SetupButton(CriticalPercentBtn, UpgradeCriticalPercent);
         SetupButton(CriticalDamageBtn,
             () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalMultiplierCost, CriticalDamageTmp,
                 "치명타데미지 : ", CriticalDamageCostTmp));
@@ -120,17 +120,18 @@ public class StatUpgrade : MonoBehaviour
 
     private IEnumerator LongPressCoroutine(System.Action upgradeAction)
     {
-        yield return new WaitForSeconds(_holdTime);
+        yield return new WaitForSeconds(HOLD_TIME);
 
         while (true)
         {
             upgradeAction();
-            yield return new WaitForSeconds(_upgradeInterval);
+            yield return new WaitForSeconds(UPGRADE_INTERVAL);
         }
     }
 
     private void UpgradeStat(ref int stat, int increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
     {
+        SoundManager.Instance.Play("Reinforcement");
         if (PlayerData.Gold < cost) return;
         stat += increment;
 
@@ -144,13 +145,14 @@ public class StatUpgrade : MonoBehaviour
 
     private void UpgradeCriticalPercent()
     {
+        SoundManager.Instance.Play("Reinforcement");
         if (PlayerData.CriticalPer >= 100f)
         {
             CriticalPercentBtn.interactable = false;
             return;
         }
 
-        float newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
+        var newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
         UpgradeStat(ref PlayerData.CriticalPer, newValue - PlayerData.CriticalPer, ref _criticalPercentCost,
             CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp);
 
@@ -162,6 +164,7 @@ public class StatUpgrade : MonoBehaviour
 
     private void UpgradeStat(ref float stat, float increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
     {
+        SoundManager.Instance.Play("Reinforcement");
         if (PlayerData.Gold < cost) return;
         stat += increment;
 

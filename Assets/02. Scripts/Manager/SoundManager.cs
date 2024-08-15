@@ -1,74 +1,67 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
-    Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
+    private readonly Dictionary<string, AudioClip> _audioClips = new();
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
     }
 
-    public void Init()
+    private void Init()
     {
-        GameObject root = GameObject.Find("Sound");
-        if (root == null)
+        var root = GameObject.Find("Sound");
+        if (root != null) return;
+        root = new GameObject { name = "Sound" };
+        DontDestroyOnLoad(root);
+
+        var soundName = System.Enum.GetNames(typeof(Define.Sound));
+        for (var i = 0; i < soundName.Length - 1; i++)
         {
-            root = new GameObject { name = "Sound" };
-            Object.DontDestroyOnLoad(root);
-
-            string[] soundName = System.Enum.GetNames(typeof(Define.Sound));
-            for (int i = 0; i < soundName.Length - 1; i++)
-            {
-                var go = new GameObject { name = soundName[i] };
-                _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
-            }
-            _audioSources[(int)Define.Sound.Bgm].loop = true;
-
+            var go = new GameObject { name = soundName[i] };
+            _audioSources[i] = go.AddComponent<AudioSource>();
+            go.transform.parent = root.transform;
         }
+        _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
-
-    public void Soundw()
-    {
-        
-    }
-
-    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
 
         if (type == Define.Sound.Bgm)
         {
-            AudioClip audioClip = Resources.Load<AudioClip>(path);
-            if (audioClip == null)
+            var audioClip = Resources.Load<AudioClip>(path);
+            if (audioClip is null)
             {
                 Debug.Log("missing");
                 return;
             }
-            AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
+            var audioSource = _audioSources[(int)Define.Sound.Bgm];
 
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
         }
         else
         {
-            AudioClip audioClip = GetOrAddAudioClip(path);
+            var audioClip = GetOrAddAudioClip(path);
             if (audioClip == null)
             {
                 Debug.Log("missing");
                 return;
             }
             AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
@@ -78,27 +71,24 @@ public class SoundManager : Singleton<SoundManager>
     {
         if (skillSound == null) return;
 
-        AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+        var audioSource = _audioSources[(int)Define.Sound.Effect];
         audioSource.PlayOneShot(skillSound);
     }
     public void Clear()
     {
-        foreach (var audioSouce in _audioSources)
+        foreach (var audioSource in _audioSources)
         {
-            audioSouce.clip = null;
-            audioSouce.Stop();
+            audioSource.clip = null;
+            audioSource.Stop();
         }
-        audioClips.Clear();
+        _audioClips.Clear();
     }
 
-    AudioClip GetOrAddAudioClip(string path)
+    private AudioClip GetOrAddAudioClip(string path)
     {
-        AudioClip audioClip = null;
-        if (audioClips.TryGetValue(path, out audioClip) == false)
-        {
-            audioClip = Resources.Load<AudioClip>(path);
-            audioClips.Add(path, audioClip);
-        }
+        if (_audioClips.TryGetValue(path, out var audioClip)) return audioClip;
+        audioClip = Resources.Load<AudioClip>(path);
+        _audioClips.Add(path, audioClip);
 
         return audioClip;
     }
