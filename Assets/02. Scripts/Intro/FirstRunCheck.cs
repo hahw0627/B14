@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FirstRunCheck : MonoBehaviour
 {
@@ -29,7 +28,7 @@ public class FirstRunCheck : MonoBehaviour
         {
             // 이미 실행된 경우
             IsFirstRun = false;
-            Destroy(_introCanvas);
+            _introCanvas.SetActive(false);
             Debug.Log("<color=white>인트로: 게임을 전에 실행했었습니다.</color>");
         }
     }
@@ -51,6 +50,6 @@ public class FirstRunCheck : MonoBehaviour
     public void InitFirstRun()
     {
         PlayerPrefs.DeleteKey(FIRST_RUN_KEY);
-        SceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+        _introCanvas.SetActive(true);
     }
 }

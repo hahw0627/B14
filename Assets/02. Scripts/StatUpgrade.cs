@@ -145,7 +145,7 @@ public class StatUpgrade : MonoBehaviour
 
     private void UpgradeCriticalPercent()
     {
-        SoundManager.Instance.Play("Reinforcement");
+        SoundManager.Instance.Play("Reinforcement", volume: 0.6f);
         if (PlayerData.CriticalPer >= 100f)
         {
             CriticalPercentBtn.interactable = false;

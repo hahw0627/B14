@@ -38,8 +38,8 @@ public class Player : MonoBehaviour
     public float CriticalMultiplier;
 
     [FormerlySerializedAs("damageTextPool")]
-
     private bool _isUsingSkill;
+
     private Coroutine _attackCoroutine;
     private Animator _animator;
     private AnimationManager _animationManager;
@@ -64,7 +64,6 @@ public class Player : MonoBehaviour
     {
         StartAttacking();
         StartCoroutine(RecoverHp());
-        
     }
 
     // ���ݱ��
@@ -85,7 +84,6 @@ public class Player : MonoBehaviour
                 Damage = CurrentDamage;
 
 
-
                 projectileScript.Damage = Mathf.RoundToInt(Damage);
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
@@ -103,7 +101,7 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (CurrentHp < PlayerData.Hp)
+            if (CurrentHp < PlayerData.Hp && CurrentHp > 0)
             {
                 CurrentHp += PlayerData.HpRecovery;
                 if (CurrentHp > PlayerData.Hp)
@@ -125,6 +123,11 @@ public class Player : MonoBehaviour
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
             foreach (GameObject monster in monsters)
             {
+                if (monster.GetComponent<BossTimer>() != null)
+                {
+                    monster.GetComponent<BossTimer>().DeactivateTimer();
+                }
+
                 monster.SetActive(false);
             }
 
@@ -140,7 +143,7 @@ public class Player : MonoBehaviour
         CurrentHp = PlayerData.Hp;
         _animationManager.SetState(CharacterState.Idle);
     }
-    
+
     public void SetUsingSkill(bool usingSkill)
     {
         _isUsingSkill = usingSkill;

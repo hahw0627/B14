@@ -67,6 +67,11 @@ public class SoundManager : Singleton<SoundManager>
         }
     }
 
+    public void StopBGM()
+    {
+        _audioSources[(int)Define.Sound.Bgm].Stop();
+    }
+
     public void PlaySkillSound(AudioClip skillSound)
     {
         if (skillSound == null) return;
