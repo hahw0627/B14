@@ -12,8 +12,23 @@ public class AreaEffectSkill : MonoBehaviour
     {
         skillData = skill;
         StartCoroutine(DealDamageOverTime());
-        StartCoroutine(CameraShake.Instance.Shake(0.5f, 0.2f));
+        StartCoroutine(ApplyEffects());
     }
+
+    private IEnumerator ApplyEffects()
+    {
+        // 카메라 흔들림 효과 적용
+        StartCoroutine(CameraShake.Instance.Shake(0.5f, 0.2f));
+
+        // 기기 진동 적용
+        if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
+        {
+            Handheld.Vibrate();
+        }
+
+        yield return null;
+    }
+
 
     private IEnumerator DealDamageOverTime()
     {
