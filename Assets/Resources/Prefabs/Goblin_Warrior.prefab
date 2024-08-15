@@ -10278,6 +10278,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 6415059503735801436}
   - {fileID: 1989373206283230730}
   - {fileID: 1795509685040889339}
   - {fileID: 3021941225367104654}
@@ -10594,7 +10595,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Character: {fileID: 0}
   MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
   Target: {fileID: 0}
   Hp: 0
@@ -10603,7 +10603,8 @@ MonoBehaviour:
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 8193879737004795274}
-  FireMuzzle: {fileID: 5197733885392475728}
+  FireMuzzle: {fileID: 6415059503735801436}
+  animator: {fileID: 0}
 --- !u!1 &4950627179256990984
 GameObject:
   m_ObjectHideFlags: 0
@@ -16988,6 +16989,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteName: Front
   SpriteNameFallback: []
+--- !u!1 &7976232344882885383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6415059503735801436}
+  m_Layer: 0
+  m_Name: ProjectilePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6415059503735801436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976232344882885383}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.6999998, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8193879737004795274}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7978666652666204451
 GameObject:
   m_ObjectHideFlags: 0
