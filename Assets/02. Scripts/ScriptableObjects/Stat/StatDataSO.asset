@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7571b390a9dfe3945876c2c9bf072507, type: 3}
   m_Name: StatDataSO
   m_EditorClassIdentifier: 
-  AttackCost: 1
-  AttackSpeedCost: 1
-  HpCost: 3
-  HpRecoveryCost: 10
+  AttackCost: 10
+  AttackSpeedCost: 7
+  HpCost: 11
+  HpRecoveryCost: 2
   CriticalPercentageCost: 100
   CriticalMultiplierCost: 50
