@@ -37,23 +37,19 @@ public class BossTimer : MonoBehaviour
             yield return null;
         }
 
-        // ���� �ð��� 0 ���ϰ� �Ǹ�
-        DeactivateBoss();
-        DeactivateTimer();
+        if (currentTime <= 0)
+        {
+            DeactivateBoss();
+        }
     }
 
     private void DeactivateBoss()
     {
-        // ���� ��Ȱ��ȭ
-        gameObject.SetActive(false);
-
-        // Player�� StageReset ȣ��
         Player player = FindObjectOfType<Player>();
-        if (player != null)
-        {
-            StageManager.StageReset();
-        }
+        player.CurrentHp = 0;
+        gameObject.SetActive(false);
         DeactivateTimer();
+        StartCoroutine(player.DeathWithDelay());
     }
 
     public void ActivateTimer()

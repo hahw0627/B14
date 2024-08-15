@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private IEnumerator DeathWithDelay()
+    public IEnumerator DeathWithDelay()
     {
         _animationManager.SetState(CharacterState.Death);
         yield return new WaitForSeconds(4f);
