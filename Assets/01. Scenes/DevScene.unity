@@ -17202,6 +17202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b97136ff59d7ec4a99b7c40da845ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 2317444231511002792}
   SpawnPoints:
   - {fileID: 545324740}
   - {fileID: 147256279}
