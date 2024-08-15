@@ -40,7 +40,5 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         {
             Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
         }
-
-      
     }
 }

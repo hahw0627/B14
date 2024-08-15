@@ -117,7 +117,7 @@ public class MainSceneSkillManager : MonoBehaviour
             player.StopAttacking();
 
             SpawnSkillEffect(skill);
-
+            
             StartCoroutine(ResumeAttackAfterSkill(skill.Duration));
             RestartCooldownCoroutine(cooldownImages[index], cooldownTexts[index], skill);
         }

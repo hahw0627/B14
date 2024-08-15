@@ -11,6 +11,7 @@ public class SoundManager : Singleton<SoundManager>
     private void Awake()
     {
         Init();
+       
     }
 
     public void Init()
@@ -32,10 +33,13 @@ public class SoundManager : Singleton<SoundManager>
 
         }
     }
-
-    public void Soundw()
+    public void Pause()
     {
-        
+        _audioSources[(int)Define.Sound.Bgm].Pause();
+    }
+    public void UnPause()
+    {
+        _audioSources[(int)Define.Sound.Bgm].UnPause();
     }
 
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)

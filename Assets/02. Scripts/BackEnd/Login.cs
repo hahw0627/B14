@@ -53,7 +53,7 @@ public class Login : LoginBase
                 SetMessage($"{inputFieldID.text}님 환영합니다");
 
                 // 씬 이동 or 게임화면 오픈 추가 ..
-                SceneManager.LoadScene("DevScene");
+                SceneManager.LoadScene("DevScene2");
             }
             else
             {
