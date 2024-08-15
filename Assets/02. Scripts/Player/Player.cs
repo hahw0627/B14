@@ -6,13 +6,11 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    //public Character4D Character;
-
     [FormerlySerializedAs("playerData")]
     public PlayerDataSO PlayerData;
 
-    [FormerlySerializedAs("gameManager")]
-    public GameManager GameManager;
+    [SerializeField]
+    private HpBar _hpBar;
 
     [FormerlySerializedAs("scanner")]
     public Scanner Scanner;
@@ -52,7 +50,9 @@ public class Player : MonoBehaviour
         _animationManager = GetComponent<AnimationManager>();
 
         AttackSpeed = PlayerData.AttackSpeed;
-        CurrentHp = PlayerData.Hp;
+        CurrentHp = PlayerData.MaxHp;
+        _hpBar.SetMaxHp(PlayerData.MaxHp);
+        _hpBar.SetCurrentHp(CurrentHp);
 
         CriticalPer = PlayerData.CriticalPer;
         CriticalMultiplier = PlayerData.CriticalMultiplier;
@@ -71,15 +71,15 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            if (!_isUsingSkill && Scanner.nearestTarget != null)
+            if (!_isUsingSkill && Scanner.NearestTarget != null)
             {
                 _animator.Play("Fire1H");
                 SoundManager.Instance.Play("Fire", volume: 0.36f, pitch: 0.9f);
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Target = Scanner.nearestTarget;
-                projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
+                projectileScript.Target = Scanner.NearestTarget;
+                projectileScript.SetDirection(Scanner.NearestTarget.transform.position);
 
                 Damage = CurrentDamage;
 
@@ -101,12 +101,14 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (CurrentHp < PlayerData.Hp && CurrentHp > 0)
+            if (CurrentHp < PlayerData.MaxHp && CurrentHp > 0)
             {
                 CurrentHp += PlayerData.HpRecovery;
-                if (CurrentHp > PlayerData.Hp)
+                _hpBar.SetCurrentHp(CurrentHp);
+                if (CurrentHp > PlayerData.MaxHp)
                 {
-                    CurrentHp = PlayerData.Hp;
+                    CurrentHp = PlayerData.MaxHp;
+                    _hpBar.SetCurrentHp(CurrentHp);
                 }
             }
         }
@@ -116,6 +118,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurrentHp -= damage;
+        _hpBar.SetCurrentHp(CurrentHp);
 
         if (CurrentHp <= 0)
         {
@@ -140,7 +143,8 @@ public class Player : MonoBehaviour
         _animationManager.SetState(CharacterState.Death);
         yield return new WaitForSeconds(4f);
         StageManager.StageReset();
-        CurrentHp = PlayerData.Hp;
+        CurrentHp = PlayerData.MaxHp;
+        _hpBar.SetCurrentHp(CurrentHp);
         _animationManager.SetState(CharacterState.Idle);
     }
 

@@ -5,7 +5,7 @@ public class StatDataSO : ScriptableObject
 {
     public int AttackCost;
     public int AttackSpeedCost;
-    public int HpCost;
+    public int MaxHpCost;
     public int HpRecoveryCost;
     public int CriticalPercentageCost;
     public int CriticalMultiplierCost;

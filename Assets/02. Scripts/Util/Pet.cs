@@ -35,18 +35,18 @@ public class Pet : MonoBehaviour
     {
         while (true)
         {
-            if (scanner.nearestTarget != null)
+            if (scanner.NearestTarget != null)
             {
                 animator.SetTrigger("Slash1H");
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = projectilPos.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Target = scanner.nearestTarget.transform;
-                projectileScript.SetDirection(scanner.nearestTarget.transform.position);
+                projectileScript.Target = scanner.NearestTarget.transform;
+                projectileScript.SetDirection(scanner.NearestTarget.transform.position);
                 projectileScript.Damage = this.damage;
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.yellow);
-                Monster monster = scanner.nearestTarget.GetComponent<Monster>();
+                Monster monster = scanner.NearestTarget.GetComponent<Monster>();
                 if (monster != null)
                 {
                     monster.TakeDamage(this.damage, false, true);

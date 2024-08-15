@@ -14,7 +14,7 @@ public class MonsterStatistics : ScriptableObject
 {
     public string Name;
     public MonsterType Type;
-    public int Hp;
+    public int MaxHp;
     public int Attack;
     public int AttackDelay;
 }

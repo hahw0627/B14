@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 
 [Serializable]
@@ -34,7 +35,7 @@ public class Stats
     public int health;
     public int hpRecovery;
 
-    public int attack;
+    public long attack;
     public int defense;
     public int totalPower;
     public float attackSpeed;
@@ -95,7 +96,7 @@ public class StageData
 [Serializable]
 public class CurrencyData
 {
-    public int gold;
-    public int dia;
+    public long Gold;
+    public long Gem;
     // �ʿ信 ���� �߰����� ��ȭ
 }

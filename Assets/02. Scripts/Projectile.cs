@@ -1,18 +1,24 @@
 using System.Collections;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Vector3 = UnityEngine.Vector3;
 
 public class Projectile : MonoBehaviour
 {
     [FormerlySerializedAs("target")]
     public Transform Target;
-    [FormerlySerializedAs("damage")]
+
     public int Damage;
+
     [FormerlySerializedAs("speed")]
     public int Speed = 3;
+
     private Vector3 _direction;
+
     [FormerlySerializedAs("shooterTag")]
     public string ShooterTag; // ����ü�� �߻��� ��ü�� �±� (Player �Ǵ� Monster)
+
     private SpriteRenderer _spriteRenderer;
     private int _cachedPlayerDamage;
 
@@ -37,9 +43,9 @@ public class Projectile : MonoBehaviour
         {
             _cachedPlayerDamage = DataManager.Instance.PlayerDataSo.Damage;
         }
+
         // 3�� �Ŀ� ����
         StartCoroutine(DestroyAfterTime(1.5f));
-
     }
 
     private void Update()
@@ -77,6 +83,7 @@ public class Projectile : MonoBehaviour
                 monster.TakeDamage(currentDamage);
             }
         }
+
         ProjectilePool.Instance.ReturnProjectile(gameObject);
     }
 
@@ -90,4 +97,3 @@ public class Projectile : MonoBehaviour
         _spriteRenderer.color = color;
     }
 }
-

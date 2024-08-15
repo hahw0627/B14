@@ -49,9 +49,9 @@ public class MainSceneSkillManager : MonoBehaviour
             Image cooldownImage = cooldownImages[i];
             TextMeshProUGUI cooldownText = cooldownTexts[i];
 
-            if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
+            if (i < skillManager.EquippedSkills.Count && skillManager.EquippedSkills[i] != null)
             {
-                SkillDataSO skill = skillManager.equippedSkills[i];
+                SkillDataSO skill = skillManager.EquippedSkills[i];
                 buttonImage.sprite = skill.Icon;
                 buttonImage.color = Color.white;
                 button.interactable = true;
@@ -107,9 +107,9 @@ public class MainSceneSkillManager : MonoBehaviour
 
     public void UseSkill(int index)
     {
-        if (index < 0 || index >= skillManager.equippedSkills.Count) return;
+        if (index < 0 || index >= skillManager.EquippedSkills.Count) return;
 
-        SkillDataSO skill = skillManager.equippedSkills[index];
+        SkillDataSO skill = skillManager.EquippedSkills[index];
         if (skillManager.GetSkillCooldown(skill) <= 0)
         {
             skillManager.SetSkillOnCooldown(skill);
@@ -174,9 +174,9 @@ public class MainSceneSkillManager : MonoBehaviour
                 break;
 
             case Define.SkillType.Projectile:
-                if (player.Scanner.nearestTarget != null)
+                if (player.Scanner.NearestTarget != null)
                 {
-                    spawnPosition = playerTransform.position + (player.Scanner.nearestTarget.position - playerTransform.position).normalized * 0.5f;
+                    spawnPosition = playerTransform.position + (player.Scanner.NearestTarget.position - playerTransform.position).normalized * 0.5f;
                     GameObject projectileObject = Instantiate(skill.EffectPrefab, spawnPosition, Quaternion.identity);
                     InitializeProjectileSkill(projectileObject, skill);
                 }
@@ -214,7 +214,7 @@ public class MainSceneSkillManager : MonoBehaviour
         SkillProjectile projectile = projectileObject.GetComponent<SkillProjectile>();
         if (projectile != null)
         {
-            projectile.Initialize(skill, player.Scanner.nearestTarget.position);
+            projectile.Initialize(skill, player.Scanner.NearestTarget.position);
         }
         else
         {

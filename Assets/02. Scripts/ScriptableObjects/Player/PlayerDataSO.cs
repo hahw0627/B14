@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -24,15 +25,15 @@ public class PlayerDataSO : ScriptableObject
     // �÷��̾� �̸�
     // �Խ�Ʈ �α������� �÷����ϸ� Guest-Login ���� ǥ���ϸ� �� ����
     // �Ҽ� �α������� �÷����ϸ� ?
-    public int Gold; // ���� ��ȭ (��ȭ��)
-    public int Gem;
+    public long Gold; // ���� ��ȭ (��ȭ��)
+    public long Gem;
 
     public int TotalPower; // ���� ������
     public int Damage; // ���ݷ�
     public int Def; // ����
     public float AttackSpeed; // ���ݼӵ�
 
-    public int Hp; // ü��
+    public int MaxHp; // ü��
     public int HpRecovery; // ü��ȸ�� (1�ʴ� ȸ��)
 
     // ġ��Ÿ�� �ִ� ��ȭ ������ 500����?

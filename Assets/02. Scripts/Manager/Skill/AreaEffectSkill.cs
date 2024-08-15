@@ -1,13 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class AreaEffectSkill : MonoBehaviour
 {
     private SkillDataSO skillData;
-    private float damageInterval = 0.5f; // �������� �ִ� ���� (��)
+        private float damageInterval = 0.5f; // �������� �ִ� ���� (��)
 
     public void Initialize(SkillDataSO skill)
     {

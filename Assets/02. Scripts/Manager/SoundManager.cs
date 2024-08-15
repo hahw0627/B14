@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,8 +28,10 @@ public class SoundManager : Singleton<SoundManager>
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
         }
+
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
+
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
@@ -42,6 +45,7 @@ public class SoundManager : Singleton<SoundManager>
                 Debug.Log("missing");
                 return;
             }
+
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
 
             if (audioSource.isPlaying)
@@ -60,7 +64,8 @@ public class SoundManager : Singleton<SoundManager>
                 Debug.Log("missing");
                 return;
             }
-            AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+
+            var audioSource = _audioSources[(int)Define.Sound.Effect];
             audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
@@ -79,6 +84,7 @@ public class SoundManager : Singleton<SoundManager>
         var audioSource = _audioSources[(int)Define.Sound.Effect];
         audioSource.PlayOneShot(skillSound);
     }
+
     public void Clear()
     {
         foreach (var audioSource in _audioSources)
@@ -86,6 +92,7 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.clip = null;
             audioSource.Stop();
         }
+
         _audioClips.Clear();
     }
 
