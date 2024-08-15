@@ -161,7 +161,7 @@ public class SkillUIManager : MonoBehaviour
     public void StartEquipProcess(SkillDataSO skill)
     {
         skillInfoPanel.SetActive(false);
-        instructionText.text = "��ü�� ��ų ������ �����ϼ���";
+        instructionText.text = "교체할 스킬 슬롯을 선택하세요.";
         SetEquippedSkillsInteractable(true, skill);
     }
 
@@ -193,7 +193,7 @@ public class SkillUIManager : MonoBehaviour
         if (isSkillAlreadyEquipped)
         {
             Debug.LogWarning("�̹� �� ��ų�� �����Ǿ� �ֽ��ϴ�.");
-            instructionText.text = "�̹� ������ ��ų�Դϴ�.";
+            instructionText.text = "이미 장착된 스킬입니다.";
             return;
         }
 
