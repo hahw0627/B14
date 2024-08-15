@@ -73,6 +73,14 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.PlayOneShot(audioClip);
         }
     }
+
+    public void PlaySkillSound(AudioClip skillSound)
+    {
+        if (skillSound == null) return;
+
+        AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+        audioSource.PlayOneShot(skillSound);
+    }
     public void Clear()
     {
         foreach (var audioSouce in _audioSources)

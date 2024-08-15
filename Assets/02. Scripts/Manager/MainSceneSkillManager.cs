@@ -118,6 +118,11 @@ public class MainSceneSkillManager : MonoBehaviour
 
             SpawnSkillEffect(skill);
 
+            if (skill.SkillSound != null)
+            {
+                SoundManager.Instance.PlaySkillSound(skill.SkillSound);
+            }
+
             StartCoroutine(ResumeAttackAfterSkill(skill.Duration));
             RestartCooldownCoroutine(cooldownImages[index], cooldownTexts[index], skill);
         }
