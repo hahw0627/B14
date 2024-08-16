@@ -104,7 +104,14 @@ public class Monster : MonoBehaviour, IDamageable
         {
             if (Target is not null)
             {
-                _animator.SetTrigger(Slash1H);
+                if(name == "Goblin_Archer(Clone)" || name == "Goblin_Archer_Boss")
+                {
+                    _animator.SetTrigger("ShotBow");
+                }
+                else
+                {
+                    _animator.SetTrigger(Slash1H);
+                }
                 var projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 var projectileScript = projectile.GetComponent<Projectile>();
