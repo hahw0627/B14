@@ -37,7 +37,18 @@ public class Pet : MonoBehaviour
         {
             if (scanner.NearestTarget != null)
             {
-                animator.SetTrigger("Slash1H");
+                if (name == "Companion_5(Clone)" || name == "Companion_10(Clone)" || name == "Companion_15(Clone)")
+                {
+                    animator.SetTrigger("ShotBow");
+                }
+                else if(name == "Companion_6(Clone)")
+                {
+                    animator.Play("Fire1H");
+                }
+                else
+                {
+                    animator.SetTrigger("Slash1H");
+                }
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = projectilPos.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
