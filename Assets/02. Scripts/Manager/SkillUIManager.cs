@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -39,7 +40,10 @@ public class SkillUIManager : MonoBehaviour
     [SerializeField]
     private Button _batchEnhanceButton;
 
-    
+    [SerializeField]
+    private Sprite _defaultSlotSprite;
+
+
     [SerializeField]
     private SkillInfoPanel _skillInfoPanelScript;
 
@@ -47,10 +51,21 @@ public class SkillUIManager : MonoBehaviour
     {
         _skillManager.onEquippedSkillsChanged += RefreshSkillUI;
         _skillInfoPanelScript = _skillInfoPanel.GetComponent<SkillInfoPanel>();
+        InitializeEquippedSkillSlots();
         RefreshSkillUI();
         _batchEnhanceButton.onClick.AddListener(OnBatchEnhanceButtonClick);
         UpdateBatchEnhanceButtonState();
     }
+
+    private void InitializeEquippedSkillSlots()
+    {
+        for (int i = 0; i < _equippedSkillSlots.Count; i++)
+        {
+            int index = i;
+            _equippedSkillSlots[i].onClick.AddListener(() => ShowEquippedSkillInfo(DataManager.Instance.PlayerDataSo.EquippedSkills[index], index));
+        }
+    }
+
 
     private void OnDestroy()
     {
@@ -119,18 +134,43 @@ public class SkillUIManager : MonoBehaviour
         {
             var iconImage = _equippedSkillSlots[i].GetComponent<Image>();
             var levelText = _equippedSkillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
+            var button = _equippedSkillSlots[i].GetComponent<Button>();
 
-            if (i < _skillManager.EquippedSkills.Count && _skillManager.EquippedSkills[i] != null)
+            if (i < DataManager.Instance.PlayerDataSo.EquippedSkills.Count && DataManager.Instance.PlayerDataSo.EquippedSkills[i] != null)
             {
-                SkillDataSO skill = _skillManager.EquippedSkills[i];
+                SkillDataSO skill = DataManager.Instance.PlayerDataSo.EquippedSkills[i];
                 iconImage.sprite = skill.Icon;
                 iconImage.color = Color.white;
                 levelText.text = $"Lv.{skill.Level}";
+
+                int index = i;
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => ShowEquippedSkillInfo(skill, index));
+
             }
             else
             {
+                iconImage.sprite = _defaultSlotSprite;
                 levelText.text = "";
+                button.onClick.RemoveAllListeners();
             }
+        }
+    }
+
+    private void ShowEquippedSkillInfo(SkillDataSO skill, int slotIndex)
+    {
+        _skillInfoPanel.SetActive(true);
+        _skillInfoPanelScript.SetSkillInfo(skill, slotIndex);
+    }
+
+    public void UnequipSkillAtIndex(int index)
+    {
+        if (index >= 0 && index < DataManager.Instance.PlayerDataSo.EquippedSkills.Count)
+        {
+            DataManager.Instance.PlayerDataSo.EquippedSkills[index] = null;
+            RefreshSkillUI();
+            UpdateEquippedSkillSlots();
+            _mainSceneSkillManager.UpdateSkillButtons();
         }
     }
 
@@ -178,7 +218,7 @@ public class SkillUIManager : MonoBehaviour
     private void ShowSkillInfo(SkillDataSO skill)
     {
         _skillInfoPanel.SetActive(true);
-        _skillInfoPanelScript.SetSkillInfo(skill);
+        _skillInfoPanelScript.SetSkillInfo(skill, -1);
 
         _skillInfoPanelScript.equipButton.onClick.RemoveAllListeners();
         _skillInfoPanelScript.equipButton.onClick.AddListener(() => StartEquipProcess(skill));
@@ -215,7 +255,7 @@ public class SkillUIManager : MonoBehaviour
         if (index == -1) return;
 
         // �̹� ���� ��ų�� �����Ǿ� �ִ��� Ȯ��
-        var isSkillAlreadyEquipped = _skillManager.EquippedSkills.Exists(skill => skill != null && skill == newSkill);
+        var isSkillAlreadyEquipped = DataManager.Instance.PlayerDataSo.EquippedSkills.Exists(skill => skill != null && skill == newSkill);
         if (isSkillAlreadyEquipped)
         {
             Debug.LogWarning("�̹� �� ��ų�� �����Ǿ� �ֽ��ϴ�.");
