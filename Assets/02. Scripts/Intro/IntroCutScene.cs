@@ -50,7 +50,7 @@ public class IntroCutScene : MonoBehaviour
     private void OnEnable()
     {
         Time.timeScale = 0f;
-        SoundManager.Instance.Play("IntroBackground", type: Define.Sound.Bgm, volume: 1.0f);
+        SoundManager.Instance.Play("IntroBackground", type: Define.Sound.Bgm);
     }
 
     private void OnDisable()
@@ -73,7 +73,7 @@ public class IntroCutScene : MonoBehaviour
         {
             // 모든 장면을 보여준 후의 처리 (예: 씬 전환 또는 종료)
             Debug.Log("<color=white>인트로: 모든 장면을 표시했습니다.</color>");
-            SoundManager.Instance.Play("MainBackground", type: Define.Sound.Bgm, volume: 0.6f);
+            SoundManager.Instance.Play("MainBackground", type: Define.Sound.Bgm);
             Time.timeScale = 1f;
             _introCutSceneObject.SetActive(false);
             FirstRunCheck.SaveKeyOfFirstRun();

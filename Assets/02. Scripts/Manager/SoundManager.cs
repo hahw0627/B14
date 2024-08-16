@@ -13,18 +13,51 @@ public class SoundManager : Singleton<SoundManager>
     {
         base.Awake();
         Init();
+
         if (!_introCanvas.activeSelf)
         {
-            Instance.Play("MainBackground", type: Define.Sound.Bgm, volume: 0.6f);
+            Instance.Play("MainBackground", type: Define.Sound.Bgm);
         }
     }
-    public void Pause()
+
+    public AudioSource GetAudioSource(Define.Sound type)
+    {
+        if (type == Define.Sound.Bgm)
+           return _audioSources[(int)Define.Sound.Bgm];
+        else if(type == Define.Sound.Effect)
+            return _audioSources[(int)Define.Sound.Effect];
+
+        return null;
+    }
+    
+    public void PauseBGM()
     {
         _audioSources[(int)Define.Sound.Bgm].Pause();
     }
-    public void UnPause()
+    public void UnPauseBGM()
     {
         _audioSources[(int)Define.Sound.Bgm].UnPause();
+    }
+
+    public void SetBGMVolume(float volume)
+    {
+        _audioSources[(int)Define.Sound.Bgm].volume = volume;
+    }
+    public void SetSFXVolume(float volume)
+    {
+        _audioSources[(int)Define.Sound.Effect].volume = volume;
+    }
+    public void SetMasterVolume(float volume)
+    {
+        foreach (var audioSource in _audioSources)
+        {
+            if (audioSource != null)
+            {
+                audioSource.volume = volume;
+            }
+        }
+    }
+
 
     private void Init()
     {
@@ -44,7 +77,7 @@ public class SoundManager : Singleton<SoundManager>
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect,  float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
@@ -63,7 +96,7 @@ public class SoundManager : Singleton<SoundManager>
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
-            audioSource.volume = volume;
+           
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
@@ -78,7 +111,7 @@ public class SoundManager : Singleton<SoundManager>
             }
 
             var audioSource = _audioSources[(int)Define.Sound.Effect];
-            audioSource.volume = volume;
+            
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
@@ -116,4 +149,5 @@ public class SoundManager : Singleton<SoundManager>
 
         return audioClip;
     }
+
 }

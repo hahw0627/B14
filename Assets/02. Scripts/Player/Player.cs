@@ -74,7 +74,7 @@ public class Player : MonoBehaviour
             if (!_isUsingSkill && Scanner.NearestTarget != null)
             {
                 _animator.Play("Fire1H");
-                SoundManager.Instance.Play("Fire", volume: 0.36f, pitch: 0.8f);
+                SoundManager.Instance.Play("Fire",pitch: 0.8f);
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
