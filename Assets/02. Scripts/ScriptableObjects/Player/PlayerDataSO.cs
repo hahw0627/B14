@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Numerics;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -39,13 +38,6 @@ public class PlayerDataSO : ScriptableObject
     // ġ��Ÿ�� �ִ� ��ȭ ������ 500����?
     public float CriticalPer; // ġ��Ÿ Ȯ�� 1���� ���� ( ��ȭ���� 0.2 �����ϸ� �� ���� )
     public float CriticalMultiplier; // ġ��Ÿ ���� 1���� ���� ( 0���� 150�ۼ�Ʈ ������ ���� + ������ 0.3%����? )
-
-    public int attackCost;
-    public int hpCost;
-    public int recoverHpCost;
-    public int attackSpeedCost;
-    public int criticalPercentCost;
-    public int criticalDamageCost;
 
     public EquipmentDataSO CurrentWeaponEquip;
     public EquipmentDataSO CurrentArmorEquip;

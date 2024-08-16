@@ -96,7 +96,7 @@ public class StageData
 [Serializable]
 public class CurrencyData
 {
-    public long Gold;
+    public BigInteger Gold;
     public long Gem;
     // �ʿ信 ���� �߰����� ��ȭ
 }
