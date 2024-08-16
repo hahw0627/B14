@@ -10596,8 +10596,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  _hpBar: {fileID: 0}
   Target: {fileID: 0}
-  Hp: 0
+  CurrentHp: 0
   Damage: 0
   AttackSpeed: 0
   MoveTime: 0

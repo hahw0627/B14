@@ -13,7 +13,7 @@ public class StatUpgrade : MonoBehaviour
     public TextMeshProUGUI AttackTmp;
 
     public TextMeshProUGUI AttackSpeedTmp;
-    public TextMeshProUGUI HpTmp;
+    public TextMeshProUGUI MaxHpTmp;
     public TextMeshProUGUI RecoverHpTmp;
     public TextMeshProUGUI CriticalPercentTmp;
     public TextMeshProUGUI CriticalDamageTmp;
@@ -36,12 +36,12 @@ public class StatUpgrade : MonoBehaviour
     public Button CriticalPercentBtn;
     public Button CriticalDamageBtn;
 
-    private int _attackCost = 1;
-    private int _hpCost = 1;
-    private int _recoverHpCost = 3;
-    private int _attackSpeedCost = 10;
-    private int _criticalPercentCost = 100;
-    private int _criticalMultiplierCost = 50;
+    private long _attackCost = 1;
+    private long _maxHpCost = 1;
+    private long _recoverHpCost = 3;
+    private long _attackSpeedCost = 10;
+    private long _criticalPercentCost = 100;
+    private long _criticalMultiplierCost = 50;
 
     public static event System.Action onStatsChanged;
     private Coroutine _currentCoroutine;
@@ -50,10 +50,11 @@ public class StatUpgrade : MonoBehaviour
 
     public void SaveCost()
     {
+        Debug.Log("SaveCost");
         //코스트 저장 
         StatData.AttackCost = _attackCost;
         StatData.AttackSpeedCost = _attackSpeedCost;
-        StatData.HpCost = _hpCost;
+        StatData.MaxHpCost = _maxHpCost;
         StatData.HpRecoveryCost = _recoverHpCost;
         StatData.CriticalPercentageCost = _criticalPercentCost;
         StatData.CriticalMultiplierCost = _criticalMultiplierCost;
@@ -61,9 +62,10 @@ public class StatUpgrade : MonoBehaviour
 
     public void LoadCost()
     {
+        Debug.Log("LoadCost");
         _attackCost = StatData.AttackCost;
-        _hpCost = StatData.AttackSpeedCost;
-        _recoverHpCost = StatData.HpCost;
+        _maxHpCost = StatData.AttackSpeedCost;
+        _recoverHpCost = StatData.MaxHpCost;
         _attackSpeedCost = StatData.HpRecoveryCost;
         _criticalPercentCost = StatData.CriticalPercentageCost;
         _criticalMultiplierCost = StatData.CriticalMultiplierCost;
@@ -76,13 +78,14 @@ public class StatUpgrade : MonoBehaviour
 
     private void Start()
     {
-        if (SaveLoadManager.Instance.ExistJson(SaveLoadManager.Instance.StatSavePath))
+        if (SaveLoadManager.ExistJson(SaveLoadManager.Instance.StatSavePath))
             LoadCost();
 
         UpdateUI();
         SetupButton(AttackBtn,
             () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
-        SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
+        SetupButton(HpBtn,
+            () => UpgradeStat(ref PlayerData.MaxHp, 100, ref _maxHpCost, MaxHpTmp, "최대 체력 : ", HpCostTmp));
         SetupButton(RecoverHpBtn,
             () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ",
                 RecoverHpCostTmp));
@@ -129,23 +132,28 @@ public class StatUpgrade : MonoBehaviour
         }
     }
 
-    private void UpgradeStat(ref int stat, int increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
+    private void UpgradeStat(ref int stat, int increment, ref long cost, TextMeshProUGUI statTmp, string statName,
+        TextMeshProUGUI costTmp)
     {
-        SoundManager.Instance.Play("Reinforcement");
-        if (PlayerData.Gold < cost) return;
+        if (PlayerData.Gold < cost)
+        {
+            SoundManager.Instance.Play("ReinforcementFailure");
+            return;
+        }
+
+        SoundManager.Instance.Play("ReinforcementSuccess");
         stat += increment;
 
         PlayerData.Gold -= cost;
         cost = Mathf.CeilToInt(cost * 1.1f);
         statTmp.text = statName + stat;
-        costTmp.text = "Upgrade\n" + cost;
+        costTmp.text = "Upgrade\n" + CurrencyFormatter.FormatBigInteger(cost);
         UpdateUI();
         onStatsChanged?.Invoke();
     }
 
     private void UpgradeCriticalPercent()
     {
-        SoundManager.Instance.Play("Reinforcement", volume: 0.6f);
         if (PlayerData.CriticalPer >= 100f)
         {
             CriticalPercentBtn.interactable = false;
@@ -162,16 +170,22 @@ public class StatUpgrade : MonoBehaviour
         }
     }
 
-    private void UpgradeStat(ref float stat, float increment, ref int cost, TextMeshProUGUI statTmp, string statName, TextMeshProUGUI costTmp)
+    private void UpgradeStat(ref float stat, float increment, ref long cost, TextMeshProUGUI statTmp, string statName,
+        TextMeshProUGUI costTmp)
     {
-        SoundManager.Instance.Play("Reinforcement");
-        if (PlayerData.Gold < cost) return;
+        if (PlayerData.Gold < cost)
+        {
+            SoundManager.Instance.Play("ReinforcementFailure");
+            return;
+        }
+
+        SoundManager.Instance.Play("ReinforcementSuccess");
         stat += increment;
 
         PlayerData.Gold -= cost;
         cost = Mathf.CeilToInt(cost * 1.1f);
         statTmp.text = statName + stat;
-        costTmp.text = cost.ToString();
+        costTmp.text = CurrencyFormatter.FormatBigInteger(cost);
         UpdateUI();
     }
 
@@ -179,18 +193,18 @@ public class StatUpgrade : MonoBehaviour
     {
         AttackTmp.text = "공격력\n" + PlayerData.Damage;
         AttackSpeedTmp.text = "공격속도\n" + (PlayerData.AttackSpeed * 100).ToString("F1") + "%";
-        HpTmp.text = "체력\n" + PlayerData.Hp;
+        MaxHpTmp.text = "최대 체력\n" + PlayerData.MaxHp;
         RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
         CriticalPercentTmp.text = "치명타 확률\n" + PlayerData.CriticalPer.ToString("F1") + "%";
         CriticalPercentBtn.interactable = PlayerData.CriticalPer < 100f;
         CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalMultiplier * 100 + "%";
 
-        AttackCostTmp.text = _attackCost.ToString();
-        AttackSpeedCostTmp.text = _attackSpeedCost.ToString();
-        HpCostTmp.text = _hpCost.ToString();
-        RecoverHpCostTmp.text = _recoverHpCost.ToString();
-        CriticalPercentCostTmp.text = _criticalPercentCost.ToString();
-        CriticalDamageCostTmp.text = _criticalMultiplierCost.ToString();
+        AttackCostTmp.text = CurrencyFormatter.FormatBigInteger(_attackCost);
+        AttackSpeedCostTmp.text = CurrencyFormatter.FormatBigInteger(_attackSpeedCost);
+        HpCostTmp.text = CurrencyFormatter.FormatBigInteger(_maxHpCost);
+        RecoverHpCostTmp.text = CurrencyFormatter.FormatBigInteger(_recoverHpCost);
+        CriticalPercentCostTmp.text = CurrencyFormatter.FormatBigInteger(_criticalPercentCost);
+        CriticalDamageCostTmp.text = CurrencyFormatter.FormatBigInteger(_criticalMultiplierCost);
 
         UIManager.Instance.UpdateCurrencyUI();
     }

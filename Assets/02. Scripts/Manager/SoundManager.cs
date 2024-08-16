@@ -3,14 +3,20 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
+    [SerializeField]
+    private GameObject _introCanvas;
+    
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
-
 
     protected override void Awake()
     {
         base.Awake();
         Init();
+        if (!_introCanvas.activeSelf)
+        {
+            Instance.Play("MainBackground", type: Define.Sound.Bgm, volume: 0.6f);
+        }
     }
 
     private void Init()
@@ -27,8 +33,10 @@ public class SoundManager : Singleton<SoundManager>
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
         }
+
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
+
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
@@ -42,6 +50,7 @@ public class SoundManager : Singleton<SoundManager>
                 Debug.Log("missing");
                 return;
             }
+
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
 
             if (audioSource.isPlaying)
@@ -60,7 +69,8 @@ public class SoundManager : Singleton<SoundManager>
                 Debug.Log("missing");
                 return;
             }
-            AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+
+            var audioSource = _audioSources[(int)Define.Sound.Effect];
             audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
@@ -74,11 +84,12 @@ public class SoundManager : Singleton<SoundManager>
 
     public void PlaySkillSound(AudioClip skillSound)
     {
-        if (skillSound == null) return;
+        if (skillSound is null) return;
 
         var audioSource = _audioSources[(int)Define.Sound.Effect];
         audioSource.PlayOneShot(skillSound);
     }
+
     public void Clear()
     {
         foreach (var audioSource in _audioSources)
@@ -86,6 +97,7 @@ public class SoundManager : Singleton<SoundManager>
             audioSource.clip = null;
             audioSource.Stop();
         }
+
         _audioClips.Clear();
     }
 

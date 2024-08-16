@@ -1,37 +1,40 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Scanner : MonoBehaviour
 {
-    public float scanRange;
-    public LayerMask targetLayer;
-    public RaycastHit2D[] targets;
-    public Transform nearestTarget;
+    [FormerlySerializedAs("scanRange")]
+    public float ScanRange;
+
+    [FormerlySerializedAs("targetLayer")]
+    public LayerMask TargetLayer;
+
+    private RaycastHit2D[] _targets;
+
+    [FormerlySerializedAs("nearestTarget")]
+    public Transform NearestTarget;
 
     private void FixedUpdate()
     {
-        // Ä³½ºÆÃ ½ÃÀÛ À§Ä¡, ¿øÀÇ ¹ÝÁö¸§, Ä³½ºÆÃ ¹æÇâ, Ä³½ºÆÃ ±æÀÌ, ´ë»ó ·¹ÀÌ¾î
-        targets = Physics2D.CircleCastAll(transform.position, scanRange, Vector2.zero, 0, targetLayer);
-        nearestTarget = GetNearest();
+        // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½
+        _targets = Physics2D.CircleCastAll(transform.position, ScanRange, Vector2.zero, 0, TargetLayer);
+        NearestTarget = GetNearest();
     }
 
-    Transform GetNearest()
+    private Transform GetNearest()
     {
         Transform result = null;
         float diff = 100;
 
-        foreach (RaycastHit2D target in targets)
+        foreach (var target in _targets)
         {
-            Vector3 myPos = transform.position;
-            Vector3 TargetPos = target.transform.position;
-            float curDiff = Vector3.Distance(myPos, TargetPos); // Distance(A,B) : A¿Í BÀÇ °Å¸®¸¦ °è»ê
+            var myPos = transform.position;
+            var targetPos = target.transform.position;
+            var curDiff = Vector3.Distance(myPos, targetPos); // Distance(A,B) : Aï¿½ï¿½ Bï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
 
-            if (curDiff < diff)
-            {
-                diff = curDiff;
-                result = target.transform;
-            }
+            if (!(curDiff < diff)) continue;
+            diff = curDiff;
+            result = target.transform;
         }
 
         return result;
