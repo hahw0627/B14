@@ -1,8 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
-using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
 
 public class Monster : MonoBehaviour, IDamageable
@@ -10,10 +8,13 @@ public class Monster : MonoBehaviour, IDamageable
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
 
+    [SerializeField]
+    private HpBar _hpBar;
+    
     [FormerlySerializedAs("target")]
     public GameObject Target;
 
-    public int Hp;
+    public long CurrentHp;
 
     [FormerlySerializedAs("damage")]
     public int Damage;
@@ -37,7 +38,7 @@ public class Monster : MonoBehaviour, IDamageable
     private Animator _animator;
     private AnimationManager _animationManager;
 
-    private int _goldReward;
+    private long _goldReward;
     private static readonly int Slash1H = Animator.StringToHash("Slash1H");
 
     public event Action<Monster> onDeath;
@@ -64,7 +65,7 @@ public class Monster : MonoBehaviour, IDamageable
             return;
         }
 
-        Hp = MonsterData.Hp;
+        CurrentHp = MonsterData.MaxHp;
         Damage = MonsterData.Damage;
         AttackSpeed = MonsterData.AttackSpeed;
         MoveTime = 0.0f;
@@ -151,8 +152,8 @@ public class Monster : MonoBehaviour, IDamageable
             Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
-        Hp -= damage;
-        if (Hp > 0) return;
+        CurrentHp -= damage;
+        if (CurrentHp > 0) return;
         Die();
         QuestTest.Instance.CountOneQuestSuccess();
         gameObject.SetActive(false);

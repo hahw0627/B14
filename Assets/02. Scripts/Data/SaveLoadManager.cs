@@ -1,11 +1,13 @@
+using System;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class SaveLoadManager : Singleton<SaveLoadManager>
 {
     private string _playerSavePath;
     private string _stageSavePath;
+
+    [NonSerialized]
     public string StatSavePath;
 
     public PlayerDataSO PlayerDataSO;
@@ -32,7 +34,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         File.WriteAllText(StatSavePath, statJson);
     }
 
-    public bool ExistJson(string path)
+    public static bool ExistJson(string path)
     {
         return File.Exists(path);
     }
@@ -51,11 +53,9 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
             JsonUtility.FromJsonOverwrite(stageJson, StageDataSO);
         }
 
-        if (File.Exists(StatSavePath))
-        {
-            var statJson = File.ReadAllText(StatSavePath);
-            JsonUtility.FromJsonOverwrite(statJson, StatDataSO);
-        }
+        if (!File.Exists(StatSavePath)) return;
+        var statJson = File.ReadAllText(StatSavePath);
+        JsonUtility.FromJsonOverwrite(statJson, StatDataSO);
 
         //Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
         //Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");

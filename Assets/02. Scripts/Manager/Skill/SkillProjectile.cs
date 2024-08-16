@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using UnityEngine;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 public class SkillProjectile : MonoBehaviour
 {
@@ -82,7 +85,7 @@ public class SkillProjectile : MonoBehaviour
         IDamageable damageable = target.GetComponent<IDamageable>();
         if (damageable != null)
         {
-            int totalDamage = skillData.Damage + DataManager.Instance.PlayerDataSo.Damage;
+            var totalDamage = skillData.Damage + DataManager.Instance.PlayerDataSo.Damage;
             Debug.Log($"Skill projectile '{skillData.SkillName}' hit monster '{target.name}'. Applying damage: {totalDamage} (Skill: {skillData.Damage}, Player Base: {DataManager.Instance.PlayerDataSo.Damage})");
             damageable.TakeDamage(totalDamage, true);
         }
