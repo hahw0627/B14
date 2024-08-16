@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: MonsterDataSO
   m_EditorClassIdentifier: 
   monsterName: Monster
-  Hp: 100
+  Hp: 10
   Damage: 5
   AttackSpeed: 1
