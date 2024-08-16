@@ -4852,7 +4852,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa3ad5db8fc2b64ab30abf1a2b29711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _introCanvas: {fileID: 1159004990}
   mixerGroupA: {fileID: -6426027728315678642, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
   mixerGroupB: {fileID: -9196072411674465045, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
   audioMixer: {fileID: 24100000, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
@@ -18721,7 +18720,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 1814959669}
   m_HandleRect: {fileID: 47413154}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.005
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -38431,7 +38430,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 726589333}
   m_HandleRect: {fileID: 1420887045}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.005
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5
@@ -42465,7 +42464,7 @@ MonoBehaviour:
   m_FillRect: {fileID: 534945613}
   m_HandleRect: {fileID: 1758242507}
   m_Direction: 0
-  m_MinValue: 0
+  m_MinValue: 0.005
   m_MaxValue: 1
   m_WholeNumbers: 0
   m_Value: 0.5

@@ -27,7 +27,7 @@ MonoBehaviour:
   Armors: []
   PlayerName: 00011
   Gold: 0
-  Gem: 5000
+  Gem: 0
   TotalPower: 10
   Damage: 10
   Def: 0
@@ -36,5 +36,5 @@ MonoBehaviour:
   HpRecovery: 50
   CriticalPer: 0
   CriticalMultiplier: 1.5
-  CurrentWeaponEquip: {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
+  CurrentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   CurrentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}

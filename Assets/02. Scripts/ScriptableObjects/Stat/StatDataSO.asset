@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: StatDataSO
   m_EditorClassIdentifier: 
   AttackCost: 10
-  AttackSpeedCost: 11
-  MaxHpCost: 2
-  HpRecoveryCost: 7
+  AttackSpeedCost: 7
+  MaxHpCost: 11
+  HpRecoveryCost: 2
   CriticalPercentageCost: 100
   CriticalMultiplierCost: 50
