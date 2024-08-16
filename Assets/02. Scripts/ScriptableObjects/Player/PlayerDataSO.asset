@@ -21,7 +21,7 @@ MonoBehaviour:
   Armors: []
   PlayerName: 00011
   Gold: 0
-  Gem: 0
+  Gem: 5000
   TotalPower: 10
   Damage: 10
   Def: 0
