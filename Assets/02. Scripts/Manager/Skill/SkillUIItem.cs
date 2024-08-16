@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SkillUIItem : MonoBehaviour
 {
     public Image iconImage;
-    public Text levelText;
+    public TextMeshProUGUI levelText;
 
     private SkillDataSO skill;
     public event System.Action OnClick;

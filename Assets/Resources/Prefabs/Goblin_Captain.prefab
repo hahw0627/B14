@@ -5027,6 +5027,7 @@ GameObject:
   - component: {fileID: 6921823521839315444}
   - component: {fileID: 5450281682338917648}
   - component: {fileID: 3115051939476753654}
+  - component: {fileID: -3619419877328430243}
   m_Layer: 6
   m_Name: Goblin_Captain
   m_TagString: Monster
@@ -5047,6 +5048,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2003684918675676282}
   - {fileID: 7242448334452057960}
   - {fileID: 6954377427088943398}
   - {fileID: 1426958934494791845}
@@ -5345,12 +5347,34 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0.8}
   m_Size: {x: 1, y: 1.5}
   m_Direction: 0
+--- !u!114 &-3619419877328430243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2299043503731004178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 214c9336a6a933c4ca607afb0927e70d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  Target: {fileID: 0}
+  Hp: 0
+  Damage: 0
+  AttackSpeed: 0
+  MoveTime: 0
+  IsAttacking: 0
+  HUDPos: {fileID: 6124717720052169194}
+  FireMuzzle: {fileID: 2003684918675676282}
+  animator: {fileID: 0}
 --- !u!1 &2321245137547656967
 GameObject:
   m_ObjectHideFlags: 0
@@ -9375,6 +9399,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteName: Side
   SpriteNameFallback: []
+--- !u!1 &4312993586796837425
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003684918675676282}
+  m_Layer: 0
+  m_Name: ProjectilePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2003684918675676282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4312993586796837425}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.6999998, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6124717720052169194}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4454106804490617077
 GameObject:
   m_ObjectHideFlags: 0

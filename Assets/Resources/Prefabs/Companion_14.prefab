@@ -11609,6 +11609,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 927297493813426770}
   - {fileID: 7206408407585188607}
   - {fileID: 6469182299884481545}
   - {fileID: 7508560072333472301}
@@ -11931,9 +11932,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   companionData: {fileID: 11400000, guid: 3d2c63b71aea55944a94b562cbb00741, type: 2}
   scanner: {fileID: 0}
-  fireMuzzle: {fileID: 4118608284455335728}
+  projectilPos: {fileID: 927297493813426770}
   attackSpeed: 0
   damage: 0
+  animator: {fileID: 0}
 --- !u!1 &5983711049815593471
 GameObject:
   m_ObjectHideFlags: 0
@@ -12232,6 +12234,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteName: Quiver
   SpriteNameFallback: []
+--- !u!1 &6045922830306073716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 927297493813426770}
+  m_Layer: 0
+  m_Name: ProjectilePos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &927297493813426770
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6045922830306073716}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.6999998, y: 0.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2941124017229334511}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6060577172723529473
 GameObject:
   m_ObjectHideFlags: 0

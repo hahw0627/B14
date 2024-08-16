@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e99358337809ac64c8ddaaacfadaf075, type: 3}
   m_Name: Companion_2
   m_EditorClassIdentifier: 
-  companionName: "\uCD08\uBCF4 \uC0AC\uB0E5\uAFBC"
-  icon: {fileID: 21300000, guid: df6af3510c571f74496dd0d05d916530, type: 3}
-  level: 1
-  rarity: 0
-  description: "\uC870\uC7A1\uD55C \uD65C\uC744 \uB4E4\uACE0 \uC788\uB2E4."
-  damage: 5
-  attackSpeed: 1
-  count: 3
-  isEquipped: 0
+  CompanionName: "\uCD08\uBCF4 \uC0AC\uB0E5\uAFBC"
+  Icon: {fileID: 21300000, guid: df6af3510c571f74496dd0d05d916530, type: 3}
+  Level: 1
+  Rarity: 0
+  Description: "\uC870\uC7A1\uD55C \uD65C\uC744 \uB4E4\uACE0 \uC788\uB2E4."
+  Damage: 5
+  AttackSpeed: 1
+  Count: 0
+  IsEquipped: 0

@@ -21,14 +21,19 @@ public class DamageText : MonoBehaviour
         _pool = pool;
     }
 
-    public void SetDamage(int damageValue)
+    public void SetDamage(long damageValue)
     {
-        SetDamage(damageValue, false);  // ±âº»ÀûÀ¸·Î Ä¡¸íÅ¸°¡ ¾Æ´Ñ °ÍÀ¸·Î Ã³¸®
+        SetDamage(damageValue, false);  // ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
     }
 
-    public void SetDamage(int damageValue, bool isCritical = false, Color? customColor = null, float customScale = 1f)
+    public void SetDamage(long damageValue, Color? customColor = null, float customScale = 1f)
     {
-        if (_text == null) _text = GetComponent<TextMeshPro>();
+        SetDamage(damageValue, false, customColor, customScale);
+    }
+
+    public void SetDamage(long damageValue, bool isCritical = false, Color? customColor = null, float customScale = 1f)
+    {
+        _text ??= GetComponent<TextMeshPro>();
         _text.text = damageValue.ToString();
 
         if (customColor.HasValue)

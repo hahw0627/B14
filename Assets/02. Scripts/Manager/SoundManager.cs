@@ -1,36 +1,21 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
-    Dictionary<string, AudioClip> audioClips = new Dictionary<string, AudioClip>();
+    [SerializeField]
+    private GameObject _introCanvas;
+    
+    private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
+    private readonly Dictionary<string, AudioClip> _audioClips = new();
 
-
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         Init();
-       
-    }
-
-    public void Init()
-    {
-        GameObject root = GameObject.Find("Sound");
-        if (root == null)
+        if (!_introCanvas.activeSelf)
         {
-            root = new GameObject { name = "Sound" };
-            Object.DontDestroyOnLoad(root);
-
-            string[] soundName = System.Enum.GetNames(typeof(Define.Sound));
-            for (int i = 0; i < soundName.Length - 1; i++)
-            {
-                var go = new GameObject { name = soundName[i] };
-                _audioSources[i] = go.AddComponent<AudioSource>();
-                go.transform.parent = root.transform;
-            }
-            _audioSources[(int)Define.Sound.Bgm].loop = true;
-
+            Instance.Play("MainBackground", type: Define.Sound.Bgm, volume: 0.6f);
         }
     }
     public void Pause()
@@ -40,61 +25,94 @@ public class SoundManager : Singleton<SoundManager>
     public void UnPause()
     {
         _audioSources[(int)Define.Sound.Bgm].UnPause();
+
+    private void Init()
+    {
+        var root = GameObject.Find("Sound");
+        if (root != null) return;
+        root = new GameObject { name = "Sound" };
+        DontDestroyOnLoad(root);
+
+        var soundName = System.Enum.GetNames(typeof(Define.Sound));
+        for (var i = 0; i < soundName.Length - 1; i++)
+        {
+            var go = new GameObject { name = soundName[i] };
+            _audioSources[i] = go.AddComponent<AudioSource>();
+            go.transform.parent = root.transform;
+        }
+
+        _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float volume = 1.0f, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
 
         if (type == Define.Sound.Bgm)
         {
-            AudioClip audioClip = Resources.Load<AudioClip>(path);
-            if (audioClip == null)
+            var audioClip = Resources.Load<AudioClip>(path);
+            if (audioClip is null)
             {
                 Debug.Log("missing");
                 return;
             }
-            AudioSource audioSource = _audioSources[(int)Define.Sound.Bgm];
+
+            var audioSource = _audioSources[(int)Define.Sound.Bgm];
 
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
         }
         else
         {
-            AudioClip audioClip = GetOrAddAudioClip(path);
+            var audioClip = GetOrAddAudioClip(path);
             if (audioClip == null)
             {
                 Debug.Log("missing");
                 return;
             }
-            AudioSource audioSource = _audioSources[(int)Define.Sound.Effect];
+
+            var audioSource = _audioSources[(int)Define.Sound.Effect];
+            audioSource.volume = volume;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
     }
-    public void Clear()
+
+    public void StopBGM()
     {
-        foreach (var audioSouce in _audioSources)
-        {
-            audioSouce.clip = null;
-            audioSouce.Stop();
-        }
-        audioClips.Clear();
+        _audioSources[(int)Define.Sound.Bgm].Stop();
     }
 
-    AudioClip GetOrAddAudioClip(string path)
+    public void PlaySkillSound(AudioClip skillSound)
     {
-        AudioClip audioClip = null;
-        if (audioClips.TryGetValue(path, out audioClip) == false)
+        if (skillSound is null) return;
+
+        var audioSource = _audioSources[(int)Define.Sound.Effect];
+        audioSource.PlayOneShot(skillSound);
+    }
+
+    public void Clear()
+    {
+        foreach (var audioSource in _audioSources)
         {
-            audioClip = Resources.Load<AudioClip>(path);
-            audioClips.Add(path, audioClip);
+            audioSource.clip = null;
+            audioSource.Stop();
         }
+
+        _audioClips.Clear();
+    }
+
+    private AudioClip GetOrAddAudioClip(string path)
+    {
+        if (_audioClips.TryGetValue(path, out var audioClip)) return audioClip;
+        audioClip = Resources.Load<AudioClip>(path);
+        _audioClips.Add(path, audioClip);
 
         return audioClip;
     }

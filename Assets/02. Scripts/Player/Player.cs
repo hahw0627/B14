@@ -1,17 +1,16 @@
 using UnityEngine;
 using System.Collections;
 using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    public Character4D Character;
-
     [FormerlySerializedAs("playerData")]
     public PlayerDataSO PlayerData;
 
-    [FormerlySerializedAs("gameManager")]
-    public GameManager GameManager;
+    [SerializeField]
+    private HpBar _hpBar;
 
     [FormerlySerializedAs("scanner")]
     public Scanner Scanner;
@@ -37,17 +36,23 @@ public class Player : MonoBehaviour
     public float CriticalMultiplier;
 
     [FormerlySerializedAs("damageTextPool")]
-
     private bool _isUsingSkill;
+
     private Coroutine _attackCoroutine;
+    private Animator _animator;
+    private AnimationManager _animationManager;
 
     private void Awake()
     {
         PlayerData = DataManager.Instance.PlayerDataSo;
         Scanner = GetComponent<Scanner>();
+        _animator = GetComponent<Animator>();
+        _animationManager = GetComponent<AnimationManager>();
 
         AttackSpeed = PlayerData.AttackSpeed;
-        CurrentHp = PlayerData.Hp;
+        CurrentHp = PlayerData.MaxHp;
+        _hpBar.SetMaxHp(PlayerData.MaxHp);
+        _hpBar.SetCurrentHp(CurrentHp);
 
         CriticalPer = PlayerData.CriticalPer;
         CriticalMultiplier = PlayerData.CriticalMultiplier;
@@ -66,25 +71,25 @@ public class Player : MonoBehaviour
     {
         while (true)
         {
-            // scanner�� nearestTarget�� null�� �ƴ� ��쿡�� nearestTarget�� ������ target���� ���� + ����ü ����
-            if (!_isUsingSkill && Scanner.nearestTarget != null)
+            if (!_isUsingSkill && Scanner.NearestTarget != null)
             {
+                _animator.Play("Fire1H");
+                SoundManager.Instance.Play("Fire", volume: 0.36f, pitch: 0.8f);
                 GameObject projectile = ProjectilePool.Instance.GetProjectile();
                 projectile.transform.position = FireMuzzle.position;
                 Projectile projectileScript = projectile.GetComponent<Projectile>();
-                projectileScript.Target = Scanner.nearestTarget; // ������ ����ü�� Ÿ�� ����
-                projectileScript.SetDirection(Scanner.nearestTarget.transform.position);
+                projectileScript.Target = Scanner.NearestTarget;
+                projectileScript.SetDirection(Scanner.NearestTarget.transform.position);
 
                 Damage = CurrentDamage;
 
 
-
-                projectileScript.Damage = Mathf.RoundToInt(Damage); // ������ ����ü�� ������ ����
+                projectileScript.Damage = Mathf.RoundToInt(Damage);
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
 
-            yield return new WaitForSeconds(1 / AttackSpeed); // 1�ʿ� / attackSpeed ��ŭ ����
+            yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
 
@@ -96,12 +101,14 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(1f);
 
-            if (CurrentHp < PlayerData.Hp)
+            if (CurrentHp < PlayerData.MaxHp && CurrentHp > 0)
             {
                 CurrentHp += PlayerData.HpRecovery;
-                if (CurrentHp > PlayerData.Hp)
+                _hpBar.SetCurrentHp(CurrentHp);
+                if (CurrentHp > PlayerData.MaxHp)
                 {
-                    CurrentHp = PlayerData.Hp;
+                    CurrentHp = PlayerData.MaxHp;
+                    _hpBar.SetCurrentHp(CurrentHp);
                 }
             }
         }
@@ -111,6 +118,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurrentHp -= damage;
+        _hpBar.SetCurrentHp(CurrentHp);
 
         if (CurrentHp <= 0)
         {
@@ -118,12 +126,28 @@ public class Player : MonoBehaviour
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
             foreach (GameObject monster in monsters)
             {
+                if (monster.GetComponent<BossTimer>() != null)
+                {
+                    monster.GetComponent<BossTimer>().DeactivateTimer();
+                }
+
                 monster.SetActive(false);
             }
 
-            StageManager.StageReset();
-            CurrentHp = PlayerData.Hp;
+            StartCoroutine(DeathWithDelay());
         }
+    }
+
+    public IEnumerator DeathWithDelay()
+    {
+        _animationManager.SetState(CharacterState.Death);
+        PlayerSpeechBubble.Instance.ShowMessage("(시간을 되돌리는 중...)", SpeechLength.Short, "#0EFCFE");
+        SoundManager.Instance.Play("TimeReversed");
+        yield return new WaitForSeconds(4f);
+        StageManager.StageReset();
+        CurrentHp = PlayerData.MaxHp;
+        _hpBar.SetCurrentHp(CurrentHp);
+        _animationManager.SetState(CharacterState.Idle);
     }
 
     public void SetUsingSkill(bool usingSkill)

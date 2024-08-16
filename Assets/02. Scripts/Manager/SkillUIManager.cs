@@ -1,48 +1,128 @@
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SkillUIManager : MonoBehaviour
 {
-    [SerializeField] private SkillManager skillManager;
-    [SerializeField] private MainSceneSkillManager mainSceneSkillManager;
-    [SerializeField] private GameObject skillItemPrefab;
-    [SerializeField] private Transform allSkillsContainer;
-    [SerializeField] private GameObject skillInfoPanel;
-    [SerializeField] private Text instructionText;
-    [SerializeField] private List<Button> equippedSkillSlots;
+    [FormerlySerializedAs("skillManager")]
+    [SerializeField]
+    private SkillManager _skillManager;
 
-    private SkillInfoPanel skillInfoPanelScript;
+    [FormerlySerializedAs("mainSceneSkillManager")]
+    [SerializeField]
+    private MainSceneSkillManager _mainSceneSkillManager;
+
+    [FormerlySerializedAs("skillItemPrefab")]
+    [SerializeField]
+    private GameObject _skillItemPrefab;
+
+    [FormerlySerializedAs("allSkillsContainer")]
+    [SerializeField]
+    private Transform _allSkillsContainer;
+
+    [FormerlySerializedAs("skillInfoPanel")]
+    [SerializeField]
+    private GameObject _skillInfoPanel;
+
+    [FormerlySerializedAs("instructionText")]
+    [SerializeField]
+    private TextMeshProUGUI _instructionText;
+
+    [FormerlySerializedAs("equippedSkillSlots")]
+    [SerializeField]
+    private List<Button> _equippedSkillSlots;
+
+    [FormerlySerializedAs("batchEnhanceButton")]
+    [SerializeField]
+    private Button _batchEnhanceButton;
+
+    
+    [SerializeField]
+    private SkillInfoPanel _skillInfoPanelScript;
 
     private void Start()
     {
-        skillManager.OnEquippedSkillsChanged += RefreshSkillUI;
-        skillInfoPanelScript = skillInfoPanel.GetComponent<SkillInfoPanel>();
+        _skillManager.onEquippedSkillsChanged += RefreshSkillUI;
+        _skillInfoPanelScript = _skillInfoPanel.GetComponent<SkillInfoPanel>();
         RefreshSkillUI();
+        _batchEnhanceButton.onClick.AddListener(OnBatchEnhanceButtonClick);
+        UpdateBatchEnhanceButtonState();
     }
 
     private void OnDestroy()
     {
-        skillManager.OnEquippedSkillsChanged -= RefreshSkillUI;
+        _skillManager.onEquippedSkillsChanged -= RefreshSkillUI;
     }
 
     public void RefreshSkillUI()
     {
         UpdateEquippedSkillSlots();
         UpdateAllSkillsContainer();
-        mainSceneSkillManager.UpdateSkillButtons();
+        _mainSceneSkillManager.UpdateSkillButtons();
+        UpdateBatchEnhanceButtonState();
+    }
+
+    private void UpdateBatchEnhanceButtonState()
+    {
+        var canEnhanceAny = DataManager.Instance.AllSkillsDataSo.Any(skill => skill.IsUnlocked && skill.Count >= 5);
+        _batchEnhanceButton.interactable = canEnhanceAny;
+    }
+
+    private void OnBatchEnhanceButtonClick()
+    {
+        var enhanced = false;
+        foreach (var skill in DataManager.Instance.AllSkillsDataSo.Where(skill => skill.IsUnlocked && skill.Count >= 5))
+        {
+            EnhanceSkill(skill);
+            enhanced = true;
+        }
+
+        if (enhanced)
+        {
+            RefreshSkillUI();
+            Debug.Log("일괄 강화가 완료되었습니다.");
+        }
+        else
+        {
+            Debug.Log("강화할 수 있는 스킬이 없습니다.");
+        }
+    }
+
+    private static void EnhanceSkill(SkillDataSO skill)
+    {
+        skill.Level++;
+        skill.Count -= 5;
+        switch (skill.SkillType)
+        {
+            case Define.SkillType.AttackBuff:
+                skill.BuffAmount += 5;
+                break;
+            case Define.SkillType.HealBuff:
+                skill.BuffAmount += 10;
+                break;
+            case Define.SkillType.Projectile:
+            case Define.SkillType.AreaOfEffect:
+            default:
+                skill.Damage += 10;
+                break;
+        }
+
+        Debug.Log($"{skill.SkillName} 강화 완료! 현재 레벨: {skill.Level}");
     }
 
     private void UpdateEquippedSkillSlots()
     {
-        for (int i = 0; i < equippedSkillSlots.Count; i++)
+        for (var i = 0; i < _equippedSkillSlots.Count; i++)
         {
-            Image iconImage = equippedSkillSlots[i].GetComponent<Image>();
-            Text levelText = equippedSkillSlots[i].GetComponentInChildren<Text>();
+            var iconImage = _equippedSkillSlots[i].GetComponent<Image>();
+            var levelText = _equippedSkillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
 
-            if (i < skillManager.equippedSkills.Count && skillManager.equippedSkills[i] != null)
+            if (i < _skillManager.EquippedSkills.Count && _skillManager.EquippedSkills[i] != null)
             {
-                SkillDataSO skill = skillManager.equippedSkills[i];
+                SkillDataSO skill = _skillManager.EquippedSkills[i];
                 iconImage.sprite = skill.Icon;
                 iconImage.color = Color.white;
                 levelText.text = $"Lv.{skill.Level}";
@@ -56,31 +136,31 @@ public class SkillUIManager : MonoBehaviour
 
     private void UpdateAllSkillsContainer()
     {
-        foreach (Transform child in allSkillsContainer)
+        foreach (Transform child in _allSkillsContainer)
         {
             Destroy(child.gameObject);
         }
 
-        List<SkillDataSO> sortedSkills = new List<SkillDataSO>(DataManager.Instance.AllSkillsDataSo);
+        var sortedSkills = new List<SkillDataSO>(DataManager.Instance.AllSkillsDataSo);
         sortedSkills.Sort(CompareSkillsByRarity);
 
         foreach (var skill in sortedSkills)
         {
-            CreateSkillItem(skill, allSkillsContainer, skill.IsUnlocked);
+            CreateSkillItem(skill, _allSkillsContainer, skill.IsUnlocked);
         }
     }
 
-    private int CompareSkillsByRarity(SkillDataSO a, SkillDataSO b)
+    private static int CompareSkillsByRarity(SkillDataSO a, SkillDataSO b)
     {
         return a.Rarity.CompareTo(b.Rarity);
     }
 
     private void CreateSkillItem(SkillDataSO skill, Transform container, bool isUnlocked)
     {
-        GameObject skillItemObj = Instantiate(skillItemPrefab, container);
-        Button button = skillItemObj.GetComponent<Button>();
-        Image iconImage = button.GetComponent<Image>();
-        Text levelText = button.GetComponentInChildren<Text>();
+        var skillItemObj = Instantiate(_skillItemPrefab, container);
+        var button = skillItemObj.GetComponent<Button>();
+        var iconImage = button.GetComponent<Image>();
+        var levelText = button.GetComponentInChildren<TextMeshProUGUI>();
 
         iconImage.sprite = skill.Icon;
         levelText.text = $"Lv.{skill.Level}";
@@ -97,23 +177,23 @@ public class SkillUIManager : MonoBehaviour
 
     private void ShowSkillInfo(SkillDataSO skill)
     {
-        skillInfoPanel.SetActive(true);
-        skillInfoPanelScript.SetSkillInfo(skill);
+        _skillInfoPanel.SetActive(true);
+        _skillInfoPanelScript.SetSkillInfo(skill);
 
-        skillInfoPanelScript.equipButton.onClick.RemoveAllListeners();
-        skillInfoPanelScript.equipButton.onClick.AddListener(() => StartEquipProcess(skill));
+        _skillInfoPanelScript.equipButton.onClick.RemoveAllListeners();
+        _skillInfoPanelScript.equipButton.onClick.AddListener(() => StartEquipProcess(skill));
     }
 
     public void StartEquipProcess(SkillDataSO skill)
     {
-        skillInfoPanel.SetActive(false);
-        instructionText.text = "��ü�� ��ų ������ �����ϼ���";
+        _skillInfoPanel.SetActive(false);
+        _instructionText.text = "교체할 스킬 슬롯을 선택하세요.";
         SetEquippedSkillsInteractable(true, skill);
     }
 
     private void SetEquippedSkillsInteractable(bool interactable, SkillDataSO skillToEquip = null)
     {
-        foreach (var button in equippedSkillSlots)
+        foreach (var button in _equippedSkillSlots)
         {
             button.interactable = interactable;
             if (interactable && skillToEquip != null)
@@ -131,42 +211,43 @@ public class SkillUIManager : MonoBehaviour
     private void EquipSkillToSlot(Button slot, SkillDataSO newSkill)
     {
         // ���� ������ ��ų�� �˻�
-        int index = equippedSkillSlots.IndexOf(slot);
+        var index = _equippedSkillSlots.IndexOf(slot);
         if (index == -1) return;
 
         // �̹� ���� ��ų�� �����Ǿ� �ִ��� Ȯ��
-        bool isSkillAlreadyEquipped = skillManager.equippedSkills.Exists(skill => skill != null && skill == newSkill);
+        var isSkillAlreadyEquipped = _skillManager.EquippedSkills.Exists(skill => skill != null && skill == newSkill);
         if (isSkillAlreadyEquipped)
         {
             Debug.LogWarning("�̹� �� ��ų�� �����Ǿ� �ֽ��ϴ�.");
-            instructionText.text = "�̹� ������ ��ų�Դϴ�.";
+            _instructionText.text = "이미 장착된 스킬입니다.";
             return;
         }
 
         // ��ų�� ����
-        skillManager.EquipSkillAtIndex(index, newSkill);
+        _skillManager.EquipSkillAtIndex(index, newSkill);
 
         // UI ������Ʈ
         SetEquippedSkillsInteractable(false);
-        instructionText.text = "";
+        _instructionText.text = "";
         RefreshSkillUI();
     }
 
     public void UnequipSkill(SkillDataSO skill)
     {
-        skillManager.UnequipSkill(skill);
+        _skillManager.UnEquipSkill(skill);
         RefreshSkillUI();
     }
+
     public static string GetRarityString(Define.SkillRarity rarity)
     {
-        switch (rarity)
+        return rarity switch
         {
-            case Define.SkillRarity.Normal: return "�븻";
-            case Define.SkillRarity.Rare: return "����";
-            case Define.SkillRarity.Unique: return "����ũ";
-            case Define.SkillRarity.Epic: return "����";
-            case Define.SkillRarity.Legendary: return "��������";
-            default: return "�� �� ����";
-        }
+            Define.SkillRarity.Normal => "�븻",
+            Define.SkillRarity.Rare => "����",
+            Define.SkillRarity.Unique => "����ũ",
+            Define.SkillRarity.Epic => "����",
+            Define.SkillRarity.Legendary => "��������",
+            _ => "�� �� ����"
+        };
     }
 }

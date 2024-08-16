@@ -4,41 +4,60 @@ using UnityEngine;
 
 public class SaveLoadManager : Singleton<SaveLoadManager>
 {
-    private string playerSavePath;
-    public PlayerDataSO playerDataSO;
+    private string _playerSavePath;
+    private string _stageSavePath;
 
+    [NonSerialized]
+    public string StatSavePath;
 
-    private void Awake()
+    public PlayerDataSO PlayerDataSO;
+    public StageDataSO StageDataSO;
+    public StatDataSO StatDataSO;
+
+    protected override void Awake()
     {
-         playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
-      
+        base.Awake();
+        _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
+        _stageSavePath = Application.persistentDataPath + "/stageSOdata.json";
+        StatSavePath = Application.persistentDataPath + "/statSOdata.json";
     }
-    
+
     public void SaveSOData()
     {
-        string playerJson = JsonUtility.ToJson(playerDataSO,true);
-        File.WriteAllText(playerSavePath, playerJson);
-        
+        var playerJson = JsonUtility.ToJson(PlayerDataSO, true);
+        File.WriteAllText(_playerSavePath, playerJson);
+
+        var stageJson = JsonUtility.ToJson(StageDataSO, true);
+        File.WriteAllText(_stageSavePath, stageJson);
+
+        var statJson = JsonUtility.ToJson(StatDataSO, true);
+        File.WriteAllText(StatSavePath, statJson);
     }
 
-    public bool ExistJson()
+    public static bool ExistJson(string path)
     {
-        if (File.Exists(playerSavePath))
-        return true;
-        else return false;
+        return File.Exists(path);
     }
- 
+
     public void LoadSOData()
     {
-        if (File.Exists(playerSavePath))
+        if (File.Exists(_playerSavePath))
         {
-            var playerJson = File.ReadAllText(playerSavePath);
-            JsonUtility.FromJsonOverwrite(playerJson, playerDataSO);
-            Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
+            var playerJson = File.ReadAllText(_playerSavePath);
+            JsonUtility.FromJsonOverwrite(playerJson, PlayerDataSO);
         }
-        else
+
+        if (File.Exists(_stageSavePath))
         {
-            Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
+            var stageJson = File.ReadAllText(_stageSavePath);
+            JsonUtility.FromJsonOverwrite(stageJson, StageDataSO);
         }
+
+        if (!File.Exists(StatSavePath)) return;
+        var statJson = File.ReadAllText(StatSavePath);
+        JsonUtility.FromJsonOverwrite(statJson, StatDataSO);
+
+        //Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
+        //Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
     }
 }

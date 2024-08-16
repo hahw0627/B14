@@ -50,4 +50,6 @@ public class SkillDataSO : ScriptableObject
     [FormerlySerializedAs("isUnlocked")]
     public bool IsUnlocked;
 
+    [FormerlySerializedAs("skillSound")]
+    public AudioClip SkillSound;
 }

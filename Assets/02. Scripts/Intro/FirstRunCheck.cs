@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class FirstRunCheck : MonoBehaviour
 {
@@ -10,25 +9,36 @@ public class FirstRunCheck : MonoBehaviour
     [NonSerialized]
     public static bool IsFirstRun;
 
-    public const string FIRST_RUN_KEY = "FirstRun";
+    private const string FIRST_RUN_KEY = "FirstRun";
 
     private void Awake()
     {
+        if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 0)
+        {
+            FirstRun();
+            return;
+        }
+
         // PlayerPrefs에서 'FirstRun' 키 확인
         if (!PlayerPrefs.HasKey(FIRST_RUN_KEY))
         {
-            IsFirstRun = true;
-            Time.timeScale = 0f;
-            _introCanvas.SetActive(true);
-            Debug.Log("<color=white>인트로: 게임을 처음 실행합니다!</color>");
+            FirstRun();
         }
         else
         {
             // 이미 실행된 경우
             IsFirstRun = false;
-            Destroy(_introCanvas);
+            _introCanvas.SetActive(false);
             Debug.Log("<color=white>인트로: 게임을 전에 실행했었습니다.</color>");
         }
+    }
+
+    private void FirstRun()
+    {
+        IsFirstRun = true;
+        Time.timeScale = 0f;
+        _introCanvas.SetActive(true);
+        Debug.Log("<color=white>인트로: 게임을 처음 실행합니다!</color>");
     }
 
     public static void SaveKeyOfFirstRun()
@@ -40,6 +50,6 @@ public class FirstRunCheck : MonoBehaviour
     public void InitFirstRun()
     {
         PlayerPrefs.DeleteKey(FIRST_RUN_KEY);
-        SceneLoader.LoadScene(SceneManager.GetActiveScene().name);
+        _introCanvas.SetActive(true);
     }
 }

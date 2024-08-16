@@ -1,23 +1,20 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
 using UnityEngine.Serialization;
 
 public class Monster : MonoBehaviour, IDamageable
 {
-    public Character4D Character;
-
     [FormerlySerializedAs("monsterData")]
     public MonsterDataSO MonsterData;
 
-    private Animator _animator;
-    private SpriteRenderer _spriteRenderer;
-
+    [SerializeField]
+    private HpBar _hpBar;
+    
     [FormerlySerializedAs("target")]
     public GameObject Target;
 
-    public int Hp;
+    public long CurrentHp;
 
     [FormerlySerializedAs("damage")]
     public int Damage;
@@ -34,19 +31,23 @@ public class Monster : MonoBehaviour, IDamageable
     [FormerlySerializedAs("hudPos")]
     public Transform HUDPos;
 
-    protected DamageTextPool DamageTextPool;
+    [FormerlySerializedAs("fireMuzzle")]
+    public Transform FireMuzzle;
 
-    private int _goldReward;
-    private static readonly int IsBattle = Animator.StringToHash("IsBattle");
+    protected DamageTextPool DamageTextPool;
+    private Animator _animator;
+
+    private long _goldReward;
+    private static readonly int Slash1H = Animator.StringToHash("Slash1H");
 
     public event Action<Monster> onDeath;
     
     private void Awake()
     {
         _goldReward = 10;
-        _animator = GetComponent<Animator>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        //_animator = GetComponent<Animator>();
         Target = GameObject.Find("Player");
+        _animator = GetComponent<Animator>();
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
         {
@@ -63,7 +64,7 @@ public class Monster : MonoBehaviour, IDamageable
             return;
         }
 
-        Hp = MonsterData.Hp;
+        CurrentHp = MonsterData.MaxHp;
         Damage = MonsterData.Damage;
         AttackSpeed = MonsterData.AttackSpeed;
         MoveTime = 0.0f;
@@ -76,13 +77,12 @@ public class Monster : MonoBehaviour, IDamageable
 
         if (MoveTime < 1.5f)
         {
-            _spriteRenderer.flipX = true;
             transform.Translate(Vector3.left * (2.0f * Time.deltaTime));
             MoveTime += Time.deltaTime;
         }
         else
         {
-            _animator.SetBool(IsBattle, true);
+            //_animator.SetBool(IsBattle, true);
             if (!IsAttacking)
             {
                 StartCoroutine(Attack());
@@ -100,9 +100,9 @@ public class Monster : MonoBehaviour, IDamageable
         {
             if (Target is not null)
             {
-                //Character.AnimationManager.Fire();
+                _animator.SetTrigger(Slash1H);
                 var projectile = ProjectilePool.Instance.GetProjectile();
-                projectile.transform.position = transform.position;
+                projectile.transform.position = FireMuzzle.position;
                 var projectileScript = projectile.GetComponent<Projectile>();
                 projectileScript.Target = Target.transform;
                 projectileScript.SetDirection(Target.transform.position);
@@ -150,8 +150,8 @@ public class Monster : MonoBehaviour, IDamageable
             Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
-        Hp -= damage;
-        if (Hp > 0) return;
+        CurrentHp -= damage;
+        if (CurrentHp > 0) return;
         Die();
         QuestTest.Instance.CountOneQuestSuccess();
         gameObject.SetActive(false);
@@ -160,6 +160,7 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
+        _animator.SetTrigger("Idle");
         var instance = DataManager.Instance;
         instance.PlayerDataSo.Gold += _goldReward;
         onDeath?.Invoke(this);

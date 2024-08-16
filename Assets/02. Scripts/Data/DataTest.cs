@@ -55,15 +55,15 @@ public class DataTest : MonoBehaviour
         gameData.characterData.level = 1;
         gameData.characterData.experience = 0;
         gameData.characterData.name = playerDataSO.PlayerName;
-        gameData.characterData.stats.health = playerDataSO.Hp;
+        gameData.characterData.stats.health = playerDataSO.MaxHp;
         gameData.characterData.stats.attack = playerDataSO.Damage;
         gameData.characterData.stats.defense = playerDataSO.Def;
         gameData.characterData.stats.totalPower = playerDataSO.TotalPower;
         gameData.characterData.stats.attackSpeed = playerDataSO.AttackSpeed;
         gameData.characterData.stats.hpRecovery = playerDataSO.HpRecovery;
 
-        gameData.currencyData.gold = playerDataSO.Gold;
-        gameData.currencyData.dia = playerDataSO.Diamond;
+        gameData.currencyData.Gold = playerDataSO.Gold;
+        gameData.currencyData.Gem = playerDataSO.Gem;
 
 
 

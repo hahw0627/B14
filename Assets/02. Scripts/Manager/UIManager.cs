@@ -19,7 +19,7 @@ public class UIManager : SingletonDestroyable<UIManager>, IPointerDownHandler
     {
         if (GoldTMP is null || GemTMP is null || DataManager.Instance is null ||
             DataManager.Instance.PlayerDataSo is null) return;
-        GoldTMP.text = DataManager.Instance.PlayerDataSo.Gold.ToString();
+        GoldTMP.text = CurrencyFormatter.FormatBigInteger(DataManager.Instance.PlayerDataSo.Gold);
         GemTMP.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
     }
 

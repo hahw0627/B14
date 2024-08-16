@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -6,64 +7,70 @@ using UnityEngine.UI;
 public class StatUpgrade : MonoBehaviour
 {
     public PlayerDataSO PlayerData;
+    public StatDataSO StatData;
 
     [Header("Label")]
-    public Text AttackTmp;
-    public Text AttackSpeedTmp;
-    public Text HpTmp;
-    public Text RecoverHpTmp;
-    public Text CriticalPercentTmp;
-    public Text CriticalDamageTmp;
-    
+    public TextMeshProUGUI AttackTmp;
+
+    public TextMeshProUGUI AttackSpeedTmp;
+    public TextMeshProUGUI MaxHpTmp;
+    public TextMeshProUGUI RecoverHpTmp;
+    public TextMeshProUGUI CriticalPercentTmp;
+    public TextMeshProUGUI CriticalDamageTmp;
+
     [Header("Cost Label")]
-    public Text AttackCostTmp;
-    public Text AttackSpeedCostTmp;
-    public Text HpCostTmp;
-    public Text RecoverHpCostTmp;
-    public Text CriticalPercentCostTmp;
-    public Text CriticalDamageCostTmp;
+    public TextMeshProUGUI AttackCostTmp;
+
+    public TextMeshProUGUI AttackSpeedCostTmp;
+    public TextMeshProUGUI HpCostTmp;
+    public TextMeshProUGUI RecoverHpCostTmp;
+    public TextMeshProUGUI CriticalPercentCostTmp;
+    public TextMeshProUGUI CriticalDamageCostTmp;
 
     [Header("Upgrade Button")]
     public Button AttackBtn;
+
     public Button AttackSpeedBtn;
     public Button HpBtn;
     public Button RecoverHpBtn;
     public Button CriticalPercentBtn;
     public Button CriticalDamageBtn;
 
-    private int _attackCost = 1;
-    private int _hpCost = 1;
-    private int _recoverHpCost = 3;
-    private int _attackSpeedCost = 10;
-    private int _criticalPercentCost = 100;
-    private int _criticalDamageCost = 50;
+    private long _attackCost = 1;
+    private long _maxHpCost = 1;
+    private long _recoverHpCost = 3;
+    private long _attackSpeedCost = 10;
+    private long _criticalPercentCost = 100;
+    private long _criticalMultiplierCost = 50;
 
     public static event System.Action onStatsChanged;
     private Coroutine _currentCoroutine;
-    private float _holdTime = 0.5f; // 롱 터치로 인식할 시간
-    private float _upgradeInterval = 0.1f; // 연속 업그레이드 간격
-
-    void Init()
-    {
-        //코스트 불러오기
-        _attackCost = PlayerData.attackCost;
-        _hpCost = PlayerData.hpCost;
-        _recoverHpCost = PlayerData.recoverHpCost;
-        _attackSpeedCost = PlayerData.attackSpeedCost;
-        _criticalPercentCost = PlayerData.criticalPercentCost;
-        _criticalDamageCost = PlayerData.criticalDamageCost;
-    }
+    private const float HOLD_TIME = 0.5f; // 롱 터치로 인식할 시간
+    private const float UPGRADE_INTERVAL = 0.1f; // 연속 업그레이드 간격
 
     public void SaveCost()
     {
+        Debug.Log("SaveCost");
         //코스트 저장 
-        PlayerData.attackCost = _attackCost;
-        PlayerData.hpCost = _attackCost;
-        PlayerData.recoverHpCost = _attackCost;
-        PlayerData.attackSpeedCost = _attackCost;
-        PlayerData.criticalPercentCost = _attackCost;
-        PlayerData.criticalDamageCost = _attackCost;
+        StatData.AttackCost = _attackCost;
+        StatData.AttackSpeedCost = _attackSpeedCost;
+        StatData.MaxHpCost = _maxHpCost;
+        StatData.HpRecoveryCost = _recoverHpCost;
+        StatData.CriticalPercentageCost = _criticalPercentCost;
+        StatData.CriticalMultiplierCost = _criticalMultiplierCost;
     }
+
+    public void LoadCost()
+    {
+        Debug.Log("LoadCost");
+        _attackCost = StatData.AttackCost;
+        _maxHpCost = StatData.AttackSpeedCost;
+        _recoverHpCost = StatData.MaxHpCost;
+        _attackSpeedCost = StatData.HpRecoveryCost;
+        _criticalPercentCost = StatData.CriticalPercentageCost;
+        _criticalMultiplierCost = StatData.CriticalMultiplierCost;
+    }
+
     public void OnApplicationQuit()
     {
         SaveCost();
@@ -71,17 +78,24 @@ public class StatUpgrade : MonoBehaviour
 
     private void Start()
     {
-        if (SaveLoadManager.Instance.ExistJson())
-            Init();
-
+        if (SaveLoadManager.ExistJson(SaveLoadManager.Instance.StatSavePath))
+            LoadCost();
 
         UpdateUI();
-        SetupButton(AttackBtn, () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
-        SetupButton(HpBtn, () => UpgradeStat(ref PlayerData.Hp, 100, ref _hpCost, HpTmp, "체력 : ", HpCostTmp));
-        SetupButton(RecoverHpBtn, () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ", RecoverHpCostTmp));
-        SetupButton(AttackSpeedBtn, () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ", AttackSpeedCostTmp)); // 최대 3번 공격
-        SetupButton(CriticalPercentBtn, () => UpgradeCriticalPercent());
-        SetupButton(CriticalDamageBtn, () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalDamageCost, CriticalDamageTmp, "치명타데미지 : ", CriticalDamageCostTmp));
+        SetupButton(AttackBtn,
+            () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
+        SetupButton(HpBtn,
+            () => UpgradeStat(ref PlayerData.MaxHp, 100, ref _maxHpCost, MaxHpTmp, "최대 체력 : ", HpCostTmp));
+        SetupButton(RecoverHpBtn,
+            () => UpgradeStat(ref PlayerData.HpRecovery, 100, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ",
+                RecoverHpCostTmp));
+        SetupButton(AttackSpeedBtn,
+            () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ",
+                AttackSpeedCostTmp)); // 최대 3번 공격
+        SetupButton(CriticalPercentBtn, UpgradeCriticalPercent);
+        SetupButton(CriticalDamageBtn,
+            () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalMultiplierCost, CriticalDamageTmp,
+                "치명타데미지 : ", CriticalDamageCostTmp));
     }
 
     private void SetupButton(Button button, System.Action upgradeAction)
@@ -90,12 +104,18 @@ public class StatUpgrade : MonoBehaviour
 
         EventTrigger.Entry pointerDown = new EventTrigger.Entry();
         pointerDown.eventID = EventTriggerType.PointerDown;
-        pointerDown.callback.AddListener((data) => { _currentCoroutine = StartCoroutine(LongPressCoroutine(upgradeAction)); });
+        pointerDown.callback.AddListener((data) =>
+        {
+            _currentCoroutine = StartCoroutine(LongPressCoroutine(upgradeAction));
+        });
         trigger.triggers.Add(pointerDown);
 
         EventTrigger.Entry pointerUp = new EventTrigger.Entry();
         pointerUp.eventID = EventTriggerType.PointerUp;
-        pointerUp.callback.AddListener((data) => { if (_currentCoroutine != null) StopCoroutine(_currentCoroutine); });
+        pointerUp.callback.AddListener((data) =>
+        {
+            if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
+        });
         trigger.triggers.Add(pointerUp);
 
         button.onClick.AddListener(() => upgradeAction());
@@ -103,24 +123,31 @@ public class StatUpgrade : MonoBehaviour
 
     private IEnumerator LongPressCoroutine(System.Action upgradeAction)
     {
-        yield return new WaitForSeconds(_holdTime);
+        yield return new WaitForSeconds(HOLD_TIME);
 
         while (true)
         {
             upgradeAction();
-            yield return new WaitForSeconds(_upgradeInterval);
+            yield return new WaitForSeconds(UPGRADE_INTERVAL);
         }
     }
 
-    private void UpgradeStat(ref int stat, int increment, ref int cost, Text statTmp, string statName, Text costTmp)
+    private void UpgradeStat(ref int stat, int increment, ref long cost, TextMeshProUGUI statTmp, string statName,
+        TextMeshProUGUI costTmp)
     {
-        if (PlayerData.Gold < cost) return;
+        if (PlayerData.Gold < cost)
+        {
+            SoundManager.Instance.Play("ReinforcementFailure");
+            return;
+        }
+
+        SoundManager.Instance.Play("ReinforcementSuccess");
         stat += increment;
 
         PlayerData.Gold -= cost;
-        cost = Mathf.CeilToInt(cost * 1.1f); 
-        statTmp.text = statName +stat;
-        costTmp.text = "Upgrade\n"+ cost;
+        cost = Mathf.CeilToInt(cost * 1.1f);
+        statTmp.text = statName + stat;
+        costTmp.text = "Upgrade\n" + CurrencyFormatter.FormatBigInteger(cost);
         UpdateUI();
         onStatsChanged?.Invoke();
     }
@@ -133,8 +160,9 @@ public class StatUpgrade : MonoBehaviour
             return;
         }
 
-        float newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
-        UpgradeStat(ref PlayerData.CriticalPer, newValue - PlayerData.CriticalPer, ref _criticalPercentCost, CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp);
+        var newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
+        UpgradeStat(ref PlayerData.CriticalPer, newValue - PlayerData.CriticalPer, ref _criticalPercentCost,
+            CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp);
 
         if (PlayerData.CriticalPer >= 100f)
         {
@@ -142,35 +170,42 @@ public class StatUpgrade : MonoBehaviour
         }
     }
 
-    private void UpgradeStat(ref float stat, float increment, ref int cost, Text statTmp, string statName, Text costTmp)
+    private void UpgradeStat(ref float stat, float increment, ref long cost, TextMeshProUGUI statTmp, string statName,
+        TextMeshProUGUI costTmp)
     {
-        if (PlayerData.Gold < cost) return;
+        if (PlayerData.Gold < cost)
+        {
+            SoundManager.Instance.Play("ReinforcementFailure");
+            return;
+        }
+
+        SoundManager.Instance.Play("ReinforcementSuccess");
         stat += increment;
 
         PlayerData.Gold -= cost;
         cost = Mathf.CeilToInt(cost * 1.1f);
         statTmp.text = statName + stat;
-        costTmp.text = cost.ToString();
+        costTmp.text = CurrencyFormatter.FormatBigInteger(cost);
         UpdateUI();
     }
-    
+
     private void UpdateUI()
     {
         AttackTmp.text = "공격력\n" + PlayerData.Damage;
-        AttackSpeedTmp.text = "공격속도\n" + (PlayerData.AttackSpeed*100).ToString("F1")+"%";
-        HpTmp.text = "체력\n" + PlayerData.Hp;
+        AttackSpeedTmp.text = "공격속도\n" + (PlayerData.AttackSpeed * 100).ToString("F1") + "%";
+        MaxHpTmp.text = "최대 체력\n" + PlayerData.MaxHp;
         RecoverHpTmp.text = "체력 회복량\n" + PlayerData.HpRecovery;
         CriticalPercentTmp.text = "치명타 확률\n" + PlayerData.CriticalPer.ToString("F1") + "%";
         CriticalPercentBtn.interactable = PlayerData.CriticalPer < 100f;
-        CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalMultiplier * 100 +"%";
+        CriticalDamageTmp.text = "치명타 데미지\n" + PlayerData.CriticalMultiplier * 100 + "%";
 
-        AttackCostTmp.text = _attackCost.ToString();
-        AttackSpeedCostTmp.text = _attackSpeedCost.ToString();
-        HpCostTmp.text = _hpCost.ToString();
-        RecoverHpCostTmp.text = _recoverHpCost.ToString();
-        CriticalPercentCostTmp.text = _criticalPercentCost.ToString();
-        CriticalDamageCostTmp.text = _criticalDamageCost.ToString();
-    
-        UIManager.Instance.UpdateCurrencyUI();    
+        AttackCostTmp.text = CurrencyFormatter.FormatBigInteger(_attackCost);
+        AttackSpeedCostTmp.text = CurrencyFormatter.FormatBigInteger(_attackSpeedCost);
+        HpCostTmp.text = CurrencyFormatter.FormatBigInteger(_maxHpCost);
+        RecoverHpCostTmp.text = CurrencyFormatter.FormatBigInteger(_recoverHpCost);
+        CriticalPercentCostTmp.text = CurrencyFormatter.FormatBigInteger(_criticalPercentCost);
+        CriticalDamageCostTmp.text = CurrencyFormatter.FormatBigInteger(_criticalMultiplierCost);
+
+        UIManager.Instance.UpdateCurrencyUI();
     }
 }

@@ -4,10 +4,7 @@ using UnityEngine;
 public class MonsterDataSO : ScriptableObject
 {
     public string monsterName;
-    public int Hp;
+    public int MaxHp;
     public int Damage;
     public float AttackSpeed;
-
-    public int stagePage;
-    public int stage;
 }

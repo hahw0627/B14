@@ -12,18 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d08ddb0aeddb0f40bddb39227b37cc8, type: 3}
   m_Name: FireBall
   m_EditorClassIdentifier: 
-  skillName: "\uD30C\uC774\uC5B4\uBCFC"
-  icon: {fileID: 21300000, guid: 76199b45dab4b48e1ae362f84e1becbd, type: 3}
-  level: 1
-  rarity: 0
-  description: "\uC801\uC5D0\uAC8C \uD30C\uC774\uC5B4\uBCFC\uC744 \uB358\uC9D1\uB2C8\uB2E4."
-  duration: 1
-  cooldown: 3
-  damage: 25
-  effectPrefab: {fileID: 6471748739544416966, guid: 9fe9196d2ccfa524bb3cfb746cea51f2, type: 3}
-  skillType: 2
-  projectileSpeed: 0.5
-  aoeRadius: 0
-  buffAmount: 0
-  count: 2
-  isUnlocked: 1
+  SkillName: "\uD30C\uC774\uC5B4\uBCFC"
+  Icon: {fileID: 21300000, guid: 76199b45dab4b48e1ae362f84e1becbd, type: 3}
+  Level: 1
+  Rarity: 0
+  Description: "\uC801\uC5D0\uAC8C \uD30C\uC774\uC5B4\uBCFC\uC744 \uB358\uC9D1\uB2C8\uB2E4."
+  Duration: 1
+  Cooldown: 3
+  Damage: 25
+  EffectPrefab: {fileID: 6471748739544416966, guid: 9fe9196d2ccfa524bb3cfb746cea51f2, type: 3}
+  SkillType: 2
+  ProjectileSpeed: 0.5
+  AoeRadius: 0
+  BuffAmount: 0
+  Count: 2
+  IsUnlocked: 1
+  SkillSound: {fileID: 8300000, guid: 49b495edfe222024cb37f95269a103c9, type: 3}

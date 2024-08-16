@@ -3,8 +3,7 @@ using UnityEngine.Serialization;
 
 public class MonsterPool : SingletonDestroyable<MonsterPool>
 {
-    [FormerlySerializedAs("monsterPrefab")]
-    public GameObject MonsterPrefab;
+    public GameObject[] MonsterArray;
 
     [FormerlySerializedAs("monsters")]
     public GameObject[] Monsters;
@@ -12,9 +11,9 @@ public class MonsterPool : SingletonDestroyable<MonsterPool>
     private void Start()
     {
         Monsters = new GameObject[6];
-        for (var i = 0; i < Monsters.Length; i++)
+        for (int i = 0; i < Monsters.Length; i++)
         {
-            Monsters[i] = Instantiate(MonsterPrefab, transform);
+            Monsters[i] = Instantiate(MonsterArray[i], transform);
             Monsters[i].GetComponent<Monster>().onDeath += HandleMonsterDeath;
             Monsters[i].SetActive(false);
         }
