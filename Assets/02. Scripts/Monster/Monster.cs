@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 using System;
 using UnityEngine.Serialization;
+using _10._Externals.HeroEditor4D.Common.Scripts.CharacterScripts;
+using Assets.HeroEditor4D.Common.Scripts.Enums;
 
 public class Monster : MonoBehaviour, IDamageable
 {
@@ -36,6 +38,7 @@ public class Monster : MonoBehaviour, IDamageable
 
     protected DamageTextPool DamageTextPool;
     private Animator _animator;
+    private AnimationManager _animationManager;
 
     private long _goldReward;
     private static readonly int Slash1H = Animator.StringToHash("Slash1H");
@@ -45,9 +48,9 @@ public class Monster : MonoBehaviour, IDamageable
     private void Awake()
     {
         _goldReward = 10;
-        //_animator = GetComponent<Animator>();
         Target = GameObject.Find("Player");
         _animator = GetComponent<Animator>();
+        _animationManager = GetComponent<AnimationManager>();
         DamageTextPool = FindObjectOfType<DamageTextPool>();
         if (DamageTextPool == null)
         {
@@ -77,12 +80,13 @@ public class Monster : MonoBehaviour, IDamageable
 
         if (MoveTime < 1.5f)
         {
+            _animationManager.SetState(CharacterState.Walk);
             transform.Translate(Vector3.left * (2.0f * Time.deltaTime));
             MoveTime += Time.deltaTime;
         }
         else
         {
-            //_animator.SetBool(IsBattle, true);
+            _animationManager.SetState(CharacterState.Idle);
             if (!IsAttacking)
             {
                 StartCoroutine(Attack());
@@ -160,7 +164,7 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
-        _animator.SetTrigger("Idle");
+        //_animator.SetTrigger("Idle"); 죽었을 때, 공격 애니메이션 멈추기
         var instance = DataManager.Instance;
         instance.PlayerDataSo.Gold += _goldReward;
         onDeath?.Invoke(this);
