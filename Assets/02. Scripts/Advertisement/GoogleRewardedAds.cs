@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class GoogleRewardedAds : MonoBehaviour
 {
-    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // 출시 전에는 구글 애드몹에서 제공하는 테스트 용 ID를 넣어야 함
+    //private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // 출시 전에는 구글 애드몹에서 제공하는 테스트 용 ID를 넣어야 함
 #if UNITY_ANDROID
     private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // 출시 전에는 구글 애드몹에서 제공하는 테스트 용 ID를 넣어야 함
 #elif UNITY_IPHONE
