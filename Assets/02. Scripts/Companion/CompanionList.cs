@@ -10,10 +10,12 @@ public class CompanionList : MonoBehaviour
     public GameObject[] companionPrefabs;
     public CompanionInfoPanel companionInfoPanel;
     public Button allUnEquipBtn;
+    public Button allUpgradeBtn;
 
     private void Start()
     {
         allUnEquipBtn.onClick.AddListener(companionInfoPanel.UnEquippedCompanion);
+        allUpgradeBtn.onClick.AddListener(() => AllUpgrade());
     }
 
     // �г� Ȱ��ȭ �Ǹ� ���� �ʱ�ȭ
@@ -64,5 +66,13 @@ public class CompanionList : MonoBehaviour
     public GameObject[] GetAllCompanionPrefabs()
     {
         return companionPrefabs;
+    }
+
+    public void AllUpgrade()
+    {
+        for(int i = 0; i< companionDataArray.Length; i++)
+        {
+            companionInfoPanel.CompanionUpgrade(companionDataArray[i]);
+        }        
     }
 }

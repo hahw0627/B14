@@ -25,6 +25,6 @@ MonoBehaviour:
   ProjectileSpeed: 0
   AoeRadius: 5
   BuffAmount: 0
-  Count: 1
-  IsUnlocked: 1
+  Count: 0
+  IsUnlocked: 0
   SkillSound: {fileID: 8300000, guid: a38b8ba9e65fd6f4ba6ccce0c712e0ad, type: 3}

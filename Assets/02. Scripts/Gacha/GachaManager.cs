@@ -29,7 +29,6 @@ public class GachaManager : MonoBehaviour
 
     private void Start()
     {
-        // ����Ƽ ��ư ������Ʈ���� �������� �ʰ� �ڵ�� �����غ���
         closeButton.onClick.AddListener(CloseGacha);
         allOpenButton.onClick.AddListener(AllScrollOpen);
 
@@ -44,7 +43,19 @@ public class GachaManager : MonoBehaviour
 
     public void PullGacha(int pullCount, string type)
     {
-        // ��í������ Ȱ��ȭ
+        if (pullCount == 1 && DataManager.Instance.PlayerDataSo.Gem >= 100)
+        {
+            DataManager.Instance.PlayerDataSo.Gem -= 100;
+        }
+        else if (pullCount == 12 && DataManager.Instance.PlayerDataSo.Gem >= 1000)
+        {
+            DataManager.Instance.PlayerDataSo.Gem -= 1000;
+        }
+        else
+        {
+            return;
+        }
+
         gachaPage.SetActive(true);
         closeButton.SetActive(true);
         allOpenButton.SetActive(true);
@@ -74,8 +85,6 @@ public class GachaManager : MonoBehaviour
 
     public CompanionDataSO GetRandomCompanion()
     {
-        // ���⿡ ��޿� ���� Ȯ�� ��� ����
-        // Rarity�� ���� ���� ���� Ȯ���� ������
         int totalWeight = 0;
         foreach (CompanionDataSO companion in companionDataList)
         {
@@ -95,7 +104,7 @@ public class GachaManager : MonoBehaviour
             }
         }
 
-        return null; // ������ġ, �� �ڵ忡 �����ϸ� �� ��.
+        return null;
     }
 
     public SkillDataSO GetRandomSkill()
@@ -158,7 +167,7 @@ public class GachaManager : MonoBehaviour
             case Define.SkillRarity.Unique:
                 return 9;
             case Define.SkillRarity.Epic:
-                return 5;            
+                return 5;
             case Define.SkillRarity.Legendary:
                 return 1;
             default:
@@ -168,15 +177,12 @@ public class GachaManager : MonoBehaviour
 
     private void CloseGacha()
     {
-        // ��� Scroll ������Ʈ ����
         foreach (Transform child in gachaPage.transform)
         {
             Destroy(child.gameObject);
         }
-        // ����Ʈ �ʱ�ȭ
         activeScrolls.Clear();
 
-        // GachaPage ��Ȱ��ȭ
         gachaPage.SetActive(false);
         closeButton.SetActive(false);
         allOpenButton.SetActive(false);
@@ -184,7 +190,6 @@ public class GachaManager : MonoBehaviour
 
     private void AllScrollOpen()
     {
-        // Ȱ��ȭ�� ��� Scroll�� Front�� Ȱ��ȭ
         foreach (var scroll in activeScrolls)
         {
             scroll.OpenScroll();

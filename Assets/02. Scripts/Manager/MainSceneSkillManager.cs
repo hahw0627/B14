@@ -39,6 +39,9 @@ public class MainSceneSkillManager : MonoBehaviour
     [FormerlySerializedAs("buffEffectSpawnPoint")]
     [SerializeField]
     private Transform _buffEffectSpawnPoint;
+   
+    [SerializeField]
+    private Sprite _defaultSkillSprite;
 
     private readonly Dictionary<SkillDataSO, Coroutine> _cooldownCoroutines = new();
 
@@ -74,9 +77,9 @@ public class MainSceneSkillManager : MonoBehaviour
             var cooldownImage = _cooldownImages[i];
             var cooldownText = _cooldownTexts[i];
 
-            if (i < _skillManager.EquippedSkills.Count && _skillManager.EquippedSkills[i] != null)
+            if (i < DataManager.Instance.PlayerDataSo.EquippedSkills.Count && DataManager.Instance.PlayerDataSo.EquippedSkills[i] != null)
             {
-                var skill = _skillManager.EquippedSkills[i];
+                var skill = DataManager.Instance.PlayerDataSo.EquippedSkills[i];
                 buttonImage.sprite = skill.Icon;
                 buttonImage.color = Color.white;
                 button.interactable = true;
@@ -88,6 +91,7 @@ public class MainSceneSkillManager : MonoBehaviour
             }
             else
             {
+                buttonImage.sprite = _defaultSkillSprite;
                 button.interactable = false;
 
                 cooldownImage.gameObject.SetActive(false);
@@ -133,9 +137,9 @@ public class MainSceneSkillManager : MonoBehaviour
 
     public void UseSkill(int index)
     {
-        if (index < 0 || index >= _skillManager.EquippedSkills.Count) return;
+        if (index < 0 || index >= DataManager.Instance.PlayerDataSo.EquippedSkills.Count) return;
 
-        var skill = _skillManager.EquippedSkills[index];
+        var skill = DataManager.Instance.PlayerDataSo.EquippedSkills[index];
         if (!(_skillManager.GetSkillCooldown(skill) <= 0)) return;
         _skillManager.SetSkillOnCooldown(skill);
         _player.SetUsingSkill(true);
