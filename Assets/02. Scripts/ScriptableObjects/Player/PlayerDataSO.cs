@@ -8,6 +8,9 @@ public class PlayerDataSO : ScriptableObject
     [FormerlySerializedAs("skills")]
     public List<SkillDataSO> Skills; //�κ��丮 ó�� ���⿡ ��ų ������ ���Ե�?
 
+    [FormerlySerializedAs("equippedSkills")]
+    public List<SkillDataSO> EquippedSkills;
+
     [FormerlySerializedAs("companions")]
     public List<CompanionDataSO> Companions; //�� ����
 

@@ -16,15 +16,32 @@ public class SkillInfoPanel : MonoBehaviour
     private SkillDataSO currentSkill;
     private SkillUIManager skillUIManager;
 
+    public Button unequipButton;
+    private int currentSkillSlotIndex = -1;
+
     private void Start()
     {
         skillUIManager = FindObjectOfType<SkillUIManager>();
+        unequipButton.onClick.AddListener(OnClickUnequipButton);
     }
 
-    public void SetSkillInfo(SkillDataSO skill)
+    public void OnClickUnequipButton()
+    {
+        if (currentSkill != null && currentSkillSlotIndex != -1)
+        {
+            skillUIManager.UnequipSkillAtIndex(currentSkillSlotIndex);
+            gameObject.SetActive(false);
+        }
+    }
+
+    public void SetSkillInfo(SkillDataSO skill, int slotIndex)
     {
         currentSkill = skill;
+        currentSkillSlotIndex = slotIndex;
         UpdateSkillInfo();
+
+        unequipButton.gameObject.SetActive(slotIndex != -1);
+        equipButton.gameObject.SetActive(slotIndex == -1);
     }
 
     private void UpdateSkillInfo()

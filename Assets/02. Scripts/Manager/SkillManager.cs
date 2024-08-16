@@ -7,10 +7,6 @@ using UnityEngine.UI;
 
 public class SkillManager : MonoBehaviour
 {
-
-    [FormerlySerializedAs("equippedSkills")]
-    public List<SkillDataSO> EquippedSkills = new();
-
     [FormerlySerializedAs("maxEquippedSkills")]
     public int MaxEquippedSkills = 5;
 
@@ -54,35 +50,44 @@ public class SkillManager : MonoBehaviour
 
     public void UpdateEquippedSkills()
     {
-        EquippedSkills.Clear();
-        if (DataManager.Instance.PlayerDataSo.Skills != null)
+        if (DataManager.Instance.PlayerDataSo.EquippedSkills == null)
         {
-            EquippedSkills.AddRange(DataManager.Instance.PlayerDataSo.Skills);
+            DataManager.Instance.PlayerDataSo.EquippedSkills = new List<SkillDataSO>();
         }
     }
 
     public void EquipSkill(SkillDataSO skill)
     {
-        if (EquippedSkills.Count >= MaxEquippedSkills || EquippedSkills.Contains(skill) ||
+        var equippedSkills = DataManager.Instance.PlayerDataSo.EquippedSkills;
+
+        if (equippedSkills.Count >= MaxEquippedSkills || equippedSkills.Contains(skill) ||
             !DataManager.Instance.AllSkillsDataSo.Contains(skill)) return;
-        EquippedSkills.Add(skill);
+
+        equippedSkills.Add(skill);
         onEquippedSkillsChanged?.Invoke();
     }
 
     public void UnEquipSkill(SkillDataSO skill)
     {
-        var index = EquippedSkills.IndexOf(skill);
-        if (index == -1) return;
-        EquippedSkills[index] = null;
+        var equippedSkills = DataManager.Instance.PlayerDataSo.EquippedSkills;
+
+        if (!equippedSkills.Contains(skill)) return;
+
+        equippedSkills.Remove(skill);
         onEquippedSkillsChanged?.Invoke();
     }
 
     public void ReplaceSkill(int index, SkillDataSO newSkill)
     {
-        if (index < 0 || index >= EquippedSkills.Count) return;
-        EquippedSkills[index] = newSkill;
+        var equippedSkills = DataManager.Instance.PlayerDataSo.EquippedSkills;
+
+        if (index < 0 || index >= equippedSkills.Count) return;
+
+        equippedSkills[index] = newSkill;
         onEquippedSkillsChanged?.Invoke();
     }
+
+
 
     public void ToggleAutoMode()
     {
@@ -120,7 +125,7 @@ public class SkillManager : MonoBehaviour
                 var skillToUse = FindUsableSkill();
                 if (skillToUse is not null)
                 {
-                    var skillIndex = EquippedSkills.IndexOf(skillToUse);
+                    var skillIndex = DataManager.Instance.PlayerDataSo.EquippedSkills.IndexOf(skillToUse);
                     if (skillIndex != -1)
                     {
                         MainSceneSkillManager.UseSkill(skillIndex);
@@ -143,7 +148,7 @@ public class SkillManager : MonoBehaviour
 
     private SkillDataSO FindUsableSkill()
     {
-        return EquippedSkills.Find(skill =>
+        return DataManager.Instance.PlayerDataSo.EquippedSkills.Find(skill =>
             skill is not null && (!_skillCooldowns.ContainsKey(skill) || _skillCooldowns[skill] <= 0));
     }
 
@@ -176,6 +181,8 @@ public class SkillManager : MonoBehaviour
 
     public void EquipSkillAtIndex(int index, SkillDataSO newSkill)
     {
+        var equippedSkills = DataManager.Instance.PlayerDataSo.EquippedSkills;
+
         if (index < 0 || index >= MaxEquippedSkills)
         {
             Debug.LogWarning("Invalid index for equipping skill.");
@@ -188,29 +195,24 @@ public class SkillManager : MonoBehaviour
             return;
         }
 
-        // �� ��ų�� �̹� �����Ǿ� �ִ��� Ȯ��
-        var existingIndex = EquippedSkills.FindIndex(s => s != null && s.SkillName == newSkill.SkillName);
+        var existingIndex = equippedSkills.FindIndex(s => s != null && s.SkillName == newSkill.SkillName);
 
-        // �̹� ������ ��ų�� �ְ�, �� ��ġ�� ���� �����Ϸ��� ��ġ�� �ٸ��ٸ�
         if (existingIndex != -1 && existingIndex != index)
         {
-            // �̹� ������ ��ų�� ����
-            EquippedSkills[existingIndex] = null;
+            equippedSkills[existingIndex] = null;
         }
 
-        // �� ��ų�� ������ ��ġ�� �̹� �ٸ� ��ų�� �ִٸ� ����
-        if (index < EquippedSkills.Count && EquippedSkills[index] != null)
+        if (index < equippedSkills.Count && equippedSkills[index] != null)
         {
-            EquippedSkills[index] = null;
+            equippedSkills[index] = null;
         }
 
-        // �� ��ų ����
-        while (EquippedSkills.Count <= index)
+        while (equippedSkills.Count <= index)
         {
-            EquippedSkills.Add(null);
+            equippedSkills.Add(null);
         }
 
-        EquippedSkills[index] = newSkill;
+        equippedSkills[index] = newSkill;
         onEquippedSkillsChanged?.Invoke();
     }
 }
