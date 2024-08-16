@@ -1,11 +1,20 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField]
     private GameObject _introCanvas;
-    
+
+    [SerializeField]
+    private AudioMixerGroup mixerGroupA; //bgm
+    [SerializeField]
+    private AudioMixerGroup mixerGroupB; //effect
+
+    [SerializeField]
+    private AudioMixer audioMixer;
+
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
 
@@ -41,21 +50,18 @@ public class SoundManager : Singleton<SoundManager>
 
     public void SetBGMVolume(float volume)
     {
-        _audioSources[(int)Define.Sound.Bgm].volume = volume;
+        audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
+       
     }
     public void SetSFXVolume(float volume)
     {
-        _audioSources[(int)Define.Sound.Effect].volume = volume;
+        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
+       
     }
     public void SetMasterVolume(float volume)
     {
-        foreach (var audioSource in _audioSources)
-        {
-            if (audioSource != null)
-            {
-                audioSource.volume = volume;
-            }
-        }
+        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
+   
     }
 
 
@@ -72,8 +78,10 @@ public class SoundManager : Singleton<SoundManager>
             var go = new GameObject { name = soundName[i] };
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
+            
         }
-
+        _audioSources[(int)Define.Sound.Bgm].outputAudioMixerGroup = mixerGroupA;
+        _audioSources[(int)Define.Sound.Effect].outputAudioMixerGroup = mixerGroupB;
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
 
