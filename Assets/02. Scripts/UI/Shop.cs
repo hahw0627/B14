@@ -66,7 +66,7 @@ public class Shop : MonoBehaviour
         {
             DataManager.Instance.PlayerDataSo.Gold -= GoldAmount;
             DataManager.Instance.AddGem(GemAmount);
-            SoundManager.Instance.Play("Trade", volume: 3.0f);
+            SoundManager.Instance.Play("Trade");
             Debug.Log($"Converted {GoldAmount}G to {GemAmount} Gems");
         }
         else
@@ -82,7 +82,7 @@ public class Shop : MonoBehaviour
         {
             DataManager.Instance.PlayerDataSo.Gem -= GemAmount;
             DataManager.Instance.AddGold(GoldAmount);
-            SoundManager.Instance.Play("Trade", volume: 3.0f);
+            SoundManager.Instance.Play("Trade");
             Debug.Log($"Converted {GemAmount} Gems to {GoldAmount}G");
         }
         else

@@ -47,7 +47,7 @@ public class GoldAcquireEffect : MonoBehaviour
 
         mainSequence.OnComplete(() =>
         {
-            SoundManager.Instance.Play("Trade", volume: 3.0f);
+            SoundManager.Instance.Play("Trade");
             TargetGoldUI.DOPunchScale(Vector3.one * 0.2f, 0.25f);
             OnEffectCompleted?.Invoke();
         });
