@@ -20,11 +20,11 @@ public class BackendManager : MonoBehaviour
 
         if (bro.IsSuccess())
         {
-            Debug.Log("�ʱ�ȭ ���� : " +bro);
+            Debug.Log("초기화성공 : " +bro);
         }
         else
         {
-            Debug.LogError("<color=red>�ʱ�ȭ ���� : " + bro + "</color>"); // statusCode 400�� �����߻� 
+            Debug.LogError("<color=red>초기화실패 : " + bro + "</color>"); // statusCode 400�� �����߻� 
         }
     }
 

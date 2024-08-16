@@ -11,19 +11,20 @@ public class SoundSettingUI : MonoBehaviour
     {
         bgmSlider.value = SoundManager.Instance.GetAudioSource(Define.Sound.Bgm).volume;
         sfxSldier.value = SoundManager.Instance.GetAudioSource(Define.Sound.Effect).volume;
+        masterSlider.value = 0.4f;
     }
 
     public void BGM_Volume()
     {
-        SoundManager.Instance.SetBGMVolume(bgmSlider.value);
+        SoundManager.Instance.SetVolume(Define.Sound.Bgm,bgmSlider.value);
     }
     public void SFX_Volume()
     {
-        SoundManager.Instance.SetSFXVolume(sfxSldier.value);
+        SoundManager.Instance.SetVolume(Define.Sound.Effect, sfxSldier.value);
     }
     public void MasterVolume()
     {
-        SoundManager.Instance.SetMasterVolume(masterSlider.value);
+        SoundManager.Instance.SetVolume(Define.Sound.Master, masterSlider.value);
     }
 
 }
