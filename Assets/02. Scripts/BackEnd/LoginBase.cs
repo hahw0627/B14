@@ -3,48 +3,52 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+
 public class LoginBase : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI textMessage;
 
     ///<summary>
-    ///¸Þ½ÃÁö ³»¿ë , inputField »ö»ó ÃÊ±âÈ­
+    ///ï¿½Þ½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ , inputField ï¿½ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
     ///</summary>
     protected void ResetUI(params Image[] images)
     {
         textMessage.text = string.Empty;
         for (int i = 0; i < images.Length; ++i)
         {
-            images[i].color = Color.white; 
+            images[i].color = Color.white;
         }
     }
+
     ///<summary>
-    ///¸Å°³º¯¼ö¿¡ ÀÖ´Â ³»¿ëÃâ·Â
+    ///ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     ///</summary>
     protected void SetMessage(string msg)
     {
         textMessage.text = msg;
     }
+
     ///<summary>
-    ///¸Å°³º¯¼ö·Î ¹Þ¾Æ¿Â ÇÊµå »ö»ó°ú ¸Þ¼¼Áö¸¦ º¯°æ
+    ///ï¿½Å°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     ///</summary>
     protected void GuideForIncorrectlyEnteredData(Image image, string msg)
     {
         textMessage.text = msg;
         image.color = Color.red;
     }
+
     ///<summary>
-    ///ÇÊµå °ªÀÌ ºñ¾îÀÖ´ÂÁö È®ÀÎ 
+    ///ï¿½Êµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ 
     ///</summary>
     protected bool IsFieldDataEmpty(Image image, string field, string result)
     {
         if (field.Trim().Equals(""))
         {
-            GuideForIncorrectlyEnteredData(image, $"\"{result}\" ÇÊµå¸¦ Ã¤¿öÁÖ¼¼¿ä");
+            GuideForIncorrectlyEnteredData(image, $"{result} í•„ë“œë¥¼ ì±„ì›Œì£¼ì„¸ìš”");
             return true;
         }
+
         return false;
     }
-
 }

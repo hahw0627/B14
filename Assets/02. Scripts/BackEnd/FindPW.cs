@@ -15,59 +15,50 @@ public class FindPW : LoginBase
     Image imageEmail;
     [SerializeField]
     TMP_InputField inputFieldEmail;
-
     [SerializeField]
     Button btnFindPW;
-
     public void OnclickFindPW()
     {
         ResetUI(imageID, imageEmail);
-
-        if (IsFieldDataEmpty(imageID, inputFieldID.text, "¾ÆÀÌµğ")) return;
-        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "¸ŞÀÏ ÁÖ¼Ò")) return;
-
+        if (IsFieldDataEmpty(imageID, inputFieldID.text, "ì•„ì´ë””")) return;
+        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "ë©”ì¼ ì£¼ì†Œ")) return;
         if (!inputFieldEmail.text.Contains("@"))
         {
-            GuideForIncorrectlyEnteredData(imageEmail, "¸ŞÀÏ Çü½ÄÀÌ Àß¸ø µÇ¾ú½À´Ï´Ù. (ex. address@xx.xx )");
+            GuideForIncorrectlyEnteredData(imageEmail, "ë©”ì¼ í˜•ì‹ì´ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤. (ex. address@xx.xx )");
             return;
         }
-
         btnFindPW.interactable = false;
-        SetMessage("¸ŞÀÏ ¹ß¼ÛÁßÀÔ´Ï´Ù..");
-
+        SetMessage("ë©”ì¼ ë°œì†¡ì¤‘ì…ë‹ˆë‹¤..");
         FindCustomPW();
     }
-
     private void FindCustomPW()
     {
-        //ºñ¹Ğ¹øÈ£¸¦ ÃÊ±âÈ­ ÇÏ°í, ¸®¼ÂµÈ ºñ¹Ğ¹øÈ£ Á¤º¸¸¦ ÀÌ¸ŞÀÏ·Î ¹ß¼Û
+        //ë¹„ë°€ë²ˆí˜¸ë¥¼ ì´ˆê¸°í™” í•˜ê³ , ë¦¬ì…‹ëœ ë¹„ë°€ë²ˆí˜¸ ì •ë³´ë¥¼ ì´ë©”ì¼ë¡œ ë°œì†¡
         Backend.BMember.ResetPassword(inputFieldID.text, inputFieldEmail.text, callback =>
         {
-            //ºñ¹Ğ¹øÈ£ Ã£±â ¹öÆ° »óÈ£ÀÛ¿ë È°¼ºÈ­
+            //ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸° ë²„íŠ¼ ìƒí˜¸ì‘ìš© í™œì„±í™”
             btnFindPW.interactable= true;
-
-            //¸ŞÀÏ ¹ß¼Û ¼º°ø
+            //ë©”ì¼ ë°œì†¡ ì„±ê³µ
             if (callback.IsSuccess())
             {
-                SetMessage($"{inputFieldEmail} ÁÖ¼Ò·Î ¸ŞÀÏÀ» ¹ß¼ÛÇÏ¿´½À´Ï´Ù");
+                SetMessage($"{inputFieldEmail} ì£¼ì†Œë¡œ ë©”ì¼ì„ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤");
             }
             else
             {
                 string message;
                 switch (int.Parse(callback.GetStatusCode()))
                 {
-                    case 404: // ÇØ´ç ¸ŞÀÏÀÇ °ÔÀÌ¸Ó°¡¾øÀ½
-                        message = "ÇØ´ç ÀÌ¸ŞÀÏÀ» »ç¿ëÇÏ´Â »ç¿ëÀÚ°¡ ¾ø½À´Ï´Ù.";
+                    case 404: // í•´ë‹¹ ë©”ì¼ì˜ ê²Œì´ë¨¸ê°€ì—†ìŒ
+                        message = "í•´ë‹¹ ì´ë©”ì¼ì„ ì‚¬ìš©í•˜ëŠ” ì‚¬ìš©ìê°€ ì—†ìŠµë‹ˆë‹¤.";
                         break;
                     case 429:
-                        message = "24½Ã°£ ÀÌ³»¿¡ 5È¸ ÀÌ»ó ¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£ Ã£±â¸¦ ½ÃµµÇß½À´Ï´Ù.";
+                        message = "24ì‹œê°„ ì´ë‚´ì— 5íšŒ ì´ìƒ ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ë¥¼ ì‹œë„í–ˆìŠµë‹ˆë‹¤.";
                         break;
                     default:
                         message = callback.GetMessage();
                         break;
-
                 }
-                if (message.Contains("ÀÌ¸ŞÀÏ"))
+                if (message.Contains("ì´ë©”ì¼"))
                 {
                     GuideForIncorrectlyEnteredData(imageEmail, message);
                 }

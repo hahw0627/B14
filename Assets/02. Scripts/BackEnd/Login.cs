@@ -6,77 +6,66 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-
 public class Login : LoginBase
 {
     [SerializeField]
-    private Image imageID;                  //ID ÇÊµå »ö»óº¯°æ
-    [SerializeField]                    
-    private TMP_InputField inputFieldID;    // ID ÇÊµå ÅØ½ºÆ® Á¤º¸ ÃßÃâ
+    private Image imageID;                  //ID í•„ë“œ ìƒ‰ìƒë³€ê²½
     [SerializeField]
-    private Image imagePW;                  //PW ÇÊµå »ö»ó º¯°æ
+    private TMP_InputField inputFieldID;    // ID í•„ë“œ í…ìŠ¤íŠ¸ ì •ë³´ ì¶”ì¶œ
     [SerializeField]
-    private TMP_InputField inputFieldPW;    // PW ÇÊµå ÅØ½ºÆ® Á¤º¸ ÃßÃâ
-
+    private Image imagePW;                  //PW í•„ë“œ ìƒ‰ìƒ ë³€ê²½
+    [SerializeField]
+    private TMP_InputField inputFieldPW;    // PW í•„ë“œ í…ìŠ¤íŠ¸ ì •ë³´ ì¶”ì¶œ
     [SerializeField]
     private Button btnLogin;
-
     public void OnClickLogin()
     {
-        //¸Å°³ º¯¼ö·Î ÀÔ·ÂÇÑ inputFieldUIÀÇ »ö»ó°ú Message ³»¿ë ÃÊ±âÈ­
+        //ë§¤ê°œ ë³€ìˆ˜ë¡œ ì…ë ¥í•œ inputFieldUIì˜ ìƒ‰ìƒê³¼ Message ë‚´ìš© ì´ˆê¸°í™”
         ResetUI(imageID,imagePW);
-
-        //ÇÊµå °ªÀÌ ºñ¾î ÀÖ´ÂÁö Ã¼Å©
-        if (IsFieldDataEmpty(imageID, inputFieldID.text, "¾ÆÀÌµğ")) return;
-        if (IsFieldDataEmpty(imagePW, inputFieldPW.text, "ºñ¹Ğ¹øÈ£")) return;
-
-        //·Î±×ÀÎ ¹öÆ° ¿¬Å¸ÇÏÁö ¸øÇÏµµ·Ï »óÈ£ÀÛ¿ë ºñÈ°¼ºÈ­
+        //í•„ë“œ ê°’ì´ ë¹„ì–´ ìˆëŠ”ì§€ ì²´í¬
+        if (IsFieldDataEmpty(imageID, inputFieldID.text, "ì•„ì´ë””")) return;
+        if (IsFieldDataEmpty(imagePW, inputFieldPW.text, "ë¹„ë°€ë²ˆí˜¸")) return;
+        //ë¡œê·¸ì¸ ë²„íŠ¼ ì—°íƒ€í•˜ì§€ ëª»í•˜ë„ë¡ ìƒí˜¸ì‘ìš© ë¹„í™œì„±í™”
         btnLogin.interactable = false;
-
-        //¼­¹ö¿¡ ·Î±×ÀÎÀ» ¿äÃ»ÇÏ´Â µ¿¾È È­¸é¿¡ Ãâ·ÂÇÏ´Â ³»¿ë ¾÷µ¥ÀÌÆ®
-        // ex) ·Î±×ÀÎ °ü·Ã ÅØ½ºÆ® Ãâ·Â , Åé´Ï¹ÙÄû ¾ÆÀÌÄÜ È¸Àü µî
+        //ì„œë²„ì— ë¡œê·¸ì¸ì„ ìš”ì²­í•˜ëŠ” ë™ì•ˆ í™”ë©´ì— ì¶œë ¥í•˜ëŠ” ë‚´ìš© ì—…ë°ì´íŠ¸
+        // ex) ë¡œê·¸ì¸ ê´€ë ¨ í…ìŠ¤íŠ¸ ì¶œë ¥ , í†±ë‹ˆë°”í€´ ì•„ì´ì½˜ íšŒì „ ë“±
         StartCoroutine(nameof(LoginProcess));
-
-        //µÚ³¡ ¼­¹ö ·Î±×ÀÎ ½Ãµµ
+        //ë’¤ë ì„œë²„ ë¡œê·¸ì¸ ì‹œë„
         ResponseToLogin(inputFieldID.text, inputFieldPW.text);
     }
-
     private void ResponseToLogin(string ID,string PW)
     {
         Backend.BMember.CustomLogin(ID, PW, callbak =>
         {
             StopCoroutine(nameof(LoginProcess));
-
-            //·Î±×ÀÎ ¼º°ø
+            //ë¡œê·¸ì¸ ì„±ê³µ
             if (callbak.IsSuccess())
             {
-                SetMessage($"{inputFieldID.text}´Ô È¯¿µÇÕ´Ï´Ù");
-
-                // ¾À ÀÌµ¿ or °ÔÀÓÈ­¸é ¿ÀÇÂ Ãß°¡ ..
+                SetMessage($"{inputFieldID.text}ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤");
+                // ì”¬ ì´ë™ or ê²Œì„í™”ë©´ ì˜¤í”ˆ ì¶”ê°€ ..
                 SceneManager.LoadScene("DevScene");
             }
             else
             {
                 btnLogin.interactable = true;
                 string message = string.Empty;
-                switch (int.Parse(callbak.GetStatusCode())) //¿¡·¯ ¹øÈ£ Á¤º¸¸¦ Á¤¼ö·Î º¯È¯ÈÄ ¿¡·¯ ¹øÈ£¿¡ µû¶ó Ãâ·ÂÇÒ ¿¡·¯ ³»¿ëÀ» message º¯¼ö¿¡ ÀúÀå
+                switch (int.Parse(callbak.GetStatusCode())) //ì—ëŸ¬ ë²ˆí˜¸ ì •ë³´ë¥¼ ì •ìˆ˜ë¡œ ë³€í™˜í›„ ì—ëŸ¬ ë²ˆí˜¸ì— ë”°ë¼ ì¶œë ¥í•  ì—ëŸ¬ ë‚´ìš©ì„ message ë³€ìˆ˜ì— ì €ì¥
                 {
-                    case 401: //Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğ , Àß¸øµÈ ºñ¹Ğ¹øÈ£ 
-                        message = callbak.GetMessage().Contains("customID") ? "Á¸ÀçÇÏÁö ¾Ê´Â ¾ÆÀÌµğÀÔ´Ï´Ù." : "Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù";
+                    case 401: //ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë”” , ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸
+                        message = callbak.GetMessage().Contains("customID") ? "ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤." : "ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤";
                         break;
-                    case 403: //À¯Àú or µğ¹ÙÀÌ½º Â÷´Ü
-                        message = callbak.GetMessage().Contains("user") ? "Â÷´Ü´çÇÑ À¯ÀúÀÔ´Ï´Ù." : "Â÷´Ü´çÇÑ µğ¹ÙÀÌ½ºÀÔ´Ï´Ù.";
+                    case 403: //ìœ ì € or ë””ë°”ì´ìŠ¤ ì°¨ë‹¨
+                        message = callbak.GetMessage().Contains("user") ? "ì°¨ë‹¨ë‹¹í•œ ìœ ì €ì…ë‹ˆë‹¤." : "ì°¨ë‹¨ë‹¹í•œ ë””ë°”ì´ìŠ¤ì…ë‹ˆë‹¤.";
                         break;
-                    case 410: //Å»Åğ ÁøÇàÁß
-                        message = "Å»Åğ°¡ ÁøÇàÁßÀÎ À¯ÀúÀÔ´Ï´Ù.";
+                    case 410: //íƒˆí‡´ ì§„í–‰ì¤‘
+                        message = "íƒˆí‡´ê°€ ì§„í–‰ì¤‘ì¸ ìœ ì €ì…ë‹ˆë‹¤.";
                         break;
                     default:
                         message = callbak.GetMessage();
                         break;
-
                 }
-                // statusCode 401 ¿¡¼­ "Àß¸øµÈ ºñ¹Ğ¹øÈ£ ÀÔ´Ï´Ù." ÀÏ¶§ ÇÊµå»öÀ» º¯°æÇÏ°í ¿¡·¯ ³»¿ë Ãâ·Â
-                if (message.Contains("ºñ¹Ğ¹øÈ£"))
+                // statusCode 401 ì—ì„œ "ì˜ëª»ëœ ë¹„ë°€ë²ˆí˜¸ ì…ë‹ˆë‹¤." ì¼ë•Œ í•„ë“œìƒ‰ì„ ë³€ê²½í•˜ê³  ì—ëŸ¬ ë‚´ìš© ì¶œë ¥
+                if (message.Contains("ë¹„ë°€ë²ˆí˜¸"))
                 {
                     GuideForIncorrectlyEnteredData(imagePW, message);
                 }
@@ -94,7 +83,7 @@ public class Login : LoginBase
         while (true)
         {
             time += Time.deltaTime;
-            SetMessage($"·Î±×ÀÎ ÁßÀÔ´Ï´Ù...{time:F1}");
+            SetMessage($"ë¡œê·¸ì¸ ì¤‘ì…ë‹ˆë‹¤...{time:F1}");
             yield return null;
         }
     }

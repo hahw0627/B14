@@ -5,9 +5,6 @@ using UnityEngine.Audio;
 public class SoundManager : Singleton<SoundManager>
 {
     [SerializeField]
-    private GameObject _introCanvas;
-
-    [SerializeField]
     private AudioMixerGroup mixerGroupA; //bgm
     [SerializeField]
     private AudioMixerGroup mixerGroupB; //effect
@@ -22,11 +19,6 @@ public class SoundManager : Singleton<SoundManager>
     {
         base.Awake();
         Init();
-
-        if (!_introCanvas.activeSelf)
-        {
-            Instance.Play("MainBackground", type: Define.Sound.Bgm);
-        }
     }
 
     public AudioSource GetAudioSource(Define.Sound type)
