@@ -51,7 +51,7 @@ public class CompanionInfoPanel : MonoBehaviour
         currentCompanionButton2.onClick.AddListener(() => SelectButton(currentCompanionButton2));
         currentCompanionButton3.onClick.AddListener(() => SelectButton(currentCompanionButton3));
 
-        upgradeButton.onClick.AddListener(CompanionUpgrade);
+        upgradeButton.onClick.AddListener(() => CompanionUpgrade(currentCompanionData));
 
     }
 
@@ -155,8 +155,9 @@ public class CompanionInfoPanel : MonoBehaviour
         }
     }
 
-    public void CompanionUpgrade()
+    public void CompanionUpgrade(CompanionDataSO companionData)
     {
+        currentCompanionData = companionData;
         if (currentCompanionData.Count > 4)
         {
             currentCompanionData.Level += 1;
@@ -217,7 +218,7 @@ public class CompanionInfoPanel : MonoBehaviour
     public void UnEquippedCompanion()
     {
         CompanionDataSO[] allCompanionData = companionList.companionDataArray;
-        foreach(CompanionDataSO companionDataSO in allCompanionData)
+        foreach (CompanionDataSO companionDataSO in allCompanionData)
         {
             companionDataSO.IsEquipped = false;
         }

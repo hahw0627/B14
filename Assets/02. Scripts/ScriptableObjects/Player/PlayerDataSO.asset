@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
   Skills: []
-  EquippedSkills: []
   Companions: []
   Weapons:
   - {fileID: 0}
@@ -21,14 +20,14 @@ MonoBehaviour:
   - {fileID: 0}
   Armors: []
   PlayerName: 00011
-  Gold: 96033
+  Gold: 0
   Gem: 0
   TotalPower: 10
-  Damage: 88
+  Damage: 10
   Def: 0
-  AttackSpeed: 1.4449996
-  MaxHp: 1800
-  HpRecovery: 501
+  AttackSpeed: 1
+  MaxHp: 100
+  HpRecovery: 1
   CriticalPer: 0
   CriticalMultiplier: 1.5
   CurrentWeaponEquip: {fileID: 0}
