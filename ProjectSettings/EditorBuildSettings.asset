@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/01. Scenes/DevScene.unity
-    guid: 7d25d6e08ec72cd4db60a9e7019e874d
+    path: Assets/01. Scenes/DevScene(WebGL).unity
+    guid: dec7c827f2d074846a8394f7888d8300
   m_configObjects: {}
