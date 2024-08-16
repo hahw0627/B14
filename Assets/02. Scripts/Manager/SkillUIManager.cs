@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
@@ -260,6 +261,7 @@ public class SkillUIManager : MonoBehaviour
         {
             Debug.LogWarning("�̹� �� ��ų�� �����Ǿ� �ֽ��ϴ�.");
             _instructionText.text = "이미 장착된 스킬입니다.";
+            StartCoroutine(ClearInstructionTextAfterDelay(1f));
             return;
         }
 
@@ -270,6 +272,12 @@ public class SkillUIManager : MonoBehaviour
         SetEquippedSkillsInteractable(false);
         _instructionText.text = "";
         RefreshSkillUI();
+    }
+
+    private IEnumerator ClearInstructionTextAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        _instructionText.text = "";
     }
 
     public void UnequipSkill(SkillDataSO skill)

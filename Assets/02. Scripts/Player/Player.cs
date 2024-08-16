@@ -42,6 +42,8 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private AnimationManager _animationManager;
 
+    public bool IsDead { get; private set; } = false;
+
     private void Awake()
     {
         PlayerData = DataManager.Instance.PlayerDataSo;
@@ -140,6 +142,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator DeathWithDelay()
     {
+        IsDead = true;
         _animationManager.SetState(CharacterState.Death);
         PlayerSpeechBubble.Instance.ShowMessage("(시간을 되돌리는 중...)", SpeechLength.Short, "#0EFCFE");
         SoundManager.Instance.Play("TimeReversed");
@@ -148,6 +151,7 @@ public class Player : MonoBehaviour
         CurrentHp = PlayerData.MaxHp;
         _hpBar.SetCurrentHp(CurrentHp);
         _animationManager.SetState(CharacterState.Idle);
+        IsDead = false;
     }
 
     public void SetUsingSkill(bool usingSkill)

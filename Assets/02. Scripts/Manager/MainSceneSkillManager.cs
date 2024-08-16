@@ -137,6 +137,11 @@ public class MainSceneSkillManager : MonoBehaviour
 
     public void UseSkill(int index)
     {
+        if (_player.IsDead) // 플레이어가 죽은 상태인지 확인
+        {
+            Debug.Log("플레이어가 사망 상태입니다. 스킬을 사용할 수 없습니다.");
+            return; // 스킬 사용을 중단
+        }
         if (index < 0 || index >= DataManager.Instance.PlayerDataSo.EquippedSkills.Count) return;
 
         var skill = DataManager.Instance.PlayerDataSo.EquippedSkills[index];
