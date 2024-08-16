@@ -4,64 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using BackEnd;
 using TMPro;
-
 public class FindID : LoginBase
 {
     [SerializeField]
     Image imageEmail;
     [SerializeField]
     TMP_InputField inputFieldEmail;
-
     [SerializeField]
     Button btnFindID;
-
     public void OnClickFindID()
     {
         ResetUI(imageEmail);
-
-        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "¸ŞÀÏ ÁÖ¼Ò")) return;
-
-        //¸ŞÀÏ Çü½Ä °Ë»ç
+        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "ë©”ì¼ ì£¼ì†Œ")) return;
+        //ë©”ì¼ í˜•ì‹ ê²€ì‚¬
         if (!inputFieldEmail.text.Contains("@"))
         {
-            GuideForIncorrectlyEnteredData(imageEmail, "¸ŞÀÏ Çü½ÄÀÌ Àß¸ø µÇ¾ú½À´Ï´Ù. (ex. address@xx.xx )");
+            GuideForIncorrectlyEnteredData(imageEmail, "ë©”ì¼ í˜•ì‹ì´ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤. (ex. address@xx.xx )");
             return;
         }
         btnFindID.interactable = false;
-        SetMessage("¸ŞÀÏ ¹ß¼ÛÁßÀÔ´Ï´Ù..");
-
+        SetMessage("ë©”ì¼ ë°œì†¡ì¤‘ì…ë‹ˆë‹¤..");
         FindCustomID();
-
     }
-
     void FindCustomID()
     {
-        //¾ÆÀÌµğ Á¤º¸ ÀÌ¸ŞÀÏ·Î Àü¼Û
+        //ì•„ì´ë”” ì •ë³´ ì´ë©”ì¼ë¡œ ì „ì†¡
         Backend.BMember.FindCustomID(inputFieldEmail.text, callback =>
         {
             btnFindID.interactable = true;
             if (callback.IsSuccess())
             {
-                SetMessage($"{inputFieldEmail.text}ÁÖ¼Ò·Î ¸ŞÀÏÀ» ¹ß¼ÛÇÏ¿´½À´Ï´Ù");
+                SetMessage($"{inputFieldEmail.text}ì£¼ì†Œë¡œ ë©”ì¼ì„ ë°œì†¡í•˜ì˜€ìŠµë‹ˆë‹¤");
             }
             else
             {
                 string message = string.Empty;
                 switch (int.Parse(callback.GetStatusCode()))
                 {
-                    case 404: // ÇØ´ç ÀÌ¸ŞÀÏÀÇ °ÔÀÌ¸Ó°¡ ¾ø´Â°æ¿ì
-                        message = "ÇØ´ç ÀÌ¸ŞÀÏÀ» »ç¿ëÇÏ´Â »ç¿ëÀÚ°¡ ¾ø½À´Ï´Ù";
+                    case 404: // í•´ë‹¹ ì´ë©”ì¼ì˜ ê²Œì´ë¨¸ê°€ ì—†ëŠ”ê²½ìš°
+                        message = "í•´ë‹¹ ì´ë©”ì¼ì„ ì‚¬ìš©í•˜ëŠ” ì‚¬ìš©ìê°€ ì—†ìŠµë‹ˆë‹¤";
                         break;
                     case 429:
-                        message = "24½Ã°£ ÀÌ³»¿¡ 5È¸ ÀÌ»ó ¾ÆÀÌµğ/ºñ¹Ğ¹øÈ£  Ã£±â¸¦ ½ÃµµÇß½À´Ï´Ù";
+                        message = "24ì‹œê°„ ì´ë‚´ì— 5íšŒ ì´ìƒ ì•„ì´ë””/ë¹„ë°€ë²ˆí˜¸ ì°¾ê¸°ë¥¼ ì‹œë„í–ˆìŠµë‹ˆë‹¤";
                         break;
                     default:
-                        //sattuscode : 400 => ÇÁ·ÎÁ§Æ®¸í¿¡ Æ¯¼ö¹®ÀÚ°¡ Ãß°¡µÈ °æ¿ì (¾È³» ¸ŞÀÏ ¹Ì¹ß¼Û¹× ¿¡·¯¹ß»ı)
+                        //sattuscode : 400 => í”„ë¡œì íŠ¸ëª…ì— íŠ¹ìˆ˜ë¬¸ìê°€ ì¶”ê°€ëœ ê²½ìš° (ì•ˆë‚´ ë©”ì¼ ë¯¸ë°œì†¡ë° ì—ëŸ¬ë°œìƒ)
                         message = callback.GetMessage();
                         break;
-
                 }
-                if (message.Contains("ÀÌ¸ŞÀÏ"))
+                if (message.Contains("ì´ë©”ì¼"))
                 {
                     GuideForIncorrectlyEnteredData(imageEmail, message);
                 }

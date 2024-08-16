@@ -16,87 +16,80 @@ public class RegisterAccount : LoginBase
     [SerializeField]
     TMP_InputField inputFieldPW;
     [SerializeField]
-    Image imageConfirmPW; // cinfirm pw ÇÊµå »ö»ó º¯°æ
+    Image imageConfirmPW; // cinfirm pw í•„ë“œ ìƒ‰ìƒ ë³€ê²½
     [SerializeField]
-    TMP_InputField inputFieldConfirmPW; // confirm pw ÇÊµå ÅØ½ºÆ® Á¤º¸ ÃßÃâ
+    TMP_InputField inputFieldConfirmPW; // confirm pw í•„ë“œ í…ìŠ¤íŠ¸ ì •ë³´ ì¶”ì¶œ
     [SerializeField]
     Image imageEmail;
     [SerializeField]
     TMP_InputField inputFieldEmail;
-
     [SerializeField]
     Button btnRegisterAccount;
-
     public void OnClickRegisterAccount()
     {
-        //¸Å°³º¯¼ö·Î ÀÔ·ÂÇÑ InputField UIÀÇ »ö»ó°ú Mesage³»¿ë ÃÊ±âÈ­
+        //ë§¤ê°œë³€ìˆ˜ë¡œ ì…ë ¥í•œ InputField UIì˜ ìƒ‰ìƒê³¼ Mesageë‚´ìš© ì´ˆê¸°í™”
         ResetUI(imageID, imagePW, imageConfirmPW, imageEmail);
-
-        //ÇÊµå°ªÀÌ ºñ¾îÀÖ´ÂÁö Ã¼Å©
-        if (IsFieldDataEmpty(imageID, inputFieldID.text, "¾ÆÀÌµğ")) return;
-        if (IsFieldDataEmpty(imagePW, inputFieldPW.text, "ºñ¹Ğ¹øÈ£")) return;
-        if (IsFieldDataEmpty(imageConfirmPW, inputFieldConfirmPW.text, "ºñ¹Ğ¹øÈ£ È®ÀÎ")) return;
-        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "¸ŞÀÏÁÖ¼Ò")) return;
-
-        //ºñ¹Ğ¹øÈ£¿Í ºñ¹Ğ¹øÈ£ È®ÀÎÀÇ ³»¿ëÀÌ ´Ù¸¦ ¶§
+        //í•„ë“œê°’ì´ ë¹„ì–´ìˆëŠ”ì§€ ì²´í¬
+        if (IsFieldDataEmpty(imageID, inputFieldID.text, "ì•„ì´ë””")) return;
+        if (IsFieldDataEmpty(imagePW, inputFieldPW.text, "ë¹„ë°€ë²ˆí˜¸")) return;
+        if (IsFieldDataEmpty(imageConfirmPW, inputFieldConfirmPW.text, "ë¹„ë°€ë²ˆí˜¸ í™•ì¸")) return;
+        if (IsFieldDataEmpty(imageEmail, inputFieldEmail.text, "ë©”ì¼ì£¼ì†Œ")) return;
+        //ë¹„ë°€ë²ˆí˜¸ì™€ ë¹„ë°€ë²ˆí˜¸ í™•ì¸ì˜ ë‚´ìš©ì´ ë‹¤ë¥¼ ë•Œ
         if (!inputFieldPW.text.Equals(inputFieldConfirmPW.text))
         {
-            GuideForIncorrectlyEnteredData(imageConfirmPW, "ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+            GuideForIncorrectlyEnteredData(imageConfirmPW, "ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
             return;
         }
-
-        //¸ŞÀÏ Çü½Ä °Ë»ç
+        //ë©”ì¼ í˜•ì‹ ê²€ì‚¬
         if (!inputFieldEmail.text.Contains("@"))
         {
-            GuideForIncorrectlyEnteredData(imageEmail, "¸ŞÀÏ Çü½ÄÀÌ Àß¸ø µÇ¾ú½À´Ï´Ù. (ex. address@xx.xx )");
+            GuideForIncorrectlyEnteredData(imageEmail, "ë©”ì¼ í˜•ì‹ì´ ì˜ëª» ë˜ì—ˆìŠµë‹ˆë‹¤. (ex. address@xx.xx )");
             return;
-
         }
-
-        //°èÁ¤ »ı¼º ¹öÆ°ÀÇ »óÈ£ÀÛ¿ë ºñÈ°¼ºÈ­
+        //ê³„ì • ìƒì„± ë²„íŠ¼ì˜ ìƒí˜¸ì‘ìš© ë¹„í™œì„±í™”
         btnRegisterAccount.interactable = false;
-        SetMessage("°èÁ¤ »ı¼ºÁßÀÔ´Ï´Ù..");
-        //µÚ³¡ ¼­¹ö °èÁ¤ »ı¼º½Ãµµ
+        SetMessage("ê³„ì • ìƒì„±ì¤‘ì…ë‹ˆë‹¤..");
+        //ë’¤ë ì„œë²„ ê³„ì • ìƒì„±ì‹œë„
         CustomSignUp();
     }
     /// <summary>
-    /// °èÁ¤ »ı¼º ½Ãµµ ÈÄ ¼­¹ö·Î ºÎÅÍ Àü´Ş¹ŞÀº message¸¦ ±â¹İÀ¸·Î ·ÎÁ÷ Ã³¸® 
+    /// ê³„ì • ìƒì„± ì‹œë„ í›„ ì„œë²„ë¡œ ë¶€í„° ì „ë‹¬ë°›ì€ messageë¥¼ ê¸°ë°˜ìœ¼ë¡œ ë¡œì§ ì²˜ë¦¬
     /// </summary>
     void CustomSignUp()
     {
         Backend.BMember.CustomSignUp(inputFieldID.text, inputFieldPW.text, callback =>
         {
-            //°èÁ¤ »ı¼º ¹öÆ° »óÈ£ÀÛ¿ë È°¼ºÈ­
+            //ê³„ì • ìƒì„± ë²„íŠ¼ ìƒí˜¸ì‘ìš© í™œì„±í™”
             btnRegisterAccount.interactable = true;
-            //°èÁ¤»ı¼º ¼º°ø
+            //ê³„ì •ìƒì„± ì„±ê³µ
             if (callback.IsSuccess())
             {
-                //e-mail Á¤º¸ ¾÷µ¥ÀÌÆ®
+                //e-mail ì •ë³´ ì—…ë°ì´íŠ¸
                 Backend.BMember.UpdateCustomEmail(inputFieldEmail.text, callback =>
                 {
                     if (callback.IsSuccess())
                     {
-                        SetMessage($"°èÁ¤ »ı¼º ¼º°ø.{inputFieldID.text}´Ô È¯¿µÇÕ´Ï´Ù.");
+                        SetMessage($"ê³„ì • ìƒì„± ì„±ê³µ.{inputFieldID.text}ë‹˜ í™˜ì˜í•©ë‹ˆë‹¤.");
                     }
                 });
             }
-            //°èÁ¤»ı¼º ½ÇÆĞ
+            //ê³„ì •ìƒì„± ì‹¤íŒ¨
             else
             {
                 string message = string.Empty;
                 switch (int.Parse(callback.GetStatusCode()))
                 {
-                    case 409:// Áßº¹µÈ customID°¡ Á¸ÀçÇÏ´Â °æ¿ì
-                        message = "ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğ ÀÔ´Ï´Ù";
+                    case 409:// ì¤‘ë³µëœ customIDê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°
+                        message = "ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë”” ì…ë‹ˆë‹¤";
                         break;
-                    case 403: //Â÷´Ü´çÇÑµğ¹ÙÀÌ½ºÀÏ°æ¿ì
-                    case 401: //ÇÁ·ÎÁ§Æ® »óÅÂ°¡ 'Á¡°Ë' ÀÏ°æ¿ì
-                    case 400: //µğ¹ÙÀÌ½º Á¤º¸°¡ null ÀÏ°æ¿ì
+                    case 403: //ì°¨ë‹¨ë‹¹í•œë””ë°”ì´ìŠ¤ì¼ê²½ìš°
+                    case 401: //í”„ë¡œì íŠ¸ ìƒíƒœê°€ 'ì ê²€' ì¼ê²½ìš°
+                    case 400: //ë””ë°”ì´ìŠ¤ ì •ë³´ê°€ null ì¼ê²½ìš°
                     default:
                         message = callback.GetMessage();
                         break;
                 }
-                if (message.Contains("¾ÆÀÌµğ"))
+                if (message.Contains("ì•„ì´ë””"))
                 {
                     GuideForIncorrectlyEnteredData(imageID, message);
                 }
@@ -107,5 +100,4 @@ public class RegisterAccount : LoginBase
             }
         });
     }
-
 }

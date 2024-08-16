@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    [SerializeField]
-    private GameObject _introCanvas;
-    
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
 
@@ -13,11 +10,6 @@ public class SoundManager : Singleton<SoundManager>
     {
         base.Awake();
         Init();
-
-        if (!_introCanvas.activeSelf)
-        {
-            Instance.Play("MainBackground", type: Define.Sound.Bgm);
-        }
     }
 
     public AudioSource GetAudioSource(Define.Sound type)
