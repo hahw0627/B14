@@ -47,23 +47,10 @@ public class SoundManager : Singleton<SoundManager>
     {
         _audioSources[(int)Define.Sound.Bgm].UnPause();
     }
-
-    public void SetBGMVolume(float volume)
+    public void SetVolume(Define.Sound type, float volume)
     {
-        audioMixer.SetFloat("BGM", Mathf.Log10(volume) * 20);
-       
+        audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
     }
-    public void SetSFXVolume(float volume)
-    {
-        audioMixer.SetFloat("SFX", Mathf.Log10(volume) * 20);
-       
-    }
-    public void SetMasterVolume(float volume)
-    {
-        audioMixer.SetFloat("Master", Mathf.Log10(volume) * 20);
-   
-    }
-
 
     private void Init()
     {

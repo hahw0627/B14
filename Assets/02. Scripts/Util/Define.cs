@@ -8,6 +8,7 @@ public class Define
     {
         Bgm,
         Effect,
+        Master,
         MaxCount,
     }
     public enum GachaRarity
