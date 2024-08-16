@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
   Armors: []
   PlayerName: 00011
-  Gold: 2163
+  Gold: 2593
   Gem: 0
   TotalPower: 10
   Damage: 106
