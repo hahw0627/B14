@@ -1,13 +1,16 @@
 using Assets.HeroEditor4D.Common.Scripts.Common;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class GachaManager : MonoBehaviour
 {
     public GameObject gachaPage;
+    public GameObject scrollGrid;
     public GameObject scrollPrefab;
+    public GameObject gachaFailed;
 
     [Header("Data")]
     public List<CompanionDataSO> companionDataList;
@@ -53,6 +56,7 @@ public class GachaManager : MonoBehaviour
         }
         else
         {
+            StartCoroutine(PullGachaFailed());
             return;
         }
 
@@ -62,7 +66,7 @@ public class GachaManager : MonoBehaviour
 
         for (int i = 0; i < pullCount; i++)
         {
-            GameObject scrollInstance = Instantiate(scrollPrefab, gachaPage.transform);
+            GameObject scrollInstance = Instantiate(scrollPrefab, scrollGrid.transform);
             GachaScroll scroll = scrollInstance.GetComponent<GachaScroll>();
             if (type == "Companion")
             {
@@ -177,7 +181,7 @@ public class GachaManager : MonoBehaviour
 
     private void CloseGacha()
     {
-        foreach (Transform child in gachaPage.transform)
+        foreach (Transform child in scrollGrid.transform)
         {
             Destroy(child.gameObject);
         }
@@ -194,5 +198,12 @@ public class GachaManager : MonoBehaviour
         {
             scroll.OpenScroll();
         }
+    }
+
+    private IEnumerator PullGachaFailed()
+    {
+        gachaFailed.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        gachaFailed.SetActive(false);
     }
 }

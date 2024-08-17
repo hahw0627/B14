@@ -58,14 +58,21 @@ public class CompanionInfoPanel : MonoBehaviour
     public void ShowCompanionInfo(CompanionDataSO companionData)
     {
         currentCompanionData = companionData;
-        companionIcon.sprite = companionData.Icon;
-        companionNameText.text = companionData.CompanionName;
-        companionDescriptionText.text = companionData.Description;
-        companionLevelText.text = companionData.Level.ToString();
-        companionCountText.text = companionData.Count.ToString();
-        companionDamageText.text = companionData.Damage.ToString();
+        if (currentCompanionData.Level == 1 && currentCompanionData.Count == 0)
+        {
+            return;
+        }
+        else
+        {
+            companionIcon.sprite = companionData.Icon;
+            companionNameText.text = companionData.CompanionName;
+            companionDescriptionText.text = companionData.Description;
+            companionLevelText.text = companionData.Level.ToString();
+            companionCountText.text = companionData.Count.ToString();
+            companionDamageText.text = companionData.Damage.ToString();
 
-        gameObject.SetActive(true);
+            gameObject.SetActive(true);
+        }
     }
 
     public void EquipCompanion()
@@ -113,6 +120,7 @@ public class CompanionInfoPanel : MonoBehaviour
 
             // ���� ���� ���� ���θ� ������Ʈ�մϴ�.
             UpdateEquippedStatus(button);
+            this.gameObject.SetActive(false);
         }
     }
 
