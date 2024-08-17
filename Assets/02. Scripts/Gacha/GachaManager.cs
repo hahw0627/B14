@@ -10,6 +10,7 @@ public class GachaManager : MonoBehaviour
     public GameObject gachaPage;
     public GameObject scrollGrid;
     public GameObject scrollPrefab;
+    public GameObject gachaFailed;
 
     [Header("Data")]
     public List<CompanionDataSO> companionDataList;
@@ -55,6 +56,7 @@ public class GachaManager : MonoBehaviour
         }
         else
         {
+            StartCoroutine(PullGachaFailed());
             return;
         }
 
@@ -196,5 +198,12 @@ public class GachaManager : MonoBehaviour
         {
             scroll.OpenScroll();
         }
+    }
+
+    private IEnumerator PullGachaFailed()
+    {
+        gachaFailed.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        gachaFailed.SetActive(false);
     }
 }
