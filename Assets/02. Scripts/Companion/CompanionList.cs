@@ -45,11 +45,17 @@ public class CompanionList : MonoBehaviour
         Color color = image.color;
         if (companionData.Level == 1 && companionData.Count == 0)
         {
-            color.a = 50 / 255f; // ���� ���� 100���� ���� (0~1 ������ ��ȯ)
+            color.r = 0f;
+            color.g = 0f;
+            color.b = 0f;
+            color.a = 0.5f;
         }
         else
         {
-            color.a = 1f; // ���� ���� 255�� ���� (1�� ����)
+            color.r = 1f;
+            color.g = 1f;
+            color.b = 1f;
+            color.a = 1f;
         }
         image.color = color;
     }
