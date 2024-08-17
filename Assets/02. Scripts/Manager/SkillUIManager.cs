@@ -52,22 +52,9 @@ public class SkillUIManager : MonoBehaviour
     {
         _skillManager.onEquippedSkillsChanged += RefreshSkillUI;
         _skillInfoPanelScript = _skillInfoPanel.GetComponent<SkillInfoPanel>();
-        InitializeEquippedSkillSlots();
         RefreshSkillUI();
         _batchEnhanceButton.onClick.AddListener(OnBatchEnhanceButtonClick);
-        UpdateBatchEnhanceButtonState();
     }
-
-    private void InitializeEquippedSkillSlots()
-    {
-        for (int i = 0; i < _equippedSkillSlots.Count; i++)
-        {
-            int index = i;
-            _equippedSkillSlots[i].onClick.AddListener(() => ShowEquippedSkillInfo(DataManager.Instance.PlayerDataSo.EquippedSkills[index], index));
-        }
-    }
-
-
     private void OnDestroy()
     {
         _skillManager.onEquippedSkillsChanged -= RefreshSkillUI;
@@ -133,9 +120,11 @@ public class SkillUIManager : MonoBehaviour
     {
         for (var i = 0; i < _equippedSkillSlots.Count; i++)
         {
-            var iconImage = _equippedSkillSlots[i].GetComponent<Image>();
-            var levelText = _equippedSkillSlots[i].GetComponentInChildren<TextMeshProUGUI>();
-            var button = _equippedSkillSlots[i].GetComponent<Button>();
+            var button = _equippedSkillSlots[i];
+            var iconImage = button.GetComponent<Image>();
+            var levelText = button.GetComponentInChildren<TextMeshProUGUI>();
+
+            button.onClick.RemoveAllListeners();
 
             if (i < DataManager.Instance.PlayerDataSo.EquippedSkills.Count && DataManager.Instance.PlayerDataSo.EquippedSkills[i] != null)
             {
@@ -145,15 +134,14 @@ public class SkillUIManager : MonoBehaviour
                 levelText.text = $"Lv.{skill.Level}";
 
                 int index = i;
-                button.onClick.RemoveAllListeners();
                 button.onClick.AddListener(() => ShowEquippedSkillInfo(skill, index));
-
+                button.interactable = true;
             }
             else
             {
                 iconImage.sprite = _defaultSlotSprite;
                 levelText.text = "";
-                button.onClick.RemoveAllListeners();
+                button.interactable = false;
             }
         }
     }
@@ -297,5 +285,14 @@ public class SkillUIManager : MonoBehaviour
             Define.SkillRarity.Legendary => "��������",
             _ => "�� �� ����"
         };
+    }
+
+    public void DebugPrintEquippedSkills()
+    {
+        for (int i = 0; i < DataManager.Instance.PlayerDataSo.EquippedSkills.Count; i++)
+        {
+            var skill = DataManager.Instance.PlayerDataSo.EquippedSkills[i];
+            Debug.Log($"Slot {i}: {(skill != null ? skill.SkillName : "Empty")}");
+        }
     }
 }
