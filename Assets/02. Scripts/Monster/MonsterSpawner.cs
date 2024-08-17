@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 public class MonsterSpawner : MonoBehaviour
@@ -73,6 +74,7 @@ public class MonsterSpawner : MonoBehaviour
     {
         if (_player.CurrentHp <= 0) return;
         BossMonsters[num].transform.position = SpawnPoints[3].position;
+        BossMonsters[num].GetComponent<SortingGroup>().sortingOrder = 202;
         BossMonsters[num].SetActive(true);
     }
 
@@ -83,6 +85,18 @@ public class MonsterSpawner : MonoBehaviour
         {
             MonsterPool.Instance.Monsters[i].transform.position = SpawnPoints[i].position;
             MonsterPool.Instance.Monsters[i].SetActive(true);
+            if(i == 0 || i == 3)
+            {
+                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 202;
+            }
+            else if(i == 1 || i == 4)
+            {
+                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 204;
+            }
+            else
+            {
+                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 201;
+            }
         }
     }
 

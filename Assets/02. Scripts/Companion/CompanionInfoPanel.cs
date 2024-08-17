@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class CompanionInfoPanel : MonoBehaviour
@@ -200,6 +201,7 @@ public class CompanionInfoPanel : MonoBehaviour
             if (petComponent.companionData == currentCompanionData)
             {
                 GameObject newPet = Instantiate(companionPrefab, pos.transform.position, Quaternion.identity);
+                SetCompanionLayer(pos, companionPrefab, newPet);
                 Pet newPetComponent = newPet.GetComponent<Pet>();
                 newPetComponent.UpdateDamage(currentCompanionData.Damage);
                 break;
@@ -239,5 +241,21 @@ public class CompanionInfoPanel : MonoBehaviour
         selectedButton = null;
         currentCompanionData = null;
         DestroyCompanion();
+    }
+
+    private void SetCompanionLayer(GameObject pos, GameObject companionPrefab, GameObject newPet)
+    {
+        if (pos == pos1)
+        {
+            newPet.GetComponent<SortingGroup>().sortingOrder = 201;
+        }
+        else if (pos == pos2)
+        {
+            newPet.GetComponent<SortingGroup>().sortingOrder = 202;
+        }
+        else
+        {
+            newPet.GetComponent<SortingGroup>().sortingOrder = 204;
+        }
     }
 }
