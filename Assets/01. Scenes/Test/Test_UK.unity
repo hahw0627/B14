@@ -23196,6 +23196,7 @@ MonoBehaviour:
   scrollGrid: {fileID: 1092730656}
   scrollPrefab: {fileID: 1410840654314437378, guid: 60b39694fa1aff249980a6d30f93c531, type: 3}
   gachaFailed: {fileID: 901510923}
+  Gem: {fileID: 1581382821}
   companionDataList:
   - {fileID: 11400000, guid: 5b7f45d554ab3324a93735bd20474001, type: 2}
   - {fileID: 11400000, guid: 53ca84867fd170847b7cccb08113ee65, type: 2}
@@ -55697,7 +55698,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1943839073}
   m_HandleRect: {fileID: 1943839072}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000002
   m_Size: 0.7030043
   m_NumberOfSteps: 0
   m_OnValueChanged:
