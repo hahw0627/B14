@@ -66,6 +66,7 @@ public class Player : MonoBehaviour
     {
         StartAttacking();
         StartCoroutine(RecoverHp());
+        StartCoroutine(UpdateStatus());
     }
 
     // ���ݱ��
@@ -193,6 +194,30 @@ public class Player : MonoBehaviour
         {
             StopCoroutine(_attackCoroutine);
             _attackCoroutine = null;
+        }
+    }
+
+    private IEnumerator UpdateStatus()
+    {
+        while (true)
+        {
+            if (AttackSpeed != PlayerData.AttackSpeed)
+            {
+                AttackSpeed = PlayerData.AttackSpeed;
+            }
+            else if (CriticalPer != PlayerData.CriticalPer)
+            {
+                CriticalPer = PlayerData.CriticalPer;
+            }
+            else if (CriticalMultiplier != PlayerData.CriticalMultiplier)
+            {
+                CriticalMultiplier = PlayerData.CriticalMultiplier;
+            }
+            else if (_hpBar._maxHp != PlayerData.MaxHp)
+            {
+                _hpBar.SetMaxHp(PlayerData.MaxHp);
+            }
+            yield return new WaitForSeconds(1f);
         }
     }
 }

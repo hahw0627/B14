@@ -66,6 +66,8 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
     // ���� ���
     private void BossDeath()
     {
+        DataManager.Instance.PlayerDataSo.Gem += 100;
+        DataManager.Instance.PlayerDataSo.Gold += 100 * StageManager.Instance.StageDataSO.Stage * StageManager.Instance.StageDataSO.StagePage;
         StageManager.Instance.StageDataSO.StagePage = 0;
         StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
             StageManager.Instance.StageDataSO.StagePage);
