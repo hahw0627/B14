@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour, IDamageable
     
     private void Awake()
     {
-        _goldReward = 10;
+        _goldReward = 100;
         Target = GameObject.Find("Player");
         _animator = GetComponent<Animator>();
         _animationManager = GetComponent<AnimationManager>();
@@ -173,7 +173,7 @@ public class Monster : MonoBehaviour, IDamageable
     {
         //_animator.SetTrigger("Idle"); 죽었을 때, 공격 애니메이션 멈추기
         var instance = DataManager.Instance;
-        instance.PlayerDataSo.Gold += _goldReward;
+        instance.PlayerDataSo.Gold += _goldReward * StageManager.Instance.StageDataSO.Stage;
         onDeath?.Invoke(this);
     }
 }
