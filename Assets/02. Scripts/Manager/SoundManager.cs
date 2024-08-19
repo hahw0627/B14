@@ -24,13 +24,13 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource GetAudioSource(Define.Sound type)
     {
         if (type == Define.Sound.Bgm)
-           return _audioSources[(int)Define.Sound.Bgm];
-        else if(type == Define.Sound.Effect)
+            return _audioSources[(int)Define.Sound.Bgm];
+        else if (type == Define.Sound.Effect)
             return _audioSources[(int)Define.Sound.Effect];
 
         return null;
     }
-    
+
     public void PauseBGM()
     {
         _audioSources[(int)Define.Sound.Bgm].Pause();
@@ -41,7 +41,16 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void SetVolume(Define.Sound type, float volume)
     {
-        audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
+
+        if (volume < 0.1)
+        {
+            audioMixer.SetFloat(type.ToString(), -80f); //º¼·ýÀ» ¿ÏÀüÈ÷ ²û
+        }
+        else
+        { 
+            audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
+        }
+
     }
 
     private void Init()
@@ -57,14 +66,14 @@ public class SoundManager : Singleton<SoundManager>
             var go = new GameObject { name = soundName[i] };
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
-            
+
         }
         _audioSources[(int)Define.Sound.Bgm].outputAudioMixerGroup = mixerGroupA;
         _audioSources[(int)Define.Sound.Effect].outputAudioMixerGroup = mixerGroupB;
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect,  float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
@@ -83,7 +92,7 @@ public class SoundManager : Singleton<SoundManager>
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
-           
+
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
@@ -98,7 +107,7 @@ public class SoundManager : Singleton<SoundManager>
             }
 
             var audioSource = _audioSources[(int)Define.Sound.Effect];
-            
+
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }
