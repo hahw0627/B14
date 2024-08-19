@@ -50,6 +50,7 @@ public class IntroCutScene : MonoBehaviour
     private void OnEnable()
     {
         Time.timeScale = 0f;
+        Debug.Log("시간멈추기");
         SoundManager.Instance.Play("IntroBackground", type: Define.Sound.Bgm);
         if(SoundManager.Instance == null)
         {

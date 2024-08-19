@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: Monster
   MaxHp: 50
-  Damage: 5
+  Damage: 3
   AttackSpeed: 1

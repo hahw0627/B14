@@ -18,7 +18,7 @@ public class SpeedController : MonoBehaviour
         speedToggleButton.onClick.AddListener(ToggleSpeed);
 
         // 초기 속도 설정
-        Time.timeScale = normalSpeed;
+        //Time.timeScale = normalSpeed;
     }
 
     private void ToggleSpeed()

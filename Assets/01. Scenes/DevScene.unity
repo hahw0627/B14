@@ -17648,7 +17648,6 @@ MonoBehaviour:
   - {fileID: 2135170182}
   - {fileID: 390658569}
   - {fileID: 124693932}
-  GameManager: {fileID: 2073042256}
 --- !u!4 &803125299
 Transform:
   m_ObjectHideFlags: 0
@@ -38597,7 +38596,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8603221161112989321, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 6
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
