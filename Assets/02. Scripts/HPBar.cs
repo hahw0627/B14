@@ -8,7 +8,7 @@ public class HpBar : MonoBehaviour
     public Transform Target;
     private Camera _camera;
 
-    private float _maxHp;
+    public float _maxHp;
     private float _currentHp;
 
     private void Awake()

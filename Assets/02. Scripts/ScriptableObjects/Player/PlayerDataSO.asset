@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills: []
   EquippedSkills:
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -26,8 +26,8 @@ MonoBehaviour:
   - {fileID: 0}
   Armors: []
   PlayerName: 00011
-  Gold: 91
-  Gem: 0
+  Gold: 102279
+  Gem: 3200
   TotalPower: 10
   Damage: 88
   Def: 0

@@ -7,11 +7,11 @@ public class SoundSettingUI : MonoBehaviour
 {
     public Slider bgmSlider, sfxSldier, masterSlider;
 
-    void Start()
+    private void Awake()
     {
         bgmSlider.value = SoundManager.Instance.GetAudioSource(Define.Sound.Bgm).volume;
         sfxSldier.value = SoundManager.Instance.GetAudioSource(Define.Sound.Effect).volume;
-        masterSlider.value = 0.4f;
+        
     }
 
     public void BGM_Volume()

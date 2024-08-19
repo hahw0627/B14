@@ -47,7 +47,7 @@ public class Monster : MonoBehaviour, IDamageable
     
     private void Awake()
     {
-        _goldReward = 10;
+        _goldReward = 100;
         Target = GameObject.Find("Player");
         _animator = GetComponent<Animator>();
         _animationManager = GetComponent<AnimationManager>();
@@ -92,7 +92,6 @@ public class Monster : MonoBehaviour, IDamageable
                 StartCoroutine(Attack());
             }
         }
-
         #endregion
     }
 
@@ -121,7 +120,6 @@ public class Monster : MonoBehaviour, IDamageable
                 projectileScript.ShooterTag = "Monster";
                 projectileScript.SetColor(Color.red);
             }
-
             yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
@@ -152,7 +150,6 @@ public class Monster : MonoBehaviour, IDamageable
                 }
             }
         }
-
         CurrentHp -= damage;
         if (CurrentHp > 0) return;
         Die();
@@ -163,9 +160,8 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
-        //_animator.SetTrigger("Idle"); 죽었을 때, 공격 애니메이션 멈추기
         var instance = DataManager.Instance;
-        instance.PlayerDataSo.Gold += _goldReward;
+        instance.PlayerDataSo.Gold += _goldReward * StageManager.Instance.StageDataSO.Stage;
         onDeath?.Invoke(this);
     }
 }

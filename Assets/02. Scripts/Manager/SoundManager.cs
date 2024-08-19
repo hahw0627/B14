@@ -15,6 +15,8 @@ public class SoundManager : Singleton<SoundManager>
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
 
+    private bool _isPlaying = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -46,6 +48,8 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Init()
     {
+        _isPlaying = true;
+
         var root = GameObject.Find("Sound");
         if (root != null) return;
         root = new GameObject { name = "Sound" };
@@ -57,7 +61,7 @@ public class SoundManager : Singleton<SoundManager>
             var go = new GameObject { name = soundName[i] };
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
-            
+            Debug.Log($"{_audioSources[i].name}");
         }
         _audioSources[(int)Define.Sound.Bgm].outputAudioMixerGroup = mixerGroupA;
         _audioSources[(int)Define.Sound.Effect].outputAudioMixerGroup = mixerGroupB;
@@ -66,6 +70,11 @@ public class SoundManager : Singleton<SoundManager>
 
     public void Play(string path, Define.Sound type = Define.Sound.Effect,  float pitch = 1.0f)
     {
+        if(Instance == false)
+        {
+            Init();
+        }
+
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
 
@@ -78,7 +87,18 @@ public class SoundManager : Singleton<SoundManager>
                 return;
             }
 
+            Debug.Log($"오디오 소스 크기 : {_audioSources.Length}");
+            Debug.Log($"BGM 카운트 : {(int)Define.Sound.Bgm}");
+            Debug.Log($"{_audioSources[(int)Define.Sound.Bgm].name}");
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
+            if( audioSource is null)
+            {
+                Debug.Log("오디오 소스 없음");
+            }
+            else
+            {
+                Debug.Log("오디오 소스 있음");
+            }
 
             if (audioSource.isPlaying)
                 audioSource.Stop();

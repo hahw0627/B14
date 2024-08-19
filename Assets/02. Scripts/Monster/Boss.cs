@@ -1,16 +1,15 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Boss : Monster // ���� ��ũ��Ʈ ���
+public class Boss : Monster
 {
     [FormerlySerializedAs("bossTimer")]
     public BossTimer BossTimer;
 
-    // ���� ���� Ȱ��ȭ ��
     protected override void OnEnable()
     {
-        CurrentHp = MonsterData.MaxHp * 3; // ���� ���ʹ� HP�� 2��� ����
-        Damage = MonsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
+        CurrentHp = MonsterData.MaxHp * 3;
+        Damage = MonsterData.Damage * 2;
         AttackSpeed = MonsterData.AttackSpeed;
         MoveTime = 0.0f;
         IsAttacking = false;
@@ -18,7 +17,6 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
         BossTimer.ActivateTimer();
     }
 
-    // ���� ���� �ǰ�
     public override void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
         if (damage > 0)
@@ -58,12 +56,11 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
     // ���� ���
     private void BossDeath()
     {
+        DataManager.Instance.PlayerDataSo.Gem += 100;
+        DataManager.Instance.PlayerDataSo.Gold += 100 * StageManager.Instance.StageDataSO.Stage * StageManager.Instance.StageDataSO.StagePage;
         StageManager.Instance.StageDataSO.StagePage = 0;
         StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
             StageManager.Instance.StageDataSO.StagePage);
-        //MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
-
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
         MonsterData.MaxHp = Mathf.RoundToInt(MonsterData.MaxHp * 1.2f);
         MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
 
