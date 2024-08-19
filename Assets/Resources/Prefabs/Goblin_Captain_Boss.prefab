@@ -5049,7 +5049,6 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6294705758090573502}
   - {fileID: 285173231863176921}
   - {fileID: 7242448334452057960}
   - {fileID: 6954377427088943398}
@@ -5375,7 +5374,7 @@ MonoBehaviour:
   AttackSpeed: 0
   MoveTime: 0
   IsAttacking: 0
-  HUDPos: {fileID: 6294705758090573502}
+  HUDPos: {fileID: 6124717720052169194}
   FireMuzzle: {fileID: 285173231863176921}
   BossTimer: {fileID: 2687931724481591850}
 --- !u!114 &2687931724481591850
@@ -10081,37 +10080,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SpriteName: LeftArmL
   SpriteNameFallback: []
---- !u!1 &4758294327116852363
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6294705758090573502}
-  m_Layer: 6
-  m_Name: HudPos
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6294705758090573502
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4758294327116852363}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6124717720052169194}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4766130768738953239
 GameObject:
   m_ObjectHideFlags: 0
