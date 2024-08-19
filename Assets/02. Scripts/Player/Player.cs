@@ -120,6 +120,7 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         CurrentHp -= damage;
+        _animator.SetTrigger("Hit");
         _hpBar.SetCurrentHp(CurrentHp);
 
         if (damageTextPool != null)

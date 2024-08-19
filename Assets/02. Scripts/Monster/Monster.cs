@@ -37,7 +37,7 @@ public class Monster : MonoBehaviour, IDamageable
     public Transform FireMuzzle;
 
     protected DamageTextPool DamageTextPool;
-    private Animator _animator;
+    protected Animator _animator;
     private AnimationManager _animationManager;
 
     private long _goldReward;
@@ -151,6 +151,7 @@ public class Monster : MonoBehaviour, IDamageable
             }
         }
         CurrentHp -= damage;
+        _animator.SetTrigger("Hit");
         if (CurrentHp > 0) return;
         Die();
         QuestTest.Instance.CountOneQuestSuccess();
