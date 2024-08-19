@@ -189,7 +189,7 @@ public class StatUpgrade : MonoBehaviour
         UpdateUI();
     }
 
-    private void UpdateUI()
+    public void UpdateUI()
     {
         AttackTmp.text = "공격력\n" + PlayerData.Damage;
         AttackSpeedTmp.text = "공격속도\n" + (PlayerData.AttackSpeed * 100).ToString("F1") + "%";

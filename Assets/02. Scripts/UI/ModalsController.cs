@@ -27,14 +27,18 @@ public class ModalsController : MonoBehaviour
     public Sprite DefaultSprite;
 
     private List<GameObject> _itemTableObjects;
+    [SerializeField]
     private List<EquipmentDataSO> _playerWeapons;
 
     [FormerlySerializedAs("weaponSprite")]
     public SpriteRenderer WeaponSprite;
+    StatUpgrade statUpgrade;
 
     private void Start()
     {
-        _playerWeapons = DataManager.Instance.PlayerDataSo.Weapons;
+        statUpgrade = FindAnyObjectByType<StatUpgrade>();
+        //DataManager.Instance.CopyWeaponDataSO(_playerWeapons);
+        _playerWeapons.AddRange(DataManager.Instance.PlayerDataSo.Weapons);
     }
 
     public void OnWeaponButtonClick()
@@ -64,18 +68,16 @@ public class ModalsController : MonoBehaviour
                 if (item.ItemName == CurrentItemName.text)
                 {
                     DataManager.Instance.PlayerDataSo.CurrentWeaponEquip = item;
-
                     WeaponSprite.sprite = DataManager.Instance.PlayerDataSo.CurrentWeaponEquip.Sprite;
+                    statUpgrade.UpdateUI();
+                    Debug.Log($"{item.name}를 장착했습니다");
                 }
-                else
-                {
-                    Debug.Log("��� ���?���� ����.");
-                }
+
             }
         }
         else
         {
-            //���?�߰�..
+            //방어구 추가..
         }
     }
 
@@ -110,11 +112,13 @@ public class ModalsController : MonoBehaviour
         }
 
         if (_selectedItemType != Define.EquipmentType.Weapon) return;
-        foreach (var item in DataManager.Instance.WeaponEquipmentDataSo)
+
+        //이부분 플레이어데이타 so 에 웨폰에 있는걸 넣어줌.
+        foreach (var item in DataManager.Instance.PlayerDataSo.Weapons)
         {
             var newItem = Instantiate(ItemPrefab, Content);
             newItem.name = item.ItemName;
-            //itemTableObjects.Add(newItem);
+            // _itemTableObjects.Add(newItem);
 
             var isInPlayerWeapons = _playerWeapons.Exists(weapon => weapon.ItemName == item.ItemName);
             newItem.GetComponent<Image>().sprite = isInPlayerWeapons ? item.Sprite : DefaultSprite;
