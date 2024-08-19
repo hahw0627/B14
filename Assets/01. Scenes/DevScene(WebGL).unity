@@ -33345,10 +33345,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1151709525}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1421206147}
+        m_TargetAssemblyTypeName: GoogleRewardedAds, Assembly-CSharp
+        m_MethodName: ShowRewardedAd
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -48406,6 +48406,7 @@ MonoBehaviour:
   scrollGrid: {fileID: 1310980511}
   scrollPrefab: {fileID: 1410840654314437378, guid: 60b39694fa1aff249980a6d30f93c531, type: 3}
   gachaFailed: {fileID: 1749105139}
+  Gem: {fileID: 0}
   companionDataList:
   - {fileID: 11400000, guid: 5b7f45d554ab3324a93735bd20474001, type: 2}
   - {fileID: 11400000, guid: 53ca84867fd170847b7cccb08113ee65, type: 2}
@@ -56648,6 +56649,8 @@ MonoBehaviour:
   CurrentHp: 0
   CriticalPer: 0
   CriticalMultiplier: 0
+  damageTextPool: {fileID: 0}
+  damageTextSpawnPoint: {fileID: 0}
 --- !u!4 &2329212853670064917
 Transform:
   m_ObjectHideFlags: 0
@@ -62765,6 +62768,14 @@ PrefabInstance:
       propertyPath: Target
       value: 
       objectReference: {fileID: 6537006913929234680}
+    - target: {fileID: 9182863038017896141, guid: 1f6fb8a6450182d4d81707800063ea32, type: 3}
+      propertyPath: m_Transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9182863038017896141, guid: 1f6fb8a6450182d4d81707800063ea32, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
