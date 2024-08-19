@@ -42,6 +42,11 @@ public class Player : MonoBehaviour
     private Animator _animator;
     private AnimationManager _animationManager;
 
+    [SerializeField]
+    private DamageTextPool damageTextPool;
+    [SerializeField]
+    private Transform damageTextSpawnPoint;
+
     public bool IsDead { get; private set; } = false;
 
     private void Awake()
@@ -69,7 +74,6 @@ public class Player : MonoBehaviour
         StartCoroutine(UpdateStatus());
     }
 
-    // ���ݱ��
     private IEnumerator Attack()
     {
         while (true)
@@ -86,18 +90,14 @@ public class Player : MonoBehaviour
 
                 Damage = CurrentDamage;
 
-
                 projectileScript.Damage = Mathf.RoundToInt(Damage);
                 projectileScript.ShooterTag = "Player";
                 projectileScript.SetColor(Color.blue);
             }
-
             yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
 
-
-    // ü�� ȸ�� ���
     private IEnumerator RecoverHp()
     {
         while (true)
@@ -117,15 +117,20 @@ public class Player : MonoBehaviour
         }
     }
 
-    // �ǰ� ���
     public void TakeDamage(int damage)
     {
         CurrentHp -= damage;
         _hpBar.SetCurrentHp(CurrentHp);
 
+        if (damageTextPool != null)
+        {
+            DamageText damageText = damageTextPool.GetDamageText();
+            damageText.transform.position = damageTextSpawnPoint.position;
+            damageText.SetDamage(damage, false, Color.red); // 플레이어 데미지는 빨간색으로 표시
+        }
+
         if (CurrentHp <= 0)
         {
-            // ���� ��Ȱ��ȭ
             GameObject[] monsters = GameObject.FindGameObjectsWithTag("Monster");
             foreach (GameObject monster in monsters)
             {
@@ -133,10 +138,8 @@ public class Player : MonoBehaviour
                 {
                     monster.GetComponent<BossTimer>().DeactivateTimer();
                 }
-
                 monster.SetActive(false);
             }
-
             StartCoroutine(DeathWithDelay());
         }
     }
@@ -175,8 +178,21 @@ public class Player : MonoBehaviour
         Debug.Log($"New damage: {CurrentDamage}");
     }
 
-    public void Heal(int amount) // ���� �÷��̾� �ǰ� ������ ���� ����
+    public void Heal(int amount)
     {
+        CurrentHp += amount;
+        if (CurrentHp > PlayerData.MaxHp)
+        {
+            CurrentHp = PlayerData.MaxHp;
+        }
+        _hpBar.SetCurrentHp(CurrentHp);
+
+        if (damageTextPool != null)
+        {
+            DamageText healText = damageTextPool.GetDamageText();
+            healText.transform.position = damageTextSpawnPoint.position;
+            healText.SetDamage(amount, true, Color.green); // 힐은 초록색으로 표시
+        }
     }
 
 

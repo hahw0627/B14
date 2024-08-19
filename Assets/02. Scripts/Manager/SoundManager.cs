@@ -15,6 +15,8 @@ public class SoundManager : Singleton<SoundManager>
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
 
+    private bool _isPlaying = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -46,6 +48,8 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Init()
     {
+        _isPlaying = true;
+
         var root = GameObject.Find("Sound");
         if (root != null) return;
         root = new GameObject { name = "Sound" };
@@ -66,6 +70,11 @@ public class SoundManager : Singleton<SoundManager>
 
     public void Play(string path, Define.Sound type = Define.Sound.Effect,  float pitch = 1.0f)
     {
+        if(Instance == false)
+        {
+            Init();
+        }
+
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
 

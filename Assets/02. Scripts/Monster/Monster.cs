@@ -92,7 +92,6 @@ public class Monster : MonoBehaviour, IDamageable
                 StartCoroutine(Attack());
             }
         }
-
         #endregion
     }
 
@@ -121,7 +120,6 @@ public class Monster : MonoBehaviour, IDamageable
                 projectileScript.ShooterTag = "Monster";
                 projectileScript.SetColor(Color.red);
             }
-
             yield return new WaitForSeconds(1 / AttackSpeed);
         }
     }
@@ -129,10 +127,10 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 피격
     public virtual void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
-        if (DamageTextPool is not null)
+        if (damage > 0)
         {
             var damageText = DamageTextPool.GetDamageText();
-            if (damageText is not null)
+            if (damageText != null)
             {
                 damageText.transform.position = HUDPos.position;
                 bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
@@ -151,16 +149,7 @@ public class Monster : MonoBehaviour, IDamageable
                     damageText.SetDamage(damage);
                 }
             }
-            else
-            {
-                Debug.LogWarning("Failed to get DamageText from pool.");
-            }
         }
-        else
-        {
-            Debug.LogWarning("DamageTextPool is not initialized.");
-        }
-
         CurrentHp -= damage;
         if (CurrentHp > 0) return;
         Die();
@@ -171,7 +160,6 @@ public class Monster : MonoBehaviour, IDamageable
     // 몬스터 사망
     public void Die()
     {
-        //_animator.SetTrigger("Idle"); 죽었을 때, 공격 애니메이션 멈추기
         var instance = DataManager.Instance;
         instance.PlayerDataSo.Gold += _goldReward * StageManager.Instance.StageDataSO.Stage;
         onDeath?.Invoke(this);
