@@ -34,11 +34,14 @@ public class ModalsController : MonoBehaviour
     public SpriteRenderer WeaponSprite;
     StatUpgrade statUpgrade;
 
+
     private void Start()
     {
         statUpgrade = FindAnyObjectByType<StatUpgrade>();
-        //DataManager.Instance.CopyWeaponDataSO(_playerWeapons);
-        _playerWeapons.AddRange(DataManager.Instance.PlayerDataSo.Weapons);
+        foreach (var item in DataManager.Instance.PlayerDataSo.Weapons)
+        {
+            _playerWeapons.Add(item);
+        }
     }
 
     public void OnWeaponButtonClick()
@@ -119,7 +122,6 @@ public class ModalsController : MonoBehaviour
             var newItem = Instantiate(ItemPrefab, Content);
             newItem.name = item.ItemName;
             // _itemTableObjects.Add(newItem);
-
             var isInPlayerWeapons = _playerWeapons.Exists(weapon => weapon.ItemName == item.ItemName);
             newItem.GetComponent<Image>().sprite = isInPlayerWeapons ? item.Sprite : DefaultSprite;
         }

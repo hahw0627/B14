@@ -15,26 +15,24 @@ MonoBehaviour:
   Skills: []
   EquippedSkills:
   - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
+  - {fileID: 11400000, guid: e8951d5f6b4d9b8428403fa8c2752cfe, type: 2}
+  - {fileID: 11400000, guid: 2bf27f40cf62a6e458364979efbdfacd, type: 2}
+  - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
   Companions: []
   Weapons:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   Armors: []
   PlayerName: 00011
-  Gold: 98379
-  Gem: 0
+  Gold: 75166
+  Gem: 8000
   TotalPower: 10
-  Damage: 88
+  Damage: 1158
   Def: 0
-  AttackSpeed: 1.4449996
-  MaxHp: 100
-  HpRecovery: 10
-  CriticalPer: 0
-  CriticalMultiplier: 1.5
-  CurrentWeaponEquip: {fileID: 0}
+  AttackSpeed: 1.5399995
+  MaxHp: 22000
+  HpRecovery: 1605
+  CriticalPer: 41
+  CriticalMultiplier: 1.5480003
+  CurrentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
   CurrentArmorEquip: {fileID: 0}
