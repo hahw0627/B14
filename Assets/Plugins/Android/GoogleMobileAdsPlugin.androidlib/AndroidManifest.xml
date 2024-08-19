@@ -2,7 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.google.unity.ads" android:versionName="1.0" android:versionCode="1">
   <application>
     <uses-library android:required="false" android:name="org.apache.http.legacy" />
+<<<<<<< Updated upstream
     <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-3940256099942544/5354046379  " />
+=======
+    <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-4797337322866816~5414496943" />
+>>>>>>> Stashed changes
     <meta-data android:name="com.google.unity.ads.UNITY_VERSION" android:value="2022.3.17f1" />
   </application>
 </manifest>
