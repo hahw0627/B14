@@ -21,10 +21,10 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
     // ���� ���� �ǰ�
     public override void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
-        if (DamageTextPool is not null)
+        if (damage > 0)
         {
             var damageText = DamageTextPool.GetDamageText();
-            if (damageText is not null)
+            if (damageText != null)
             {
                 damageText.transform.position = HUDPos.position;
                 bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
@@ -43,14 +43,6 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
                     damageText.SetDamage(damage);
                 }
             }
-            else
-            {
-                Debug.LogWarning("Failed to get DamageText from pool.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
         CurrentHp -= damage;
