@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     private Vector3 _direction;
 
     [FormerlySerializedAs("shooterTag")]
-    public string ShooterTag; // ����ü�� �߻��� ��ü�� �±� (Player �Ǵ� Monster)
+    public string ShooterTag;
 
     private SpriteRenderer _spriteRenderer;
     private int _cachedPlayerDamage;
@@ -30,7 +30,6 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        // target�� null�� �ƴϸ� ������ ����, null�̸� ���� ���� ����
         if (Target != null)
         {
             _direction = (Target.position - transform.position).normalized;
@@ -44,17 +43,14 @@ public class Projectile : MonoBehaviour
             _cachedPlayerDamage = DataManager.Instance.PlayerDataSo.Damage;
         }
 
-        // 3�� �Ŀ� ����
         StartCoroutine(DestroyAfterTime(1.5f));
     }
 
     private void Update()
     {
-        // ������ �������� ����ü �̵�
         transform.position += _direction * (Speed * Time.deltaTime);
     }
 
-    // ���� �ð� ���� ��Ȱ��ȭ
     private IEnumerator DestroyAfterTime(float time)
     {
         yield return new WaitForSeconds(time);
@@ -66,7 +62,6 @@ public class Projectile : MonoBehaviour
         if ((ShooterTag != "Player" || !collision.CompareTag("Monster")) &&
             (ShooterTag != "Monster" || !collision.CompareTag("Player"))) return;
         var currentDamage = ShooterTag == "Player" ? _cachedPlayerDamage : Damage;
-        // �ٸ� ���� ��쿡�� ����
         if (collision.CompareTag("Player"))
         {
             var player = collision.GetComponent<Player>();

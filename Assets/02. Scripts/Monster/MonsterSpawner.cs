@@ -18,10 +18,6 @@ public class MonsterSpawner : MonoBehaviour
     [FormerlySerializedAs("bossMonster")]
     public GameObject[] BossMonsters;
 
-    [FormerlySerializedAs("gameManager")]
-    public GameManager GameManager;
-
-    // ��� ���� ��Ȱ��ȭ Ȯ��
     public bool AllMonstersDeactivated()
     {
         if (MonsterPool.Instance.Monsters.Any(monster => monster.activeSelf) ||
@@ -33,9 +29,9 @@ public class MonsterSpawner : MonoBehaviour
         return true;
     }
 
-    // ���� ��ȯ
     public void SpawnMonsters()
     {
+        if (_player.CurrentHp <= 0 && StageManager.Instance.StageDataSO.StagePage == 0) return;
         var currentStage = StageManager.Instance.StageDataSO.Stage;
 
         switch (currentStage)
@@ -52,9 +48,9 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    // ���� ��ȯ
     public void SpawnBoss()
     {
+        if (_player.CurrentHp <= 0) return;
         switch (StageManager.Instance.StageDataSO.Stage)
         {
             case <= 2:
