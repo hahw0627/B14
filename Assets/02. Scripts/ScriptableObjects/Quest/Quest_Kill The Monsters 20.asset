@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae4821f1cf51b324ca86888be9bdd535, type: 3}
-  m_Name: Quest_Kill The Monsters
+  m_Name: Quest_Kill The Monsters 20
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 57c4a0b4b793fb04391eff1c083a4420, type: 2}
   _icon: {fileID: 0}
   _codeName: KILL_THE_MONSTERS
   _displayName: "\uBAAC\uC2A4\uD130 \uCC98\uCE58"
-  _description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58"
+  _description: "\uACE0\uBE14\uB9B0 20\uB9C8\uB9AC \uCC98\uCE58"
   _taskGroups:
   - _tasks:
     - {fileID: 11400000, guid: 0f07f803419f1c84e91636b658fc5f9c, type: 2}

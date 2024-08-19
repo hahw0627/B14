@@ -30,7 +30,7 @@ namespace Quest.UI.Quest_View
             questSystem.onQuestCanceled += HideDetailIfQuestCanceled;
             questSystem.onQuestCanceled += RemoveQuestFromActiveListView;
 
-            foreach (var tab in _questListViewController.Tabs)
+                foreach (var tab in _questListViewController.Tabs)
                 tab.onValueChanged.AddListener(HideDetail);
 
             gameObject.SetActive(false);

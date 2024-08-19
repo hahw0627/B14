@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 69d841be13df7424fbc383db75e38fd1, type: 3}
-  m_Name: Task_Kill The Monster
+  m_Name: Task_Kill The Monster 10
   m_EditorClassIdentifier: 
   _category: {fileID: 11400000, guid: 57c4a0b4b793fb04391eff1c083a4420, type: 2}
   _codeName: KILL_THE_MONSTERS
-  _description: "\uBAAC\uC2A4\uD130 \uCC98\uCE58"
+  _description: "\uACE0\uBE14\uB9B0 \uCC98\uCE58"
   _action: {fileID: 11400000, guid: c4a393627d605e241a3716c7663d272b, type: 2}
   _targets:
   - {fileID: 11400000, guid: d582256c0f410af4b8d697b5c3a92161, type: 2}

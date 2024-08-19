@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Quest.Core;
 using Quest.Core.Task.Target.Base;
 using UnityEngine;
@@ -5,7 +7,7 @@ using UnityEngine;
 public class QuestTest : SingletonDestroyable<QuestTest>
 {
     [SerializeField]
-    private Quest.Core.Quest _quest;
+    private List<Quest.Core.Quest> _questList;
 
     [SerializeField]
     private Category _category;
@@ -29,11 +31,13 @@ public class QuestTest : SingletonDestroyable<QuestTest>
             print($"<color=orange>Completed Quests Count:{questSystem.CompletedQuests.Count}</color>");
         };
 
-        var newQuest = questSystem.Register(_quest);
-        newQuest.onTaskSuccessChanged += (quest, task, currentSuccess, prevSuccess) =>
+        foreach (var newQuest in _questList.Select(quest => questSystem.Register(quest)))
         {
-            print($"<color=orange>Quest:{quest.CodeName}, Task:{task.CodeName}, CurrentSuccess:{currentSuccess}</color>");
-        };
+            newQuest.onTaskSuccessChanged += (quest1, task, currentSuccess, _) =>
+            {
+                print($"<color=orange>Quest:{quest1.CodeName}, Task:{task.CodeName}, CurrentSuccess:{currentSuccess}</color>");
+            };
+        }
     }
 
     public void CountOneQuestSuccess()
