@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Define
+public static class Define
 {
     public enum Sound
     {
@@ -23,14 +19,14 @@ public class Define
     {
         Weapon,
         Armor,
-        //Ãß°¡
+        //ï¿½ß°ï¿½
     }
     public enum EquipmentGrade
     {
         Common,
         Uncommon,
         Rare,
-        //Ãß°¡
+        //ï¿½ß°ï¿½
     }
 
     public enum SkillType
@@ -48,5 +44,4 @@ public class Define
         Epic,
         Legendary
     }
-
 }

@@ -229,7 +229,7 @@ public class Player : MonoBehaviour
             {
                 CriticalMultiplier = PlayerData.CriticalMultiplier;
             }
-            else if (_hpBar._maxHp != PlayerData.MaxHp)
+            else if (_hpBar.MaxHp != PlayerData.MaxHp)
             {
                 _hpBar.SetMaxHp(PlayerData.MaxHp);
             }

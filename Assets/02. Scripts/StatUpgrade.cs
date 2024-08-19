@@ -76,6 +76,16 @@ public class StatUpgrade : MonoBehaviour
         SaveCost();
     }
 
+    private void Update()
+    {
+        AttackBtn.interactable = PlayerData.Gold >= _attackCost;
+        AttackSpeedBtn.interactable = PlayerData.Gold >= _attackSpeedCost;
+        HpBtn.interactable = PlayerData.Gold >= _maxHpCost;
+        RecoverHpBtn.interactable = PlayerData.Gold >= _recoverHpCost;
+        CriticalDamageBtn.interactable = PlayerData.Gold >= _criticalMultiplierCost;
+        CriticalPercentBtn.interactable = PlayerData.Gold >= _criticalPercentCost;
+    }
+
     private void Start()
     {
         if (SaveLoadManager.ExistJson(SaveLoadManager.Instance.StatSavePath))
@@ -92,27 +102,31 @@ public class StatUpgrade : MonoBehaviour
         SetupButton(AttackSpeedBtn,
             () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ",
                 AttackSpeedCostTmp)); // 최대 3번 공격
-        SetupButton(CriticalPercentBtn, UpgradeCriticalPercent);
         SetupButton(CriticalDamageBtn,
             () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalMultiplierCost, CriticalDamageTmp,
                 "치명타데미지 : ", CriticalDamageCostTmp));
+        SetupButton(CriticalPercentBtn, UpgradeCriticalPercent);
     }
 
     private void SetupButton(Button button, System.Action upgradeAction)
     {
-        EventTrigger trigger = button.gameObject.AddComponent<EventTrigger>();
+        var trigger = button.gameObject.AddComponent<EventTrigger>();
 
-        EventTrigger.Entry pointerDown = new EventTrigger.Entry();
-        pointerDown.eventID = EventTriggerType.PointerDown;
-        pointerDown.callback.AddListener((data) =>
+        var pointerDown = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerDown
+        };
+        pointerDown.callback.AddListener((_) =>
         {
             _currentCoroutine = StartCoroutine(LongPressCoroutine(upgradeAction));
         });
         trigger.triggers.Add(pointerDown);
 
-        EventTrigger.Entry pointerUp = new EventTrigger.Entry();
-        pointerUp.eventID = EventTriggerType.PointerUp;
-        pointerUp.callback.AddListener((data) =>
+        var pointerUp = new EventTrigger.Entry
+        {
+            eventID = EventTriggerType.PointerUp
+        };
+        pointerUp.callback.AddListener((_) =>
         {
             if (_currentCoroutine != null) StopCoroutine(_currentCoroutine);
         });
@@ -121,7 +135,7 @@ public class StatUpgrade : MonoBehaviour
         button.onClick.AddListener(() => upgradeAction());
     }
 
-    private IEnumerator LongPressCoroutine(System.Action upgradeAction)
+    private static IEnumerator LongPressCoroutine(System.Action upgradeAction)
     {
         yield return new WaitForSeconds(HOLD_TIME);
 

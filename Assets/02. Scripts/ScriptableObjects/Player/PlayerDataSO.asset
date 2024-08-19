@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills: []
   EquippedSkills:
-  - {fileID: 11400000, guid: 686eecf740b156a409ba32bc484de801, type: 2}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -26,13 +26,13 @@ MonoBehaviour:
   - {fileID: 0}
   Armors: []
   PlayerName: 00011
-  Gold: 102279
-  Gem: 3200
+  Gold: 38188
+  Gem: 250
   TotalPower: 10
-  Damage: 88
+  Damage: 100
   Def: 0
-  AttackSpeed: 1.4449996
-  MaxHp: 100
+  AttackSpeed: 1.989999
+  MaxHp: 8400
   HpRecovery: 10
   CriticalPer: 0
   CriticalMultiplier: 1.5
