@@ -26,13 +26,13 @@ public class SoundManager : Singleton<SoundManager>
     public AudioSource GetAudioSource(Define.Sound type)
     {
         if (type == Define.Sound.Bgm)
-           return _audioSources[(int)Define.Sound.Bgm];
-        else if(type == Define.Sound.Effect)
+            return _audioSources[(int)Define.Sound.Bgm];
+        else if (type == Define.Sound.Effect)
             return _audioSources[(int)Define.Sound.Effect];
 
         return null;
     }
-    
+
     public void PauseBGM()
     {
         _audioSources[(int)Define.Sound.Bgm].Pause();
@@ -43,7 +43,16 @@ public class SoundManager : Singleton<SoundManager>
     }
     public void SetVolume(Define.Sound type, float volume)
     {
-        audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
+
+        if (volume < 0.1)
+        {
+            audioMixer.SetFloat(type.ToString(), -80f); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
+        }
+        else
+        { 
+            audioMixer.SetFloat(type.ToString(), Mathf.Log10(volume) * 20);
+        }
+
     }
 
     private void Init()
@@ -61,14 +70,13 @@ public class SoundManager : Singleton<SoundManager>
             var go = new GameObject { name = soundName[i] };
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
-            Debug.Log($"{_audioSources[i].name}");
         }
         _audioSources[(int)Define.Sound.Bgm].outputAudioMixerGroup = mixerGroupA;
         _audioSources[(int)Define.Sound.Effect].outputAudioMixerGroup = mixerGroupB;
         _audioSources[(int)Define.Sound.Bgm].loop = true;
     }
 
-    public void Play(string path, Define.Sound type = Define.Sound.Effect,  float pitch = 1.0f)
+    public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
         if(Instance == false)
         {
@@ -87,23 +95,23 @@ public class SoundManager : Singleton<SoundManager>
                 return;
             }
 
-            Debug.Log($"¿Àµð¿À ¼Ò½º Å©±â : {_audioSources.Length}");
-            Debug.Log($"BGM Ä«¿îÆ® : {(int)Define.Sound.Bgm}");
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ Å©ï¿½ï¿½ : {_audioSources.Length}");
+            Debug.Log($"BGM Ä«ï¿½ï¿½Æ® : {(int)Define.Sound.Bgm}");
             Debug.Log($"{_audioSources[(int)Define.Sound.Bgm].name}");
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
             if( audioSource is null)
             {
-                Debug.Log("¿Àµð¿À ¼Ò½º ¾øÀ½");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
             else
             {
-                Debug.Log("¿Àµð¿À ¼Ò½º ÀÖÀ½");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             }
 
             if (audioSource.isPlaying)
                 audioSource.Stop();
 
-           
+
             audioSource.pitch = pitch;
             audioSource.clip = audioClip;
             audioSource.Play();
@@ -118,7 +126,7 @@ public class SoundManager : Singleton<SoundManager>
             }
 
             var audioSource = _audioSources[(int)Define.Sound.Effect];
-            
+
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }

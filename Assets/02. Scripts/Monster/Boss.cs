@@ -44,6 +44,7 @@ public class Boss : Monster
         }
 
         CurrentHp -= damage;
+        _animator.SetTrigger("Hit");
 
         if (CurrentHp > 0) return;
         Die();
@@ -56,8 +57,8 @@ public class Boss : Monster
     // ���� ���
     private void BossDeath()
     {
-        DataManager.Instance.PlayerDataSo.Gem += 100;
-        DataManager.Instance.PlayerDataSo.Gold += 100 * StageManager.Instance.StageDataSO.Stage * StageManager.Instance.StageDataSO.StagePage;
+        DataManager.Instance.AddGem(100);
+        DataManager.Instance.AddGold(100 * StageManager.Instance.StageDataSO.Stage * StageManager.Instance.StageDataSO.StagePage);
         StageManager.Instance.StageDataSO.StagePage = 0;
         StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
             StageManager.Instance.StageDataSO.StagePage);

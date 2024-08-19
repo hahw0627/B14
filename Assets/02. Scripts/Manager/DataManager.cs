@@ -26,7 +26,10 @@ public class DataManager : Singleton<DataManager>
 
         DontDestroyOnLoad(gameObject);
     }
-
+    public void CopyWeaponDataSO(List<EquipmentDataSO> equipSO)
+    {
+        equipSO.AddRange(WeaponEquipmentDataSo);
+    }
 
     public void FillAllSkillsData(List<SkillDataSO> skillsDataSo)
     {

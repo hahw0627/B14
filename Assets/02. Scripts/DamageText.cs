@@ -6,11 +6,9 @@ public class DamageText : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _alphaSpeed;
     [SerializeField] private float _activeTime;
-    [SerializeField] private int _damage;
     [SerializeField] private Color _normalColor = Color.white;
     [SerializeField] private Color _criticalColor = Color.red;
     [SerializeField] private float _criticalScale = 1.2f;
-
     private TextMeshPro _text;
     private Color _alpha;
     private DamageTextPool _pool;
@@ -23,7 +21,7 @@ public class DamageText : MonoBehaviour
 
     public void SetDamage(long damageValue)
     {
-        SetDamage(damageValue, false);  // �⺻������ ġ��Ÿ�� �ƴ� ������ ó��
+        SetDamage(damageValue, false);
     }
 
     public void SetDamage(long damageValue, Color? customColor = null, float customScale = 1f)
@@ -33,6 +31,12 @@ public class DamageText : MonoBehaviour
 
     public void SetDamage(long damageValue, bool isCritical = false, Color? customColor = null, float customScale = 1f)
     {
+        if (damageValue <= 0)
+        {
+            Debug.LogWarning($"Attempted to set damage to {damageValue}. Setting to 1 instead.");
+            damageValue = 1;  // 최소 데미지를 1로 설정
+        }
+
         _text ??= GetComponent<TextMeshPro>();
         _text.text = damageValue.ToString();
 
@@ -46,7 +50,6 @@ public class DamageText : MonoBehaviour
         }
 
         transform.localScale = Vector3.one * (isCritical ? _criticalScale : customScale);
-
         _alpha = _text.color;
         _alpha.a = 1f;
         _text.color = _alpha;
@@ -60,10 +63,6 @@ public class DamageText : MonoBehaviour
 
     private void OnEnable()
     {
-        SetDamage(_damage);
-        _alpha = _text.color;
-        _alpha.a = 1f;
-        _text.color = _alpha;
         _timer = 0f;
     }
 
@@ -72,7 +71,6 @@ public class DamageText : MonoBehaviour
         transform.Translate(new Vector3(0, _moveSpeed * Time.deltaTime, 0));
         _alpha.a = Mathf.Lerp(_alpha.a, 0, Time.deltaTime * _alphaSpeed);
         _text.color = _alpha;
-
         _timer += Time.deltaTime;
         if (_timer >= _activeTime)
         {

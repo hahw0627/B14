@@ -95,7 +95,7 @@ public class EquipmentDataSO : ScriptableObject
         }
         else
         {
-            //�� �߰� 
+            //방어구
         }
     }
 
