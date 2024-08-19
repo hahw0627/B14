@@ -49,12 +49,12 @@ public class GachaManager : MonoBehaviour
     {
         if (pullCount == 1 && DataManager.Instance.PlayerDataSo.Gem >= 100)
         {
-            DataManager.Instance.PlayerDataSo.Gem -= 100;
+            DataManager.Instance.AddGem(-100);
             Gem.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
         }
         else if (pullCount == 12 && DataManager.Instance.PlayerDataSo.Gem >= 1000)
         {
-            DataManager.Instance.PlayerDataSo.Gem -= 1000;
+            DataManager.Instance.AddGem(-1000);
             Gem.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
         }
         else

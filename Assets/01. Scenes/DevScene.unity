@@ -31530,7 +31530,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1421206145
 MonoBehaviour:
@@ -34533,19 +34533,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1538619080}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1538619080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38478,6 +38466,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 502610928}
     m_Modifications:
+    - target: {fileID: 1808385180757618797, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
+      propertyPath: Target
+      value: 
+      objectReference: {fileID: 6537006913929234680}
     - target: {fileID: 6183330697589260692, guid: 5d7bbaf6f7515744789924c44795ef89, type: 3}
       propertyPath: m_text
       value: "{ \uB300\uC0AC }"
@@ -46192,7 +46184,7 @@ MonoBehaviour:
   scrollGrid: {fileID: 1872995493}
   scrollPrefab: {fileID: 1410840654314437378, guid: 60b39694fa1aff249980a6d30f93c531, type: 3}
   gachaFailed: {fileID: 2034356283}
-  Gem: {fileID: 0}
+  Gem: {fileID: 1539457919}
   companionDataList:
   - {fileID: 11400000, guid: 5b7f45d554ab3324a93735bd20474001, type: 2}
   - {fileID: 11400000, guid: 53ca84867fd170847b7cccb08113ee65, type: 2}
