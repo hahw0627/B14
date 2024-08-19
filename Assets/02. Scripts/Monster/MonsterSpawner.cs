@@ -57,7 +57,6 @@ public class MonsterSpawner : MonoBehaviour
     {
         switch (StageManager.Instance.StageDataSO.Stage)
         {
-            // StagePage�� 1 �����ϸ� ������ �迭�� ��ġ���� ���͸� Ȱ��ȭ
             case <= 2:
                 ActiveBoss(0);
                 break;

@@ -15,6 +15,8 @@ public class SoundManager : Singleton<SoundManager>
     private readonly AudioSource[] _audioSources = new AudioSource[(int)Define.Sound.MaxCount];
     private readonly Dictionary<string, AudioClip> _audioClips = new();
 
+    private bool _isPlaying = false;
+
     protected override void Awake()
     {
         base.Awake();
@@ -44,7 +46,7 @@ public class SoundManager : Singleton<SoundManager>
 
         if (volume < 0.1)
         {
-            audioMixer.SetFloat(type.ToString(), -80f); //º¼·ýÀ» ¿ÏÀüÈ÷ ²û
+            audioMixer.SetFloat(type.ToString(), -80f); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
         }
         else
         { 
@@ -55,6 +57,8 @@ public class SoundManager : Singleton<SoundManager>
 
     private void Init()
     {
+        _isPlaying = true;
+
         var root = GameObject.Find("Sound");
         if (root != null) return;
         root = new GameObject { name = "Sound" };
@@ -66,7 +70,6 @@ public class SoundManager : Singleton<SoundManager>
             var go = new GameObject { name = soundName[i] };
             _audioSources[i] = go.AddComponent<AudioSource>();
             go.transform.parent = root.transform;
-
         }
         _audioSources[(int)Define.Sound.Bgm].outputAudioMixerGroup = mixerGroupA;
         _audioSources[(int)Define.Sound.Effect].outputAudioMixerGroup = mixerGroupB;
@@ -75,6 +78,11 @@ public class SoundManager : Singleton<SoundManager>
 
     public void Play(string path, Define.Sound type = Define.Sound.Effect, float pitch = 1.0f)
     {
+        if(Instance == false)
+        {
+            Init();
+        }
+
         if (path.Contains("Sounds/") == false)
             path = $"Sounds/{path}";
 
@@ -87,7 +95,18 @@ public class SoundManager : Singleton<SoundManager>
                 return;
             }
 
+            Debug.Log($"ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ Å©ï¿½ï¿½ : {_audioSources.Length}");
+            Debug.Log($"BGM Ä«ï¿½ï¿½Æ® : {(int)Define.Sound.Bgm}");
+            Debug.Log($"{_audioSources[(int)Define.Sound.Bgm].name}");
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
+            if( audioSource is null)
+            {
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            }
+            else
+            {
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            }
 
             if (audioSource.isPlaying)
                 audioSource.Stop();

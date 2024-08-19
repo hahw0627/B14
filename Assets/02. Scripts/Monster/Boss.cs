@@ -1,16 +1,15 @@
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class Boss : Monster // ���� ��ũ��Ʈ ���
+public class Boss : Monster
 {
     [FormerlySerializedAs("bossTimer")]
     public BossTimer BossTimer;
 
-    // ���� ���� Ȱ��ȭ ��
     protected override void OnEnable()
     {
-        CurrentHp = MonsterData.MaxHp * 3; // ���� ���ʹ� HP�� 2��� ����
-        Damage = MonsterData.Damage * 2; // ���� ���ʹ� �������� 2��� ����
+        CurrentHp = MonsterData.MaxHp * 3;
+        Damage = MonsterData.Damage * 2;
         AttackSpeed = MonsterData.AttackSpeed;
         MoveTime = 0.0f;
         IsAttacking = false;
@@ -18,13 +17,12 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
         BossTimer.ActivateTimer();
     }
 
-    // ���� ���� �ǰ�
     public override void TakeDamage(int damage, bool isSkillDamage = false, bool isPetAttack = false)
     {
-        if (DamageTextPool is not null)
+        if (damage > 0)
         {
             var damageText = DamageTextPool.GetDamageText();
-            if (damageText is not null)
+            if (damageText != null)
             {
                 damageText.transform.position = HUDPos.position;
                 bool isCritical = UnityEngine.Random.Range(0f, 100f) < DataManager.Instance.PlayerDataSo.CriticalPer;
@@ -43,17 +41,10 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
                     damageText.SetDamage(damage);
                 }
             }
-            else
-            {
-                Debug.LogWarning("Failed to get DamageText from pool.");
-            }
-        }
-        else
-        {
-            Debug.LogWarning("DamageTextPool is not initialized.");
         }
 
         CurrentHp -= damage;
+        _animator.SetTrigger("Hit");
 
         if (CurrentHp > 0) return;
         Die();
@@ -66,12 +57,11 @@ public class Boss : Monster // ���� ��ũ��Ʈ ���
     // ���� ���
     private void BossDeath()
     {
+        DataManager.Instance.AddGem(100);
+        DataManager.Instance.AddGold(100 * StageManager.Instance.StageDataSO.Stage * StageManager.Instance.StageDataSO.StagePage);
         StageManager.Instance.StageDataSO.StagePage = 0;
         StageManager.Instance.ChangeStage(++StageManager.Instance.StageDataSO.Stage,
             StageManager.Instance.StageDataSO.StagePage);
-        //MonsterData.stage = StageManager.Instance.StageDataSO.Stage; // ����SO�� �������� ���� ����?
-
-        // BossMonster�� HP�� 0 ���ϰ� �Ǹ� MonsterDataSO_Test�� ���� 1.2f ���ϰ� ��Ʈ������ ��ȯ�ؼ� ����
         MonsterData.MaxHp = Mathf.RoundToInt(MonsterData.MaxHp * 1.2f);
         MonsterData.Damage = Mathf.RoundToInt(MonsterData.Damage * 1.2f);
 

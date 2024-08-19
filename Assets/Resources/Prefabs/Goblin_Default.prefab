@@ -8895,6 +8895,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4853399054247020743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4146775606320622244
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 58687794392430434}
+  m_Layer: 6
+  m_Name: HudPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &58687794392430434
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4146775606320622244}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.52, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1837395413075678990}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4169994974223795034
 GameObject:
   m_ObjectHideFlags: 0
@@ -14859,6 +14890,7 @@ Transform:
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 58687794392430434}
   - {fileID: 7119247076707663248}
   - {fileID: 3046949969749227162}
   - {fileID: 6008679404916285438}
@@ -15184,7 +15216,7 @@ MonoBehaviour:
   AttackSpeed: 0
   MoveTime: 0
   IsAttacking: 1
-  HUDPos: {fileID: 1837395413075678990}
+  HUDPos: {fileID: 58687794392430434}
   FireMuzzle: {fileID: 7119247076707663248}
 --- !u!1 &7057183476013331861
 GameObject:

@@ -11,6 +11,7 @@ public class GachaManager : MonoBehaviour
     public GameObject scrollGrid;
     public GameObject scrollPrefab;
     public GameObject gachaFailed;
+    public TextMeshProUGUI Gem;
 
     [Header("Data")]
     public List<CompanionDataSO> companionDataList;
@@ -49,10 +50,12 @@ public class GachaManager : MonoBehaviour
         if (pullCount == 1 && DataManager.Instance.PlayerDataSo.Gem >= 100)
         {
             DataManager.Instance.PlayerDataSo.Gem -= 100;
+            Gem.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
         }
         else if (pullCount == 12 && DataManager.Instance.PlayerDataSo.Gem >= 1000)
         {
             DataManager.Instance.PlayerDataSo.Gem -= 1000;
+            Gem.text = DataManager.Instance.PlayerDataSo.Gem.ToString();
         }
         else
         {
