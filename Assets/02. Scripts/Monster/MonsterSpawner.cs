@@ -36,10 +36,10 @@ public class MonsterSpawner : MonoBehaviour
 
         switch (currentStage)
         {
-            case <= 2:
+            case <= 4:
                 ActiveMonsters(1);
                 break;
-            case <= 5:
+            case <= 10:
                 ActiveMonsters(3);
                 break;
             default:
@@ -53,10 +53,10 @@ public class MonsterSpawner : MonoBehaviour
         if (_player.CurrentHp <= 0) return;
         switch (StageManager.Instance.StageDataSO.Stage)
         {
-            case <= 2:
+            case <= 4:
                 ActiveBoss(0);
                 break;
-            case <= 5:
+            case <= 10:
                 ActiveBoss(1);
                 break;
             default:

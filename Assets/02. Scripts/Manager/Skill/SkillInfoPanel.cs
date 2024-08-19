@@ -50,7 +50,7 @@ public class SkillInfoPanel : MonoBehaviour
         skillName.text = currentSkill.SkillName;
         skillDescription.text = currentSkill.Description;
         skillLevel.text = "Level: " + currentSkill.Level.ToString();
-        skillCount.text = "5 / " + currentSkill.Count.ToString();
+        skillCount.text = currentSkill.Count.ToString() + " / 5";
         switch (currentSkill.SkillType)
         {
             case Define.SkillType.AttackBuff:
