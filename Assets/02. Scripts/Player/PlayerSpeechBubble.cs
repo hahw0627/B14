@@ -23,10 +23,26 @@ public class PlayerSpeechBubble : SingletonDestroyable<PlayerSpeechBubble>
     private float _typingSpeed; // 타이핑 속도
 
     private Color _newTxtColor;
+    public Transform Target;
+    private Camera _camera;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _camera = Camera.main;
+    }
 
     private void Start()
     {
         _speechText.text = "";
+    }
+
+    private void Update()
+    {
+        if (Target is null) return;
+        Debug.Assert(_camera is not null, "Camera.main != null");
+        var screenPosition = _camera.WorldToScreenPoint(Target.position + new Vector3(0, 1.5f, 0));
+        transform.position = screenPosition;
     }
 
     private Coroutine _coroutine;

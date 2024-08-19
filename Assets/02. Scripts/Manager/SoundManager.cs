@@ -95,18 +95,8 @@ public class SoundManager : Singleton<SoundManager>
                 return;
             }
 
-            Debug.Log($"����� �ҽ� ũ�� : {_audioSources.Length}");
-            Debug.Log($"BGM ī��Ʈ : {(int)Define.Sound.Bgm}");
-            Debug.Log($"{_audioSources[(int)Define.Sound.Bgm].name}");
             var audioSource = _audioSources[(int)Define.Sound.Bgm];
-            if( audioSource is null)
-            {
-                Debug.Log("����� �ҽ� ����");
-            }
-            else
-            {
-                Debug.Log("����� �ҽ� ����");
-            }
+            audioSource.volume = 0.3f;
 
             if (audioSource.isPlaying)
                 audioSource.Stop();

@@ -8,7 +8,7 @@ using UnityEngine;
 public class AreaEffectSkill : MonoBehaviour
 {
     private SkillDataSO skillData;
-        private float damageInterval = 0.5f; // �������� �ִ� ���� (��)
+        private float damageInterval = 0.5f;
 
     public void Initialize(SkillDataSO skill)
     {
@@ -22,15 +22,15 @@ public class AreaEffectSkill : MonoBehaviour
         // 카메라 흔들림 효과 적용
         StartCoroutine(CameraShake.Instance.Shake(0.5f, 0.2f));
 
-        
-        /*
+
+
         // 기기 진동 적용
         if (Application.platform == RuntimePlatform.Android || Application.platform == RuntimePlatform.IPhonePlayer)
         {
             Handheld.Vibrate();
         }
-        */
-        
+
+
         yield return null;
     }
 

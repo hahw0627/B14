@@ -37,7 +37,10 @@ public class HpBar : MonoBehaviour
         if (Slider is null) return;
         _currentHp = currentHp;
         Slider.value = _currentHp;
-        if (_currentHp < 0) _currentHp = 0;
+        if(_currentHp < 0)
+        {
+            _currentHp = 0;
+        }
         _gageTMP.text = $"{Mathf.Round(_currentHp / MaxHp * 100)}%".ToString();
     }
 
