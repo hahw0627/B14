@@ -15,13 +15,13 @@ MonoBehaviour:
   _category: {fileID: 11400000, guid: 57c4a0b4b793fb04391eff1c083a4420, type: 2}
   _icon: {fileID: 0}
   _codeName: KILL_THE_MONSTERS
-  _displayName: "\uBAAC\uC2A4\uD130 \uCC98\uCE58"
-  _description: "\uACE0\uBE14\uB9B0 50\uB9C8\uB9AC \uCC98\uCE58"
+  _displayName: "\uACE0\uBE14\uB9B0 50\uB9C8\uB9AC \uCC98\uCE58"
+  _description: "\uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uACE0\uBE14\uB9B0\uC744 50\uB9C8\uB9AC
+    \uCC98\uCE58\uD558\uC138\uC694!"
   _taskGroups:
   - _tasks:
     - {fileID: 11400000, guid: 0f07f803419f1c84e91636b658fc5f9c, type: 2}
-  _rewards:
-  - {fileID: 11400000, guid: acb127eec0f04cd4d8bc2fd76dbdd29e, type: 2}
+  _rewards: []
   _useAutoComplete: 1
   _isCancelable: 0
   _isSavable: 0

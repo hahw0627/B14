@@ -11,6 +11,9 @@ public class IntroCutScene : MonoBehaviour
     [SerializeField]
     private GameObject _introCutSceneObject;
 
+    [SerializeField]
+    private GameObject _introTutorialGuideImage;
+    
     [Header("Scene Objects")]
     [SerializeField]
     private GameObject _imageObject;
@@ -67,6 +70,7 @@ public class IntroCutScene : MonoBehaviour
         _resourceIndex = 0;
         _imageObject.GetComponent<Image>().sprite = _images[_resourceIndex];
         _captionObject.GetComponent<TextMeshProUGUI>().text = _captions[_resourceIndex];
+        _introTutorialGuideImage.SetActive(true);
     }
 
     private void UpdateScene()

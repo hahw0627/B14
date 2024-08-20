@@ -156,7 +156,7 @@ namespace Quest.UI.Quest_View
 
         public void Hide()
         {
-            if (Target != null)
+            if (Target is not null)
                 Target.onTaskSuccessChanged -= OnTaskSuccessChanged;
             Target = null;
             _displayGroup.SetActive(false);
