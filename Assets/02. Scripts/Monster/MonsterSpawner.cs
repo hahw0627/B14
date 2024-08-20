@@ -31,7 +31,7 @@ public class MonsterSpawner : MonoBehaviour
 
     public void SpawnMonsters()
     {
-        if (_player.CurrentHp <= 0 && StageManager.Instance.StageDataSO.StagePage == 0) return;
+        if (_player.CurrentHp <= 0 || StageManager.Instance.StageDataSO.StagePage == 0) return;
         var currentStage = StageManager.Instance.StageDataSO.Stage;
 
         switch (currentStage)

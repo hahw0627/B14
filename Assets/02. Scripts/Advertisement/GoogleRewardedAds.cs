@@ -4,11 +4,13 @@ using UnityEngine;
 public class GoogleRewardedAds : MonoBehaviour
 {    
 #if UNITY_ANDROID
-    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // Ãâ½Ã Àü¿¡´Â ±¸±Û ¾Öµå¸÷¿¡¼­ Á¦°øÇÏ´Â Å×½ºÆ® ¿ë ID¸¦ ³Ö¾î¾ß ÇÔ
+    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½
 #elif UNITY_IPHONE
   private string _adUnitId = "ca-app-pub-3940256099942544/1712485313";
+#elif UNITY_WEBGL
+    private const string AD_UNIT_ID = "ca-app-pub-3940256099942544/5354046379"; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Öµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½×½ï¿½Æ® ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ ï¿½ï¿½
 #else
-    private string _adUnitId = "unused";
+    private string _adUnitId="";
 #endif
 
     [SerializeField]
@@ -111,9 +113,9 @@ public class GoogleRewardedAds : MonoBehaviour
         {
             Debug.Log("<color=#87ceeb>Rewarded ad full screen content closed.</color>");
             LoadRewardedAd();
-            gameObject.GetComponent<AdButtonManager>().StartCooldown(AdButtonManager.COOLDOWN_DURATION); // ±¤°í Äð´Ù¿î ½ÃÀÛ
+            gameObject.GetComponent<AdButtonManager>().StartCooldown(AdButtonManager.COOLDOWN_DURATION); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ù¿ï¿½ ï¿½ï¿½ï¿½ï¿½
             _goldAcquireEffect.PlayGoldAcquireEffect(_startPositionTransformOfEffect.position,
-                AD_VIEW_GEM_AMOUNT); // ÄÚÀÎ ÀÌÆåÆ® ½ÃÀÛ
+                AD_VIEW_GEM_AMOUNT); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         };
         // Raised when the ad failed to open full screen content.
         ad.OnAdFullScreenContentFailed += error =>

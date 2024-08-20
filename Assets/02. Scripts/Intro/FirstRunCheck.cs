@@ -13,7 +13,7 @@ public class FirstRunCheck : MonoBehaviour
 
     private void Awake()
     {
-        if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage == 0)
+        if (StageManager.Instance.StageDataSO.Stage == 1 && StageManager.Instance.StageDataSO.StagePage <= 1)
         {
             FirstRun();
             return;

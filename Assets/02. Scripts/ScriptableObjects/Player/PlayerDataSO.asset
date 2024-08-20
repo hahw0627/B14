@@ -23,7 +23,7 @@ MonoBehaviour:
   Weapons:
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: fbf330d0d569f984ca4435afded2f11b, type: 2}
   Armors: []
   PlayerName: 00011
   Gold: 0
@@ -36,5 +36,5 @@ MonoBehaviour:
   HpRecovery: 5
   CriticalPer: 0
   CriticalMultiplier: 1.5
-  CurrentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
-  CurrentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
+  CurrentWeaponEquip: {fileID: 0}
+  CurrentArmorEquip: {fileID: 0}
