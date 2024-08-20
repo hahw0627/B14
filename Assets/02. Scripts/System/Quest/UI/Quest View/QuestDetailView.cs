@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Quest.Core.Task;
 using Quest.UI.Quest_Tracker;
 using TMPro;
 using UnityEngine;
@@ -78,14 +79,43 @@ namespace Quest.UI.Quest_View
                 Target.Cancel();
         }
 
+        private void ShowTasks(Core.Quest quest)
+        {
+            var taskIndex = 0;
+            foreach (var taskGroup in quest.TaskGroups)
+            {
+                foreach (var task in taskGroup.Tasks)
+                {
+                    var poolObject = _taskDescriptorPool[taskIndex++];
+                    poolObject.gameObject.SetActive(true);
+ 
+                    if (taskGroup.IsComplete)
+                        poolObject.UpdateTextUsingStrikeThrough(task);
+                    else if (taskGroup == quest.CurrentTaskGroup)
+                        poolObject.UpdateText(task);
+                    else
+                        poolObject.UpdateText("● ??????????");
+                }
+            }
+        }
+        
+        private void OnTaskSuccessChanged(Core.Quest quest, Task task, int currentSuccess, int prevSuccess)
+            => ShowTasks(quest);
+        
         public void Show(Core.Quest quest)
         {
             _displayGroup.SetActive(true);
+ 
+            if (Target is not null)
+                Target.onTaskSuccessChanged -= OnTaskSuccessChanged;
             Target = quest;
+            Target.onTaskSuccessChanged += OnTaskSuccessChanged;
 
             _title.text = quest.DisplayName;
             _description.text = quest.Description;
 
+            ShowTasks(Target);
+            
             int taskIndex = 0;
             foreach (var taskGroup in quest.TaskGroups)
             {
@@ -126,6 +156,8 @@ namespace Quest.UI.Quest_View
 
         public void Hide()
         {
+            if (Target != null)
+                Target.onTaskSuccessChanged -= OnTaskSuccessChanged;
             Target = null;
             _displayGroup.SetActive(false);
             _cancelButton.gameObject.SetActive(false);

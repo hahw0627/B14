@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -12,7 +10,7 @@ public class PopupUpdateProfileViewer : MonoBehaviour
 
     public void UpdateNickName()
     {
-        //´Ð³×ÀÓÀÌ ¾øÀ¸¸é userid Ãâ·Â
+        //ï¿½Ð³ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ userid ï¿½ï¿½ï¿½
         textNickname.text = UserInfo.Data.nickname == null?
                             UserInfo.Data.gamerId : UserInfo.Data.nickname;
         textUserID.text = UserInfo.Data.gamerId;

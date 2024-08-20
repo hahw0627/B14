@@ -5,6 +5,11 @@ public class PlayerSOInitializer : ScriptableObjectEditorBase<PlayerDataSO>
 {
     protected override void InitializeValues()
     {
+        for (var i = 0; i < ScriptableObject.EquippedSkills.Count; i++)
+        {
+            ScriptableObject.EquippedSkills[i] = null; 
+        }
+            
         ScriptableObject.Gold = 0;
         ScriptableObject.Gem = 3000;
         ScriptableObject.TotalPower = 10;
