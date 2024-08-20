@@ -48,7 +48,7 @@ public class MonsterSpawner : MonoBehaviour
         }
     }
 
-    public void SpawnBoss()
+    private void SpawnBoss()
     {
         if (_player.CurrentHp <= 0) return;
         switch (StageManager.Instance.StageDataSO.Stage)
@@ -80,18 +80,12 @@ public class MonsterSpawner : MonoBehaviour
         {
             MonsterPool.Instance.Monsters[i].transform.position = SpawnPoints[i].position;
             MonsterPool.Instance.Monsters[i].SetActive(true);
-            if(i == 0 || i == 3)
+            MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = i switch
             {
-                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 202;
-            }
-            else if(i == 1 || i == 4)
-            {
-                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 204;
-            }
-            else
-            {
-                MonsterPool.Instance.Monsters[i].GetComponent<SortingGroup>().sortingOrder = 201;
-            }
+                0 or 3 => 202,
+                1 or 4 => 204,
+                _ => 201
+            };
         }
     }
 
