@@ -13,12 +13,15 @@ public class Tutorial : MonoBehaviour
     [SerializeField] private Button button5;
     [SerializeField] private Button button6;
 
+    [SerializeField, TextArea]
+    private List<string> _descriptions;
+    
     [SerializeField]
     private TextMeshProUGUI text;
 
     private void Start()
     {
-        // °¢ ¹öÆ°¿¡ Å¬¸¯ ÀÌº¥Æ®¸¦ µî·ÏÇÕ´Ï´Ù.
+        // ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½Ìºï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Õ´Ï´ï¿½.
         button1.onClick.AddListener(() => ChangeText(button1));
         button2.onClick.AddListener(() => ChangeText(button2));
         button3.onClick.AddListener(() => ChangeText(button3));
@@ -32,30 +35,25 @@ public class Tutorial : MonoBehaviour
         switch (btn.name)
         {
             case "Button1":
-                text.text = "°ÔÀÓÀ» Á¾·á ÇÏ°í ´Ù½Ã Á¢¼ÓÇÏ¸é ½Ã°£À» °è»êÇØ¼­ ¹æÄ¡ º¸»óÀ» Áİ´Ï´Ù.\n" +
-                            "±¤°í¸¦ º¸°í Æ¯¼ö ÀçÈ­ÀÎ GemStone º¸»óÀ» ¾òÀ» ¼ö ÀÖ½À´Ï´Ù.\n" +
-                            "(¿¬¼Ó ½ÃÃ» ¹æÁö¸¦ À§ÇØ ÀÏÁ¤ ½Ã°£ µ¿¾È ¹öÆ°ÀÌ ºñÈ°¼ºÈ­ µË´Ï´Ù.)";
+                text.text = _descriptions[0];
                 break;
             case "Button2":
-                text.text = "Gold´Â ¸ó½ºÅÍ Ã³Ä¡, ¹æÄ¡ º¸»ó, »óÁ¡ÀÇ ±³È¯ ½Ã½ºÅÛÀ¸·Î È¹µæ °¡´ÉÇÕ´Ï´Ù.\n" +
-                            "GemÀº º¸½º ¸ó½ºÅÍ Ã³Ä¡, ±¤°í º¸»ó, »óÁ¡ÀÇ ±³È¯ ½Ã½ºÅÛÀ¸·Î È¹µæ °¡´ÉÇÕ´Ï´Ù.";
+                text.text = _descriptions[1];
                 break;
             case "Button3":
-                text.text = "»Ì±â¸¦ ÅëÇØ °°Àº ½ºÅ³°ú µ¿·á°¡ ³ª¿Í 5°³°¡ ¸ğÀÌ¸é °­È­¸¦ ÇÒ ¼ö ÀÖ½À´Ï´Ù.";
+                text.text = _descriptions[2];
                 break;
             case "Button4":
-                text.text = "´É·ÂÄ¡´Â ÃÑ 6°³ÀÔ´Ï´Ù. ¹öÆ°¿¡ ³ª¿Â ±İ¾×¸¸Å­ »ç¿ëÇÏ¿© ÇØ´ç ½ºÅÈÀ» °­È­ÇÕ´Ï´Ù.\n" +
-                            "´Ü, °­È­ÇÒ ¶§¸¶´Ù °­È­ ºñ¿ëÀÌ Á¡Á¡ ´Ã¾î³ª´Ï Àü·«À» ¼¼¿ö °­È­ÇØº¸¼¼¿ä!";
+                text.text = _descriptions[3];
                 break;
             case "Button5":
-                text.text = "¹è¼Ó ¹öÆ°À» ´©¸£¸é °ÔÀÓÀÇ ¼Óµµ°¡ »¡¶óÁ® Á» ´õ °ÔÀÓÀÇ ½Ã¿øÇÔÀ» ´À³¥ ¼ö ÀÖ½À´Ï´Ù.";
+                text.text = _descriptions[4];
                 break;
             case "Button6":
-                text.text = "½ºÅ³À» ÀåÂøÇÏ°í ÀÚµ¿ ½ºÅ³ ¹öÆ°À» ´©¸£¸é ÀÚµ¿À¸·Î ½ºÅ³ÀÌ ³¯¾Æ°¡ ÀüÅõ¿¡ µµ¿òÀ» Áİ´Ï´Ù.\n" +
-                            "°­·ÂÇÑ ½ºÅ³µéÀ» ÀåÂøÇØ ÀÚµ¿ ¹öÆ°À» »ç¿ëÇÏ¿© ÀüÅõ¿¡ ´ëÇÑ Æí¾ÈÇÔÀ» ´À²¸º¸¼¼¿ä.";
+                text.text = _descriptions[5];
                 break;
             default:
-                text.text = "¾Ë ¼ö ¾ø´Â ¹öÆ°ÀÌ ´­·È½À´Ï´Ù.";
+                text.text = "ì•Œ ìˆ˜ ì—†ëŠ” ë²„íŠ¼ì´ ëˆŒë ¸ìŠµë‹ˆë‹¤.";
                 break;
         }
     }
