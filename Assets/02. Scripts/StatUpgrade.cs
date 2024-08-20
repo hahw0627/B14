@@ -97,7 +97,7 @@ public class StatUpgrade : MonoBehaviour
         SetupButton(HpBtn,
             () => UpgradeStat(ref PlayerData.MaxHp, 100, ref _maxHpCost, MaxHpTmp, "최대 체력 : ", HpCostTmp));
         SetupButton(RecoverHpBtn,
-            () => UpgradeStat(ref PlayerData.HpRecovery, 3, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ",
+            () => UpgradeStat(ref PlayerData.HpRecovery, 30, ref _recoverHpCost, RecoverHpTmp, "체력회복량 : ",
                 RecoverHpCostTmp));
         SetupButton(AttackSpeedBtn,
             () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ",
