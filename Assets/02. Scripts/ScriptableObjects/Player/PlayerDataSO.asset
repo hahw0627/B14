@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Skills: []
   EquippedSkills:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: c6b7c71f501c6f94eb8a5a108e0cf26e, type: 2}
+  - {fileID: 11400000, guid: e8951d5f6b4d9b8428403fa8c2752cfe, type: 2}
+  - {fileID: 11400000, guid: 12f257af6b94c784a9531bd2861f56ef, type: 2}
+  - {fileID: 11400000, guid: 6936eef4e68caa4438b2c917588ac4f8, type: 2}
   - {fileID: 0}
   Companions: []
   Weapons:
@@ -31,9 +31,9 @@ MonoBehaviour:
   TotalPower: 10
   Damage: 10
   Def: 0
-  AttackSpeed: 1
+  AttackSpeed: 3
   MaxHp: 100
-  HpRecovery: 5
+  HpRecovery: 50
   CriticalPer: 0
   CriticalMultiplier: 1.5
   CurrentWeaponEquip: {fileID: 0}
