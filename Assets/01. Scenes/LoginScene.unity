@@ -328,6 +328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fa3ad5db8fc2b64ab30abf1a2b29711, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroupA: {fileID: -6426027728315678642, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
+  mixerGroupB: {fileID: -9196072411674465045, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
+  audioMixer: {fileID: 24100000, guid: 46ee0528f9d4fe042ad2465701d817c0, type: 2}
 --- !u!4 &84947609
 Transform:
   m_ObjectHideFlags: 0

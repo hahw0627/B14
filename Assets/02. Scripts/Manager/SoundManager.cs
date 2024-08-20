@@ -117,6 +117,7 @@ public class SoundManager : Singleton<SoundManager>
 
             var audioSource = _audioSources[(int)Define.Sound.Effect];
 
+            audioSource.volume = 0.3f;
             audioSource.pitch = pitch;
             audioSource.PlayOneShot(audioClip);
         }

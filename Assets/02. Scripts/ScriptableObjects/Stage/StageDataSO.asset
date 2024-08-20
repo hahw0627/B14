@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: StageDataSO
   m_EditorClassIdentifier: 
   Stage: 1
-  StagePage: 1
+  StagePage: 0

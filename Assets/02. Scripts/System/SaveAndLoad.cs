@@ -4,6 +4,7 @@ public class SaveAndLoad : MonoBehaviour
 {
     private SaveLoadManager _saveLoadManager;
 
+    /*
     private void Awake()
     {
         //_saveLoadManager = gameObject.GetComponent<SaveLoadManager>();
@@ -14,4 +15,5 @@ public class SaveAndLoad : MonoBehaviour
     {
         //_saveLoadManager.SaveSOData();
     }
+    */
 }
