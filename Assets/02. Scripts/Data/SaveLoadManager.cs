@@ -11,12 +11,11 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
     [NonSerialized]
     public string StatSavePath;
 
-
-
     public PlayerDataSO PlayerDataSO;
     public StageDataSO StageDataSO;
     public StatDataSO StatDataSO;
     public SaveDataSO saveDataSO;
+
 
     protected override void Awake()
     {
@@ -24,7 +23,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
         _stageSavePath = Application.persistentDataPath + "/stageSOdata.json";
         StatSavePath = Application.persistentDataPath + "/statSOdata.json";
-        _saveDataPath = Application.persistentDataPath + "SaveDataSO.json";
+        _saveDataPath = Application.persistentDataPath + "/SaveDataSO.json";
     }
 
     public void SaveSOData()
@@ -67,7 +66,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         if (File.Exists(_saveDataPath))
         {
             var dataJson = File.ReadAllText(_saveDataPath);
-            JsonUtility.FromJsonOverwrite(dataJson, StageDataSO);
+            JsonUtility.FromJsonOverwrite(dataJson, saveDataSO);
         }
 
     }

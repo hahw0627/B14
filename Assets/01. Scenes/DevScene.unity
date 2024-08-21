@@ -17726,7 +17726,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &791208242
 RectTransform:
   m_ObjectHideFlags: 0
@@ -22920,7 +22920,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1025915620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33974,7 +33974,7 @@ MonoBehaviour:
   PlayerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   StageDataSO: {fileID: 11400000, guid: 0a2d50747489c6246820b0cf9430dcf1, type: 2}
   StatDataSO: {fileID: 11400000, guid: f9ea684a1834bf749ae5cdd3830fa433, type: 2}
-  MonsterDataSO: {fileID: 0}
+  saveDataSO: {fileID: 11400000, guid: 5798b259b6bd6e64e92fb8b06075ab69, type: 2}
 --- !u!114 &1488033854
 MonoBehaviour:
   m_ObjectHideFlags: 0

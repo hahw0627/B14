@@ -84,6 +84,8 @@ public class GachaManager : MonoBehaviour
             else if (type == "Weapon")
             {
                 EquipmentDataSO pulledWeapon = GetRandomWeapon();
+                DataManager.Instance.PlayerDataSo.Weapons.Add(pulledWeapon);
+
                 scroll.Setup(pulledWeapon);
             }
             activeScrolls.Add(scroll);
