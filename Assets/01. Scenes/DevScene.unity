@@ -33974,6 +33974,7 @@ MonoBehaviour:
   PlayerDataSO: {fileID: 11400000, guid: cf600329e8e94104d97094690677203a, type: 2}
   StageDataSO: {fileID: 11400000, guid: 0a2d50747489c6246820b0cf9430dcf1, type: 2}
   StatDataSO: {fileID: 11400000, guid: f9ea684a1834bf749ae5cdd3830fa433, type: 2}
+  MonsterDataSO: {fileID: 0}
 --- !u!114 &1488033854
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,13 +6,17 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 {
     private string _playerSavePath;
     private string _stageSavePath;
+    private string _saveDataPath;
 
     [NonSerialized]
     public string StatSavePath;
 
+
+
     public PlayerDataSO PlayerDataSO;
     public StageDataSO StageDataSO;
     public StatDataSO StatDataSO;
+    public SaveDataSO saveDataSO;
 
     protected override void Awake()
     {
@@ -20,6 +24,7 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         _playerSavePath = Application.persistentDataPath + "/playerSOdata.json";
         _stageSavePath = Application.persistentDataPath + "/stageSOdata.json";
         StatSavePath = Application.persistentDataPath + "/statSOdata.json";
+        _saveDataPath = Application.persistentDataPath + "SaveDataSO.json";
     }
 
     public void SaveSOData()
@@ -32,6 +37,8 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
 
         var statJson = JsonUtility.ToJson(StatDataSO, true);
         File.WriteAllText(StatSavePath, statJson);
+        var dataJson = JsonUtility.ToJson(saveDataSO, true);
+        File.WriteAllText(_saveDataPath, dataJson);
     }
 
     public static bool ExistJson(string path)
@@ -57,7 +64,11 @@ public class SaveLoadManager : Singleton<SaveLoadManager>
         var statJson = File.ReadAllText(StatSavePath);
         JsonUtility.FromJsonOverwrite(statJson, StatDataSO);
 
-        //Debug.Log("<color=#00ff00>PlayerDataSO loaded from JSON.</color>");
-        //Debug.LogWarning("<color=yellow>Player data JSON file not found.</color>");
+        if (File.Exists(_saveDataPath))
+        {
+            var dataJson = File.ReadAllText(_saveDataPath);
+            JsonUtility.FromJsonOverwrite(dataJson, StageDataSO);
+        }
+
     }
 }
