@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 using UnityEngine;
 
@@ -23,3 +25,5 @@ public abstract class ScriptableObjectEditorBase<T> : Editor where T : Scriptabl
 
     protected abstract void InitializeValues();
 }
+
+#endif

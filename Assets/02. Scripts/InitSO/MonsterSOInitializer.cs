@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿#if UNITY_EDITOR
+
+using UnityEditor;
 
 [CustomEditor(typeof(MonsterDataSO))]
 public class MonsterSOInitializer : ScriptableObjectEditorBase<MonsterDataSO>
@@ -10,3 +12,5 @@ public class MonsterSOInitializer : ScriptableObjectEditorBase<MonsterDataSO>
         ScriptableObject.AttackSpeed = 1;
     }
 }
+
+#endif

@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 [CustomEditor(typeof(PlayerDataSO))]
@@ -22,3 +24,5 @@ public class PlayerSOInitializer : ScriptableObjectEditorBase<PlayerDataSO>
         ScriptableObject.CriticalMultiplier = 1.5f;
     }
 }
+
+#endif

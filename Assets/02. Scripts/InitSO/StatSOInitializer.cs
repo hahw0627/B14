@@ -1,3 +1,5 @@
+#if UNITY_EDITOR
+
 using UnityEditor;
 
 [CustomEditor(typeof(StatDataSO))]
@@ -13,3 +15,5 @@ public class StatSOInitializer : ScriptableObjectEditorBase<StatDataSO>
         ScriptableObject.CriticalMultiplierCost = 50;
     }
 }
+
+#endif
