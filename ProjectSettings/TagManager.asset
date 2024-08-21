@@ -3,7 +3,17 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Monster
+  - InventorySlot
+  - ModalTitle
+  - ModalCurrentEquipment
+  - ModalCurrentEquipmentImage
+  - AchievementItemRewardTxt
+  - AchievementItemSuccessConditionTxt
+  - AchievementItemDescriptionTxt
+  - AchievementItemButton
+  - AchievementIconImage
   layers:
   - Default
   - TransparentFX
@@ -11,7 +21,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Monster
   - 
   - 
   - 

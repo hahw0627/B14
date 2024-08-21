@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41ab849a55c4f944bb12019f340a880, type: 3}
+  m_Name: PlayerDataSO
+  m_EditorClassIdentifier: 
+  Skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  EquippedSkills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Companions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  Weapons:
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: aa267e81a0e6efa4caeaf972f9777694, type: 2}
+  - {fileID: 11400000, guid: d4d95df1f6e5404419e5dbadea3934e5, type: 2}
+  - {fileID: 11400000, guid: 27327a01d5676b041af286d1a9b20bf3, type: 2}
+  - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
+  - {fileID: 11400000, guid: d4d95df1f6e5404419e5dbadea3934e5, type: 2}
+  - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
+  - {fileID: 11400000, guid: fbf330d0d569f984ca4435afded2f11b, type: 2}
+  - {fileID: 11400000, guid: 9ea11c4b54560c74cb2c9ae4c06e37c7, type: 2}
+  - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: aa267e81a0e6efa4caeaf972f9777694, type: 2}
+  Armors: []
+  PlayerName: 00011
+  Gold: 0
+  Gem: 3000
+  TotalPower: 10
+  Damage: 10
+  Def: 0
+  AttackSpeed: 1
+  MaxHp: 100
+  HpRecovery: 10
+  CriticalPer: 0
+  CriticalMultiplier: 1.5
+  CurrentWeaponEquip: {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  CurrentArmorEquip: {fileID: 0}

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d08ddb0aeddb0f40bddb39227b37cc8, type: 3}
+  m_Name: Scratch
+  m_EditorClassIdentifier: 
+  SkillName: "\uD560\uD034\uAE30"
+  Icon: {fileID: 21300000, guid: d9c542b9190b24dafb2737a0b0cf789e, type: 3}
+  Level: 1
+  Rarity: 0
+  Description: "\uC801\uC744 \uD560\uD034\uC5B4 \uB2E4\uC218\uC758 \uC801\uC5D0\uAC8C
+    \uB370\uBBF8\uC9C0\uB97C \uC90D\uB2C8\uB2E4."
+  Duration: 1
+  Cooldown: 5
+  Damage: 35
+  EffectPrefab: {fileID: 2136775385740452205, guid: 607a091d6561605479747c9ddd096b52, type: 3}
+  SkillType: 3
+  ProjectileSpeed: 0
+  AoeRadius: 5
+  BuffAmount: 0
+  Count: 0
+  IsUnlocked: 0
+  SkillSound: {fileID: 8300000, guid: 677f375f746fe3240ad1fc70deee2534, type: 3}

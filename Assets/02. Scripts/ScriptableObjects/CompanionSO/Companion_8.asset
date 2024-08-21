@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e99358337809ac64c8ddaaacfadaf075, type: 3}
+  m_Name: Companion_8
+  m_EditorClassIdentifier: 
+  CompanionName: "\uB5A0\uB3CC\uC774 \uBAA8\uD5D8\uAC00"
+  Icon: {fileID: 21300000, guid: fa1a11ff1c5dfc5439a7ac14580bc0b4, type: 3}
+  Level: 1
+  Rarity: 2
+  Description: "\uC9C0\uC800\uBD84\uD558\uB2E4. \uB9C8\uCE58 \uBC29\uAE08 \uC2F8\uC6B0\uAE30\uB77C\uB3C4
+    \uD55C \uAC83\uCC98\uB7FC...."
+  Damage: 150
+  AttackSpeed: 1
+  Count: 0
+  IsEquipped: 0
