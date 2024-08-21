@@ -93,7 +93,7 @@ public class StatUpgrade : MonoBehaviour
 
         UpdateUI();
         SetupButton(AttackBtn,
-            () => UpgradeStat(ref PlayerData.Damage, 2, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
+            () => UpgradeStat(ref PlayerData.Damage, 3, ref _attackCost, AttackTmp, "공격력 : ", AttackCostTmp));
         SetupButton(HpBtn,
             () => UpgradeStat(ref PlayerData.MaxHp, 100, ref _maxHpCost, MaxHpTmp, "최대 체력 : ", HpCostTmp));
         SetupButton(RecoverHpBtn,
@@ -103,7 +103,7 @@ public class StatUpgrade : MonoBehaviour
             () => UpgradeStat(ref PlayerData.AttackSpeed, 0.005f, ref _attackSpeedCost, AttackSpeedTmp, "공격속도 : ",
                 AttackSpeedCostTmp)); // 최대 3번 공격
         SetupButton(CriticalDamageBtn,
-            () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.003f, ref _criticalMultiplierCost, CriticalDamageTmp,
+            () => UpgradeStat(ref PlayerData.CriticalMultiplier, 0.005f, ref _criticalMultiplierCost, CriticalDamageTmp,
                 "치명타데미지 : ", CriticalDamageCostTmp));
         SetupButton(CriticalPercentBtn, UpgradeCriticalPercent);
     }
@@ -174,7 +174,7 @@ public class StatUpgrade : MonoBehaviour
             return;
         }
 
-        var newValue = Mathf.Min(PlayerData.CriticalPer + 1.0f, 100f);
+        var newValue = Mathf.Min(PlayerData.CriticalPer + 0.5f, 100f);
         UpgradeStat(ref PlayerData.CriticalPer, newValue - PlayerData.CriticalPer, ref _criticalPercentCost,
             CriticalPercentTmp, "치명타확률 : ", CriticalPercentCostTmp);
 

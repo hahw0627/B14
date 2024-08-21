@@ -18,7 +18,7 @@ MonoBehaviour:
   Rarity: 3
   Description: "\uD654\uB824\uD55C \uC637\uC744 \uC785\uACE0 \uC788\uB294 \uBAA8\uD5D8\uAC00.
     \uAC15\uD574 \uBCF4\uC778\uB2E4."
-  Damage: 60
+  Damage: 350
   AttackSpeed: 1
   Count: 0
   IsEquipped: 0

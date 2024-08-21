@@ -17,7 +17,7 @@ MonoBehaviour:
   Level: 1
   Rarity: 0
   Description: "\uC57D\uD574 \uBCF4\uC778\uB2E4."
-  Damage: 5
+  Damage: 30
   AttackSpeed: 1
   Count: 0
   IsEquipped: 0

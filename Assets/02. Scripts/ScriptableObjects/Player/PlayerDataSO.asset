@@ -12,28 +12,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e41ab849a55c4f944bb12019f340a880, type: 3}
   m_Name: PlayerDataSO
   m_EditorClassIdentifier: 
-  Skills: []
-  EquippedSkills: []
+  Skills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  EquippedSkills:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Companions:
-  - {fileID: 11400000, guid: 5b7f45d554ab3324a93735bd20474001, type: 2}
-  - {fileID: 11400000, guid: 53ca84867fd170847b7cccb08113ee65, type: 2}
-  - {fileID: 11400000, guid: 59ad1403c896e6445b46517b80893d0d, type: 2}
-  - {fileID: 11400000, guid: cf4164153e712a24fa25bf508c38ee3d, type: 2}
-  - {fileID: 11400000, guid: 81685efc7567a1e4582569f9bf8bd1b3, type: 2}
-  - {fileID: 11400000, guid: a013389baad56814da958642a424c7d6, type: 2}
-  - {fileID: 11400000, guid: 17b359bb58c4bae4296c31b74850e3e9, type: 2}
-  - {fileID: 11400000, guid: 3de1c0c31c7f9014da12e4dd7296c477, type: 2}
-  - {fileID: 11400000, guid: 64dc12b63dcb3dd46925f84dc4758b46, type: 2}
-  - {fileID: 11400000, guid: d6daeb357fce77646a2108e5a3c688ae, type: 2}
-  - {fileID: 11400000, guid: 3c91977c95cce6540a08c5b7d4f514e7, type: 2}
-  - {fileID: 11400000, guid: 6390e07b688aa5a4ca89afe9e9f022e2, type: 2}
-  - {fileID: 11400000, guid: 71672a2bc774f004daaefaef023158b6, type: 2}
-  - {fileID: 11400000, guid: 3d2c63b71aea55944a94b562cbb00741, type: 2}
-  - {fileID: 11400000, guid: 57353a7fbbdfa9940b267bf21743f4b5, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   Weapons:
-  - {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: aa267e81a0e6efa4caeaf972f9777694, type: 2}
+  - {fileID: 11400000, guid: d4d95df1f6e5404419e5dbadea3934e5, type: 2}
+  - {fileID: 11400000, guid: 27327a01d5676b041af286d1a9b20bf3, type: 2}
   - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
+  - {fileID: 11400000, guid: d4d95df1f6e5404419e5dbadea3934e5, type: 2}
   - {fileID: 11400000, guid: 2bc8f51a8a18b3d499261ced911db57f, type: 2}
+  - {fileID: 11400000, guid: fbf330d0d569f984ca4435afded2f11b, type: 2}
+  - {fileID: 11400000, guid: 9ea11c4b54560c74cb2c9ae4c06e37c7, type: 2}
+  - {fileID: 11400000, guid: 29f70a6974004d243bae0d4ec7e9f9bc, type: 2}
+  - {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  - {fileID: 11400000, guid: aa267e81a0e6efa4caeaf972f9777694, type: 2}
   Armors: []
   PlayerName: 00011
   Gold: 0
@@ -43,8 +68,8 @@ MonoBehaviour:
   Def: 0
   AttackSpeed: 1
   MaxHp: 100
-  HpRecovery: 5
+  HpRecovery: 10
   CriticalPer: 0
   CriticalMultiplier: 1.5
-  CurrentWeaponEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
-  CurrentArmorEquip: {fileID: 11400000, guid: d2aeb7e59d3f41845ad3b76ce02adc05, type: 2}
+  CurrentWeaponEquip: {fileID: 11400000, guid: d1aa40628ce05094da45c14907f6b115, type: 2}
+  CurrentArmorEquip: {fileID: 0}

@@ -84,7 +84,17 @@ public class GachaManager : MonoBehaviour
             else if (type == "Weapon")
             {
                 EquipmentDataSO pulledWeapon = GetRandomWeapon();
-                DataManager.Instance.PlayerDataSo.Weapons.Add(pulledWeapon);
+                for (int j = 0; j < DataManager.Instance.PlayerDataSo.Weapons.Count; ++j)
+                {
+                    if (DataManager.Instance.PlayerDataSo.Weapons[j] != pulledWeapon)
+                    {
+                        DataManager.Instance.PlayerDataSo.Weapons.Add(pulledWeapon);
+                    }
+                    else
+                    {
+                        DataManager.Instance.PlayerDataSo.Weapons[j].Count++;
+                    }
+                }
 
                 scroll.Setup(pulledWeapon);
             }
