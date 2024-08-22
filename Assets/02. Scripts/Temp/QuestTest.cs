@@ -36,6 +36,7 @@ public class QuestTest : SingletonDestroyable<QuestTest>
 
     private void Start()
     {
+        _goldAcquireEffect.OnEffectCompleted += HandleEffectCompleted;
         var questSystem = QuestSystem.Instance;
 
         questSystem.onQuestRegistered += quest =>
@@ -50,7 +51,6 @@ public class QuestTest : SingletonDestroyable<QuestTest>
             print($"<color=orange>Completed Quests Count:{questSystem.CompletedQuests.Count}</color>");
 
             // 현재 퀘스트가 완료되면 보상 추가
-            DataManager.Instance.AddGem(_questList[_currentQuestIndex].Rewards[0].Quantity);
             StartCoroutine(ShowCompletedQuest(questSystem));
         };
 
@@ -58,6 +58,11 @@ public class QuestTest : SingletonDestroyable<QuestTest>
         RegisterQuest(questSystem, _currentQuestIndex);
     }
 
+    private void HandleEffectCompleted()
+    {
+        DataManager.Instance.AddGem(_questList[_currentQuestIndex].Rewards[0].Quantity);
+    }
+    
     private void RegisterQuest(QuestSystem questSystem, int questIndex)
     {
         if (questIndex >= _questList.Count) return;
