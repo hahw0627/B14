@@ -94,7 +94,7 @@ namespace Quest.UI.Quest_View
                     else if (taskGroup == quest.CurrentTaskGroup)
                         poolObject.UpdateText(task);
                     else
-                        poolObject.UpdateText("● ??????????");
+                        poolObject.UpdateText("");
                 }
             }
         }
@@ -116,7 +116,7 @@ namespace Quest.UI.Quest_View
 
             ShowTasks(Target);
             
-            int taskIndex = 0;
+            var taskIndex = 0;
             foreach (var taskGroup in quest.TaskGroups)
             {
                 foreach (var task in taskGroup.Tasks)
@@ -129,7 +129,7 @@ namespace Quest.UI.Quest_View
                     else if (taskGroup == quest.CurrentTaskGroup)
                         poolObject.UpdateText(task);
                     else
-                        poolObject.UpdateText("�� ??????????");
+                        poolObject.UpdateText("");
                 }
             }
 
@@ -144,7 +144,7 @@ namespace Quest.UI.Quest_View
                 if (i < rewardCount)
                 {
                     var reward = rewards[i];
-                    poolObject.text = $"�� {reward.Description} +{reward.Quantity}";
+                    poolObject.text = $"{reward.Description} +{reward.Quantity}";
                     poolObject.gameObject.SetActive(true);
                 }
                 else

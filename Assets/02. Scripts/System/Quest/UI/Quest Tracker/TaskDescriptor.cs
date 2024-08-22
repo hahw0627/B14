@@ -54,10 +54,10 @@ namespace Quest.UI.Quest_Tracker
             _text.text = BuildText(task, colorCode, colorCode);
         }
 
-        private string BuildText(Task task, string textColorCode, string successCountColorCode)
+        private static string BuildText(Task task, string textColorCode, string successCountColorCode)
         {
             return
-                $"<color=#{textColorCode}>�� {task.Description} <color=#{successCountColorCode}>{task.CurrentSuccess}</color>/{task.NeedSuccessToComplete}</color>";
+                $"<color=#{textColorCode}> {task.Description} <color=#{successCountColorCode}>{task.CurrentSuccess}</color>/{task.NeedSuccessToComplete}</color>";
         }
     }
 }
