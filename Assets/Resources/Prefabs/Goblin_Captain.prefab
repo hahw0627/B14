@@ -5366,15 +5366,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MonsterData: {fileID: 11400000, guid: 27de20bcdca445d419f02d8b1acc6add, type: 2}
+  _hpBar: {fileID: 0}
   Target: {fileID: 0}
-  Hp: 0
+  CurrentHp: 0
   Damage: 0
   AttackSpeed: 0
   MoveTime: 0
   IsAttacking: 0
   HUDPos: {fileID: 6124717720052169194}
   FireMuzzle: {fileID: 2003684918675676282}
-  animator: {fileID: 0}
 --- !u!1 &2321245137547656967
 GameObject:
   m_ObjectHideFlags: 0
