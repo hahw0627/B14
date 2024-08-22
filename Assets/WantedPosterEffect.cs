@@ -30,7 +30,7 @@ public class WantedPosterEffect : MonoBehaviour
 
         transform.localScale = TargetScale;
 
-        yield return new WaitForSeconds(DisplayDuration);
+        yield return new WaitForSecondsRealtime(DisplayDuration);
 
         elapsedTime = 0;
         while (elapsedTime < GrowDuration)
