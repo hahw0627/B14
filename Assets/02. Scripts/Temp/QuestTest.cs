@@ -43,6 +43,7 @@ public class QuestTest : SingletonDestroyable<QuestTest>
             _currentQuestIndex++;
             RegisterNextQuest(questSystem);
             DataManager.Instance.AddGem(_questList[_currentQuestIndex].Rewards[0].Quantity);
+            Debug.Log("<color=red>수배 전단지 등장!</color>");
             _questImage.SetActive(true);
             _questDescription.text = _questList[_currentQuestIndex].Description;
         };

@@ -9,7 +9,7 @@ public class WantedPosterEffect : MonoBehaviour
 
     private Vector3 _initialScale;
 
-    private void Start()
+    private void OnEnable()
     {
         _initialScale = Vector3.zero;
         transform.localScale = _initialScale;
@@ -44,5 +44,6 @@ public class WantedPosterEffect : MonoBehaviour
         transform.localScale = _initialScale;
 
         gameObject.SetActive(false);
+        //transform.localScale = Vector3.one;
     }
 }

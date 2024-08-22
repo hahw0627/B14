@@ -24,7 +24,7 @@ namespace Quest.UI.Quest_View
         public void AddElement(Core.Quest quest, UnityAction<bool> onClicked)
         {
             var element = Instantiate(_elementTextPrefab, transform);
-            element.text = quest.DisplayName;
+            element.text = quest.DisplayName + " >";
 
             var toggle = element.GetComponent<Toggle>();
             toggle.group = _toggleGroup;

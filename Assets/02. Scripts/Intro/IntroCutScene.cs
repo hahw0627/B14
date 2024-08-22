@@ -55,14 +55,7 @@ public class IntroCutScene : MonoBehaviour
         Time.timeScale = 0f;
         Debug.Log("시간멈추기");
         SoundManager.Instance.Play("IntroBackground", type: Define.Sound.Bgm);
-        if(SoundManager.Instance == null)
-        {
-            Debug.Log("사운드 매니저 없음");
-        }
-        else
-        {
-            Debug.Log("사운드 매니저 있음");
-        }
+        Debug.Log(SoundManager.Instance == null ? "사운드 매니저 없음" : "사운드 매니저 있음");
     }
 
     private void OnDisable()
